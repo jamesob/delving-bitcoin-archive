@@ -1,6 +1,6 @@
 # Block-wide Signature Aggregation via SNARKs
 
-conduition | 2026-09-06 21:18:21 UTC | #1
+conduition | 2026-09-08 15:12:30 UTC | #1
 
 The core idea is simple: PQ sigs are big but cheap to verify. The huge size slows down block propagation and puts bigger storage/bandwidth costs on archival nodes forever. What if we could compress these signatures with a PQ-SNARK? (we do not need zero-knowledge properties here). I've heard this technique called "BitZip".
 
@@ -92,7 +92,7 @@ We can also improve prover performance by changing the hash function used for th
 ## Choice 4: Proof Size?
 
 The smallest hash-based SNARKs are typically 300-500kb in size.
-~No one seems to expect them to get any smaller, so I will assume this is the floor.~
+No one seems to expect them to get any smaller, so I will assume this is the floor. EDIT:
 I've recently been told by an experienced SNARK researcher at the EF that recursive SNARKs would help reduce this to as low as 140kb, and may someday be reduced below 100kb.
 
 On the other hand, Giacomo Fenzi recently pointed out to me the fact that larger proofs admit faster provers.
@@ -224,6 +224,18 @@ I'm not sure how BitVM is relevant here.
 Groth16 is quantum-insecure and requires trusted setup, so it doesn't seem like a good option.
 
 LeanVM is more interesting, and if it ends up working well perhaps we could integrate that. But as i said, you have a 10x performance overhead and the main benefit from doing so is portability and DX, which is not the major concern here.
+
+-------------------------
+
+ZmnSCPxj | 2026-09-10 21:43:42 UTC | #4
+
+[quote="conduition, post:1, topic:2875"]
+We should especially not assume average validator/relay nodes will do any proving. SNARK proving work is hard and complicated, and so introducing a SNARK prover into the Bitcoin P2P relay codebase could easily introduce DoS vulnerabilities.
+[/quote]
+
+If there is a DoS vulnerability that affects this code, then with your proposal it would add a DoS vulnerability to miners.  If large enough number of miners are DoSed simultaneously, then there are no new blocks.
+
+While this is a situation that is still better than if the entire network was DoSed (as opposed to "just" miners) this seems a distinction with little difference in practice; enforced HODLing happens either way.
 
 -------------------------
 
