@@ -1052,15 +1052,14 @@ Absolutely. Any change requires extensive design and testing, even if it's minor
 
 -------------------------
 
-sjors | 2026-09-11 15:21:26 UTC | #23
-
+sjors | 2026-09-11 15:22:20 UTC | #23
 
 [quote="sipa, post:2, topic:2749"]
 * No P2MR or P2TRH. \[...\] Those who are willing to adopt those clearly do not need “ease of adoption”, can thus use P2MR (see below) instead.
 
 [/quote]
 
-Is the first "P2MR" a typo? Or did you mean not in the same deployment, i.e. "not yet"?
+Is the first "P2MR" a typo? Or did you mean not in the same deployment, i.e. "not yet"? (I assume so, based on the rest of your post)
 
 I like the idea of a two-staged approach, with the first stage being as simple and uncontroversial as possible. But...
 
@@ -1074,7 +1073,7 @@ I think there should be at least one in the initial deployment, to set a clear e
 A tripwire is probably the best choice. Although it can be bikeshed, it can't be gamed. Only a serious problem with classic cryptography (or an implementation bug) can trigger it prematurely. I like mine :slight_smile:: https://github.com/Sjors/bitcoin/pull/121
 
 Finally I'd like to suggest we consider replay protection, from the start.
- 
+
 Any activation earlier than the tripwire, or some other deterministic mechanism, is going to be controversial. And it seems inevitable that some group people will emphatically want to free existing coins, while another emphatically not. If such a fork is unavoidable, adding a (simple) replay-protection mechanism seems reasonable.
 
 The reason to do it from the start, is because hitch-hiking with a new SegWit version offers the largest possible design space. Second shameless plug, see e.g.  https://delvingbitcoin.org/t/universal-opt-in-replay-protection/2792/11?u=sjors .
