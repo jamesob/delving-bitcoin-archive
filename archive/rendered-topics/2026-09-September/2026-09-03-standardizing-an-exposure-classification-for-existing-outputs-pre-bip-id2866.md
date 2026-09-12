@@ -104,3 +104,9 @@ action as a machine-readable key alongside the level, or is prose enough?
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-12 07:48:03 UTC | #4
+
+From the user side, clear prose is essential. Having a shared action key behind it also seems useful, so different wallets can translate and present the same basic advice consistently. I would keep the actions simple, with each wallet explaining the reason and urgency in plain language.
+
+-------------------------
+
