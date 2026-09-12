@@ -184,3 +184,15 @@ Also, IIUC, that approach won't work with key-path spends.
 
 -------------------------
 
+moonsettler | 2026-09-12 19:04:40 UTC | #14
+
+[quote="sjors, post:11, topic:2792"]
+The committed height must be at least 100 blocks ago, so reorg-safety is equivalent to that for coinbase maturity, there’s no free relay issue and no short-reorg bribe risk.
+[/quote]
+
+Not sure that's necessary or desirable for the particular situation where this feature would provide the most value. But I think as a policy restriction, that can be relaxed expediently if needed, it could be fine.
+
+Nor does it protect users in typical invalid PSBT scam situations, for example some presigned exit/refund/claim clause may also commit to nonexistent previous blocks making it invalid. In such case the exact depth makes no difference. Fork aware software ofc would warn the users of such commitments, and they can then decide, if this is what they want or not. Same is true for commitment depth. A lightning wallet for example may refuse to swap against a PSBT that spends a UTXO with ancestral commitment closer than 100 deep, that's perfectly fine.
+
+-------------------------
+
