@@ -239,3 +239,15 @@ While this is a situation that is still better than if the entire network was Do
 
 -------------------------
 
+conduition | 2026-09-13 17:22:23 UTC | #5
+
+Best would obviously be to not have a DoS vulnerability in the first place :sweat_smile: which is easier if the implementations are simpler and more narrowly focused (e.g. proving a set of transactions' signatures are valid).
+
+-------------------------
+
+ZmnSCPxj | 2026-09-13 17:35:37 UTC | #6
+
+My suggestion is to add the prover to Bitcoin Core nevertheless, not just the verifier, simply because we expect more people to review Bitcoin Core rather than `miner_algo_version1.0_final_(copy)_newversion.sh`
+
+-------------------------
+
