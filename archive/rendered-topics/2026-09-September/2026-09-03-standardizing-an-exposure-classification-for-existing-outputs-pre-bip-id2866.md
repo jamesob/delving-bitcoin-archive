@@ -110,3 +110,9 @@ From the user side, clear prose is essential. Having a shared action key behind 
 
 -------------------------
 
+duncan0k | 2026-09-14 20:49:44 UTC | #5
+
+Thanks, that settles it. v0.4.0 will carry an informative appendix with a small fixed set of action keys, one per level, and a one-line SHOULD floor for each. Wallets own the wording, the reasons and the urgency on top of that. I'll post here when it's up.
+
+-------------------------
+
