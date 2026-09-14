@@ -1137,3 +1137,89 @@ Indeed. It boils down to a way to add segwit subversions. Either at the expense 
 
 -------------------------
 
+conduition | 2026-09-14 04:49:01 UTC | #27
+
+[quote="ariard, post:21, topic:2749"]
+More after that, there is a confusion to clarify first. Thanks to point that P2TRv2 does not address the critical security risk. A cursory read of the conversation made me first thinking that P2TRv2 \*would\* include support for a post-quantum scheme, be it sphincs, falcon or whatever, and that we we mere discussing the overall approach. So yes with this information in mind, a \*naked\* P2TRv2 sounds less interesting.
+[/quote]
+
+Sorry for the confusion there. i wasn't suggesting naked P2TRv2 - I think that's a bad idea, because it'd be unsafe to use due to the risk of later confiscation via tripwire. I was pointing out that P2TRv2 is not actually quantum-secure unless key-spending is disabled punctually later. 
+
+[quote="ariard, post:21, topic:2749"]
+The BIPs say nothing about how it would be done in practice, if it would be done by the wallets only, with not special support from network full-node, or that for half-aggregation we would have magic mempool logic to enable this.
+[/quote]
+
+@fjahr can correct me here, but I believe half and full agg should be done by signers, either interactively (full agg) or non-interactively (half agg). I don't believe relay nodes are expected to do any half-aggregation themselves. They would see unaggregated half-agg signatures as invalid when checking a transaction. Though it'd be very easy to write TX broadcast middleware that aggregates half-agg signatures, if they can be identified.
+
+[quote="sipa, post:22, topic:2749"]
+[quote="conduition, post:19, topic:2749"]
+Then at least we can correctly claim we have deployed a quantum secure output type, and shame wallets who don’t migrate.
+[/quote]
+I really very strongly disagree with this line of thinking. **Our goal as protocol designers is not to be able to claim we did enough by providing people a good option. Our goal is trying to design something people will actually use correctly.**
+[/quote]
+
+Agreed, but let me add: Our goal is to design something people will use correctly **_AND_ which effectively secures their coins.** P2TRv2 is easy to use "correctly" but even with correct usage your coins are not necessarily safe. With P2MR, perfectly "correct" usage is harder, but has meaningful impact on security.
+
+[quote="sipa, post:22, topic:2749"]
+I believe that it is a practical impossibility for many software and users to adopt workflows in which P2MR provides quantum-resistance, due to ingrained use of public key sharing. Claiming that it does provide that is at best ignoring reality to make your job easier, and at worst actively misleading people by providing a false sense of security. Shaming them won’t change that reality.
+[/quote]
+
+I think you're overselling how hard this is? 
+
+if i just use a regular single-signer phone or desktop wallet, all my wallet has to do is (1) not reuse addresses and (2) not transmit my xpubs off-site. With all the light node tech out there now, and AI to speed up implementation, it's never been easier to manage, and it'll keep getting easier.
+
+But OK, maybe for some low-effort wallets, or complex use-cases like hardware wallets and multisig, that stuff will be more in difficult. In truth, we have no evidence one way or the other to predict what wallets will or won't do with their EC pubkeys in P2MR (unless you have a crystal ball?). A lot depends on the new HD wallet standards that nobody has fully spec'd out yet. It's unknowable.
+
+What we _can_ say for sure is that however "leaky" P2MR is or isn't when put into practice, P2TRv2 will be at least as leaky and almost certainly worse, because 100% of P2TRv2 EC keys are exposed from the get-go.
+
+With CISA in play, i feel like we can accept that insecurity as a trade-off in exchange for the better classical performance, and as a hedge against CRQCs maybe never appearing.
+
+Without CISA though, the efficiency gap between P2MR and P2TR is tiny: smaller than the gap between P2WPKH and P2TR (see next paragraph). This is why I don't buy your argument that P2MR's inefficiency compared to P2TRv2 (without CISA) would be a dissuading factor for any meaningful number of users, and it's why my preference shifts firmly back to P2MR in this case.
+
+
+
+[quote="sipa, post:22, topic:2749"]
+This is also in line with my argument against (just) P2MR: we shouldn’t give a reason for people to refuse upgrading because it makes things more expensive than they already are. I truly believe there is an asymmetry here: making things more expensive can have a stronger discouraging effect than making things cheaper has an encouraging effect. This is because there are multiple ecosystem entities involved in upgrades that all need to be convinced. It suffices for one to care about fees to refuse, while adoption requires convincing all of them.
+[/quote]
+
+
+
+P2MR is more expensive than P2TR yes, but most people don't use P2TR, and those who do are typically early adopters who will more readily adopt a PQ output type (and/or CISA) if it were deployed anyway. Most users in the "long tail" that you're concerned about, _and_ PQ-cautious users like myself, use P2WPKH. 
+
+P2MR can be *cheaper than P2WPKH*. With @fjahr's CISA or @starius' EC recovery implemented on top of P2MR, then P2MR is actually *more efficient than P2WPKH* which is what most retail wallets are using today. The double-whammy of P2MR+CISA specifically is almost as efficient as P2TR for many-input transactions. P2WPKH users actually stand to _reduce_ fees by adopting P2MR with classical optimizations, and they get plausible quantum security to boot.
+
+So the class of users you're concerned about in this argument seems tiny. You're talking about users who (1) hold funds on P2TR, and (2) run wallets that aren't well maintained, and (3) are steadfast opposed to paying a few percent more per TX even in exchange for quantum security. I would guess the pie slice that your argument optimizes for is smaller than a rounding error, and motivating that tiny minority of users doesn't meaningfully move the dial on maximizing migration for the whole network.
+
+[quote="sipa, post:22, topic:2749"]
+I imagine completely static per-wallet PQC keys, with no key derivation. Wallet descriptors move to store xpubs + static stateless PQC pubkeys or pubkey hashes (one per wallet/user/device), which is compatible with all of today’s use cases I can imagine. For very simple non-sharing non-HWW single-party wallets, an equivalent for hardened derivation is possible, which would be compatible (but still icky) with stateful signing. Longer term it may be possible to move to sharing complete sets of future PQC pubkeys, but I don’t think that’s for everything, and probably not realistic in the short term.
+The privacy implications here are pretty bad after ECC disabling, but I think it’s the best we can reasonably see adopted at scale. And the goal is just avoiding disaster. Long-term, we’ll need PQC that’s compatible with homomorphic derivation, or so much time that the ecosystem moves on to entirely different approaches.
+[/quote]
+
+"No key derivation"? You mean ephemeral, randomly generated PQ keys? That would make wallets unrecoverable from seed phrases. No, we'd need to derive the PQ key from _something_ deterministically linked to the user's seed phrase. 
+
+Most obvious would be to derive the static key from the seed phrase directly (no intermediate BIP32 step) using something like HKDF or HMAC. 
+
+But then, if you can derive one key that way, why not derive many? It's not hard to do. Boom, we're already defining a new multi-algo multi-key wallet standard. 
+
+There's no way to save effort here that doesn't compromise security. So we might as well do the work once, correctly, so we don't have to do it again later. It doesn't have to be complicated.
+
+
+[quote="sipa, post:25, topic:2749"]
+[quote="sjors, post:24, topic:2749"]
+Is it possible to design a v2 SegWit such that CISA can soft-forked into it later, rather than needing yet another version bump?
+
+[/quote]
+
+No. If it needs to cover key path spends (which is the most interesting application), it needs a separate output type.
+[/quote]
+
+Actually it is possible to deploy P2TRv2 with a time-based upgrade hook that transmutes P2TRv2 outputs into anyone-can-spend after a specific deadline block height $T$ (e.g. 10 years after initial flag day). We then have to commit to deploying a 2nd soft fork that enforces new rules for P2TRv2 at block height $T$ to avert the mass chaos. 
+
+If CISA is ready by height $T$, we could deploy CISA as a soft fork. If CISA isn't ready in time, we can kick the can down the road by extending the existing rules for another X years.
+
+Same idea can also be applied to [enable patchable SNARK systems](https://delvingbitcoin.org/t/block-wide-signature-aggregation-via-snarks/2875#p-8475-choice-5-soft-fork-upgrade-hooks-6), patchable signature schemes, or a number of other forwards-compatibility and engineering agility tricks.
+
+To those against CISA today: would you at least consider putting in an upgrade hook like this so we can activate it on P2TRv2 in a few years if QCs don't work out?
+
+-------------------------
+
