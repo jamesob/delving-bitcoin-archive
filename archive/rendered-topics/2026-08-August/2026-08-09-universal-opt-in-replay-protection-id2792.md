@@ -196,3 +196,24 @@ Nor does it protect users in typical invalid PSBT scam situations, for example s
 
 -------------------------
 
+sjors | 2026-09-14 15:40:28 UTC | #15
+
+> Not sure that’s necessary or desirable for the particular situation where this feature would provide the most value.
+
+Why would it be a problem to wait 100 blocks on _one_ side of a fork? Once you've moved coins on the fast side, and waited enough confirmations, you no longer need replay protection on the slow side.
+
+Note that I'm assuming this replay protection mechanism will have been deployed well before a contentious hard fork, so both sides inherit it by default. Because the block hash is implicit, and needed to validate signatures, neither side can easily remove the protection. They'd have to e.g. extend transaction serialization to include the hash, and have the block include it without modifying (witness) transaction hashes.
+
+[quote="moonsettler, post:14, topic:2792"]
+Nor does it protect users in typical invalid PSBT scam situations
+[/quote]
+
+I suppose that for a hardware wallet to safely sign a replay-protected transaction, a PSBT needs to include all headers between the committed block and the intended lock height. This could also be useful for offline height proofs[^1] and proving the passage of time[^2].
+
+There's no way for an offline device to know which side of a fork its on of course.
+
+[^1]: [Great Consensus Cleanup Revival](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710/27), August 2024.
+[^2]: [The Cryptographic Relay](https://gnusha.org/pi/bitcoindev/1z54XsScl3QReBGNtkf6I45p_IwHQMZ6EBVTM5qdZ9P6xv7a3SMxP2l3KahOoUvKRW9o6-saM36A0vxJtMS9pIRVTPGNlU3DMlUVwHZyZks=@protonmail.com/), July 2020.
+
+-------------------------
+
