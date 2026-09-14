@@ -251,3 +251,13 @@ My suggestion is to add the prover to Bitcoin Core nevertheless, not just the ve
 
 -------------------------
 
+conduition | 2026-09-14 00:35:36 UTC | #7
+
+I don't think it makes sense to put mining code into Bitcoin Core that bitcoin nodes won't run, just for the sake of encouraging its review. Not a wise precedent to set IMO. I'd rather we build a well-vetted proof system library that miners can pull in. Most likely the prover and verifier will share code, so I would expect what we'd end up with is a common library, e.g. `libbitzip`, which implements proving *and* verifying, but the more complex prover-only code is opted into with a flag. 
+
+Anyways these are implementation details and we're a long way from that. First we need to assess the design trade-off space. 
+
+My current work in this domain is on designing a SPHINCS verification circuit over GF(2) which can be batched using Flock. This should give us a benchmark for prover throughput which will help to inform design considerations
+
+-------------------------
+
