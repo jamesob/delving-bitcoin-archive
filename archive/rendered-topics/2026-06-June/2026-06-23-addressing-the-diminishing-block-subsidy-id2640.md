@@ -504,3 +504,15 @@ The reason I'm limiting this to P2PK funds only is because most of these funds a
 
 -------------------------
 
+ZmnSCPxj | 2026-09-14 06:13:03 UTC | #30
+
+I would consider the idea that price is really a measure of transient (short-term) demand divided by transient supply, plus some external noise.
+
+The price of the token has a relatively constant transient demand: HODLers who have committed themselves to buying a certain real-world amount of value per payday.  The token itself has a transient supply that is powered primarily by what miners can produce, which is constant for an entire halvening period.  Transient supply is primarily from miners, precisely because they need to sell tokens to pay for continuous operational costs; HODLers withdrawing and making their tokens available is part of the "external noise", as we cannot predict them.
+
+Fees paid to miners are negligible, as you have pointed out, and thus we can neglect them; they thus do not affect transient supply.
+
+Thus, when each halvening occurs, transient supply drops to half due to the block subsidy, which increases transient price of the token.  We have seen this in the sudden increase in price of Bitcoin some time after each halvening (after miner-stockpiled tokens have been depleted).  We can also see this in ajtown's graph, where the income, in USD terms, of blocks remains relatively constant in the long-term, with the slight rise explainable by USD itself inflating.
+
+-------------------------
+
