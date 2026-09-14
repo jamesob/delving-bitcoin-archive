@@ -1223,3 +1223,34 @@ To those against CISA today: would you at least consider putting in an upgrade h
 
 -------------------------
 
+AdamISZ | 2026-09-14 12:25:45 UTC | #28
+
+[quote="conduition, post:19, topic:2749"]
+Can you elaborate? Why is it “off”?
+[/quote]
+
+Because they're two radically different proposals with radically different motivations, that's all I meant.
+
+I guess (but am not sure) that this relates to @fjahr 's : 
+
+[quote="fjahr, post:16, topic:2749"]
+But I don’t understand what you mean by “overlay another technical decision”, (taken mostly from my response to one of sipa’s points above) as the concepts stand today (if I understand the PQC side correctly), P2TRv2 + PQC + CISA could be implemented and used without CISA (only use plain BIP341 opted-out) or without PQC (not implementing the required paths).
+[/quote]
+
+I see this as (very vaguely) analogous to old discussions about cryptographic blinding on blockchains: as written down in a theoretical paper, combining X and Y together may not affect security property Z, and you can even prove it. But the real world is not like that *sometimes* : sometimes the way you put the pieces together has unexpected side effects. Homomorphic commitments to amounts is balance preserving, mathematically, but that doesn't mean you don't introduce risk factors.
+
+Some people would want a CISA soft fork, but not the PQC one (or want a *different* PQC one). They might be orthogonal elements of a proposal on paper, but might not be in practice. This line of thinking is not exclusive to CISA of course.
+
+[quote="fjahr, post:16, topic:2749"]
+The other way around would also be possible, just adding CISA and ignoring PQC, with the separate output types for each concept you are actually forcing them to make a decision for either one, the change becomes more complicated
+[/quote]
+
+Indeed, it would/will be more complicated to do separate changes instead of combined ones. I don't think that should affect choices about proposals though.
+
+.....
+
+
+Sorry for answering late, I thought we'd stopped talking about CISA, and anyway the conversation has moved on ... quite a lot :laughing:
+
+-------------------------
+
