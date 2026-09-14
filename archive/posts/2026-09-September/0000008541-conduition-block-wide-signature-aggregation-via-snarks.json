@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 1,
   "readers_count": 0,
-  "score": 0,
+  "score": 0.2,
   "yours": false,
   "topic_id": 2875,
   "topic_slug": "block-wide-signature-aggregation-via-snarks",
