@@ -356,3 +356,11 @@ In case they didn't, I'll try reposting them below.
 
 -------------------------
 
+JohnLaw | 2026-09-15 20:46:59 UTC | #3
+
+![figure1|386x500](upload://sXsyWyXMdIKHAJvaqVLOG7IIlUz.jpeg)
+
+![figure2|386x500](upload://qvLxuUiwSy72tAdSYhb4tfycbMv.jpeg)
+
+-------------------------
+
