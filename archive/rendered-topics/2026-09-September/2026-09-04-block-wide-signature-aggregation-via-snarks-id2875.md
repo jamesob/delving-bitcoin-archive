@@ -261,3 +261,13 @@ My current work in this domain is on designing a SPHINCS verification circuit ov
 
 -------------------------
 
+jonasnick | 2026-09-15 09:30:29 UTC | #8
+
+Thanks for the summary @conduition.
+
+> However, recursive proofs also introduce more proving overhead (per signature), more bug surface, and are much harder to do without a VM
+
+For completeness, the flat vs. recursive choice also involves questions about security foundations. Some cryptographers are concerned about the theoretical footing of recursive SNARKs, while others view the additional heuristics as acceptable. Several papers explore these questions. For example, [Relativized Succinct Arguments in the ROM Do Not Exist](https://eprint.iacr.org/2024/728.pdf) highlights why a standalone SNARK’s ROM security proof cannot simply be assumed to cover its recursive use. This does not rule out security proofs under other assumptions or models.
+
+-------------------------
+
