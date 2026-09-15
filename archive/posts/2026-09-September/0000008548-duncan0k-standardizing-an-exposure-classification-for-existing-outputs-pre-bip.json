@@ -13,9 +13,9 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 2866,
   "topic_slug": "standardizing-an-exposure-classification-for-existing-outputs-pre-bip",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks, that settles it. v0.4.0 will carry an informative appendix with a small fixed set of action keys, one per level, and a one-line SHOULD floor for each. Wallets own the wording, the reasons and the urgency on top of that. I'll post here when it's up.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks, that settles it. v0.4.0 will carry an informative appendix with a small fixed set of action keys, one per level, and a one-line SHOULD floor for each. Wallets own the wording, the reasons and the urgency on top of that. I\u2019ll post here when it\u2019s up.",
   "truncated": true,
   "post_url": "/t/standardizing-an-exposure-classification-for-existing-outputs-pre-bip/2866/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

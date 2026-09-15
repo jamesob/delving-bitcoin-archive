@@ -1254,3 +1254,23 @@ Sorry for answering late, I thought we'd stopped talking about CISA, and anyway 
 
 -------------------------
 
+fjahr | 2026-09-15 13:40:42 UTC | #29
+
+[quote="ariard, post:21, topic:2749"]
+The BIPs say nothing about how it would be done in practice, if it would be done by the wallets only, with not special support from network full-node, or that for half-aggregation we would have magic mempool logic to enable this.
+
+[/quote]
+
+It is correct that the BIP specifies how signers produce their signatures and how those get combined, but it does not make rules about who runs the combining step. I don't think it could even do that if we tried, it is outside of consensus and a P2P protocol/application that does this could not be prevented by the BIP. But I don't see why anyone would build it, because there is basically nothing to gain. Half-agg is explicitly opt-in, each signer commits to the aggregation mode already in its signature message, so a node could only ever aggregate signatures whose creators already chose to aggregate. Those signers can combine their signatures themselves, it is a cheap operation that any of them should be able to run before broadcasting and they already have done some integration work for making the signatures anyway. A node would just be doing the same work a little later but it also wouldn't have the data to do it without a P2P extension or something similar: the s-values of the individual signatures never appear in the actual transaction, a member witness only carries the nonce share. To do anything, nodes would have to receive the full signatures through this new P2P protocol and the mempool would need to accept and hold transactions that are not valid yet. That is a significant change for no conceivable benefit. The situation in Mimblewimble was different, there aggregation across transactions ("cut-through" if I remember correctly) during relay was part of the protocol explicitly. Here aggregation is within one transaction and happens before broadcast.
+
+[quote="conduition, post:27, topic:2749"]
+@fjahr can correct me here, but I believe half and full agg should be done by signers, either interactively (full agg) or non-interactively (half agg). I don't believe relay nodes are expected to do any half-aggregation themselves.
+
+[/quote]
+
+That's correct. Broadcast middleware that aggregates would need the full signatures handed to it out of band, e.g. in PSBT fields, since they are not in the transaction as explained above. At that point it is simply the aggregating party as described in the BIP, not really something that makes sense as a network service.
+
+I did spend some time initially thinking about if allowing for any kind of aggregation by third parties but I couldn't find any significant upsides that would result from this and could justify the additional complexity. And I think this decision works well with what is being discussed here: The best case for a third-party aggregation would be if the BIP341 signatures were not actually protected as an opt-out but could be aggregated despite the signer/wallet not even being aware of CISA. This is prevented with the explicit opt-out rules for these signatures which works well with a potential second reason that motivated adoption of the output type, like the PQC stuff discussed here.
+
+-------------------------
+
