@@ -348,3 +348,11 @@ References
 
 -------------------------
 
+JohnLaw | 2026-09-15 20:45:12 UTC | #2
+
+I'm not sure that the figures and the text after the figures came through in the post above.
+
+In case they didn't, I'll try reposting them below.
+
+-------------------------
+
