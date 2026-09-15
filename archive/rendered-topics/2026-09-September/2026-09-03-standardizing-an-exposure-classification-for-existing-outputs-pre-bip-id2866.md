@@ -116,3 +116,11 @@ Thanks, that settles it. v0.4.0 will carry an informative appendix with a small 
 
 -------------------------
 
+duncan0k | 2026-09-14 21:09:11 UTC | #6
+
+v0.4.0 is up: https://github.com/duncan0k/pubkey-exposure-classification/blob/fb0bc77a58991d43cad1095912e38984d88702fb/bip-output-pubkey-exposure-classification.md#appendix-a-holder-implications-informative
+
+Appendix A gives each level one action key — `MIGRATE`, `SWEEP_WHEN_SPENDING`, `NONE`, `TREAT_AS_MIGRATE` — plus a one-line floor. Wallets own everything above that. The Abstract and Motivation were also rewritten to state the reasoning directly. If the floor wording needs adjusting from the wallet side, say so and I'll fold it in.
+
+-------------------------
+
