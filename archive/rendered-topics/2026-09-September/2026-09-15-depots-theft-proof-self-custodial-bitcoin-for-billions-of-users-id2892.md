@@ -364,7 +364,7 @@ JohnLaw | 2026-09-15 20:46:59 UTC | #3
 
 -------------------------
 
-JohnLaw | 2026-09-15 20:50:46 UTC | #4
+JohnLaw | 2026-09-15 20:55:54 UTC | #4
 
 ```
 
@@ -495,7 +495,7 @@ The author would like to thank David Harding for bringing to the author's attent
 
 References
 ----------
-[BIP-119] BIP-119, "BIP 119: OP_CHECKTEMPLATEVERIFY", https://github.com/bitcoin/bips/blob/master/bip-0119.mediawiki
+[BIP-119] BIP-119, "BIP 119: OP_CHECKTEMPLATEVERIFY", https://github.com/bitcoin/bips/blob/173f386dfb8b4f1c4b16d69190a753802802ac4d/bip-0119.mediawiki
 
 [BIP-348] BIP-348, "BIP 348: OP_CHECKSIGFROMSTACK", https://github.com/bitcoin/bips/blob/050d422b2ac24d8221edab0ff0053e0f585409f7/bip-0348.md
 
@@ -525,7 +525,7 @@ References
 
 [Moreh24] Morehouse, Response to: "A Fast, Scalable Protocol For Resolving Lightning Payments", https://delvingbitcoin.org/t/a-fast-scalable-protocol-for-resolving-lightning-payments/1233/2
 
-[Osunto21] Osuntokun, "Taro: A Taproot Asset Representation Overlay", https://github.com/Roasbeef/bips/blob/bip-taro/bip-taro.mediawiki
+[Osunto21] Osuntokun, "Taro: A Taproot Asset Representation Overlay", https://github.com/Roasbeef/bips/blob/d9b07c16d76be6967c67a678dc2f61f5e891c218/bip-taro.mediawiki
 
 [Riard22] Riard, "Unjamming lightning (new research paper)", https://www.mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02996.html
 
