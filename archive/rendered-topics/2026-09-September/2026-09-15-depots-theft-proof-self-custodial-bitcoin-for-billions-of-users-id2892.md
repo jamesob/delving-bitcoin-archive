@@ -543,3 +543,9 @@ References
 
 -------------------------
 
+cmp_ancp | 2026-09-15 21:27:50 UTC | #5
+
+Excuse me, but the text is written in a format that is unreadable from the middle on, at least from my cellphone.
+
+-------------------------
+
