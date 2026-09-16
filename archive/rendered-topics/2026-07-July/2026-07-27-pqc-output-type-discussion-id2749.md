@@ -1274,3 +1274,101 @@ I did spend some time initially thinking about if allowing for any kind of aggre
 
 -------------------------
 
+sipa | 2026-09-16 20:37:50 UTC | #30
+
+[quote="conduition, post:27, topic:2749"]
+P2TRv2 is easy to use “correctly” but even with correct usage your coins are not necessarily safe. With P2MR, perfectly “correct” usage is harder, but has meaningful impact on security.
+[/quote]
+
+Yes, in a vacuous sense, because it is so hard to be impossible for most users. You cannot expect people to stop reusing addresses, because it doesn't fall within the purview of software that protocol designers and developers control. Address reuse is something humans do, and remains possible as long as addresses exist as shareable strings. Getting rid of that requires migrating to different approaches, like payment protocols. [I tried](https://gist.github.com/sipa/1237788) 15 years ago, in what motivated the [BIP70 payment protocol](https://bitcoinops.org/en/topics/bip70-payment-protocol/) to be developed. It never took off, and was abandoned. Addresses, and their ability to be reused, is so ingrained in how Bitcoin (on-chain) payments work that in my opinion the only realistic way to avoid it is having everything and everyone move to a different layer (like Lightning's BOLT11 invoices / BOLT12 payment codes) where the need for compatibility does not exist. I don't think this is feasible in the timelines people are thinking of for CRQC, and probably needs decades.
+
+Telling people they're safer by using P2MR "correctly", without recognizing that "correctly" is a practical impossibility to them, is not responsible design.
+
+[quote="conduition, post:27, topic:2749"]
+if i just use a regular single-signer phone or desktop wallet, all my wallet has to do is (1) not reuse addresses and (2) not transmit my xpubs off-site. With all the light node tech out there now, and AI to speed up implementation, it’s never been easier to manage, and it’ll keep getting easier.
+[/quote]
+
+This isn't a software problem; it requires workflow/social changes and reimagining how people use Bitcoin.
+
+[quote="conduition, post:27, topic:2749"]
+But OK, maybe for some low-effort wallets, or complex use-cases like hardware wallets and multisig, that stuff will be more in difficult.
+[/quote]
+
+They're certainly more complex, but they are very important use cases, used by large amounts of users. And in particular for hardware wallets, by users who are likely not keen to touch their coins.
+
+[quote="conduition, post:27, topic:2749"]
+With CISA in play, i feel like we can accept that insecurity as a trade-off in exchange for the better classical performance, and as a hedge against CRQCs maybe never appearing.
+[/quote]
+
+I really don't understand this. What is your goal? If you view P2TRv2 as insufficiently secure, why would you want *anyone* to use it, and worse, incentivize it with CISA? If you're okay with the security of P2TRv2+CISA, then none of the worsened security arguments ought to apply, with or without CISA.
+
+[quote="conduition, post:27, topic:2749"]
+So the class of users you’re concerned about in this argument seems tiny. You’re talking about users who (1) hold funds on P2TR, and (2) run wallets that aren’t well maintained, and (3) are steadfast opposed to paying a few percent more per TX even in exchange for quantum security. I would guess the pie slice that your argument optimizes for is smaller than a rounding error, and motivating that tiny minority of users doesn’t meaningfully move the dial on maximizing migration for the whole network.
+[/quote]
+
+(1) would be users who use P2TR or would be migrating there anyway the next few years, which I expect to be a substantial portion. In terms of users (but maybe not in terms of BTC), I think most are on software/providers (2) that aren't particularly up to date (think exchanges, multi-coin wallets, ...). And (3), don't you think that many users would hesitate if they see a "migrate to PQC wallet? everything will become a bit more expensive once you do"?
+
+My goal isn't motivating, I wish we could but I don't think we can. I want to remove friction that may stand in the way of adoption. Fee increases may be one of them. Another big push, post P2TR, to yet something else, may also be one of them.
+
+[quote="conduition, post:27, topic:2749"]
+“No key derivation”? You mean ephemeral, randomly generated PQ keys? That would make wallets unrecoverable from seed phrases. No, we’d need to derive the PQ key from *something* deterministically linked to the user’s seed phrase.
+
+Most obvious would be to derive the static key from the seed phrase directly (no intermediate BIP32 step) using something like HKDF or HMAC.
+[/quote]
+
+Sorry, I meant no *per-address* derivation. The actual PQC key would obviously be derived from a hardware-generated or provided seed still.
+
+[quote="conduition, post:27, topic:2749"]
+But then, if you can derive one key that way, why not derive many? It’s not hard to do. Boom, we’re already defining a new multi-algo multi-key wallet standard.
+[/quote]
+
+Because it requires workflow changes, not just software changes. Large amounts of keys cannot be reliably written on a piece of paper or a metal backup. They may not fit in a QR code. They may not fit on a tiny hardware screen for manual comparison. A push towards "bag of preshared keys" may work in some settings, but there will be many where it just won't. You need to deal with those too.
+
+[quote="conduition, post:27, topic:2749"]
+It doesn’t have to be complicated.
+[/quote]
+
+Changing how humans do things is the hardest thing.
+
+[quote="conduition, post:27, topic:2749"]
+To those against CISA today: would you at least consider putting in an upgrade hook like this so we can activate it on P2TRv2 in a few years if QCs don’t work out?
+[/quote]
+
+You're suggesting an output type that *automatically* becomes insecure, some years in the future? We may be forced to do so by CRQC evolution that ultimately boils down to the same thing, but building it in seems like an extremely controversial take to me. I don't think this is worth it at all.
+
+-------------------------
+
+AntoineP | 2026-09-16 20:38:06 UTC | #31
+
+[quote="conduition, post:27, topic:2749"]
+You’re talking about users who (1) hold funds on P2TR, and (2) run wallets that aren’t well maintained, and (3) are steadfast opposed to paying a few percent more per TX even in exchange for quantum security.
+[/quote]
+
+Creating strawmans will sooner lose you the good will of people engaging with you than convince any intelligent reader of this thread. It's also disrespectful of the considerable amount of time the other person has spent offering you elaborate arguments, whose substance you consistently fail to engage with ([1](https://groups.google.com/g/bitcoindev/c/O6l3GUvyO7A/m/HDKCJpQJBQAJ), [2](https://groups.google.com/g/bitcoindev/c/p8AVEmAtWdA/m/2t2gZY4wCwAJ), [3](https://delvingbitcoin.org/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/10?u=antoinep), [4](https://groups.google.com/g/bitcoindev/c/p8AVEmAtWdA/m/Gona1fr3AgAJ), [5](https://groups.google.com/g/bitcoindev/c/p8AVEmAtWdA/m/kldR6Sl1DQAJ), [6](https://delvingbitcoin.org/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/30?u=antoinep), [7](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/2?u=antoinep), [8](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/22?u=antoinep)).
+
+-------------------------
+
+AntoineP | 2026-09-16 20:38:13 UTC | #32
+
+I understand the appeal of killing two birds with one stone if we are introducing a new output type, but i agree with Pieter that P2TRv2 and CISA pull in opposite directions. Not only in terms of features, but also of expectations. I don't think CRQC-skeptic CISA enthusiasts would accept an expectation that their EC spending path becomes unspendable before CRQCs materialize. If so, this would lead to them at best not adopting it, and at worst would undermine the expectation of an EC disabling.
+
+On the other hand, it may be that not having the CISA feature hinders migration to P2TRv2.  The alternative of the P2TRv2 and CISA soft forks advancing in parallel also presents the possibility that CISA becomes available or gains traction before P2TRv2. It is admittedly more of a stretch, but this scenario could result in misaligned incentives unless P2TRv2 also supports CISA.
+
+However, i am skeptical this scenario would result in a systemic risk, because P2TRv2 targets wallets / service providers different from those likely to adopt CISA. And those wallets / users likely to first adopt latest technologies like CISA are not the primary targets of the P2TRv2 strategy: they are paying attention to developments and are able to move more swiftly if/when CRQC risk increases.
+
+They would however keep using distinguishable output types until then, which may be forever. So an argument for bundling the two would be to avoid this footprint. If Bitcoin users desire CISA, and there is a push to get the vast majority of utxos to use P2TRv2 on the basis of CRQC risk mitigation, it's would be quite the missed opportunity that they be separate output types. That's a lot of if's though.
+
+Regarding the fee savings, i too don't expect the [~5% off](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/12?u=antoinep) for the [vast majority of users](https://mainnet.observer/charts/inputs-per-transaction/) to have much of an impact on the wallet developers' decision to migrate to a new output type. Of course i agree savings become non-trivial where interactivity is minimised and input count maximised, as in the [example](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/13?u=antoinep) of an exchange. I don't think this makes much of a difference for P2TRv2: exchanges would migrate to it with or without CISA, because it's already no more expensive and because it would keep them safe if/when CRQC risks materialize.
+
+Regarding the plan, i (unsurprisingly, we've discussed this at length) largely agree with [Pieter's](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/2?u=antoinep).
+
+I believe Tripwire without miner lockdown is a non-binding constraint and as such does not really provide "teeth" to EC disabling, outside of a psychological effect which may help bootstrap the collective reliance on EC being eventually disabled (which is, in my view, the real "teeth").
+
+I think the major challenge with EC disabling is to prevent it from happening too soon. A premature disabling would undermine the individual (lack of dis)incentives to migrate, and thereby the PQ migration. Miner Lockdown, while it gives the collective of miners the ability to (i believe irrationally) trigger it prematurely, may help in reassuring those stakeholders who might otherwise push for an early disabling by fear of an unexpected CRQC breakthrough.
+
+I think risk mitigation (P2TRv2 + Tripwire) and full migration (P2MR + eventual EC disabling + Witness style) should be provided in separate deployments. Most of the complexity is concentrated in the latter, which is also the least pressing. It can also be argued that the full migration path should only be made available once we have a higher degree of certainty that CRQCs will become a reality, while the risk mitigation should be provided regardless. We may also learn things from the deployment of P2TRv2, and a couple years more of development in PQ land, that could be applied to the later deployment of P2MR.
+
+The value in the table look correct to me, but i don't understand the inclusion of the orange threat model (:orange_square:). Under these assumptions, why would you ever use the PQ spending path? That would make even today's P2WSH "secure". I don't think that makes sense.
+
+-------------------------
+
