@@ -283,3 +283,19 @@ I would assume this would be part of future research but wanted to explicitly ma
 
 -------------------------
 
+conduition | 2026-09-16 16:40:16 UTC | #10
+
+[quote="EthnTuttle, post:9, topic:2875"]
+Do we have concrete CPU/GPU requirements for various provers?
+[/quote]
+
+Not yet. 
+
+If we naively extend the benchmarks of [the Flock paper](https://eprint.iacr.org/2026/1329) (see page 25), a 10-thread CPU prover can prove about 338000 SHA256 compressions per second. That'd be \~482 signature verifications per second, with the parameter set `h=36 d=4 a=13 k=15 w=4`. With roughly 10,000 signatures per block, that'd be about 20 seconds to prove a block.
+
+[Public autoresearch challenges](https://zk.golf/challenges/sha256-hash) have shown that SHA256 circuits can be improved quite a bit though, so I am hopeful we can reduce that number to <10 seconds. 
+
+Still, these are just naive extrapolations. Flock's benchmarks use a single SHA256 circuit as the unit of batching, but for our purposes we'd be using a SPHINCS verifier circuit as the unit of batching. I don't know of anyone who has actually tested Flock with a circuit of this kind. We need more data to say whether that will be faster or slower than the naive extrapolation. This is what i'm working on right now.
+
+-------------------------
+
