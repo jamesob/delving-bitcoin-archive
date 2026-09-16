@@ -549,3 +549,11 @@ Excuse me, but the text is written in a format that is unreadable from the middl
 
 -------------------------
 
+roasbeef | 2026-09-16 00:00:09 UTC | #6
+
+Are you posting using some special mark up? On desktop I'm also unable to fully read either of the posts. 
+
+There's a WYSIWYG preview that you can use to make sure the post is legible.
+
+-------------------------
+
