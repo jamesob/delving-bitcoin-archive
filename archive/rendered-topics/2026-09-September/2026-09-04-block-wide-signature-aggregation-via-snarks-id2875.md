@@ -271,3 +271,15 @@ For completeness, the flat vs. recursive choice also involves questions about se
 
 -------------------------
 
+EthnTuttle | 2026-09-16 14:29:40 UTC | #9
+
+> Aggregator nodes
+
+Do we have concrete CPU/GPU requirements for various provers? 
+
+I'd be interested in seeing what that looks like with definitive numbers to better understand how the hardware requirements would impact network participants. IMHO, having a new distinct role in the network with beefy hardware requirements is non-starter, however as noted in [@jamesob 's talk at OPNext 2025](https://www.youtube.com/watch?v=27Qs31E80cA) , we can model out compute requirements to have concrete values for consideration. Given the current centralized nature of mining, yet another hardware constraint role in the network seems ill advised from a game theory standpoint. Further increasing the hardware burden on miners would seem to tip the scales of game theory in their favor in an already contentious balance for consensus control. 
+
+I would assume this would be part of future research but wanted to explicitly make the ask with a similar measurement example.
+
+-------------------------
+

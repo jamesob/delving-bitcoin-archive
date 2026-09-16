@@ -7,15 +7,15 @@
   "cooked": "<p>Thanks for the summary <a class=\"mention\" href=\"/u/conduition\">@conduition</a>.</p>\n<blockquote>\n<p>However, recursive proofs also introduce more proving overhead (per signature), more bug surface, and are much harder to do without a VM</p>\n</blockquote>\n<p>For completeness, the flat vs. recursive choice also involves questions about security foundations. Some cryptographers are concerned about the theoretical footing of recursive SNARKs, while others view the additional heuristics as acceptable. Several papers explore these questions. For example, <a href=\"https://eprint.iacr.org/2024/728.pdf\" rel=\"noopener nofollow ugc\">Relativized Succinct Arguments in the ROM Do Not Exist</a> highlights why a standalone SNARK\u2019s ROM security proof cannot simply be assumed to cover its recursive use. This does not rule out security proofs under other assumptions or models.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 9,
   "updated_at": "2026-09-15T09:30:29.539Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
   "yours": false,
   "topic_id": 2875,
   "topic_slug": "block-wide-signature-aggregation-via-snarks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for the summary @conduition.\n\n> However, recursive proofs also introduce more proving overhead (per signature), more bug surface, and are much harder to do without a VM\n\nFor completeness, the flat vs. recursive choice also involves questions about security foundations. Some cryptographers are concerned about the theoretical footing of recursive SNARKs, while others view the additional heuristics as acceptable. Several papers explore these questions. For example, [Relativized Succinct Arguments in the ROM Do Not Exist](https://eprint.iacr.org/2024/728.pdf) highlights why a standalone SNARK\u2019s ROM security proof cannot simply be assumed to cover its recursive use. This does not rule out security proofs under other assumptions or models.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for the summary <a class=\"mention\" href=\"/u/conduition\">@conduition</a>. \n\nHowever, recursive proofs also introduce more proving overhead (per signature), more bug surface, and are much harder to do without a VM \n\nFor completeness, the flat vs. recursive choice also involves questions about security foundations. Some cryptographers are&hellip;",
   "truncated": true,
   "post_url": "/t/block-wide-signature-aggregation-via-snarks/2875/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

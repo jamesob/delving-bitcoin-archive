@@ -557,3 +557,9 @@ There's a WYSIWYG preview that you can use to make sure the post is legible.
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-16 13:35:31 UTC | #7
+
+The expiry requirement seems like an important user-facing challenge. What happens if someone loses their phone, stays offline for a long time, or misses the reminder to move their funds before expiry? Could a wallet move the funds to a new depot automatically well before the deadline, and what backup information would be needed after a device is lost?
+
+-------------------------
+
