@@ -1406,3 +1406,34 @@ I don't think this is specific to CISA users though. Adoption of P2TRv2 generall
 
 -------------------------
 
+sipa | 2026-09-17 15:16:35 UTC | #35
+
+[quote="AntoineP, post:32, topic:2749"]
+The values in the table look correct to me, but i don’t understand the inclusion of the orange threat model (:orange_square:). Under these assumptions, why would you ever use the PQ spending path? That would make even today’s P2WSH “secure”. I don’t think that makes sense.
+[/quote]
+
+I personally agree, and think we should treat :red_square: and :orange_square: identical, because their difference only matters under a tenuous condition (no address reuse/pubkey sharing), and then depends on an unknowable hypothetical (CRQCs being slow). But since these conditions are both things have brought up regularly in discussions, I felt it appropriate for completeness to treat them as distinct security assumptions.
+[quote="ArmchairCryptologist, post:33, topic:2749"]
+While you obviously cannot strictly control address reuse in general, there are major use cases where address reuse is perfectly controllable and manageable. Crucially, address reuse is not a problem for properly managed long-term holding addresses, simply because address reuse *per se* does not cause funds to have an exposed public key, only address reuse of an address that has previously been spent from does.
+[/quote]
+
+That's fair. But I also don't think these are the target audience for P2TRv2. If they're properly managed they can migrate in time to a later P2MR output type too.
+
+[quote="ArmchairCryptologist, post:33, topic:2749"]
+I think the point here is that P2TR and P2TRv2 are both clearly a regression from a PQ perspective compared to P2WPKH and other address types with hashed keys, until/unless ECC spending is disabled. As such, moving such funds to P2MR rather than P2TRv2 would certainly *feel* less risky to someone who is informed about the potential threat of a CRQC. Whether it would matter in practice to keep those funds safe if significant parts of the coin supply end up getting stolen is a different discussion, of course.
+[/quote]
+
+Yes, of course, and I recognize the psychological appeal of an output type that doesn't have conditions attached.
+
+But my comment here was more meta. Namely, why is it that (to @conduition) whether or not P2TRv2 has acceptable security have anything to do with its price of usage? What does adding CISA have anything to do with P2TRv2's security?
+
+These things should be debated separately. Either the security of P2TRv2 is acceptable to the ecosystem, or not. And maybe adding CISA to it (or to P2MR) is a good idea, or not. But I do not see why they interact. If CISA truly does make P2TRv2 more appealing (which I'm skeptical of), that shouldn't be a reason to let it compromise on your sense of security about it.
+
+[quote="ArmchairCryptologist, post:33, topic:2749"]
+As a bit of an aside, since it’s come up I can also briefly elaborate on why P2TR “failed” from my perspective:
+[/quote]
+
+Yeah, these are reasonable points.
+
+-------------------------
+
