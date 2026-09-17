@@ -1393,3 +1393,14 @@ As a bit of an aside, since it's come up I can also briefly elaborate on why P2T
 
 -------------------------
 
+fjahr | 2026-09-17 14:50:00 UTC | #34
+
+[quote="AntoineP, post:32, topic:2749"]
+I don't think CRQC-skeptic CISA enthusiasts would accept an expectation that their EC spending path becomes unspendable before CRQCs materialize. If so, this would at best lead to them not adopting it, and at worst would undermine the expectation of an EC disabling.
+
+[/quote]
+
+I don't think this is specific to CISA users though. Adoption of P2TRv2 generally hinges on people trusting that the disabling triggers will work as intended, not too early and not too late, and that is the same for every user. If the disabling triggers worked perfectly (only happens magically in the exact moment the first CRQC comes into existence), adopting P2TRv2 should be an absolute no-brainer compared to the other output types discussed here. If people believe they are too risky, P2TRv2 likely won't reach consensus in the first place, with or without CISA. You mention further down that getting the disabling timing/incentives right is the hard part of P2TRv2 as well.
+
+-------------------------
+
