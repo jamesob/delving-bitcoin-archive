@@ -1274,15 +1274,15 @@ I did spend some time initially thinking about if allowing for any kind of aggre
 
 -------------------------
 
-sipa | 2026-09-16 20:51:18 UTC | #30
+sipa | 2026-09-17 03:19:48 UTC | #30
 
 [quote="conduition, post:27, topic:2749"]
 P2TRv2 is easy to use “correctly” but even with correct usage your coins are not necessarily safe. With P2MR, perfectly “correct” usage is harder, but has meaningful impact on security.
 [/quote]
 
-Yes, in a vacuous sense, because it is so hard to be impossible for most users. You cannot expect people to stop reusing addresses, because it doesn't fall within the purview of software that protocol designers and developers control. Address reuse is something humans do, and remains possible as long as addresses exist as shareable strings. Getting rid of that requires migrating to different approaches, like payment protocols. [I tried](https://gist.github.com/sipa/1237788) 15 years ago, in what motivated the [BIP70 payment protocol](https://bitcoinops.org/en/topics/bip70-payment-protocol/) to be developed. It never took off, and was abandoned. Addresses, and their ability to be reused, is so ingrained in how Bitcoin (on-chain) payments work that in my opinion the only realistic way to avoid it is having everything and everyone move to a different layer (like Lightning's BOLT11 invoices / BOLT12 payment codes) where the need for compatibility does not exist. I don't think this is feasible in the timelines people are thinking of for CRQC, and probably needs decades.
+Yes, in a vacuous sense, because it is so hard that it'll be impossible to get most users to do it. You cannot expect people to stop reusing addresses, because it doesn't fall within the purview of software that protocol designers and developers control. Address reuse is something humans do, and remains possible as long as addresses exist as shareable strings. Getting rid of that requires migrating to different approaches, like payment protocols. [I tried](https://gist.github.com/sipa/1237788) 15 years ago, in what motivated the [BIP70 payment protocol](https://bitcoinops.org/en/topics/bip70-payment-protocol/) to be developed. It never took off, and was abandoned. Addresses, and their ability to be reused, is so ingrained in how Bitcoin (on-chain) payments work that in my opinion the only realistic way to avoid it is having everything and everyone move to a different layer (like Lightning's BOLT11 invoices / BOLT12 payment codes) where the need for compatibility does not exist. I don't think this is feasible in the timelines people are thinking of for CRQC, and probably needs decades.
 
-Telling people they're safer by using P2MR "correctly", without recognizing that "correctly" is a practical impossibility to them, is not responsible design.
+Yes, it's possible. But most users won't, and not recognizing that is not responsible design.
 
 (This ignores that just using "correctly" is not enough; the user also has to actually still switch to the PQC path in time, which most users are not particularly well placed for either)
 
