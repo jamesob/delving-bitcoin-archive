@@ -1340,21 +1340,17 @@ You're suggesting an output type that *automatically* becomes insecure, some yea
 
 -------------------------
 
-AntoineP | 2026-09-16 20:38:06 UTC | #31
+AntoineP | 2026-09-16 21:09:52 UTC | #31
 
-[quote="conduition, post:27, topic:2749"]
-You’re talking about users who (1) hold funds on P2TR, and (2) run wallets that aren’t well maintained, and (3) are steadfast opposed to paying a few percent more per TX even in exchange for quantum security.
-[/quote]
-
-Creating strawmans will sooner lose you the good will of people engaging with you than convince any intelligent reader of this thread. It's also disrespectful of the considerable amount of time the other person has spent offering you elaborate arguments, whose substance you consistently fail to engage with ([1](https://groups.google.com/g/bitcoindev/c/O6l3GUvyO7A/m/HDKCJpQJBQAJ), [2](https://groups.google.com/g/bitcoindev/c/p8AVEmAtWdA/m/2t2gZY4wCwAJ), [3](https://delvingbitcoin.org/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/10?u=antoinep), [4](https://groups.google.com/g/bitcoindev/c/p8AVEmAtWdA/m/Gona1fr3AgAJ), [5](https://groups.google.com/g/bitcoindev/c/p8AVEmAtWdA/m/kldR6Sl1DQAJ), [6](https://delvingbitcoin.org/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/30?u=antoinep), [7](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/2?u=antoinep), [8](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/22?u=antoinep)).
+(post deleted by author)
 
 -------------------------
 
-AntoineP | 2026-09-16 20:38:13 UTC | #32
+AntoineP | 2026-09-16 21:36:06 UTC | #32
 
-I understand the appeal of killing two birds with one stone if we are introducing a new output type, but i agree with Pieter that P2TRv2 and CISA pull in opposite directions. Not only in terms of features, but also of expectations. I don't think CRQC-skeptic CISA enthusiasts would accept an expectation that their EC spending path becomes unspendable before CRQCs materialize. If so, this would lead to them at best not adopting it, and at worst would undermine the expectation of an EC disabling.
+I understand the appeal of killing two birds with one stone if we are introducing a new output type, but i agree with Pieter that P2TRv2 and CISA pull in opposite directions. Not only in terms of features, but also in terms of expectations. I don't think CRQC-skeptic CISA enthusiasts would accept an expectation that their EC spending path becomes unspendable before CRQCs materialize. If so, this would at best lead to them not adopting it, and at worst would undermine the expectation of an EC disabling.
 
-On the other hand, it may be that not having the CISA feature hinders migration to P2TRv2.  The alternative of the P2TRv2 and CISA soft forks advancing in parallel also presents the possibility that CISA becomes available or gains traction before P2TRv2. It is admittedly more of a stretch, but this scenario could result in misaligned incentives unless P2TRv2 also supports CISA.
+On the other hand, it may be that the lack of CISA support hinders migration to P2TRv2.  The alternative of the P2TRv2 and CISA soft forks advancing in parallel also presents the possibility that CISA becomes available or gains traction before P2TRv2. It is admittedly more of a stretch, but this scenario could result in misaligned incentives unless P2TRv2 also supports CISA.
 
 However, i am skeptical this scenario would result in a systemic risk, because P2TRv2 targets wallets / service providers different from those likely to adopt CISA. And those wallets / users likely to first adopt latest technologies like CISA are not the primary targets of the P2TRv2 strategy: they are paying attention to developments and are able to move more swiftly if/when CRQC risk increases.
 
@@ -1364,13 +1360,13 @@ Regarding the fee savings, i too don't expect the [~5% off](https://delvingbitco
 
 Regarding the plan, i (unsurprisingly, we've discussed this at length) largely agree with [Pieter's](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/2?u=antoinep).
 
-I believe Tripwire without miner lockdown is a non-binding constraint and as such does not really provide "teeth" to EC disabling, outside of a psychological effect which may help bootstrap the collective reliance on EC being eventually disabled (which is, in my view, the real "teeth").
+I believe Tripwire without miner lockdown is a non-binding constraint and as such does not really provide "teeth" to EC disabling, outside of a psychological effect which may help bootstrap the collective reliance on EC eventually being disabled (which is, in my view, the real "teeth").
 
-I think the major challenge with EC disabling is to prevent it from happening too soon. A premature disabling would undermine the individual (lack of dis)incentives to migrate, and thereby the PQ migration. Miner Lockdown, while it gives the collective of miners the ability to (i believe irrationally) trigger it prematurely, may help in reassuring those stakeholders who might otherwise push for an early disabling by fear of an unexpected CRQC breakthrough.
+I think the major challenge with EC disabling is to prevent it from happening too soon. A premature disabling would undermine the individual (lack of dis)incentives to migrate, and thereby the PQ migration. Miner Lockdown, while it gives the collective of miners the ability to (i believe irrationally) trigger it prematurely, may help in reassuring those stakeholders who might otherwise push for an early disabling out of fear of an unexpected CRQC breakthrough.
 
-I think risk mitigation (P2TRv2 + Tripwire) and full migration (P2MR + eventual EC disabling + Witness style) should be provided in separate deployments. Most of the complexity is concentrated in the latter, which is also the least pressing. It can also be argued that the full migration path should only be made available once we have a higher degree of certainty that CRQCs will become a reality, while the risk mitigation should be provided regardless. We may also learn things from the deployment of P2TRv2, and a couple years more of development in PQ land, that could be applied to the later deployment of P2MR.
+I think risk mitigation (P2TRv2 + Tripwire) and full migration (P2MR + eventual EC disabling + Witness style) should be provided in separate deployments. Most of the complexity is concentrated in the latter, which is also the least pressing. It can also be argued that the full migration path should only be made available once we have a higher degree of certainty that CRQCs will become a reality, while the risk mitigation should be provided regardless. We may also learn things from the deployment of P2TRv2, and a couple more years of development in PQ land, that could be applied to the later deployment of P2MR.
 
-The value in the table look correct to me, but i don't understand the inclusion of the orange threat model (:orange_square:). Under these assumptions, why would you ever use the PQ spending path? That would make even today's P2WSH "secure". I don't think that makes sense.
+The values in the table look correct to me, but i don't understand the inclusion of the orange threat model (:orange_square:). Under these assumptions, why would you ever use the PQ spending path? That would make even today's P2WSH "secure". I don't think that makes sense.
 
 -------------------------
 

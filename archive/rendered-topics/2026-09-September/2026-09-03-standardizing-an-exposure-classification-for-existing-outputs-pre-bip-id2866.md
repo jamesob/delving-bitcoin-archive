@@ -124,3 +124,9 @@ Appendix A gives each level one action key — `MIGRATE`, `SWEEP_WHEN_SPENDING`,
 
 -------------------------
 
+murch | 2026-09-16 22:05:44 UTC | #7
+
+Hey @duncan0k, the proposed classification seems trivial to me, so I’m not sure I understand the value-add of a BIP here.
+
+-------------------------
+
