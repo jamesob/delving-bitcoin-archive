@@ -144,3 +144,11 @@ None of which is hard. It's just that tools which have to agree with each other 
 
 -------------------------
 
+murch | 2026-09-17 18:36:56 UTC | #9
+
+If other people agree that this is valuable informational BIP and should be published, the BIPs repository is a fitting venue. If you submit it and people provide feedback to that effect, it will be published.
+
+I still don’t see how “once a hash-based output script has been spent from, all UTXOs sent to that output script are exposed at rest” or “an output script that doesn’t require a preimage for spending is always exposed at rest” are novel discoveries, especially since BIP360 already described vulnerability to long-range and short-range attacks already: https://github.com/bitcoin/bips/blob/55083d36ddebcd2a039135a2f4ee74917a5803d3/bip-0360.mediawiki#user-content-Long_Exposure_vs_Short_Exposure_Attacks
+
+-------------------------
+
