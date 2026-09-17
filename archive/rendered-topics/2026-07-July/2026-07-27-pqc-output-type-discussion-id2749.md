@@ -1370,3 +1370,26 @@ The values in the table look correct to me, but i don't understand the inclusion
 
 -------------------------
 
+ArmchairCryptologist | 2026-09-17 09:58:01 UTC | #33
+
+[quote="sipa, post:30, topic:2749"]
+You cannot expect people to stop reusing addresses, because it doesn’t fall within the purview of software that protocol designers and developers control. Address reuse is something humans do, and remains possible as long as addresses exist as shareable strings.
+
+[/quote]
+
+While you obviously cannot strictly control address reuse in general, there are major use cases where address reuse is perfectly controllable and manageable. Crucially, address reuse is not a problem for properly managed long-term holding addresses, simply because address reuse *per se* does not cause funds to have an exposed public key, only address reuse of an address that has previously been spent from does.
+
+[quote="sipa, post:30, topic:2749"]
+I really don’t understand this. What is your goal? If you view P2TRv2 as insufficiently secure, why would you want *anyone* to use it, and worse, incentivize it with CISA?
+
+[/quote]
+
+I think the point here is that P2TR and P2TRv2 are both clearly a regression from a PQ perspective compared to P2WPKH and other address types with hashed keys, until/unless ECC spending is disabled. As such, moving such funds to P2MR rather than P2TRv2 would certainly *feel* less risky to someone who is informed about the potential threat of a CRQC. Whether it would matter in practice to keep those funds safe if significant parts of the coin supply end up getting stolen is a different discussion, of course.
+
+As a bit of an aside, since it's come up I can also briefly elaborate on why P2TR "failed" from my perspective:
+
+* For the "taking payments" use case, it largely comes down to wallets and (especially) exchanges being excruciatingly slow to add support for sending to new address types. While I would love the \~20% savings on consolidation transactions, I *still* see people needing to use legacy P2SH-segwit to make payments, even NINE YEARS after bech32 was introduced. Adding yet another address option to the mix would simply confuse end users who aren't generally crypto-savvy.
+* For the "holding funds" use case, P2TR is more expensive for both one-input/two-output and two-input/two-output transactions, loses the inherent PQ resistance of P2WPKH, and has a much smaller anonymity set. It therefore seems like a strict downgrade unless you specifically need tapscript.
+
+-------------------------
+

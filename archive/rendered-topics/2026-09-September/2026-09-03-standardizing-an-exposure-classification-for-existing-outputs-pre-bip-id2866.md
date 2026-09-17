@@ -130,3 +130,17 @@ Hey @duncan0k, the proposed classification seems trivial to me, so I’m not sur
 
 -------------------------
 
+duncan0k | 2026-09-17 06:41:44 UTC | #8
+
+@murch The four levels are trivial, agreed. The edge rules are where the draft spends its words, and each one is a case where shipping software or a careful reader landed on the other answer.
+
+- A reused P2PKH that's been spent from and still holds coins. My own tool reported that as "exposed on spend" for a month. To an attacker it's a P2PK.
+- P2TR. conduition read it on the list as unexposed, since a key-path spend never reveals the internal key. The draft calls it exposed at rest, because the attacker only needs the output key that's already on chain. Different questions, and it took a revision before the draft said so.
+- P2SH/P2WSH where the script was never revealed. Same for keys that went out off-chain in an xpub. Tools include or exclude both without saying which.
+
+Published figures for exposed supply run from about 25% to over 34%, and that spread comes out of those choices, not measurement. conduition wrote on the list that DropKick and Lifeboat are "both contingent on this source of truth, but nobody has yet spent the cycles to figure out how that would work", and a wallet developer up-thread wants shared action keys so two wallets don't put different warnings on the same output.
+
+None of which is hard. It's just that tools which have to agree with each other have nothing to agree on yet. Is there a case above you'd classify differently from the draft? And if the doubt is venue rather than content, where should a definition like this live so the BIP 360 and BIP 361 discussions can point at it?
+
+-------------------------
+
