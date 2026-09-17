@@ -1274,7 +1274,7 @@ I did spend some time initially thinking about if allowing for any kind of aggre
 
 -------------------------
 
-sipa | 2026-09-17 03:19:48 UTC | #30
+sipa | 2026-09-17 15:02:44 UTC | #30
 
 [quote="conduition, post:27, topic:2749"]
 P2TRv2 is easy to use “correctly” but even with correct usage your coins are not necessarily safe. With P2MR, perfectly “correct” usage is harder, but has meaningful impact on security.
@@ -1336,7 +1336,9 @@ Changing how humans do things is the hardest thing.
 To those against CISA today: would you at least consider putting in an upgrade hook like this so we can activate it on P2TRv2 in a few years if QCs don’t work out?
 [/quote]
 
-You're suggesting an output type that *automatically* becomes insecure, some years in the future? We may be forced to do so by CRQC evolution that ultimately boils down to the same thing, but building it in seems like an extremely controversial take to me. I don't think this is worth it at all.
+I don't consider that acceptable. You're proposing an output type that, barring a future consensus change, automatically becomes insecure.
+
+I'm aware that is not practically different from the appearance of a malicious CRQC prior to a tripwire triggering, but there it is an inevitability we're already facing. Adding a guaranteed time-based one just in order to be able to get a neat upgrade hook seems like entirely the wrong trade-off to me.
 
 -------------------------
 
