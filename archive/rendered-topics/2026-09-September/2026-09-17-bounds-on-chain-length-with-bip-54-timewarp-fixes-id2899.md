@@ -475,3 +475,30 @@ A different way to view it is if a consensus mechanism needs to progress from on
 
 -------------------------
 
+sipa | 2026-09-18 01:28:12 UTC | #3
+
+[quote="zawy, post:2, topic:2899"]
+Replacing the two rules with a monotonic timestamp requirement should be a lot easier to prove
+[/quote]
+
+I don't think it matters. As far as the first/last timestamps of blocks are concerned (which are the only ones that matter for difficulty adjustment), such a rule would be equivalent to the two BIP-54 timewarp rules, but with grace time 0s instead of 7200s. A proof for an upper bound on its maximum length should be nearly equivalent to this here.
+
+[quote="zawy, post:2, topic:2899"]
+Allowing “negative solvetimes” can be thought of as allowing the DAA to see “negative work”, greatly lowering difficulty.
+[/quote]
+
+Timewarp rule 2 disallows negative period durations. It's a reasonable to assume that permitting time to go backward would mess things up, but this work shows that together with the two timewarp rules, that really only has a minor impact.
+
+A monotonic timestamp rule would mean an approximate bound of
+$$
+u(t,w) \approx \frac{t}{600} + 1397.385\log_2 w - 57830.9
+$$
+blocks rather than the BIP-54 bound of
+$$
+u(t,w) \approx \frac{t}{596.4285} + 1405.753\log_2 w - 58189.3
+$$
+
+So around a 0.6% difference in maximum chain length (pretty much exactly 7200s per two weeks).
+
+-------------------------
+
