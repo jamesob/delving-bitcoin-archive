@@ -1342,12 +1342,6 @@ I'm aware that is not practically different from the appearance of a malicious C
 
 -------------------------
 
-AntoineP | 2026-09-16 21:09:52 UTC | #31
-
-(post deleted by author)
-
--------------------------
-
 AntoineP | 2026-09-16 21:36:06 UTC | #32
 
 I understand the appeal of killing two birds with one stone if we are introducing a new output type, but i agree with Pieter that P2TRv2 and CISA pull in opposite directions. Not only in terms of features, but also in terms of expectations. I don't think CRQC-skeptic CISA enthusiasts would accept an expectation that their EC spending path becomes unspendable before CRQCs materialize. If so, this would at best lead to them not adopting it, and at worst would undermine the expectation of an EC disabling.

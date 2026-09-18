@@ -18,3 +18,11 @@ One addition that could help nontechnical readers is a short comparison of what 
 
 -------------------------
 
+PraneethG | 2026-09-17 21:49:57 UTC | #3
+
+This is interesting work comparing Möser Eyal Sirer type vaults. I've done some similar academic work around them, with measurements and some vulnerabilities in the different constructions of these vaults. Would love to get some feedback.
+
+https://research.praneethg.xyz/
+
+-------------------------
+

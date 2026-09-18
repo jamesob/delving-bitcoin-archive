@@ -465,3 +465,9 @@ Thanks to @AntoineP for the idea to look into this problem, and reviewing the te
 
 -------------------------
 
+zawy | 2026-09-17 23:48:50 UTC | #2
+
+Replacing the two rules with a monotonic timestamp requirement should be a lot easier to prove, safer, and removes the need to use or be aware of MTP.
+
+-------------------------
+
