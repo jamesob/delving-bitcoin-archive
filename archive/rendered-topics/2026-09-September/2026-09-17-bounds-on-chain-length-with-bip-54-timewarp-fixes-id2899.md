@@ -465,9 +465,13 @@ Thanks to @AntoineP for the idea to look into this problem, and reviewing the te
 
 -------------------------
 
-zawy | 2026-09-17 23:48:50 UTC | #2
+zawy | 2026-09-18 00:38:39 UTC | #2
 
 Replacing the two rules with a monotonic timestamp requirement should be a lot easier to prove, safer, and removes the need to use or be aware of MTP.
+
+Allowing "negative solvetimes" can be thought of as allowing the DAA to see "negative work", greatly lowering difficulty. 
+
+A different way to view it is if a consensus mechanism needs to progress from one state to the next, it needs causality which needs ordering. The height isn't sufficient. We only use it as a label. The proof of work (DAA) looks at the timestamps to keep the consensus ordering correct. Allowing negative work messes it up.
 
 -------------------------
 
