@@ -164,3 +164,13 @@ I'll submit it as Informational once that's up. Thanks for the pointer.
 
 -------------------------
 
+duncan0k | 2026-09-18 10:38:45 UTC | #11
+
+@murch Submitted as Informational: https://github.com/bitcoin/bips/pull/2294
+
+The file is at v0.5.1. Since v0.4.0: the first two levels are stated as BIP 360's long exposure and short exposure vulnerabilities per output, with that section cited as the source; P2MR is corrected from NOT_EXPOSED to EXPOSED_ON_SPEND; and the pre-activation case, where a witness v2 output is spendable by anyone, is noted as outside the classification. Reference implementation and 25 vectors are in the same repo as before.
+
+Whether it gets published depends on what people say on the PR, so if you have a view either way, that is where it counts.
+
+-------------------------
+
