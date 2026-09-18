@@ -475,7 +475,7 @@ A different way to view it is if a consensus mechanism needs to progress from on
 
 -------------------------
 
-sipa | 2026-09-18 01:28:12 UTC | #3
+sipa | 2026-09-18 14:31:45 UTC | #3
 
 [quote="zawy, post:2, topic:2899"]
 Replacing the two rules with a monotonic timestamp requirement should be a lot easier to prove
@@ -487,7 +487,7 @@ I don't think it matters. As far as the first/last timestamps of blocks are conc
 Allowing “negative solvetimes” can be thought of as allowing the DAA to see “negative work”, greatly lowering difficulty.
 [/quote]
 
-Timewarp rule 2 disallows negative period durations. It's a reasonable to assume that permitting time to go backward would mess things up, but this work shows that together with the two timewarp rules, that really only has a minor impact.
+Timewarp rule 2 disallows negative period durations. It would be reasonable to assume that permitting time to go backward messes things up, but this work shows that together with the two timewarp rules, that really only has a minor impact.
 
 A monotonic timestamp rule would mean an approximate bound of
 $$
