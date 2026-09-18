@@ -1431,3 +1431,118 @@ Yeah, these are reasonable points.
 
 -------------------------
 
+conduition | 2026-09-18 07:46:46 UTC | #36
+
+[quote="sipa, post:30, topic:2749"]
+Yes, in a vacuous sense, because it is so hard that it’ll be impossible to get most users to do it. You cannot expect people to stop reusing addresses, because it doesn’t fall within the purview of software that protocol designers and developers control. Address reuse is something humans do, and remains possible as long as addresses exist as shareable strings. Getting rid of that requires migrating to different approaches, like payment protocols.
+
+...
+
+Yes, it’s possible. But most users won’t, and not recognizing that is not responsible design.
+[/quote]
+
+I don't think it's possible to accurately predict what portion of users will or won't have exposed pubkeys on Q-day. You think "most users" will be exposed anyway; I think (with education and smart wallet design) the fraction exposed would be quite small. Neither of us can really prove our arguments on this axis of the debate. All we can say for sure is that P2MR would protect some unknown fraction of coins from long-exposure attacks.
+
+The question is, is that juice worth the squeeze? You think no, because you estimate the protected fraction will be low. I think yes, because I think the protected fraction will be high. Without evidence I'm not sure how we can resolve this question.
+
+[quote="sipa, post:30, topic:2749"]
+This isn’t a software problem; it requires workflow/social changes and reimagining how people use Bitcoin.
+[/quote]
+
+First, workflow/social changes will be needed either way. If Q-day happens, it'd be a complete paradigm shift in the world of cryptography. Drop-in replacements for existing workflows do not yet exist, so we can't afford to shy away from changing workflows.
+
+Second, this is a software problem. There are ways to do almost everything we'd need to, they'd just require some (reasonable) compromises. 
+
+Examples:
+
+- Wallets don't give out xpubs freely anymore, they only offer addresses. 
+- Wallets warn users about coins sitting on addresses whose EC keys are exposed.
+- QR codes can be animated to store more data. Cashu uses this technique today to transfer many kilobytes of proof data across a visual channel. Or a static QR code can encode a URI to load E2EE data blobs from an untrusted server.
+- Short-term multisigs can use musig/FROST as they do today, as long as the keys are retired before Q-day.
+- Long-term multisigs between untrusted parties can use hashed keys in script. E.g. `OP_DUP OP_SHA256 <H(pk_1)> OP_EQUALVERIFY OP_CHECKSIGVERIFY ... OP_DUP OP_SHA256 <H(pk_n)> OP_EQUALVERIFY OP_CHECKSIG`
+
+
+If one _really needs_ full EC functionality and is OK with accepting some short-term risk, they can expose their EC pubkeys to do whatever it is they need to do, as long as they move the coins to a fresh secure address before Q-day. But honestly in some cases like silent payments, it may be better to just abandon the feature due to [the unavoidable risks involved](https://conduition.io/cryptography/hndl-silent-payments/).
+
+And if devs or users screw any of this up, it's still not the end of the world, because the EC disabling fork may happen in time to save everyone. 
+
+[quote="sipa, post:30, topic:2749"]
+They’re certainly more complex, but they are very important use cases, used by large amounts of users. And in particular for hardware wallets, by users who are likely not keen to touch their coins.
+[/quote]
+
+i think PQ hardware wallet security under P2MR is completely doable. A bit harder than today yes, and with a slightly different thread model: If you are using a hardware wallet to spend via EC, you have to assume either (1) the host device is not controlled by a quantum adversary, or (2) the EC disable fork happens before the host device has a chance to collude with a quantum adversary. Still, completely surmountable, and better than P2TRv2.
+
+[quote="sipa, post:30, topic:2749"]
+I really don’t understand this. What is your goal? If you view P2TRv2 as insufficiently secure, why would you want anyone to use it, and worse, incentivize it with CISA? If you’re okay with the security of P2TRv2+CISA, then none of the worsened security arguments ought to apply, with or without CISA.
+[/quote]
+
+My goal is for Bitcoin and its users to survive Q-day with as little technical and economic damage as possible.
+
+I believe CISA's efficiency would significantly help move the needle on migration to a PQC-enabled address type, while also making the address type easier to argue in consensus by pleasing PQ bulls & bears simultaneously. I figured you guys would actually be all over CISA as it effectively provides a pre-written vehicle for P2TRv2 - just add PQC and a tripwire. Clearly i was wrong :joy:
+
+I don't necessarily view P2TRv2 as "insufficiently secure" as an absolute. I believe that the benefits of P2TRv2 compared to P2MR (drop-in compat, 8vb efficiency gain) are negligible compared to the existential risk of all the P2TRv2 coins being exposed on Q-day. CISA changed that calculus for me, by offering _way_ better classical efficiency, blowing P2MR out of the water, which gives a new political factor that neither P2TRv2 or P2MR has: **it can please PQ-skeptics**, which is the class of user i am most worried about, second only to offline users who will need rescue protocols to reclaim their coins.
+
+I'm by no means happy with encouraging migration to a PQ-unsafe address format. My stance is still that P2MR is the only truly post-quantum address format. P2MR would be needed too, to cover users with higher risk profiles like big institutions or HNWIs. But life is full of little compromises, and I figured this would be the perfect compromise in the interim to please all parties, as a first step on a larger migration path. Perhaps I was wrong.
+
+[quote="sipa, post:30, topic:2749"]
+(1) would be users who use P2TR or would be migrating there anyway the next few years, which I expect to be a substantial portion. In terms of users (but maybe not in terms of BTC), I think most are on software/providers (2) that aren’t particularly up to date (think exchanges, multi-coin wallets, …). And (3), don’t you think that many users would hesitate if they see a “migrate to PQC wallet? everything will become a bit more expensive once you do”?
+[/quote]
+
+Based on P2TR usage rates over time (in terms of either UTXO count, or BTC volume), it doesn't seem like (1) is very large. I don't know of a way to accurately predict what fraction of users are "migrating there anyway" so i can't speak to that.  
+
+Re (2): Yes I agree that most users are using outdated software, but my point is that the venn diagram overlap between "slow-moving outdated software" and "P2TR enabled software" is slim, and that slim minority is who P2TRv2 optimizes for. Even if the "P2TR" and "outdated walet" sets of UTXOs are independently large, their intersection isn't.
+
+I do believe that a fraction of users will refuse a migration, but not because of fees. Procrastinators are probably either (a) offline or don't update their software, and so never see any pop-up at all, or (b) quantum-skeptics who would refuse to migrate to P2TRv2 just as well as to P2MR, or (c) lazy/indifferent: The efficiency gap between P2MR and P2TRv2 is tiny compared to the absolute cost (tens of thousands of sats in some cases), privacy impact, and most of all _inconvenience_ of moving one's **entire UTXO stack** to a new fresh wallet. Of all the factors weighing on a user's mind, an 8vb/input fee to spend _after_ migration seems small potatoes. 
+
+Sidenote: the same argument applies to CISA as well: The savings from CISA may not easily outpace the economic or practical cost of migration. But CISA's savings compared to P2TRv2 or P2MR are are *much* larger even in absolute terms, and would recoup the up-front migration cost much quicker than plain P2TRv2 could.
+
+[quote="sipa, post:30, topic:2749"]
+Sorry, I meant no per-address derivation. The actual PQC key would obviously be derived from a hardware-generated or provided seed still.
+[/quote]
+
+:+1:
+
+
+[quote="sipa, post:30, topic:2749"]
+Because it requires workflow changes, not just software changes. Large amounts of keys cannot be reliably written on a piece of paper or a metal backup. They may not fit in a QR code. They may not fit on a tiny hardware screen for manual comparison. A push towards “bag of preshared keys” may work in some settings, but there will be many where it just won’t. You need to deal with those too.
+[/quote]
+
+
+Have you had a chance to read [my proposal for hash-based xpubs here](https://groups.google.com/g/bitcoindev/c/5tLKm8RsrZ0/m/WE-R3z85AAAJ)? 
+
+I think we may be picturing the same thing here in slightly different ways.
+
+[quote="sipa, post:30, topic:2749"]
+I don’t consider that acceptable. You’re proposing an output type that, barring a future consensus change, automatically becomes insecure.
+
+I’m aware that is not practically different from the appearance of a malicious CRQC prior to a tripwire triggering, but there it is an inevitability we’re already facing. Adding a guaranteed time-based one just in order to be able to get a neat upgrade hook seems like entirely the wrong trade-off to me.
+[/quote]
+
+An upgrade hook's deadline is *significantly* different from the Q-day tripwire situation. Q-day is unpredictable and requires proactive migration before it. An upgrade hook's deadline is fixed, certain, can be deferred at will, and requires no migration (provided the upgrade is completed or deferred in time).
+
+[quote="AntoineP, post:32, topic:2749"]
+I don’t think CRQC-skeptic CISA enthusiasts would accept an expectation that their EC spending path becomes unspendable before CRQCs materialize.
+[/quote]
+
+@fjahr is on the money here. I can and have used this argument against P2TRv2. If a user is skeptical of QC, why would she use P2TRv2 at all? Or P2MR? Both are strictly worse than existing formats, in a purely classical context. With CISA, at least some of these users have reason to migrate, and maybe some will even be foresighted enough to actually use a PQC leaf script.
+
+The only way to incentivize PQ skeptics to use PQC is to make PQC more scalable than ECC, which is why i opened [this thread](https://delvingbitcoin.org/t/block-wide-signature-aggregation-via-snarks/2875).
+
+[quote="AntoineP, post:32, topic:2749"]
+However, i am skeptical this scenario would result in a systemic risk, because P2TRv2 targets wallets / service providers different from those likely to adopt CISA. And those wallets / users likely to first adopt latest technologies like CISA are not the primary targets of the P2TRv2 strategy: they are paying attention to developments and are able to move more swiftly if/when CRQC risk increases.
+[/quote]
+
+Are you picturing CISA being deployed without PQC support? If P2TRv2 has PQC support via a new opcode or tapleaf version, CISA would inherit the same. 
+
+Or are you imagining CISA without an EC-disable expectation/tripwire? i think that is unlikely. Why would it be acceptable to deploy P2TRv2 with a tripwire, but not CISA? It seems a bit odd to me, to assume that because output type X is more "fancy" than output type Y, its users should have better adaptive security or agility and therefore don't require this critical safety belt that output type Y has, and then bake that perspective into consensus.
+
+[quote="AntoineP, post:32, topic:2749"]
+I think risk mitigation (P2TRv2 + Tripwire) and full migration (P2MR + eventual EC disabling + Witness style) should be provided in separate deployments. Most of the complexity is concentrated in the latter, which is also the least pressing. It can also be argued that the full migration path should only be made available once we have a higher degree of certainty that CRQCs will become a reality, while the risk mitigation should be provided regardless. We may also learn things from the deployment of P2TRv2, and a couple more years of development in PQ land, that could be applied to the later deployment of P2MR.
+[/quote]
+
+I think we all seem to agree on a rough shape for the migration plan (yay!): first step should be simple and designed for mitigating risk and not necessarily for long-term usability; Second step should be scalable and thorough and usable, possibly using more complex cryptography developed in the intervening period. We just disagree on the specifics of what should go into each stage of the migration. 
+
+I'm still partial to P2MR (and/or CISA) + tripwire with a rudimentary hash-based PQC spending path as the first stage. Second stage should be a new discount (aka "witness styles") and/or SNARKs, or sufficiently advanced and efficient native PQC.
+
+-------------------------
+
