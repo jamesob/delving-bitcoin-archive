@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 45,
-  "reads": 30,
-  "readers_count": 29,
-  "score": 261.0,
+  "incoming_link_count": 50,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 301.4,
   "yours": false,
   "topic_id": 2899,
   "topic_slug": "bounds-on-chain-length-with-bip-54-timewarp-fixes",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
