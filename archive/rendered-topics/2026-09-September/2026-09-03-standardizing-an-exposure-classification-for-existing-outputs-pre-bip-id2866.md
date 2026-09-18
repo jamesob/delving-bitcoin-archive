@@ -152,3 +152,15 @@ I still don’t see how “once a hash-based output script has been spent from, 
 
 -------------------------
 
+duncan0k | 2026-09-18 05:28:11 UTC | #10
+
+@murch Agreed on both. Neither rule is a discovery, and BIP 360's Long Exposure vs Short Exposure section already lays out the taxonomy. The draft should have cited it and didn't. Next revision maps onto those terms: EXPOSED_AT_REST is vulnerable to long exposure, EXPOSED_ON_SPEND only to short exposure.
+
+Rereading that section also turned up a mistake in the draft. It has P2MR as NOT_EXPOSED. BIP 360 only claims resistance to long exposure; a P2MR spend still puts the leaf key in the mempool, along with the leaf script and Merkle path, so it's the same race as P2WSH until post-quantum leaves exist. By the draft's own fail-closed rule that's EXPOSED_ON_SPEND, which leaves NOT_EXPOSED with no member today. Going into the same revision.
+
+What's left under BIP 360's footnote ("anytime their script reveals a public key") is the operational part, and that's the whole of what the draft adds: what counts as revealed (spent from, per script, across every UTXO paying it; m of n for multisig; a complete spend recipe for script trees), what to report when history is truncated, and vectors two tools can be checked against.
+
+I'll submit it as Informational once that's up. Thanks for the pointer.
+
+-------------------------
+
