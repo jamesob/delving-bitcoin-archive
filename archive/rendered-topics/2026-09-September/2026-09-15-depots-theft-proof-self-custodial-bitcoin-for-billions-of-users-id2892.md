@@ -1,6 +1,10 @@
 # Depots: Theft-Proof, Self-Custodial Bitcoin For Billions Of Users
 
-JohnLaw | 2026-09-15 20:43:11 UTC | #1
+JohnLaw | 2026-09-18 21:13:06 UTC | #1
+
+UPDATE: The initial post had formatting problems, apparently due to discord cut-and-paste size limits.
+
+A correctly formatted version is available as the 9th entry on this thread.
 
 ```
 TL;DR
@@ -1395,6 +1399,28 @@ The author would like to thank David Harding for bringing to the author’s atte
 \[Ultimatum\] “Ultimatum Game”, https://en.wikipedia.org/wiki/Ultimatum_game
 
 \[ZmnSC24\] ZmnSCPxj, “SuperScalar: Laddered Timeout-Tree-Structured Decker-Wattenhofer Factories With Pseudo-Spilman Leaves”, https://delvingbitcoin.org/t/superscalar-laddered-timeout-tree-structured-decker-wattenhofer-factories-with-pseudo-spilman-leaves/1242
+
+-------------------------
+
+JohnLaw | 2026-09-18 21:08:08 UTC | #10
+
+```
+I agree that it would be preferable if the rollover from one depot to another could be performed without any user action.
+I created a protocol for timeout trees that allows the operator to rollover funds from one timeout tree to another without user input.
+Unfortunately, no similar approach works for depots, as the user must provide a secret (namely the adaptor for the index signature that was used as a salt value, see Section 3.5 of the paper) to the operator in order to revoke a channel and drain from the depot.
+
+I included the requirement for active draining in the Limitations section (section 7) of the paper, where I also noted that the user can choose to drain quite early (e.g., 2.5 months before the depot's expiry) without stranding capital, as long as the user's allocation can be reallocated to another user who has greater availability and can tolerate a shorter window for draining.
+
+I like your idea of having the wallet software automate the rollover (in conjunction with the operator) prior to the depot's expiry (if the user has not done so).
+
+Regarding the information that the user has to maintain to keep their funds in a depot, the user has to store:
+* the identity of the depot (namely its Funding transaction),
+* the identity of the operator,
+* the depot's parameters that affect the user (e.g., griefing security parameters, to_self_delay, expiry, and the user's channel allocation),
+* for each active channel, the user's guess, the guess index, the index signature (used as a salt for the guess), the adaptor for the index signature, and the operator's guess signature, and
+* for each active channel, the latest Lightning channel state.
+
+```
 
 -------------------------
 
