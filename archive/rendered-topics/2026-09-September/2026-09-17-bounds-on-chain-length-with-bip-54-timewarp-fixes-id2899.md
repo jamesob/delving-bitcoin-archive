@@ -502,3 +502,58 @@ So around a 0.6% difference in maximum chain length (pretty much exactly 7200s p
 
 -------------------------
 
+zawy | 2026-09-19 16:30:42 UTC | #4
+
+[quote="sipa, post:1, topic:2899"]
+As of 2026-Sep-09 21:30 UTC, with $t = 557982895$ seconds after genesis, and a real chain at height 966,270 with total work $w = 2^{96.349377}$, this formula gives a limit of 1,012,794 blocks. ... the longest known chain is 1,007,326 blocks long, but it is not proven to be the longest.
+[/quote]
+
+I used ChatGPT to check this. I asked it to maximize the number of blocks given the above t and w and it got a limit that was 0.6% smaller, 1,005,984 blocks. The reason it's smaller is because I restricted the AI to an end point that falls on a full 2016 period which implies I could be up to 2,016 blocks less than the optimum. It showed that if the history of the chain was longer by ~830 blocks, it could get complete another period  of 2016 blocks to satisfy my prompt. The difference is 2016 - 830 + 1,005,984 = 1,007,170.  Going the other way, if the history were shorter, it would have been 1,170 + 1,005,984 = 1,007,154. So 1,007,160 seems about right, 166 blocks shy of PW's "longest known".
+
+I didn't attempt to adjust for nBits error, the 2016/2015 timespan error that increases difficulty too much, or the Erlang error that over-estimates work by 2016/2015. I believe these last two factors cause difficulty to be constantly set too high by (2016/2015)^2. It over-estimates the actual work that was performed by about 0.1%, giving me 1,006,161 based on actual work instead of chain work.
+
+The 7200 manipulation enabled 6% more "excess" blocks verses monotonic (76,000 instead of 72,000). 
+
+Simple solutions the AI found involved setting the timestamps the same to increase difficulty by about 7% every 2016 period until the last two periods where it set timespan to about 1/10, exploiting the 1/4 timespan limit. This was probably my motivation:  I wanted to see an outline of how optimal solutions worked.
+
+**The prompt:**
+
+Notation:
+
+- A, B, C ... = difficulty = hashes required for each 2016 period.
+- A = 1st period at genesis equal to number of hashes in that period
+- a, b, c ... = timespan for each of the above
+- t =  a period of time = 600 * 2016 scaled to 1. 
+- w = work = A+B+C ...
+- k = adjustment for cheating with the FTL at the end of each period.
+
+This was my prompt:
+
+> There are N+1 terms A, B, C .... The sum to the first N terms is w = 2^96.349. Let A = 2016 \* 2^32, B = A/(a \* k), C = B/(b \* k), D=C/(c \* k) ... where k = 2016 \* 600/(2016 \* 600 - 7200). The sum a+b+c+d+... to the Nth term is a constant t = 461.295 [clarification this periods since genesis = t / 2016 / 600 ]. If any of those divisors a \* k, b \* k, c \* k, d \* k, ... are < 0.25 then use 0.25 in the divisors. If one is >4, then the divisor is 4. The a, b, c ... values are greater than 0. The B, C, D, ... terms cannot be less than A. Select a, b, c, d ... to maximize N. After finding the solution, check to see if anda solution just as good can use a = b = c .... to N-2 as a constant and a little smaller than 1 and the last two terms a lot closer to zero.
+
+https://chatgpt.com/share/6aaeaf4a-f984-83ea-8068-e0415ec4d0bf
+
+-------------------------
+
+sipa | 2026-09-19 17:26:02 UTC | #5
+
+That sounds correct. My longest known chain for the example $t, w$ was found by Claude Fable 5.1, and seems to agree with your solution (while also satisfying the exact consensus rules including `nBits` rounding). If I ask it to restrict to $m=2016$ (complete periods only), it also finds 1,005,984 blocks (499 periods). Interestingly, they are exactly the same as the any-$m$ longest, with the tail cut off.
+
+[Here](https://bitcoin.sipa.be/longest_chain_periods.csv) is a CSV with the full period data. It consists of ~460 periods around 13 days each, then increasingly shorter periods down to 10 days at period 496, two period with net duration 0, and then a tail period of 1342 blocks all with the minimum timestamp.
+
+Absent integer / rounding effects, you can show that an optimal chain will have periods of monotonically decreasing length (because a longer period followed by a shorter period can be swapped, resulting in less total work), which can be seen in this solution.
+
+The inverse gamma distribution effect that causes difficulty to be off by a factor 2016/2014 (rather than the 2016/2015 that would be expected due to the off-by-one in difficulty adjustment) does not apply here. That is an effect that honest miners are subject to who use real timestamps for blocks. An adversary that can choose timestamps freely is not bound by probabilistic effects like these, they make their own luck.
+
+-------------------------
+
+zawy | 2026-09-19 18:46:00 UTC | #6
+
+Maybe I have it backwards: the actual work performed on the chain is w' = 2016 / 2014 times the shown chain work w.  So if we want to know the max number of blocks based on the actual work w', we need to use w' = w * 2016 / 2014 ?
+
+Using w' and setting 499 periods as a constant and minimizing t gives only 1.9 blocks more for w' than w.
+
+It appears the solutions are using the timespan limit in the last 3 timestamps to profit. It says there are no solutions as good if it doesn't let timespan go less than 0.25, so there seems to be a hack on it. The gain from doing it is 932 blocks. Setting every timespan the same costs 4,669 blocks (optimal was 7.12% increase per period).
+
+-------------------------
+
