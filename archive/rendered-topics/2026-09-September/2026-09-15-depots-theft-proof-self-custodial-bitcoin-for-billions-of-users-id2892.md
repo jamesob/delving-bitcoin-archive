@@ -1424,3 +1424,9 @@ Regarding the information that the user has to maintain to keep their funds in a
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-19 13:17:05 UTC | #11
+
+Thanks, that helps. It sounds like a normal seed phrase alone would not be enough to recover everything, because the depot and channel information changes over time. Would this require an automatic encrypted backup that stays current? Making that recovery requirement clear seems important for ordinary users.
+
+-------------------------
+
