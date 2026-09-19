@@ -547,7 +547,7 @@ The inverse gamma distribution effect that causes difficulty to be off by a fact
 
 -------------------------
 
-zawy | 2026-09-19 20:44:27 UTC | #6
+zawy | 2026-09-19 20:45:21 UTC | #6
 
 It appears the solutions are using the timespan limit in the last 3 timestamps to profit. It says there are no solutions as good if it doesn't let timespan go less than 0.25, so there seems to be a hack on it. The gain from doing it is 932 blocks. Setting every timespan the same costs 4,669 blocks (optimal was 7.12% increase per period).
 
