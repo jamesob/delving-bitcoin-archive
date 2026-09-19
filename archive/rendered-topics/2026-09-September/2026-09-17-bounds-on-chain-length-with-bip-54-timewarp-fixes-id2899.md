@@ -547,11 +547,7 @@ The inverse gamma distribution effect that causes difficulty to be off by a fact
 
 -------------------------
 
-zawy | 2026-09-19 18:46:00 UTC | #6
-
-Maybe I have it backwards: the actual work performed on the chain is w' = 2016 / 2014 times the shown chain work w.  So if we want to know the max number of blocks based on the actual work w', we need to use w' = w * 2016 / 2014 ?
-
-Using w' and setting 499 periods as a constant and minimizing t gives only 1.9 blocks more for w' than w.
+zawy | 2026-09-19 20:44:27 UTC | #6
 
 It appears the solutions are using the timespan limit in the last 3 timestamps to profit. It says there are no solutions as good if it doesn't let timespan go less than 0.25, so there seems to be a hack on it. The gain from doing it is 932 blocks. Setting every timespan the same costs 4,669 blocks (optimal was 7.12% increase per period).
 
