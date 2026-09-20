@@ -595,3 +595,30 @@ But by 2024 the P2P changes needed for that hadn't been worked on, and we [neede
 
 -------------------------
 
+zawy | 2026-09-20 14:45:43 UTC | #13
+
+It's nice that working to stop an attack requiring >50% hashrate (i.e. something of dubious utility except on testnet) could result in something important to daily protection. Same thing with monotonicity: side benefits would pop up.
+
+I had an error in checking it for the 7200 hack. 499 periods can be found in 460.50455756 periods of real time for the 2^96.349377 work. That's 77,607 extra blocks, 8.36% extra. 460.504 periods is less than the 461.295 periods in the example, so the following result is a slight under-estimate. Add those 77,607 extra blocks to 461.295 periods of real time = 1,007,571 blocks. 
+
+I asked ChatGPT to develop a formula like u(t,w), but I asked it backwards, to find t(u,w).  The result is very nice with **only 0.029% error too low** for the above example.
+
+Given that an attacker can find U periods of blocks with w hashes, what real time T periods does he need to do it?
+\[
+T_{\min}(w,U)\approx
+U\left[
+\left(\frac{w_0}{w}\right)^{1/U} - \frac{7200}{2016 * 600}
+\right]
+\]
+ $w_0$ is the hashes required for the genesis period, 2016 * 2^32. Maybe this equation is just the result of setting all the timespans to the same value.
+
+The prompt:
+
+> There are N+1 terms A, B, C .... The sum to the first N terms is w = 2^96.349377. Let A = 2016 \* 2^32, B = A/a, C = B/b, D=C/c .... The sum a+b+c+d+... to the Nth term is t+N \* 7200/600/2016 [edit: real time t is shorter than sum of timespans which can be +7200 more per block from the cheat]. If any of those divisors a, b, c, d ... are < 0.25 then use 0.25 in the divisors. If one is >4, then the divisor is 4. The a, b, c ... values are >= 1/2015. The B, C, D ... values are > A. Let N=499. Select a, b, c, d ... to minimize t.
+
+**[The Output](https://chatgpt.com/share/6aafd71e-bc64-83ea-95a3-1366927e026f)**
+
+We mentioned it previously, but it's annoying (if not concerning) that the 7200 allowance enables difficulty to be constantly lowered 0.6% in every epoch without advancing time, or holding time back by 0.6% without difficulty increasing, or doing a combination of lowering difficulty * time = 0.6%.  It is only assisting in getting more blocks in this situation because increasing difficulty by 5% has a much larger effect..
+
+-------------------------
+
