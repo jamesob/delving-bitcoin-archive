@@ -628,3 +628,9 @@ I said the 7200 couldn't cheat enough to get unlimited blocks because 7200 / 201
 
 -------------------------
 
+sipa | 2026-09-20 15:24:40 UTC | #15
+
+The formula presented in my document, if correct, guarantees that infinite blocks in finite time are impossible. Do you disagree with that conclusion, or are you talking about something else?
+
+-------------------------
+
