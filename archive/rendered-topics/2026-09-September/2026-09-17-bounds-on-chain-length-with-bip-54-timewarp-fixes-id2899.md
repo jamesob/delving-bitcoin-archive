@@ -581,3 +581,9 @@ Even more practically, the motivation for investigating this was how the adoptio
 
 -------------------------
 
+zawy | 2026-09-20 00:35:03 UTC | #11
+
+It seems like you could weed out a lot of DoS by requiring the lowest-target blocks first.
+
+-------------------------
+
