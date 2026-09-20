@@ -587,11 +587,11 @@ It seems like you could weed out a lot of DoS by requiring the lowest-hash block
 
 -------------------------
 
-sipa | 2026-09-20 00:47:43 UTC | #12
+sipa | 2026-09-20 00:48:17 UTC | #12
 
 Absolutely, that was suggested as far back as [2012](https://en.bitcoin.it/wiki/User:Gmaxwell/Reverse_header-fetching_sync) even.
 
-But by 2024 the P2P changes needed for that hadn't been worked on, and we [needed](https://bitcoincore.org/en/2024/09/18/disclose-headers-oom/) a solution fairly urgently, as headers-spam attacks had become fairly cheap. The presync idea solved it completely, without any needing any P2P protocol changes or waiting for deployments, at the cost of downloading headers twice (a miniscule amount of data compared to the full blockchain).
+But by 2024 the P2P changes needed for that hadn't been worked on, and we [needed](https://bitcoincore.org/en/2024/09/18/disclose-headers-oom/) a solution fairly urgently, as headers-spam attacks had become fairly cheap. The presync idea solved it completely, without needing any P2P protocol changes or waiting for deployments, at the cost of downloading headers twice (a miniscule amount of data compared to the full blockchain).
 
 -------------------------
 
