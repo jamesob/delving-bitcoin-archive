@@ -553,9 +553,9 @@ It appears the solutions are using the timespan limit in the last 3 timestamps t
 
 -------------------------
 
-zawy | 2026-09-19 20:52:39 UTC | #7
+zawy | 2026-09-20 00:01:48 UTC | #7
 
-With honest work w we read from the chain we know the actual work is w' = 2016 / 2014 * w, so we use w' in the equation (which give 1.9 more blocks than w), but not in other places that start with an accurate w.
+With honest work w we read from the chain we know the actual work is w' = 2016 / 2014 * w, so we use w' in the equation (which give 1.9 more blocks than w), but not in other places that start with an accurate w.  [edit: think i should have said 2014 / 2016 instead of 2016 / 2014 ]
 
 -------------------------
 
