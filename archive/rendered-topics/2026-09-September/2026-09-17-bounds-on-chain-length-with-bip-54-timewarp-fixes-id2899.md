@@ -634,3 +634,9 @@ The formula presented in my document, if correct, guarantees that infinite block
 
 -------------------------
 
+zawy | 2026-09-20 15:27:10 UTC | #16
+
+I am saying if the geometric mean of chain work increase is less than 7200 / 600 / 2016 then the conclusion is wrong.
+
+-------------------------
+
