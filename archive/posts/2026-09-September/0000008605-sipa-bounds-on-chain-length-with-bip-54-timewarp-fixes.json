@@ -7,7 +7,7 @@
   "cooked": "<p>Absolutely, that was suggested as far back as <a href=\"https://en.bitcoin.it/wiki/User:Gmaxwell/Reverse_header-fetching_sync\">2012</a> even.</p>\n<p>But by 2024 the P2P changes needed for that hadn\u2019t been worked on, and we <a href=\"https://bitcoincore.org/en/2024/09/18/disclose-headers-oom/\">needed</a> a solution fairly urgently, as headers-spam attacks had become fairly cheap. The presync idea solved it completely, without needing any P2P protocol changes or waiting for deployments, at the cost of downloading headers twice (a miniscule amount of data compared to the full blockchain).</p>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 13,
+  "posts_count": 14,
   "updated_at": "2026-09-20T00:48:17.513Z",
   "reply_count": 1,
   "reply_to_post_number": 11,

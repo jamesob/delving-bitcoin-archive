@@ -622,9 +622,9 @@ We mentioned it previously, but it's annoying (if not concerning) that the 7200 
 
 -------------------------
 
-zawy | 2026-09-20 15:20:47 UTC | #14
+zawy | 2026-09-20 15:21:17 UTC | #14
 
-I said the 7200 couldn't cheat enough to get unlimited blocks because 7200 / 2016 / 600 is too small at only 0.6%. From the T(w,U) equation it looks like a lower w and higher U can result in a negative T which means unlimited blocks in finite time. I may have mentioned this two years ago, but it was dismissed as not something the chain wasn't going to exhibit anytime soon.
+I said the 7200 couldn't cheat enough to get unlimited blocks because 7200 / 2016 / 600 is too small at only 0.6%. From the T(w,U) equation it looks like a lower w and higher U can result in a negative T which means unlimited blocks in finite time. I may have mentioned this two years ago, but it was dismissed as not something the chain was going to exhibit anytime soon.
 
 -------------------------
 
