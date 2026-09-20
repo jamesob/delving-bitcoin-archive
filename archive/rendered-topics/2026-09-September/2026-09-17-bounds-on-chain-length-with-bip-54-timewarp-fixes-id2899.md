@@ -634,9 +634,9 @@ The formula presented in my document, if correct, guarantees that infinite block
 
 -------------------------
 
-zawy | 2026-09-20 15:27:10 UTC | #16
+zawy | 2026-09-20 15:28:14 UTC | #16
 
-I am saying if the geometric mean of chain work increase is less than 7200 / 600 / 2016 then the conclusion is wrong.
+I am saying if the geometric mean (based on U periods) of total the chain work increase over genesis is less than 7200 / 600 / 2016  (= 0.6% per period) then the conclusion is wrong.
 
 -------------------------
 
