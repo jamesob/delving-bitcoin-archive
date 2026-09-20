@@ -640,3 +640,14 @@ I am saying if the geometric mean (based on U periods) of total the chain work i
 
 -------------------------
 
+sipa | 2026-09-20 15:32:32 UTC | #17
+
+The Lean proof covers all cases where:
+* There is at least one block
+* $t \geq 0$ and no blocks have a timestamp more than $t + 7200$ seconds after genesis
+* The work bound $w \leq 2^{208}$, and the total amount of work, as computed by $\lfloor 2^{256} / (\text{target} + 1) \rfloor$, with consensus-accurate difficulty adjustment does not exceed $w$.
+
+Are you claiming something about conditions outside of this, or that there is a bug in the statement being proven, or that there is a bug in Lean?
+
+-------------------------
+
