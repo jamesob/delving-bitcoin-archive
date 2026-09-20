@@ -559,3 +559,25 @@ With honest work w we read from the chain we know the actual work is w' = 2016 /
 
 -------------------------
 
+sipa | 2026-09-19 21:17:16 UTC | #8
+
+If you want to use a correction factor like that, it should be 2016/2015, not 2016/2014. The latter is only relevant for honest miners that set timestamps to real time (causing periods to have an Erlang distribution). Attackers are not subject to that probability distribution, they can choose their timestamps strategically.
+
+-------------------------
+
+zawy | 2026-09-19 21:42:00 UTC | #9
+
+Yes, I understood that. What I'm saying is that you read w from the existing bitcoin blockchain in this particular example I quoted. I believe the chain used mostly honest timestamps and has not had any correction to w that we see as the total chain work. So you can't use that particular w for modelling or the boundary equation to say "an attacker with this w can get u blocks in time t" because it's not the true w that the blockchain had. The attacker should get the same w' that the honest miners got when we compare them.
+
+-------------------------
+
+sipa | 2026-09-19 21:48:15 UTC | #10
+
+Ah, I see what you mean now. I believe that's not the case, at least for my use case / inspiration for this problem.
+
+$w$, as read from the chain by summing real blocks' $\lfloor 2^{256} / (\text{target}+1)\rfloor$, is (a good approximation of) the actual work performed by miners. The fact that difficulty adjustments are slightly biased isn't relevant here. The difficulties are lower than "intended" perhaps, but the amount of work performed was also lower, per block, and compensated for by creating more blocks. An attacker creating their chain also needs to perform work (very close to) their chain's cumulative work, computed by the same formula. Thus, comparing the attacker's total chain work to the honest chain's total chain work is fair.
+
+Even more practically, the motivation for investigating this was how the adoption of BIP-54 (if deployed, activated, and eventually buried) would affect the [headers presync](https://bitcoin.stackexchange.com/a/121235/208) DoS protection logic. In that context, we have a `minchainwork` variable, which is the larger of a hardcoded value in the software ("we know a chain with at least this much work exists") and the best known chain's total chainwork so far. The DoS protection is intended to prevent downloading and filling disk with low-difficulty spam headers that never amount to a full chain. If a peer can provide a chain that meets `minchainwork`, they're not an attacker, because they have a legitimate PoW-rich chain we are interested in. Thus, attackers are limited to chains with work $\leq w = \text{minchainwork}$, and to abide by our time rules (timestamps $< t$), and we would like to bound how large such chains can get. Right now, that logic assumes $6 t$ because that's what's possible with the MTP rule. With the BIP-54 timewarp fix rules in place, and I was curious in knowing how much. It turns out the answer is drastically, and the maximum chain length would become just a bit longer than the actual chain.
+
+-------------------------
+
