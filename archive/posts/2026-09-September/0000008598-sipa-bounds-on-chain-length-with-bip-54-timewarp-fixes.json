@@ -7,7 +7,7 @@
   "cooked": "<p>That sounds correct. My longest known chain for the example <span class=\"math\">t, w</span> was found by Claude Fable 5.1, and seems to agree with your solution (while also satisfying the exact consensus rules including <code>nBits</code> rounding). If I ask it to restrict to <span class=\"math\">m=2016</span> (complete periods only), it also finds 1,005,984 blocks (499 periods). Interestingly, they are exactly the same as the any-<span class=\"math\">m</span> longest, with the tail cut off.</p>\n<p><a href=\"https://bitcoin.sipa.be/longest_chain_periods.csv\">Here</a> is a CSV with the full period data. It consists of ~460 periods around 13 days each, then increasingly shorter periods down to 10 days at period 496, two period with net duration 0, and then a tail period of 1342 blocks all with the minimum timestamp.</p>\n<p>Absent integer / rounding effects, you can show that an optimal chain will have periods of monotonically decreasing length (because a longer period followed by a shorter period can be swapped, resulting in less total work), which can be seen in this solution.</p>\n<p>The inverse gamma distribution effect that causes difficulty to be off by a factor 2016/2014 (rather than the 2016/2015 that would be expected due to the off-by-one in difficulty adjustment) does not apply here. That is an effect that honest miners are subject to who use real timestamps for blocks. An adversary that can choose timestamps freely is not bound by probabilistic effects like these, they make their own luck.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 10,
+  "posts_count": 11,
   "updated_at": "2026-09-19T17:26:02.000Z",
   "reply_count": 1,
   "reply_to_post_number": null,
