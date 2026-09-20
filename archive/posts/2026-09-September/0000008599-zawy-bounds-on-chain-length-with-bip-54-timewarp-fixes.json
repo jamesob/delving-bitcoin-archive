@@ -7,7 +7,7 @@
   "cooked": "<p>It appears the solutions are using the timespan limit in the last 3 timestamps to profit. It says there are no solutions as good if it doesn\u2019t let timespan go less than 0.25, so there seems to be a hack on it. The gain from doing it is 932 blocks. Setting every timespan the same costs 4,669 blocks (optimal was 7.12% increase per period).</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2026-09-19T20:45:21.508Z",
   "reply_count": 0,
   "reply_to_post_number": 5,

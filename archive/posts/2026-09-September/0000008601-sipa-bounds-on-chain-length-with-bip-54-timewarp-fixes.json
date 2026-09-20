@@ -7,7 +7,7 @@
   "cooked": "<p>If you want to use a correction factor like that, it should be 2016/2015, not 2016/2014. The latter is only relevant for honest miners that set timestamps to real time (causing periods to have an Erlang distribution). Attackers are not subject to that probability distribution, they can choose their timestamps strategically.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2026-09-19T21:17:16.596Z",
   "reply_count": 1,
   "reply_to_post_number": 7,
