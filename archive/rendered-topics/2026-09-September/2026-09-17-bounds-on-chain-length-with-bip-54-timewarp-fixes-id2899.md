@@ -465,9 +465,9 @@ Thanks to @AntoineP for the idea to look into this problem, and reviewing the te
 
 -------------------------
 
-zawy | 2026-09-18 00:38:39 UTC | #2
+zawy | 2026-09-21 16:59:05 UTC | #2
 
-Replacing the two rules with a monotonic timestamp requirement should be a lot easier to prove, safer, and removes the need to use or be aware of MTP.
+Replacing the two rules with a monotonic timestamp requirement should be a lot easier to prove, safer, and removes the need to use or be aware of MTP. [edit: this statement was wrong] 
 
 Allowing "negative solvetimes" can be thought of as allowing the DAA to see "negative work", greatly lowering difficulty. 
 
@@ -657,38 +657,38 @@ I believe I was mistaken and confused.
 
 -------------------------
 
-zawy | 2026-09-21 14:42:59 UTC | #19
+zawy | 2026-09-21 19:11:29 UTC | #19
 
-Correction: the 1st equation is too optimistic ( $T_{min}$ ) for small w and small U.
+I haven't replied because I have trouble understanding your posts and they will take me a long time to digest.  You might seen my discussion with PW on delving bitcoin and something relevant to your needs came up: 
 
-The equation, without FTL or timespan limit cheats, can be used in any DAA to determine minimum time T it takes to get U blocks if the attacker does a private attack with work $w$ in T. It's less accurate for small w/T and small U.
-\[
-T_{\min}(w,U)\approx
-U\left[
-\left(\frac{w_0}{w}\right)^{1/U}
-\right]
-\]
+This equation can be used in any DAA to determine minimum time T it takes to get U blocks with work $w$ in T over and above the public chain's work $w_0$ in T.  This equation is only valid for large $w/w_{0}$
 
-- $U$ is the number of blocks he'll get in units of "effective averaging windows" for the DAA.
-- $T_{min}$ is the time it will take him in units of the averaging window. 
-- $w / w_0$ is work in done in T
+$T_{\min}(w,U) \approx U\left[ \left(\frac{w_0}{w}\right)^{1/U} \right] $
+
+- $U$ is the number of blocks he'll get in units of "effective averaging windows" for the DAA. In BTC, U = 2 for 2 * 2016 blocks.
+- $T_{min}$ is the time it will take him in units of the averaging window.   In BTC, T = 2 for 2 * 2016 * 600 seconds.
+- $w / w_0$ is attacker's ratio of work in done in T (aka hashrate) over the public chain's work done in the first averaging period. 
+
+(continued in next comment)
 
 -------------------------
 
-zawy | 2026-09-21 14:54:17 UTC | #20
+zawy | 2026-09-21 19:08:55 UTC | #20
 
+I want to use the equation above in the context of an attacker doing a private more to get more blocks than he should. Honest chain with $w_{0} hashes in the first averaging window of T windows. If difficulty doesn't change $w = w_{0} * T$.  Time in seconds is t = T * [difficulty averaging window timeframe]. For ASERT's half-life of 288 * 600, the "mean lifetime" is 288/ln(2) = 514 * 600.  One T in ASERT or EMA is therefore 2 * 512 * 600 seconds. For SMA and Bitcoin, it's just the number of blocks in the window times the block time.  For other DAA's there's an "effective window" adjustment factor. 
 
-This describes an attack on DAAs using what we've described and a proposed solution. This doesn't include the extra gains from timespan limits or the 7200.
+Let attacker have X more hashrate than network so that $w/w_0 = X * T$.  There's a way to assign timestamps to get the max number of blocks (U) in the least T due to the DAA not being able to keep up and thereby getting U > T.
 
-Let w = T which is the case if hashrate doesn't change and honest timestamps are used (initial difficulty $w_{0}$ doesn't change). I'll scale w to be "1 hash" in 1 "difficulty averaging window timeframe" (1 T). Honest chain has w hashes T * [difficulty averaging window timeframe]. For ASERT's half-life of 288 * 600, the "mean lifetime" is 288/ln(2) = 514 * 600.  One T in ASERT or EMA is therefore 2 * 512 * 600 seconds. For SMA and Bitcoin, it's just the number of blocks in the window times the block time.  For other DAA's there's an "effective window" adjustment factor. 
+The timestamps (how fast the attacker claims he solved each of the U difficulty windows) matter a lot for smaller X and smaller U.  The equation is terrible for small X and N. These are the actual results:
 
-Let attacker have X more hashrate than network so that $w/w_0 = X * T$. This makes w a function of T which removes most of the small w and small U error that the equation above has, so we can use the that equation. There's a way to recursively use the equation to get the timestamps to minimize T. The result is that attacker X can reduce the T necessary to find U blocks by increasing X or U according to this formula:
+![image|690x217](upload://48S2PE9Zh6jQ2e5wByggspP8C8y.png)
 
-$T_{min}(X,U) \approx U - \frac{U}{U+1} * \ln(XU)$
+So T > U but not by much due to the DAA not keeping up.
 
-This is how well the attacker can get ahead of the DAA if he chooses the optimal timestamps which slowly increase the difficulty (undisclosed recursive formula). The timestamps (how fast the attacker claims he solved each of the U difficulty windows) matter a lot for smaller X and smaller U. For X=1 and U=10, T can be 8 verses (2-windows worth of gains) to no gain for equal timespans.
+For small X and U, T can be calculated with some difficulty: (N = U)
 
-It's natural to try to solve for U to the blocks can he get with T time of work, but that results in needing to use the Lambert function.  
+![image|653x499](upload://taSHbusE6MWmFXhXJqrlcmnr4R2.png)
+
 
 A fix for this kind of attack (and the more common simple "hit and run" mining) was [recently proposed](https://github.com/zawy12/difficulty-algorithms/issues/89). In short, the rewards are distributed once per week, divided equally between the blocks that were found during the week.  So if too many were found, rewards are less. This makes a lot of sense if miners are paid to "competitively advance the chain in time" instead of for "competitively hashing".
 

@@ -13,9 +13,9 @@
   "reply_to_post_number": 16,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 23.4,
   "yours": false,
   "topic_id": 2899,
   "topic_slug": "bounds-on-chain-length-with-bip-54-timewarp-fixes",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "The Lean proof covers all cases where:\n* There is at least one block\n* $t \\geq 0$ and no blocks have a timestamp more than $t + 7200$ seconds after genesis\n* The work bound $w \\leq 2^{208}$, and the total amount of work, as computed by $\\lfloor 2^{256} / (\\text{target} + 1) \\rfloor$, with consensus-accurate difficulty adjustment does not exceed $w$.\n\nAre you claiming something about conditions outside of this, or that there is a bug in the statement being proven, or that there is a bug in Lean?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "The Lean proof covers all cases where: \n\nThere is at least one block\nt \\geq 0 and no blocks have a timestamp more than t + 7200 seconds after genesis\nThe work bound w \\leq 2^{208}, and the total amount of work, as computed by \\lfloor 2^{256} / (\\text{target} + 1) \\rfloor, with consensus-accurate dif&hellip;",
   "truncated": true,
   "post_url": "/t/bounds-on-chain-length-with-bip-54-timewarp-fixes/2899/17",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

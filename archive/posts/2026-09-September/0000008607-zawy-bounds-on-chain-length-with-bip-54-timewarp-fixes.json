@@ -13,9 +13,9 @@
   "reply_to_post_number": 13,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 23.4,
   "yours": false,
   "topic_id": 2899,
   "topic_slug": "bounds-on-chain-length-with-bip-54-timewarp-fixes",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I said the 7200 couldn't cheat enough to get unlimited blocks because 7200 / 2016 / 600 is too small at only 0.6%. From the T(w,U) equation it looks like a lower w and higher U can result in a negative T which means unlimited blocks in finite time. I may have mentioned this two years ago, but it was dismissed as not something the chain was going to exhibit anytime soon. The geometric mean of the w / w_0 increase over periods would have to be less than 0.6%.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "I said the 7200 couldn\u2019t cheat enough to get unlimited blocks because 7200 / 2016 / 600 is too small at only 0.6%. From the T(w,U) equation it looks like a lower w and higher U can result in a negative T which means unlimited blocks in finite time. I may have mentioned this two years ago, but it was&hellip;",
   "truncated": true,
   "post_url": "/t/bounds-on-chain-length-with-bip-54-timewarp-fixes/2899/14",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
