@@ -657,3 +657,21 @@ I believe I was mistaken and confused.
 
 -------------------------
 
+zawy | 2026-09-20 21:44:39 UTC | #19
+
+The equation above without the 7200 cheat can be used in any DAA to determine minimum time T it takes to get U blocks if the attacker does a private attack with work $w$ in T (hashrate) over and above the public chain's work $w_0$ in T.  U 
+\[
+T_{\min}(w,U)\approx
+U\left[
+\left(\frac{w_0}{w}\right)^{1/U}
+\right]
+\]
+
+- $U$ is the number of blocks he'll get in units of "effective averaging windows" for the DAA.
+- $T_{min}$ is the time it will take him in units of the averaging window. 
+- $w / w_0$ is his ratio of work in done in T (aka hashrate) over the public chain
+
+The optimal set of timestamps might get him about 10% more blocks over honest timestamps. The DAA ramping slowly to deal with the increased hashrate is where most his gains come from.
+
+-------------------------
+

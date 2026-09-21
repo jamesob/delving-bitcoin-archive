@@ -7,7 +7,7 @@
   "cooked": "<p>Yes, I understood that. What I\u2019m saying is that you read w from the existing bitcoin blockchain in this particular example I quoted. I believe the chain used mostly honest timestamps and has not had any correction to w that we see as the total chain work. So you can\u2019t use that particular w for modelling or the boundary equation to say \u201can attacker with this w can get u blocks in time t\u201d because it\u2019s not the true w that the blockchain had. The attacker should get the same w\u2019 that the honest miners got when we compare them.</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 18,
+  "posts_count": 19,
   "updated_at": "2026-09-19T21:42:00.333Z",
   "reply_count": 1,
   "reply_to_post_number": 8,
