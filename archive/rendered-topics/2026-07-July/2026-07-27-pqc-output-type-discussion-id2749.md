@@ -1546,3 +1546,108 @@ I'm still partial to P2MR (and/or CISA) + tripwire with a rudimentary hash-based
 
 -------------------------
 
+sipa | 2026-09-21 20:00:53 UTC | #37
+
+[quote="conduition, post:36, topic:2749"]
+I think (with education and smart wallet design) the fraction exposed would be quite small.
+[/quote]
+
+It's a complicated argument to bring through education, and wallet design only has a small ability to influence behavior: never showing the same address twice (which has been a best practice since 2009...). Beyond that, it could prompt the user "only hand this address out to one party and tell them not to use it more than once!". But most users don't read, and even if they do it may backfire: people might refuse to upgrade "because those new addresses can't be used more than once", if the more nuanced point (that other/existing addresses are also subject to it) isn't made across. 
+
+Address reuse is entrenched, you need people to change behavior, and to do so, you need to provide a better workflow than the existing one (or make the existing one hard/impossible). You won't, and without it I think it is very naive to think that documentation and education will make a dent here. You can even barely affect design decisions wallet and infrastructure authors make.
+
+As for the bigger point of exposed fraction, address reuse is just one aspect. Any design that relies on sharing public keys or xpubs (with unhardened derivation) will need to change too. For some of those (but possibly a minority), that will be harder than changing address reuse practices even.
+
+And of course, this distinction between P2MR and P2TRv2 only matters in cases where users are actually capable of independently deciding when to stop using ECC spend paths at the right time. If they don't, there is no difference. You may say that their wallets can make that decision for them, but that's not particularly far from requiring ecosystem agreement (users might leave wallets that decide before "everyone else" does so), at which point ecosystem-scale disabling (lockdown, separate consensus change, or even tripwire if CRQC is cooperative) may also remove the distinction between them. And all of that is conditional on the whole system not imploding over CRQC FUD before then still.
+
+I think the distinction between the two (ignoring the possibility of a combination) is largely psychological. Perhaps that is on itself a good reason if it would affect adoption, I don't know.
+
+[quote="conduition, post:36, topic:2749"]
+Without evidence I’m not sure how we can resolve this question.
+[/quote]
+
+I believe my experience can be helpful here. But yes, ultimately we may need to agree to disagree.
+
+[quote="conduition, post:36, topic:2749"]
+Drop-in replacements for existing workflows do not yet exist, so we can’t afford to shy away from changing workflows.
+[/quote]
+
+I disagree. It's essential to minimize the need to change workflows, because that will hinder adoption even more than the technical changes themselves. That doesn't mean we shouldn't work on new more PQC-compatible ones, but you can't rely on changes happening prior to Q-day.
+
+There may be situations where significant changes are inevitable, but for almost all use cases I can think of, they're pretty small, as I pointed out earlier:
+
+[quote="sipa, post:22, topic:2749"]
+I imagine completely static per-wallet PQC keys, with no key derivation. Wallet descriptors move to store xpubs + static stateless PQC pubkeys or pubkey hashes (one per wallet/user/device), which is compatible with all of today’s use cases I can imagine.
+[/quote]
+
+Key reuse, sharing xpubs, compact descriptors, ... all remain fine (descriptors would store xpubs for ECC + static PQC keys). Software changes are needed, but users don't need to change anything about their ways of interacting with it and with each other. It relies on timely ECC disabling, but as you know, I believe in practice most things do anyway.
+
+[quote="conduition, post:36, topic:2749"]
+* Wallets don’t give out xpubs freely anymore, they only offer addresses.
+[/quote]
+
+How will you register a hardware wallet? Coordinate a multisig wallet? Those are the reasons for exposing xpubs. You need alternatives for these, and those require workflow changes. The user needs to do things differently; it's not simply a software change.
+
+[quote="conduition, post:36, topic:2749"]
+And if devs or users screw any of this up, it’s still not the end of the world, because the EC disabling fork may happen in time to save everyone.
+[/quote]
+
+Users and devs *will* screw this up, for all the reasons above and more. I think we're much better off not wasting time trying to get everyone to change their ways, only to end up still relying on ECC disabling anyway.
+
+This is perhaps the biggest vision difference between P2MR and P2TRv2 proponents. To me, we cannot rely on the ecosystem making the workflow changes needed for a security difference between the two to appear. We're better off designing things that are to the extent possible drop-in replacements instead, for everyone, including P2TR users and prospective ones, to avoid resistance in upgrading.
+
+[quote="conduition, post:36, topic:2749"]
+(1) the host device is not controlled by a quantum adversary,
+[/quote]
+
+I'm not sure about how valuable that is as a security model. If an adversarial CRQC exists, and an attacker that breaks into your software wallet, why wouldn't they conspire and split the gains? And if no adversarial CRQC exists, none of this matters, and if you don't worry about an attacker breaking into your software wallet, why are you using a hardware wallet / signing device?
+
+Of course, this may not be economical if the CRQC running costs are high per key. But this applies equally to setups without hardware wallet.
+
+[quote="conduition, post:36, topic:2749"]
+I figured you guys would actually be all over CISA as it effectively provides a pre-written vehicle for P2TRv2 - just add PQC and a tripwire. Clearly i was wrong :joy:
+[/quote]
+
+Yeah, I understand. My perspective is really that we need to minimize change, as we can't rely on economic incentives to matter in the short-to-medium term. They might, if persistent and significant mempool congestion reappears, but I don't think that's likely enough to rely on in the timeframe we need it.
+
+[quote="conduition, post:36, topic:2749"]
+I believe that the benefits of P2TRv2 compared to P2MR (drop-in compat, 8vb efficiency gain) are negligible compared to the existential risk of all the P2TRv2 coins being exposed on Q-day.
+[/quote]
+
+But is it negligible compared to *the difference* in existential risk from exposure between P2TRv2 and P2MR? To me these are nearly identical, so any reduction in friction in adoption is a gain.
+
+[quote="conduition, post:36, topic:2749"]
+easier to argue in consensus by pleasing PQ bulls & bears simultaneously
+[/quote]
+[quote="conduition, post:36, topic:2749"]
+which gives a new political factor that neither P2TRv2 or P2MR has: **it can please PQ-skeptics**, which is the class of user i am most worried about
+[/quote]
+
+I think the mixed messaging makes it worse in this respect. Is it an attempt at making PQC secure, then why is it adding an optimization that increases reliance on ECC? Is it an efficiency improvement that sneaks in a PQC upgrade, then aren't you worried about people using it without PQC path, undermining the planned ECC disabling plan?
+
+Also, and perhaps I haven't highlighted this enough before: I consider the focus on reducing byte size an artifact of the weight formula established by SegWit. This made sense in the past (i.e., with Taproot) as introducing new witnesses with new discounts would be a difficult upgrade (far harder than an initial P2MR or P2TRv2, probably even with CISA included). But in the longer term, I think a post-CRQC world will demand it anyway, and if we embrace that, most of the advantages of CISA (at least halfagg) can be had with just a better formula that accounts for batch validation costs. This makes it also less appealing to me to stack it in with P2TRv2.
+
+[quote="conduition, post:36, topic:2749"]
+My stance is still that P2MR is the only truly post-quantum address format.
+[/quote]
+
+I really wish you would stop saying that. It's unambiguously stronger in this regard, but it comes with so many conditions that's very misleading to think of it as "truly quantum-resistant": it needs users capable of deciding when CRQCs might exist, curated workflows that avoid exposing public keys, lack of address reuse, and even Bitcoin as a whole surviving for it all to make a difference.
+
+[quote="conduition, post:36, topic:2749"]
+Re (2): Yes I agree that most users are using outdated software, but my point is that the venn diagram overlap between “slow-moving outdated software” and “P2TR enabled software” is slim, and that slim minority is who P2TRv2 optimizes for. Even if the “P2TR” and “outdated walet” sets of UTXOs are independently large, their intersection isn’t.
+[/quote]
+
+You're right, and it's wrong for me to focus on the long tail of slow-moving software for this part of my argument. They matter of course, and I think the existing availability of tooling/libraries around P2TR probably makes P2TRv2 probably very slightly easier to adopt for them than P2MR. However, my "increasing fees may turn away users" argument does not apply to those who are are on pre-P2TR output types still.
+
+That said, the new output type(s) we are designing here is/are for *everyone*. Having (just) P2MR as PQC upgrade path is asking the ecosystem that adopted P2TR as a softfork, its users and prospective users, to choose between P2TR's advantages and PQC. I think that's a controversial choice.
+
+[quote="conduition, post:36, topic:2749"]
+Have you had a chance to read [my proposal for hash-based xpubs here](https://groups.google.com/g/bitcoindev/c/5tLKm8RsrZ0/m/WE-R3z85AAAJ)?
+
+I think we may be picturing the same thing here in slightly different ways.
+[/quote]
+
+I hadn't, but it looks similar in broad lines. I'm imagining having the PQC pubkey be added at the [output descriptor](https://github.com/bitcoin/bips/blob/master/bip-0380.mediawiki) level rather than the xpub, as it's composable (e.g. MuSig in the internal key across xpubs, and a recovery path with multisig over the PQC pubkeys), but for single-party cases it looks equivalent. So you'd have `trv2(XPUB/.../*,[shrincs(PQCKEY)])` instead of `tr(XPUB/.../*)` now.
+
+-------------------------
+
