@@ -657,11 +657,11 @@ I believe I was mistaken and confused.
 
 -------------------------
 
-zawy | 2026-09-21 19:11:29 UTC | #19
+zawy | 2026-09-21 20:12:03 UTC | #19
 
 I haven't replied because I have trouble understanding your posts and they will take me a long time to digest.  You might seen my discussion with PW on delving bitcoin and something relevant to your needs came up: 
 
-This equation can be used in any DAA to determine minimum time T it takes to get U blocks with work $w$ in T over and above the public chain's work $w_0$ in T.  This equation is only valid for large $w/w_{0}$
+This equation can be <strike>used in any DAA</strike> to determine minimum time T it takes to get U blocks with work $w$ in T over and above the public chain's work $w_0$ in T.  This equation is only valid for large $w/w_{0}$
 
 $T_{\min}(w,U) \approx U\left[ \left(\frac{w_0}{w}\right)^{1/U} \right] $
 
