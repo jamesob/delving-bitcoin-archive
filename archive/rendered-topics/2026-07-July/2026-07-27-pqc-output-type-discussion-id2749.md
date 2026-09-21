@@ -1546,7 +1546,7 @@ I'm still partial to P2MR (and/or CISA) + tripwire with a rudimentary hash-based
 
 -------------------------
 
-sipa | 2026-09-21 20:00:53 UTC | #37
+sipa | 2026-09-21 20:05:58 UTC | #37
 
 [quote="conduition, post:36, topic:2749"]
 I think (with education and smart wallet design) the fraction exposed would be quite small.
@@ -1647,7 +1647,7 @@ Have you had a chance to read [my proposal for hash-based xpubs here](https://gr
 I think we may be picturing the same thing here in slightly different ways.
 [/quote]
 
-I hadn't, but it looks similar in broad lines. I'm imagining having the PQC pubkey be added at the [output descriptor](https://github.com/bitcoin/bips/blob/master/bip-0380.mediawiki) level rather than the xpub, as it's composable (e.g. MuSig in the internal key across xpubs, and a recovery path with multisig over the PQC pubkeys), but for single-party cases it looks equivalent. So you'd have `trv2(XPUB/.../*,[shrincs(PQCKEY)])` instead of `tr(XPUB/.../*)` now.
+I hadn't, but it looks similar in broad lines. I'm imagining having the PQC pubkey be added at the [output descriptor](https://github.com/bitcoin/bips/blob/9cf75150d27c4e735ddde933a92d00bf083a18d4/bip-0380.mediawiki) level rather than the xpub, as it's composable (e.g. MuSig in the internal key across xpubs, and a recovery path with multisig over the PQC pubkeys), but for single-party cases it looks equivalent. So you'd have `trv2(XPUB/.../*,[shrincs(PQCKEY)])` instead of `tr(XPUB/.../*)` now.
 
 -------------------------
 
