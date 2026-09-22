@@ -808,3 +808,27 @@ def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
 
 -------------------------
 
+zawy | 2026-09-22 10:06:54 UTC | #24
+
+I'll restate your equation without 7200 and R.
+
+- U = periods in the chain = (n-1) / 2016. 
+- T = timespan of the entire chain in units of target time for 1 period = t /2016 / 600
+- W = work performed as a multiple of the work performed in 1st period  = $w/w_{0}$
+
+Your equation without 7200, R, and 2^(-15) becomes:
+ 
+$W > \left(\frac{U}{T}\right)^U - 1$
+
+This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  Recall that with BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. $W_{min}$ is very sensitive to error in T near the boundary due to the ^U. 
+
+The attacker has a mean hashrate per period of blocks:
+
+$H = W / T / U$
+
+Substituting: 
+
+$H > \frac{1}{U T} * \left( \left(\frac{U}{T}\right)^U - 1 \right)$
+
+-------------------------
+
