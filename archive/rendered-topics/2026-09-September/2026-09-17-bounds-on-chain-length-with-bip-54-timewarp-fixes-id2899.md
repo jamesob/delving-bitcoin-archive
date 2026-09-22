@@ -750,3 +750,61 @@ I was trying to conceptualize the new problem and found thinking about hashrate 
 
 -------------------------
 
+sipa | 2026-09-22 01:12:08 UTC | #23
+
+Ok, [proven](https://bitcoin.sipa.be/bip54proof.tgz) now.
+
+If:
+* The number of blocks $n$ is at least 1.
+* No block has timestamp more than $t + 7200$ seconds after genesis, with $t \geq 0$.
+* The timestamps of the blocks satisfy both BIP-54 timewarp fix rules.
+* Difficulty adjustment follows existing consensus rules, including integer rounding and conversion to `nbits`.
+* The total chainwork $w$ of the blocks (computed as $\sum \lfloor 2^{256} / \text{target} \rfloor$) is at most $2^{208}$.
+
+Then:
+$$
+\begin{gathered} 
+  w \;\geq\; \frac{4295032832}{10923}\left[ 
+  7350955\,{\alpha'}^{-\frac{n-1}{2016}} 
+  -\;7340032\right]\\[2.5ex] 
+  \alpha=\frac{t}{600\,(n-1)}+\frac{1}{168},\qquad 
+  \alpha'=\begin{cases} 
+  \alpha, & \alpha\ge\mathrm{e}/4\\[1ex] 
+  \mathrm{e}^{4\alpha/\mathrm{e}}/4, & \alpha\le\mathrm{e}/4 
+  \end{cases} 
+  \end{gathered}
+$$
+
+The factor $\alpha$ here is the expected period span divided by 2 weeks, and can normally be used directly. When it is very low however (average period spans under ~9.5 days, or average difficulty adjustments over 1.47x), the corrected $\alpha'$ needs to be used. This is the regime where it becomes profitable to mix/alternative span-0 periods and longer periods.
+
+The exact proven statement is
+
+```lean
+work_ge_wlow : ∀ (n : ℕ) (x : ℕ → ℤ) (g : ℕ → ℕ) (t : ℕ),                                                                                                                                    
+  1 ≤ n →
+  x 0 = 0 →
+  (∀ i < n, x i ≤ ↑t + 7200) →
+  (∀ (j : ℕ), 0 < j → 2016 * j < n → x (2016 * j - 1) - 7200 ≤ x (2016 * j)) →
+  (∀ (j : ℕ), 2016 * j + 2015 < n → x (2016 * j) ≤ x (2016 * j + 2015)) →
+  g 0 = powLimit →
+  (∀ (j : ℕ), 2016 * j + 2015 < n → g (j + 1) = nextTarget (g j) (x (2016 * j + 2015) - x (2016 * j))) →
+  ∑ i ∈ Finset.range n, ↑(work (g (i / 2016))) ≤ 2 ^ 208 →
+  wlow n t ≤ ∑ i ∈ Finset.range n, ↑(work (g (i / 2016)))
+
+def BIP54.wlow : ℕ → ℕ → ℝ := fun n t => 4295032832 / 10923 * (7350955 * α' n t ^ (-((↑n - 1) / 2016)) - 7340032)
+def BIP54.α' : ℕ → ℕ → ℝ := fun n t => if Real.exp 1 / 4 ≤ α n t then α n t else Real.exp (4 * α n t / Real.exp 1) / 4                                                                                                   
+def BIP54.α : ℕ → ℕ → ℝ := fun n t => ↑t / (600 * (↑n - 1)) + 1 / 168                                                                                                                                                   
+def BIP54.Wunit : ℝ := 2 ^ 32 + 2 ^ 16                                                                                                                                                                              
+def BIP54.work : ℕ → ℕ := fun g => 2 ^ 256 / (g + 1)                                                                                                                                                                   
+def BIP54.nextTarget : ℕ → ℤ → ℕ := fun g s => compactRound (min powLimit (g * clampSpan s / 1209600))
+def BIP54.clampSpan : ℤ → ℕ := fun s => (max (1209600 / 4) (min (4 * 1209600) s)).toNat
+def BIP54.compactRound : ℕ → ℕ := fun x => setCompact (getCompact x)
+def BIP54.getCompact : ℕ → ℕ × ℕ := fun x => if 2 ^ 23 ≤ mant x then (mant x / 2 ^ 8, nSize x + 1) else (mant x, nSize x)                                                                                                        
+def BIP54.setCompact : ℕ × ℕ → ℕ := fun p => if p.2 ≤ 3 then p.1 / 2 ^ (8 * (3 - p.2)) else p.1 * 2 ^ (8 * (p.2 - 3))
+def BIP54.mant : ℕ → ℕ := fun x => if nSize x ≤ 3 then x * 2 ^ (8 * (3 - nSize x)) else x / 2 ^ (8 * (nSize x - 3))
+def BIP54.nSize : ℕ → ℕ := fun x => (x.size + 7) / 8
+def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
+```
+
+-------------------------
+
