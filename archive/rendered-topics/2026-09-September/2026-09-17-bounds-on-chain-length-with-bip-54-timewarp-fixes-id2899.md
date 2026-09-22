@@ -808,9 +808,9 @@ def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
 
 -------------------------
 
-zawy | 2026-09-22 10:12:53 UTC | #24
+zawy | 2026-09-22 10:25:25 UTC | #24
 
-I'll restate your equation without 7200 and R.
+I want to restate your equation without 7200 and R.
 
 - U = periods in the chain = (n-1) / 2016. 
 - T = timespan of the entire chain in units of target time for 1 period = t /2016 / 600
