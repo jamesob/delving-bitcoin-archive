@@ -7,7 +7,7 @@
   "cooked": "<p>It had crossed my mind that a lower bound on w might be useful. Using 2 of 3 boundaries is interesting in creating a hard limit on the 3rd instead of it having a long statistical tail. The t comes down as the other two go up.</p>\n<p>Mean hashrate per block = w / t / n.  I guess that value describes a surface of possibilities. I believe that\u2019s  the scarce resource that creates our trilemma.</p>\n<p>I was trying to conceptualize the new problem and found thinking about hashrate per block helps: He has more than w done in less than t, so it\u2019s a &gt; hashrate that must result in more than n blocks.  Or maybe given more than n blocks, the minimal hashrate must have been\u2026</p>",
   "post_number": 22,
   "post_type": 1,
-  "posts_count": 26,
+  "posts_count": 27,
   "updated_at": "2026-09-22T07:15:11.798Z",
   "reply_count": 0,
   "reply_to_post_number": 21,

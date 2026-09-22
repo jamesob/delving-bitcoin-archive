@@ -7,7 +7,7 @@
   "cooked": "<p>If we define:</p>\n<ul>\n<li><span class=\"math\">P = (n-1)/2016</span>, periods in the chain</li>\n<li><span class=\"math\">T = t / (3600 \\cdot 24 \\cdot 14)</span>, intended periods for amount of time</li>\n<li><span class=\"math\">D = w / (2^{32} + 2^{16})</span>, total summed difficulty</li>\n</ul>\n<p>Then the following holds:</p>\n<div class=\"math\">\nD \\;\\geq\\;\n  \\begin{cases}\n  A\\left[\\left(\\dfrac{T}{P}+C\\right)^{\\!-P}-1\\right]+1,\n    &amp; \\dfrac{T}{P}\\;\\geq\\;\\dfrac{\\mathrm{e}}{4}-C\\\\[4ex]\n  A\\left[\\left(\\dfrac{1}{4}\\,\\mathrm{e}^{\\frac{4}{\\mathrm{e}}\\left(\\frac{T}{P}+C\\right)}\\right)^{\\!-P}-1\\right]+1,\n    &amp; \\dfrac{T}{P}\\;&lt;\\;\\dfrac{\\mathrm{e}}{4}-C\n  \\end{cases}\n</div>\n<p>where <span class=\"math\">A=672.9794928 = 1+\\dfrac{N_\\text{period}}{R_\\text{max}-1}</span> and <span class=\"math\">C = \\dfrac{1}{168} = \\dfrac{T_\\text{grace}}{T_\\text{period}}</span></p>\n<p>If you ignore the <span class=\"math\">C</span> correction from the grace time, and the fast-increase regime <span class=\"math\">\\frac{T}{P} &lt; \\frac{\\mathrm{e}}{4}</span>, then that matches your formula very closely, though it has an additional factor <span class=\"math\">A</span>. You can set <span class=\"math\">A=1</span> of course, and still get a correct but less tight bound. With the <span class=\"math\">A</span> factor, you account for not just the last block in the chain, but the amount of work in the blocks before it too.</p>",
   "post_number": 26,
   "post_type": 1,
-  "posts_count": 26,
+  "posts_count": 27,
   "updated_at": "2026-09-22T14:50:06.561Z",
   "reply_count": 0,
   "reply_to_post_number": 24,
