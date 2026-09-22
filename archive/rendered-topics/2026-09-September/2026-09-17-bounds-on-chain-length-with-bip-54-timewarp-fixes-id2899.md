@@ -808,7 +808,7 @@ def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
 
 -------------------------
 
-zawy | 2026-09-22 10:25:25 UTC | #24
+zawy | 2026-09-22 10:29:36 UTC | #24
 
 I want to restate your equation without 7200 and R.
 
@@ -820,7 +820,7 @@ Your equation without 7200, R, and 2^(-15) becomes:
  
 $W > \left(\frac{U}{T}\right)^U - 1$
 
-This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  Recall that with BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. $W_{min}$ is very sensitive to error in T near the boundary due to the ^U. 
+This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  With BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. Obviously $W_{min}$ is very sensitive to error in U / T due to the ^U. 
 
 The attacker has a mean hashrate per period of blocks:
 
@@ -829,6 +829,8 @@ $H = W / T / U$
 Substituting: 
 
 $H > \frac{1}{U T} * \left( \left(\frac{U}{T}\right)^U - 1 \right)$
+
+Spot-checking this, if hashrate matches the difficulty in the 1st period so that it never changes, then U = T and plugging that in gives W and H > 0 which makes sense.
 
 I guess the benefit for DoS is that if you see a block at U with timestamp T, you can see if the H or W is reasonably low.
 
