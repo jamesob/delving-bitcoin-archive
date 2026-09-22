@@ -694,3 +694,57 @@ A fix for this kind of attack (and the more common simple "hit and run" mining) 
 
 -------------------------
 
+sipa | 2026-09-21 21:33:23 UTC | #21
+
+@zawy It's a nice idea to write it as a lower bound on the time $t$ in function of a lower bound on the chain length $n$ and an upper bound on the amount of work $w$. It yields significantly simpler expressions.
+
+For the approach with the simplified difficulty adjustment from Section 3.3, I get:
+$$
+  t \;\geq\; \frac{n-1}{N_\text{period}}\left(T_\text{period} - T_\text{grace}\right)
+   \;-\; T_\text{period}\,
+   \cdot\ln\frac{N_\text{period} + (R_\text{max}-1)\,\frac{w}{W_\text{unit}}}
+           {N_\text{period} + R_\text{max} - 1}
+$$
+
+For the approach without that simplification, i.e., the inverse of the formula with the Lambert W from Section 4, I get:
+$$
+  t \;\geq\; \frac{n-1}{N_\text{period}}
+   \left[\,T_\text{period}
+   \cdot\left(\frac{N_\text{period} + (R_\text{max}-1)\,\frac{w}{W_\text{unit}}}
+              {N_\text{period} + R_\text{max} - 1}\right)^{\textstyle -\dfrac{N_\text{period}}{n-1}}
+   \;-\; T_\text{grace}\right]
+$$
+which looks similar in structure to your approximate one. I don't have a Lean proof for these, but they're created using the same approach that was proven correct already, so I believe they are proper lower bounds on $t$. Both of them come with some constraints on the constants (which are satisfied for us), and the second one requires $n$ to be sufficiently large (to be past the alternating span regime, see Section 4).
+
+---
+
+Inspired by that, it may be even more interesting to have a lower bound on $w$ given a lower bound on chain length $n$ and an upper bound on time $t$, i.e., "how much work does an attacker need to do to create an attack chain with certain properties?".
+
+For that, without the simplification (which seems of little help in this case), I get:
+
+$$
+  w \;\geq\; \frac{W_\text{unit}}{R_\text{max}-1}\left[
+   \left(N_\text{period} + R_\text{max} - 1\right)
+   \left(\frac{T_\text{period}}
+              {\frac{N_\text{period}\,t}{n-1} + T_\text{grace}}\right)^{\textstyle \frac{n-1}{N_\text{period}}}
+   \;-\; N_\text{period}\right]
+$$
+
+For the Bitcoin + BIP-54 constants, that is:
+
+$$
+  w \;\geq\; \frac{4295032832}{10923}
+  \left[7350955\left(\frac{4200\,(n-1)}{7t+25\,(n-1)}\right)^{\dfrac{n-1}{2016}}
+  -\;7340032\right]
+$$
+
+-------------------------
+
+zawy | 2026-09-21 22:22:39 UTC | #22
+
+It had crossed my mind that a lower bound on w might be useful. Using 2 of 3 boundaries is interesting in creating a hard limit on the 3rd instead of it having a long statistical tail. The t comes down as the other two go up. 
+
+Mean hashrate per block = w / t / n.  I guess that value describes a volume of possibilities. I believe that's  the scarce resource that creates our trilemma.
+
+-------------------------
+

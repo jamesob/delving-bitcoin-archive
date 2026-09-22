@@ -7,15 +7,15 @@
   "cooked": "<p>I haven\u2019t replied because I have trouble understanding your posts and they will take me a long time to digest.  You might seen my discussion with PW on delving bitcoin and something relevant to your needs came up:</p>\n<p>This equation can be used in any DAA (for the most part) to determine minimum time T it takes to get U blocks with work <span class=\"math\">w</span> in T over and above the public chain\u2019s work <span class=\"math\">w_0</span> in T.  This equation is only valid for large <span class=\"math\">w/w_{0}</span></p>\n<p><span class=\"math\">T_{\\min}(w,U) \\approx U\\left[ \\left(\\frac{w_0}{w}\\right)^{1/U} \\right] </span></p>\n<ul>\n<li><span class=\"math\">U</span> is the number of blocks he\u2019ll get in units of \u201ceffective averaging windows\u201d for the DAA. In BTC, U = 2 for 2 * 2016 blocks.</li>\n<li><span class=\"math\">T_{min}</span> is the time it will take him in units of the averaging window.   In BTC, T = 2 for 2 * 2016 * 600 seconds.</li>\n<li><span class=\"math\">w / w_0</span> is attacker\u2019s ratio of work in done in T (aka hashrate) over the public chain\u2019s work done in the first averaging period.</li>\n</ul>\n<p>(continued in next comment)</p>",
   "post_number": 19,
   "post_type": 1,
-  "posts_count": 20,
+  "posts_count": 22,
   "updated_at": "2026-09-21T20:16:28.021Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 38.2,
   "yours": false,
   "topic_id": 2899,
   "topic_slug": "bounds-on-chain-length-with-bip-54-timewarp-fixes",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

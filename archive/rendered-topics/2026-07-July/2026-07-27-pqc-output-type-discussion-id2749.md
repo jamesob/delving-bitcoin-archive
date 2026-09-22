@@ -1546,7 +1546,7 @@ I'm still partial to P2MR (and/or CISA) + tripwire with a rudimentary hash-based
 
 -------------------------
 
-sipa | 2026-09-21 20:05:58 UTC | #37
+sipa | 2026-09-21 22:19:01 UTC | #37
 
 [quote="conduition, post:36, topic:2749"]
 I think (with education and smart wallet design) the fraction exposed would be quite small.
@@ -1600,9 +1600,11 @@ This is perhaps the biggest vision difference between P2MR and P2TRv2 proponents
 (1) the host device is not controlled by a quantum adversary,
 [/quote]
 
-I'm not sure about how valuable that is as a security model. If an adversarial CRQC exists, and an attacker that breaks into your software wallet, why wouldn't they conspire and split the gains? And if no adversarial CRQC exists, none of this matters, and if you don't worry about an attacker breaking into your software wallet, why are you using a hardware wallet / signing device?
+~~I'm not sure about how valuable that is as a security model. If an adversarial CRQC exists, and an attacker that breaks into your software wallet, why wouldn't they conspire and split the gains? And if no adversarial CRQC exists, none of this matters, and if you don't worry about an attacker breaking into your software wallet, why are you using a hardware wallet / signing device?~~
 
-Of course, this may not be economical if the CRQC running costs are high per key. But this applies equally to setups without hardware wallet.
+~~Of course, this may not be economical if the CRQC running costs are high per key. But this applies equally to setups without hardware wallet.~~
+
+EDIT: scratch that. If you assume a lower bound on BTC amount exposed on a key exists below which CRQCs are not economical, and your hardware wallet controls less than that, it is not inconsistent to assume the software wallet attack won't collude with the CRQC, as the HWW is still interesting to protect against classical attackers.
 
 [quote="conduition, post:36, topic:2749"]
 I figured you guys would actually be all over CISA as it effectively provides a pre-written vehicle for P2TRv2 - just add PQC and a tripwire. Clearly i was wrong :joy:
