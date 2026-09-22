@@ -808,7 +808,7 @@ def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
 
 -------------------------
 
-zawy | 2026-09-22 10:29:36 UTC | #24
+zawy | 2026-09-22 10:30:16 UTC | #24
 
 I want to restate your equation without 7200 and R.
 
@@ -830,7 +830,7 @@ Substituting:
 
 $H > \frac{1}{U T} * \left( \left(\frac{U}{T}\right)^U - 1 \right)$
 
-Spot-checking this, if hashrate matches the difficulty in the 1st period so that it never changes, then U = T and plugging that in gives W and H > 0 which makes sense.
+Spot-checking this, if hashrate matches the difficulty in the 1st period and it never changes, then U = T and plugging that in gives W and H > 0 which makes sense.
 
 I guess the benefit for DoS is that if you see a block at U with timestamp T, you can see if the H or W is reasonably low.
 
