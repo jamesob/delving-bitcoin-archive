@@ -174,3 +174,9 @@ Whether it gets published depends on what people say on the PR, so if you have a
 
 -------------------------
 
+duncan0k | 2026-09-22 06:05:22 UTC | #12
+
+@Anzus_GemWallet The action keys in Appendix A came out of your two posts here. If they look right from the wallet side, the PR is where that counts now: https://github.com/bitcoin/bips/pull/2294. Publication depends on feedback there. If they don't look right, saying so there is just as useful.
+
+-------------------------
+
