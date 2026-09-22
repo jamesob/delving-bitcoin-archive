@@ -1,6 +1,6 @@
 # Asynchronous Pipeline Consensus: Decoupling Mining from Full-Block Validation
 
-kcu201104 | 2026-09-22 15:25:20 UTC | #1
+kcu201104 | 2026-09-22 15:27:54 UTC | #1
 
 I’d like to share a framework designed to scale L1 throughput under Nakamoto security by shifting propagation latency from a physical bottleneck to a configurable validation window.
 
@@ -59,7 +59,8 @@ I’d like to share a framework designed to scale L1 throughput under Nakamoto s
 **Proposal: Scaling L1 Throughput via Asynchronous Pipeline Consensus**
 (Full paper: "Minimizing Mempool Dependency in PoW Mining...", IACR ePrint 2026/141)
 
-**Paper PDF:** https://eprint.iacr.org/2026/141
+**Paper PDF:** [https://eprint.iacr.org/2026/141](https://eprint.iacr.org/2026/141)
+
 
 ```
 
