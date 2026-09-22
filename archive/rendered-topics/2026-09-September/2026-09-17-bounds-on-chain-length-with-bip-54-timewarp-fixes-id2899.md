@@ -899,13 +899,15 @@ If you ignore the $C$ correction from the grace time, and the fast-increase regi
 
 -------------------------
 
-zawy | 2026-09-22 15:17:32 UTC | #27
+zawy | 2026-09-22 17:02:58 UTC | #27
 
-Since w has to increase a lot to get small changes in T when T is near $T_{min}$, is it possible to capitalize on this by designing the DAA to motivate a history of solvetimes that minimize T for a given U?  A benefit would be to have more accuracy in block times despite hashrate increasing. It's like measuring T from W and U.  
+(post deleted by author)
 
-Suppose we want block time to be accurate once every 23 U. The DAA would target solvetimes for the ideal values.  It would start out easier than it ends.  $T_{min}$ is then 20.07 if hashrate didn't change (I'm using my eq). If hashrate increases 5% per 2 weeks, w will be 1.5x more than staying constant. That would drop $T_{min}$ in the equation to 19.7, a 1.8% decrease instead of 5%. Having a higher hashrate at the end when difficulty is hardest makes the timespans deviate from the desired values. I can't tell if the errors cancel or if they add up to negate the benefit and we end up with blocks 5% too fast anyway.
+-------------------------
 
-If the hashrate is non-repurposable, it wouldn't cause a decrease in hashrate as difficulty gets harder. Alternatively, maybe the reward could change.
+zawy | 2026-09-22 19:31:21 UTC | #28
+
+I was puzzling over why w has to increase a lot to lower $T_{min}$ if T is starting out close to it. It turns out that if hashrate increases 5% in every period, it decreases $T_{min}$ by 5%.  So it's wrong to think that Bitcoin's "consistent" 5% per period hashrate increase would have bumped up against $T_{min}$ if it was a lot larger. It just lowers $T_{min}$ at about the same rate.
 
 -------------------------
 
