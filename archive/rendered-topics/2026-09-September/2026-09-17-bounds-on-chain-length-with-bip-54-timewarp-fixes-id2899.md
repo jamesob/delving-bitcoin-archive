@@ -808,7 +808,7 @@ def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
 
 -------------------------
 
-zawy | 2026-09-22 10:56:36 UTC | #24
+zawy | 2026-09-22 11:10:14 UTC | #24
 
 I want to restate your equation without 7200 and R.
 
@@ -820,7 +820,7 @@ Your equation without 7200, R, and 2^(-15) becomes:
  
 $W > \left(\frac{U}{T}\right)^U - 1$
 
-This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  With BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. Obviously $W_{min}$ is very sensitive to error in U / T due to the ^U. At T = 462 instead of 463.3, W is 4x higher. At T = 465, W is 1/7 of BTC's $w/w_{0}$.
+This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  With BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. Obviously $W_{min}$ is very sensitive to error in U / T due to the ^U. At T = 462 instead of 463.3, W is > 4x  BTC's $w/w_{0}$. At T = 465, W is > 1/7.
 
 The attacker has a mean hashrate per period of blocks:
 
@@ -832,7 +832,70 @@ $H > \frac{1}{U T} * \left( \left(\frac{U}{T}\right)^U - 1 \right)$
 
 Spot-checking this, if hashrate matches the difficulty in the 1st period and it never changes, then U = T and plugging that in gives W and H > 0 which makes sense.
 
-I guess the benefit for DoS is that if you see a block at U with timestamp T, you can see if the H or W is reasonably low.
+I guess the benefit for DoS is that if you see a block at U with timestamp T, you can see if the H or W in any block is too high. Maybe that's something we shouldn't advertise so that they can make the mistake. Maybe that's making a bad assumption since refusing to check isn't in accordance with strict PoW.
+
+-------------------------
+
+zawy | 2026-09-22 13:41:15 UTC | #25
+
+This can be combined with looking at the N lowest hashes to get upper and lower bounds on W. You plug in the T and U reported for the newest lowest-hash. The resulting $W_{min}$ must be smaller than the following upper bound: 
+
+- N = number of lowest hashes to look at
+- h = Nth lowest hash
+- x = number of standard deviations to be sure
+
+$w < 2^{256} *  \frac{N-1}{h} * \left( 1 + \frac{X}{\sqrt{N-2}}\right)$ 
+
+on the condition that difficulty target was never < Nth_lowest_hash.
+
+Example data point:
+- block 738031 was 10th lowest when I observed it at chain height 773150. Chain work at that time was 
+- w = 1.929e28
+- The Nth lowest hash was 5.83e49
+- Block 768824 was the newest of the 10 lowest hashes with reported chain time of T = 440,941,829 / 2016 / 600 = 364.535.   U = 768824 / 2016 = 381.37
+
+Using X = 10 std devs, the upper bound is:
+
+$w < 2^{256}  *  \left(10-1\right) / 5.83e49 * \left( 1 + \frac{10}{\sqrt{8}}\right)$ 
+
+$w < 8.21e28$
+
+Using the newest T and U out of the 10 lowest hashes in the lower bound equation:
+
+$W >  (381.37 / 364.535) ^{381.37} -1 = 30,035,430$
+
+$w > W * 2016 * 2^{32} = 2.60e20$
+
+This confirms chain work at the time of observation of the between the limits.
+
+2.60e20 < 1.929e28 < 8.21e 28
+
+Also the $w_{min}$ for each of the T and U reported by the 10 blocks could be checked.
+
+-------------------------
+
+sipa | 2026-09-22 14:50:06 UTC | #26
+
+If we define:
+* $P = (n-1)/2016$, periods in the chain
+* $T = t / (3600 \cdot 24 \cdot 14)$, intended periods for amount of time
+* $D = w / (2^{32} + 2^{16})$, total summed difficulty
+
+Then the following holds:
+
+$$
+D \;\geq\;
+  \begin{cases}
+  A\left[\left(\dfrac{T}{P}+C\right)^{\!-P}-1\right]+1,
+    & \dfrac{T}{P}\;\geq\;\dfrac{\mathrm{e}}{4}-C\\[4ex]
+  A\left[\left(\dfrac{1}{4}\,\mathrm{e}^{\frac{4}{\mathrm{e}}\left(\frac{T}{P}+C\right)}\right)^{\!-P}-1\right]+1,
+    & \dfrac{T}{P}\;<\;\dfrac{\mathrm{e}}{4}-C
+  \end{cases}
+$$
+
+where $A=672.9794928 = 1+\dfrac{N_\text{period}}{R_\text{max}-1}$ and $C = \dfrac{1}{168} = \dfrac{T_\text{grace}}{T_\text{period}}$
+
+If you ignore the $C$ correction from the grace time, and the fast-increase regime $\frac{T}{P} < \frac{\mathrm{e}}{4}$, then that matches your formula very closely, though it has an additional factor $A$. You can set $A=1$ of course, and still get a correct but less tight bound. With the $A$ factor, you account for not just the last block in the chain, but the amount of work in the blocks before it too.
 
 -------------------------
 

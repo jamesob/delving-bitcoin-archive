@@ -180,3 +180,9 @@ duncan0k | 2026-09-22 06:05:22 UTC | #12
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-22 14:08:42 UTC | #13
+
+Thanks for following up and for incorporating the suggestion. From a wallet-user perspective, pairing each classification with a clear action makes the information much more useful. I’m not qualified to review the deeper technical details, but the user-facing direction looks right to me. I’ll share that perspective on the PR as well.
+
+-------------------------
+
