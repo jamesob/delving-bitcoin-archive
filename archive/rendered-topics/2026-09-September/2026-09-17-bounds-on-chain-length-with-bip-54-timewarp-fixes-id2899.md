@@ -808,7 +808,7 @@ def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
 
 -------------------------
 
-zawy | 2026-09-22 10:48:28 UTC | #24
+zawy | 2026-09-22 10:56:36 UTC | #24
 
 I want to restate your equation without 7200 and R.
 
@@ -820,7 +820,7 @@ Your equation without 7200, R, and 2^(-15) becomes:
  
 $W > \left(\frac{U}{T}\right)^U - 1$
 
-This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  With BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. Obviously $W_{min}$ is very sensitive to error in U / T due to the ^U. At T = 462 instead of 463.3, W is 4x higher.
+This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  With BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. Obviously $W_{min}$ is very sensitive to error in U / T due to the ^U. At T = 462 instead of 463.3, W is 4x higher. At T = 465, W is 1/7 of BTC's $w/w_{0}$.
 
 The attacker has a mean hashrate per period of blocks:
 
