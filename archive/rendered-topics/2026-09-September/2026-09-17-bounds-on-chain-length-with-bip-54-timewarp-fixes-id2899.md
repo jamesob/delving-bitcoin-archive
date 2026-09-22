@@ -899,3 +899,13 @@ If you ignore the $C$ correction from the grace time, and the fast-increase regi
 
 -------------------------
 
+zawy | 2026-09-22 15:16:01 UTC | #27
+
+Since w has to increase a lot to get small changes in T when T is near $T_{min}$, is it possible to capitalize on this by designing the DAA to motivate a history of solvetimes that minimize T for a given U?  A benefit would be to have more accuracy in block times despite hashrate increasing. It's like measuring T from W and U.  
+
+Suppose we want block time to be accurate every 23 U. $T_{min}$ is then 20.07 if hashrate didn't change (I'm using my eq). If hashrate increases 5% per 2 weeks, w will be 1.5x more than staying constant. That would drop $T_{min}$ in the equation to 19.7, a 1.8% decrease instead of 5%. Having a higher hashrate at the end when difficulty is hardest makes the timespans deviate from the desired values. I can't tell if the errors cancel or if they add up to negate the benefit and we end up with blocks 5% too fast anyway.
+
+To do it, the DAA would change the target solvetime for each period to try to keep solvetimes near the ideal for $T_{min}$. It would start out easier than it ends. If the hashrate is non-repurposable, it wouldn't cause a decrease in hashrate as difficulty gets harder. Alternatively, maybe the reward could change.
+
+-------------------------
+
