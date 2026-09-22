@@ -740,11 +740,11 @@ $$
 
 -------------------------
 
-zawy | 2026-09-22 00:35:24 UTC | #22
+zawy | 2026-09-22 00:43:53 UTC | #22
 
 It had crossed my mind that a lower bound on w might be useful. <strike>Using 2 of 3 boundaries is interesting in creating a hard limit on the 3rd instead of it having a long statistical tail.</strike> The t comes down as the other two go up. 
 
-Mean hashrate per block = w / t / n.  I guess that value describes a volume of possibilities. I believe that's  the scarce resource that creates our trilemma.
+Mean hashrate per block = w / t / n.  I guess that value describes a <strike>volume</strike> surface of possibilities. I believe that's  the scarce resource that creates our trilemma.
 
 I was trying to conceptualize the new problem and found thinking about hashrate per block helps: He has more than w done in less than t, so it's a > hashrate that must result in more than n blocks.  Or maybe given more than n blocks, the minimal hashrate must have been...
 
