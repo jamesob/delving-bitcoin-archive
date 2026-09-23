@@ -808,7 +808,7 @@ def BIP54.powLimit : ℕ := 65535 * 2 ^ 208
 
 -------------------------
 
-zawy | 2026-09-22 11:10:14 UTC | #24
+zawy | 2026-09-23 13:38:09 UTC | #24
 
 I want to restate your equation without 7200 and R.
 
@@ -819,6 +819,12 @@ I want to restate your equation without 7200 and R.
 Your equation without 7200, R, and 2^(-15) becomes:
  
 $W > \left(\frac{U}{T}\right)^U - 1$
+
+[ edit: See PW's more precise eq below. In particular, BTC's R = 4x timespan limit has a much larger effect than I realized:
+
+$W >\approx 3 * \left(\frac{U}{T}\right)^U$
+
+/edit ]
 
 This is my equation for $T_{min}$ rearranged, minus a 1 I was missing.  With BTC's $w / w_0$ and U = 499, it gave a very accurate T = 463.3. Obviously $W_{min}$ is very sensitive to error in U / T due to the ^U. At T = 462 instead of 463.3, W is > 4x  BTC's $w/w_{0}$. At T = 465, W is > 1/7.
 
@@ -836,7 +842,7 @@ I guess the benefit for DoS is that if you see a block at U with timestamp T, yo
 
 -------------------------
 
-zawy | 2026-09-22 13:41:15 UTC | #25
+zawy | 2026-09-23 13:21:46 UTC | #25
 
 This can be combined with looking at the N lowest hashes to get upper and lower bounds on W. You plug in the T and U reported for the newest lowest-hash. The resulting $W_{min}$ must be smaller than the following upper bound: 
 
@@ -864,7 +870,9 @@ Using the newest T and U out of the 10 lowest hashes in the lower bound equation
 
 $W >  (381.37 / 364.535) ^{381.37} -1 = 30,035,430$
 
-$w > W * 2016 * 2^{32} = 2.60e20$
+$w > W * 2016 * 2^{32} = 2.60e20$ [ x 3 ] 
+
+[ edit multiply by 3 for BTC's 4x timespan limit. See PW's accurate eq below ]
 
 This confirms chain work at the time of observation of the between the limits.
 
