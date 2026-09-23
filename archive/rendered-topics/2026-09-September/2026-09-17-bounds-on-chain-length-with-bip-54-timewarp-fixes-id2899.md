@@ -907,12 +907,6 @@ If you ignore the $C$ correction from the grace time, and the fast-increase regi
 
 -------------------------
 
-zawy | 2026-09-22 17:02:58 UTC | #27
-
-(post deleted by author)
-
--------------------------
-
 zawy | 2026-09-22 20:51:48 UTC | #28
 
 I was puzzling over why w has to increase a lot to lower $T_{min}$ if T is starting out close to it. It turns out that if hashrate increases 5% in every period, it decreases $T_{min}$ by 5%.  So it's wrong to think that Bitcoin's "consistent" 5% per period hashrate increase would have bumped up against $T_{min}$ if it was a lot larger. It just lowers $T_{min}$ at about the same rate. And that's how much T itself move for whatever timestamp scheme they use.
