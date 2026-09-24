@@ -75,3 +75,23 @@ I'm not sure the extranonce constraint is too problematic even with more bytes n
 
 -------------------------
 
+optout | 2026-09-24 12:45:17 UTC | #6
+
+Very interesting idea!
+
+Most miners use a custodial pool, where the pool controls the coinbase output, and they pay to themselves.
+
+With the rise of Ocean, however, a non-negligible share of miners (~2%) receive their payout directly from the coinbase transaction. Here the pool still controls the payout amounts, it controls the coinbase outputs (both when controlling the whole block, or when allowing the miners to build their own block through Datum). This is implemented by using a bitcoin address as the single user idenitfier, and using that as a payout address.
+
+The drawbacks are clear: address reuse, privacy leak by connecting subsequent payments to the same miner, ability to observe their spending. Silent payment would make a lot of sense.
+
+Could you clarify which relevant components would be affected by this change? Anyone doing receive -- libraries, scanner services, wallets. As sending would be done exclusively by special mining-related software (regular wallets don't create coinbase transactions), there only the relevant mining software, or general-purpose silent payment libraries, if used.
+
+How do you envision this change, as an amendment to the existing BIP-352 silent payment spec, or as a new BIP? Can it be a straighforward amendment of the spec, or are there some parts that need to be changed?
+
+A note on solo pools. A very small amount of hash rate uses so called "solo pools" (small hash rate, but a relatively high number of individulal miners). Solo pools typically use the same payout-bitcoin-address-as-user-ID scheme, so the idea could be applied there as well. However, it would put some extra requirements on the solo miners, while address reuse is not a typical issue in this use case. Hiding the spending of an eventual block reward may be a worthy privacy benefit though.
+
+(Note: I haven't ventured into the details of the proposed input/nonce solution, but it looks plausible at first glance.)
+
+-------------------------
+
