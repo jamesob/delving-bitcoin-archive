@@ -214,3 +214,46 @@ This work was developed by Tadge Dryja, Calvin Kim and Ruben Somsen, me and some
 
 -------------------------
 
+optout | 2026-09-24 09:31:49 UTC | #2
+
+The results are very promising!
+
+However, I'd like to express my concern that for Utreexo -- a young technology -- adding dependency to SwiftSync -- another young technology -- may delay the maturation of the technology even further.
+
+On the optimistic side, this could also speed up SwiftSync development.
+
+-------------------------
+
+optout | 2026-09-24 09:54:51 UTC | #3
+
+Very promising, but I find the big picture a bit hard to grasp.
+The post focuses on the accumulator algorithm technicalities (which enables the improvement), but I find the big picture elusive. I'd like to present my understanding of it -- please correct me if needed.
+
+A bitcoin full node downloads all blocks, and validates all transactions. To verify that transactions spend existing outputs and there are no double spends, *all* transactions are processed. Because of the dependencies in the transaction graph, transactions are processed *in order*. A "UTXO cache" is maintained at all times, with the set of currently unspent TXOs.
+
+A Utreexo node replaces the large (10+ GiB) UTXO cache with a space-efficient accumulator, but it uses it for the same purpose: to verify that every TX input spends an existing TXO (no double spend, no generation). The price to pay for the accumulator is the proofs needed for an inclusion test, therefore block proofs are needed (extra download).
+
+SwiftSync solves the TX input checks in another way. It uses additional "hint" information, specifying for each TXO whether it is spent or not at a given recent height (in the form of a "hints file"). During IBD (up to that height) it processes all inputs and outputs using an accumulator structure. Checking the final result against the "hints file" effectively verifies that all outputs have been spent, except the final UTXOs. The UTXO cache is not used for input verification, it is only used to collect the final UTXOs.
+
+An important side benefit of SwiftSync is that its accumulator is order-invariant (due to commutative operations), thus allowing for out-of-order processing, leading to higher performance (higher parallelization, no need to cache blocks or throttle depending on the incoming order).
+
+The SwiftSync idea can be applied to Utreexo as well: during IBD the same SwiftSync logic can be applied to verify that all TX inputs are unspent. Inclusion tests against the Utreexo accumulator are not needed, so proofs are not needed at all!
+
+But how to arrive at the final state of the accumulator?
+
+One option would be to obtain the final accumulator state (roots) from an external source, just like the SwiftSync hints file. However, this has different trust model: a malicious SwiftSync file can fail the IBD validation, but it cannot trick into accepting invalid transactions, while a malicious Utreexo accumulator can achieve that.
+
+In non-Utreexo SwiftSync, the UTXO cache is not kept up-to-date, but it is used in add-only mode, to arrive at the final state.
+
+In Utreexo SwiftSync, performing the additions is problematic, as it would still need to process blocks in order (additions are not order-invariant -- note: I'm not sure here). Even worse, adding requires the sibling hashes from the proofs! (Note: I'm unsure here as well.)
+
+There is a solution, as it is explained in the post: deletion can be "faked" in absence of proofs (by moving the parent position "up"). This way the Utreexo accumulator can be updated continuously, arriving at the correct final state (though intermediary states are incomplete).
+
+The benefit is not only that Utreexo proofs are not needed during IBD, but that blocks can be processed out-of-order, allowing for higher parallelization.
+
+Importantly, all this preserves the original promise of Utreexo: fully validating node without the large-memory UTXO set requirement, at the expense of higher bandwidth (but with the improvement, the higher bandwidth only applies to steady-state phase).
+
+I'm open for corrections, clarifications or additions.
+
+-------------------------
+
