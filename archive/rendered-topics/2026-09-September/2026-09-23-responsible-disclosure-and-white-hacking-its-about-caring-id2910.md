@@ -1,0 +1,24 @@
+# Responsible disclosure and White hacking it's about Caring
+
+ariard | 2026-09-23 23:37:08 UTC | #1
+
+With all the current hacks, I'm often asked at local meetups what are the ethical guidelines when you have to do responsible disclosures to a vendor, especially when there is real money on the line. To have been in the situation few times in the pre-LLM era w.r.t bitcoin L2s security research, e.g with things like CVE-2020-26895 which would have been easy to exploit for direct gain, one's become very familiar with the rules in the infosec community, and more strictly the legal redlines.
+
+So let's said it clearly about the Liquid situation going to exploit a known vulnerability under the motivation to protect users funds, and keeping a substantial amount as a self-granted bounty is clearly theft, if not on the legal dimension, at the very least on an ethical ground. Indeed, it is laudable to have sent back the wide majority funds, and this is clear act that the person or the group of person acting, are not completely assholes or malevolent. Still, it's okay to withhold users funds as a self-appointed bounty and we should not make a bad precedent of it.
+
+Of course, the bitcoin network is living in the cypherpunk lalaland and on the wide and wild Internet there are no unified set of social rules, so generally we have only sheer ethics and principles as raw belt-and-suspenders in this kind of situations. In matters of ethics, there is the basic "*Silver*" rule, "*do not treat others in ways that you would not like to be treated*". Somehow, I believe this rule has some universal scope, i.e whatever the culture you've grown within, it's a bit valuable.
+
+Now if one goes to appreciate legal considerations, for the folks who are both security and legal nerds, there is no way a self-granted bounty coming from a live exploitation is ever going to be held legally valid, as some kind of legally contractual reward from the vendor. Why of course every juridiction has its own legal system, there is half a dozen of subjects which are mostly the same across the major juridictions, be it a common law or civil law system, and appreciation of contractual consent is one of them. So whatever, a vendor says during a live exploitation or whatever their lawyers can say, any "agreement" is most likely to be unenforceable in front of a court due to "duress" and likely voided as such.
+
+With a high degree of certainty, a situation where a party threats to disappear with exploited funds if the "contractual" terms are not agreed on what is asking for, can be be qualified as "duress", even if the vendor has been particularly disagreeable, condescending or lazy it doesn't create a safe habor to justify anything. I'll brush aside criminal qualification, though at least under one major European jurisdiction, courts has said that one can be held responsible on the civil ground for grey exploitation. And in the US law, as far as I know, it has been already analyzed very recently in [USA v. SULLIVAN (9th Cir. 2025)](https://law.justia.com/cases/federal/appellate-courts/ca9/23-927/23-927-2025-11-12.html).
+
+I'm copying pasting the Sullivan's decision on it, as it's quite eloquently said by judges of the 9th Circuit: "*...allowing post hoc authorization could encourage extortionary schemes: hackers could download sensitive data, demand a data  ransom,  and  then  insist  that  the  company  alter  its  bug  bounty program terms to retroactively immunize their conduc*t".  I'm not a lawyer, though may I say it's generally a wise move not to be in a situation where a vendor can sue you for $40 bucks in front of a court that will move forward with such a civil claim.
+
+Responsible disclosure is not about protecting or being nice with the vendors, sadly it can happen that their corporate incentives structure make it such that they don't have real skin in the game to be proactive in fixing vulnerabilities. Any seasoned security researcher knows that corporate incentives misalignement is a real thing, though it doesn't change the equation. Responsible disclosure it's about caring for the end users, and when you act as white hackers it is their interests that you should keep in mind, ideally holding it above you're own material interests.
+
+As a matter of disclosure, I've never been at Blockstream, never been in business with them either and since the start of my involvement in this industry back in 2019 I have an ethical line to never take bug bounty for responsible disclosures being done on my own initiative so I humbly believe I'm very free about what I can say about the present situation, and speaking my mind  based on my own multiple experiences working on responsible disclosures. Let's keep high standards in this space, and we all benefit from that on the long term.
+
+So yes responsible disclosure or white hacking *it's about caring a whole lot*, and about the users first.
+
+-------------------------
+
