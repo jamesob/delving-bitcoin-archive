@@ -415,3 +415,32 @@ If the actual bandwidth savings are low, going with blocks is a good way to go.
 
 -------------------------
 
+bitsagarob | 2026-09-24 22:07:41 UTC | #17
+
+Post 3 asked for numbers on a taproot-only filter versus the stock BIP-158 filter. Here's some data on every mainnet block from 709,656 to 965,089 => 255,434 blocks, no sampling.
+
+| What the wallet downloads | Whole range | Per day |
+|----|----|----|
+| BIP-158 basic filter | 5.78 GB | 2.84 MB |
+| Taproot-only filter | 0.33 GB | 0.14 MB |
+| Raw tweaks, 33 bytes per eligible tx | 6.20 GB | 3.40 MB |
+| BlindBit v2 scanning payload | 15.08 GB | 8.04 MB |
+
+Taproot-only is **17.63x** smaller than the basic filter, by era: 7.65x over 800,000 to 849,999, 23.61x over the last 10,000 blocks.
+
+Encoded, not modelled: siphash-2-4, Golomb-Rice, P=19, M=784931. Two independently written implementations, agreement on all 255,434 blocks, each first proved byte-identical to Core's basic filters. BIP-158 encodes an element set: 359,001,723 eligible taproot outputs carry 124,299,689 distinct x-only keys, with duplicates kept: 0.958 GB, 6.02x.
+
+Post 1 also proposed a dust limit and cut-through, "pruning tweaks for transactions where all taproot UTXOs are spent". Same range, spentness pinned at height 967,618:
+
+| Filter | Restore payload | Share |
+|----|----|----|
+| none | 15.08 GB | 100% |
+| dust 546 | 13.70 GB | 90.8% |
+| cut-through | 3.43 GB | 22.8% |
+| cut-through + dust 546 | 2.57 GB | 17.0% |
+| cut-through + dust 1000 | 0.48 GB | 3.2% |
+
+https://github.com/bitsagarob/silentpayments-measurements
+
+-------------------------
+
