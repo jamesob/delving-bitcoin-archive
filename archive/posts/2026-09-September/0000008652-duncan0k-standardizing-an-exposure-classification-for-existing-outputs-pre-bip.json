@@ -13,9 +13,9 @@
   "reply_to_post_number": 13,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 2866,
   "topic_slug": "standardizing-an-exposure-classification-for-existing-outputs-pre-bip",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "v0.6.0 is out. murch reviewed the PR and asked for tighter, more direct prose and a fuller account of address reuse. The prose went from about 4,700 words to 3,000. Outputs that pay the same script now share one exposure window, which opens when a spend of any of them is broadcast and closes when the spend of the last remaining one is confirmed and buried.\n\nFor wallets, the only change in Appendix A is the `SWEEP_WHEN_SPENDING` floor. It now says to spend every output paying that script in one transaction, instead of spending the entire balance. The other three rows are the same.\n\nOn publication, murch wrote: \"I\u2019m on the fence whether it is necessary to document this classification, but I\u2019m open to be convinced by reviewers stating their support for publication of this document.\" If you have a view on that, for or against, the PR is the place for it: https://github.com/bitcoin/bips/pull/2294",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "v0.6.0 is out. murch reviewed the PR and asked for tighter, more direct prose and a fuller account of address reuse. The prose went from about 4,700 words to 3,000. Outputs that pay the same script now share one exposure window, which opens when a spend of any of them is broadcast and closes when th&hellip;",
   "truncated": true,
   "post_url": "/t/standardizing-an-exposure-classification-for-existing-outputs-pre-bip/2866/14",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
