@@ -1430,3 +1430,15 @@ Thanks, that helps. It sounds like a normal seed phrase alone would not be enoug
 
 -------------------------
 
+JohnLaw | 2026-09-26 16:09:26 UTC | #12
+
+Yes, it is much more than just keeping track of a private key.
+
+One has to be able to use one's guesses to put a channel that hits on-chain (or to burn the depot if there are multiple hits). This requires the depot parameters, etc. along with the guess information (including the list of random factors F_i).
+
+One also needs the latest Lightning channel state for each active Lightning channel.
+
+Note: Apologies in advance for what are likely to be slow responses.
+
+-------------------------
+
