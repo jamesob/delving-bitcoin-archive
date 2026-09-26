@@ -26,3 +26,19 @@ https://research.praneethg.xyz/
 
 -------------------------
 
+askii21m | 2026-09-26 04:16:23 UTC | #4
+
+Thanks for writing this up!
+
+One thing on the APOAS section. You noted that APOAS signatures could be replayed against other UTXOs at the same vault address, and recommend unique keys per vault.
+
+Replaying the signature in a separate transaction only unvaults the second deposit, which is harmless, but I think the half-spend problem is worth mentioning as well: that both deposits can be spent in the same transaction. Since APOAS commits to neither the input count nor the input index, a transaction with two vault inputs and a single fixed output verifies at both inputs. 200k sats in, 99k out, 101k to the miner.
+
+BIP-119 gives this as the reason CTV commits to both: committing to the index "makes it safer to design wallet vault contracts without half-spend vulnerabilities".
+
+Perhaps this is helpful: [https://covenants.diy/g/nhcg5hYdxO](https://covenants.diy/g/nhcg5hYdxO). I've wired up an APOAS vault and a CTV vault side by side with the same two deposits. The APOAS transaction is complete and verifies at both inputs (discarding half the payment); CTV refuses the second input because the index is in the hash.
+
+The missing commitments do buy fee flexibility, but they create the half-spend exposure, so never reusing a vault address is a requirement rather than a recommendation
+
+-------------------------
+
