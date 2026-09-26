@@ -186,3 +186,13 @@ Thanks for following up and for incorporating the suggestion. From a wallet-user
 
 -------------------------
 
+duncan0k | 2026-09-26 07:36:35 UTC | #14
+
+v0.6.0 is out. murch reviewed the PR and asked for tighter, more direct prose and a fuller account of address reuse. The prose went from about 4,700 words to 3,000. Outputs that pay the same script now share one exposure window, which opens when a spend of any of them is broadcast and closes when the spend of the last remaining one is confirmed and buried.
+
+For wallets, the only change in Appendix A is the `SWEEP_WHEN_SPENDING` floor. It now says to spend every output paying that script in one transaction, instead of spending the entire balance. The other three rows are the same.
+
+On publication, murch wrote: "I’m on the fence whether it is necessary to document this classification, but I’m open to be convinced by reviewers stating their support for publication of this document." If you have a view on that, for or against, the PR is the place for it: https://github.com/bitcoin/bips/pull/2294
+
+-------------------------
+
