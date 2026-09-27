@@ -96,3 +96,17 @@ Read [Shielded Bitcoin: Private Transfers on Bitcoin L1](https://www.allocinit.x
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-27 11:37:26 UTC | #2
+
+From an ordinary mobile-wallet user’s perspective, what would recovery look like after losing a phone? Would the seed phrase alone recover all shielded funds and transaction history on a new device, or would users need to back up any additional changing data? It would also be helpful to know how long a full recovery might take.
+
+-------------------------
+
+nemothenoone | 2026-09-27 12:02:08 UTC | #3
+
+Seed phrase is enough to recover the full wallet state and retain control over the funds 'cause all the encrypted notes are stored on the Bitcoin L1 (in the witness field, in OP_RETURN or Taproot annexes) so a user can always replicate the latest state of the wallet from Bitcoin itself.
+
+There is a different question about PIPEs v2/WE ciphertexts for the unilateral exit. One'd need them to un-shield Bitcoin in the most paranoid mode (or if the whole world except Bitcoin suddenly disappeared). But those are public, there will be a ton of them to choose from and we expect the emergence of ciphertext storage providers offering those. So for the mobile wallet user there would be no need to store ciphertexts on their local device.
+
+-------------------------
+
