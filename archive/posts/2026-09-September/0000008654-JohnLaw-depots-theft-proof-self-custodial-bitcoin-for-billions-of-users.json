@@ -13,9 +13,9 @@
   "reply_to_post_number": 11,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 2892,
   "topic_slug": "depots-theft-proof-self-custodial-bitcoin-for-billions-of-users",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Yes, it is much more than just keeping track of a private key.\n\nOne has to be able to use one's guesses to put a channel that hits on-chain (or to burn the depot if there are multiple hits). This requires the depot parameters, etc. along with the guess information (including the list of random factors F_i).\n\nOne also needs the latest Lightning channel state for each active Lightning channel.\n\nNote: Apologies in advance for what are likely to be slow responses.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Yes, it is much more than just keeping track of a private key. \nOne has to be able to use one\u2019s guesses to put a channel that hits on-chain (or to burn the depot if there are multiple hits). This requires the depot parameters, etc. along with the guess information (including the list of random facto&hellip;",
   "truncated": true,
   "post_url": "/t/depots-theft-proof-self-custodial-bitcoin-for-billions-of-users/2892/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
