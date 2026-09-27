@@ -18,17 +18,17 @@ I'm just sharing some thoughts, want to know what you think.
 
 -------------------------
 
-garlonicon | 2026-09-27 10:35:58 UTC | #2
+garlonicon | 2026-09-27 10:41:01 UTC | #2
 
 > Softfork before GTA VI?
 
-I think it is unlikely to see next soft-forks in the future, unless someone will push them forward. I remember times, when touching OP_CAT was a no-go zone, however, when the discussion started, and [BIP-347](https://github.com/bitcoin/bips/blob/master/bip-0347.mediawiki) was created, then suddenly it became more reachable, and some people suddenly shifted their position from "it will never happen" to "it might be activated, even if I still disagree with it".
+I think it is unlikely to see next soft-forks in the future, unless someone will push them forward. I remember times, when touching OP_CAT was a no-go zone, however, when the discussion started, and [BIP-347](https://github.com/bitcoin/bips/blob/02bebeb5ef53dc21a52d5706c6b4c17b6af6c1cc/bip-0347.mediawiki) was created, then suddenly it became more reachable, and some people suddenly shifted their position from "it will never happen" to "it might be activated, even if I still disagree with it".
 
 > But covenants are not a given, we don’t have it today, and we are already full planning on the next softfork.
 
 You know, it is always a choice between preserving status quo, and not activating new things, or launching new features, and facing all consequences of that. However, even if new soft-forks will never be deployed, then some people will still try to hack the system, and build new things anyway, by using tools, which are already there.
 
-One example of that is what happens with sidechains: we don't have [BIP-300](https://github.com/bitcoin/bips/blob/master/bip-0300.mediawiki). It probably won't be activated, because some people are simply against sidechains, because of Miner Extractable Value, and other issues. However, the consequence of not having decentralized sidechains, is that we will have centralized ones. And people will try to hack the system anyway, for example by using OP_SIZE on DER signatures. Of course, there is no Merged Mining yet, but well, maybe other people will hack it later, by finding next hole, and abusing it to implement yet another feature. Or: if features like OP_CAT will be there, then we will have not only sidechains, but also much more things.
+One example of that is what happens with sidechains: we don't have [BIP-300](https://github.com/bitcoin/bips/blob/02bebeb5ef53dc21a52d5706c6b4c17b6af6c1cc/bip-0300.mediawiki). It probably won't be activated, because some people are simply against sidechains, because of Miner Extractable Value, and other issues. However, the consequence of not having decentralized sidechains, is that we will have centralized ones. And people will try to hack the system anyway, for example by using OP_SIZE on DER signatures. Of course, there is no Merged Mining yet, but well, maybe other people will hack it later, by finding next hole, and abusing it to implement yet another feature. Or: if features like OP_CAT will be there, then we will have not only sidechains, but also much more things.
 
 > I know there is some frequent talking about BIP54, but what are our specific planning on that?
 
