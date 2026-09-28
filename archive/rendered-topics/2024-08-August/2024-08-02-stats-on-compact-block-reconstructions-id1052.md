@@ -1547,3 +1547,15 @@ Here are updated stats for compact block reconstructions! Since mid July, the re
 
 -------------------------
 
+ajtowns | 2026-09-28 03:29:11 UTC | #54
+
+[quote="0xB10C, post:53, topic:1052"]
+compact block relay is essentially broken right now…
+[/quote]
+
+I don't think that's a fair conclusion -- compact block relay still reduces bandwidth and latency substantially (vs header/block messages) by only requiring the missing txs to be relayed, rather than the entire block; and I'm still mostly seeing sub-second block reconstruction times.
+
+I think I've seen both a bunch of double-spends amongst txs at the top of the mempool (could be either random, or people competing for runestone auctions or similar?), and also some apparent rbf failures (ie a higher feerate collection isn't getting to my mempool due to 1p1c not being sufficient?). Conflicts between the old greedy-ancestor template building and the new cluster mempool approach might also be having some impact? Not really sure.
+
+-------------------------
+

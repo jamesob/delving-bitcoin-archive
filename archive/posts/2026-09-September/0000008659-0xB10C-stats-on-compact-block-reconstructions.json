@@ -7,15 +7,15 @@
   "cooked": "<p>Here are updated stats for compact block reconstructions! Since mid July, the reconstruction rate without having to request a transaction as been terrible. It\u2019s been hovering somewhere between 1%-5%. At the same time, the nodes needed to request roughly 100kB worth of transactions per block on average. I haven\u2019t had the time to look closer, but compact block relay is essentially broken right now\u2026</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/2/2466fdf197f7f013d05e2da0343d5bab204d8171.jpeg\" data-download-href=\"https://delvingbitcoin.org/uploads/default/2466fdf197f7f013d05e2da0343d5bab204d8171\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/2/2466fdf197f7f013d05e2da0343d5bab204d8171_2_187x500.jpeg\" alt=\"image\" data-base62-sha1=\"5c1QAw0LsxIQxJgz56xPIxhqkPD\" width=\"187\" height=\"500\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/2/2466fdf197f7f013d05e2da0343d5bab204d8171_2_187x500.jpeg, https://delvingbitcoin.org/uploads/default/optimized/2X/2/2466fdf197f7f013d05e2da0343d5bab204d8171_2_280x750.jpeg 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/2/2466fdf197f7f013d05e2da0343d5bab204d8171_2_374x1000.jpeg 2x\" data-dominant-color=\"DBAC85\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">983\u00d72619 864 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/c/c6bbff4a1eb3b6915a4a6449b2580eabd93c6365.jpeg\" data-download-href=\"https://delvingbitcoin.org/uploads/default/c6bbff4a1eb3b6915a4a6449b2580eabd93c6365\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/c/c6bbff4a1eb3b6915a4a6449b2580eabd93c6365_2_187x500.jpeg\" alt=\"image\" data-base62-sha1=\"sm5jVfzUFAyjP3JRGMwCHMCKa2h\" width=\"187\" height=\"500\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/c/c6bbff4a1eb3b6915a4a6449b2580eabd93c6365_2_187x500.jpeg, https://delvingbitcoin.org/uploads/default/optimized/2X/c/c6bbff4a1eb3b6915a4a6449b2580eabd93c6365_2_280x750.jpeg 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/c/c6bbff4a1eb3b6915a4a6449b2580eabd93c6365_2_374x1000.jpeg 2x\" data-dominant-color=\"60A871\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">983\u00d72620 864 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>",
   "post_number": 53,
   "post_type": 1,
-  "posts_count": 52,
+  "posts_count": 53,
   "updated_at": "2026-09-27T22:31:09.744Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 21.0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 71.2,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
