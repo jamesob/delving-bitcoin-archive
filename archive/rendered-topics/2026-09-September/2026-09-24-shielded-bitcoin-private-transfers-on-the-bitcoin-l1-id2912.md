@@ -110,3 +110,9 @@ There is a different question about PIPEs v2/WE ciphertexts for the unilateral e
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-28 06:52:31 UTC | #4
+
+Thanks, knowing that the seed phrase is enough is reassuring. Do you have a rough idea how long recovery might take on a phone after several years of activity? Could a service speed this up without learning which transactions belong to the user?
+
+-------------------------
+
