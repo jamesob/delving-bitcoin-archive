@@ -1536,9 +1536,9 @@ Additionally, here's an explainer on my workflow to generate them. I don't sugge
 
 -------------------------
 
-0xB10C | 2026-09-27 22:31:09 UTC | #53
+0xB10C | 2026-09-28 17:14:57 UTC | #53
 
-Here are updated stats for compact block reconstructions! Since mid July, the reconstruction rate without having to request a transaction as been terrible. It's been hovering somewhere between 1%-5%. At the same time, the nodes needed to request roughly 100kB worth of transactions per block on average. I haven't had the time to look closer, but compact block relay is essentially broken right now... 
+Here are updated stats for compact block reconstructions! Since mid July, the reconstruction rate without having to request a transaction as been terrible. It's been hovering somewhere between 1%-5%. At the same time, the nodes needed to request roughly 100kB worth of transactions per block on average. I haven't had the time to look closer, but compact block relay is ~~essentially broken~~ hindered right now... 
 
 
 ![image|187x500](upload://5c1QAw0LsxIQxJgz56xPIxhqkPD.jpeg)
@@ -1599,6 +1599,12 @@ Had a bot do an overnight investigation with my node. Brief summary with theorie
 
 
 edit: Seeking for missing tx in orphanage also unlikely to help us much, fwiw, as on my node it only ever say 0.7% of the missing links in the orphanage itself.
+
+-------------------------
+
+sipa | 2026-09-28 19:24:27 UTC | #57
+
+Would we expect template sharing to have helped here?
 
 -------------------------
 

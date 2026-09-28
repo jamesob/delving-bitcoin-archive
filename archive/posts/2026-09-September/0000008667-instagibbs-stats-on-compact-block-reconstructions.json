@@ -7,15 +7,15 @@
   "cooked": "<p>Had a bot do an overnight investigation with my node. Brief summary with theories I didn\u2019t push back on hard from a 8 hour run:</p>\n<ul>\n<li>The node sees the same collapse. Blocks needing no round trip fell from 45\u201355% (Jul 1\u20133) to 23\u201334%\n(Jul 4\u20138) to mostly 2\u201315% (since Jul 30). Weekly median transactions requested went from 2\u20133 to 54\u201391\nper block.</li>\n<li>The missing transactions are almost all Rune mint chains. None were standardness rejections.</li>\n<li>An 8-hour live capture (59 blocks, 22,024 missing transactions) with INV logging splits them into:\n<ul>\n<li>56%: no peer ever announced the chain to this node before the block.</li>\n<li>37%: the chain\u2019s first missing transaction conflicts with a version this node held.</li>\n<li>7%: announced before the block but not yet in the mempool.</li>\n</ul>\n</li>\n<li>The never-announced group is a race after each block. Rune chains of at least 216 transactions are\nreleased 24 at a time after each block confirms the previous window. Pools include the new window\nalmost at once, while this node receives it over several minutes. Blocks found within 60 s of the\nprevious one carry a median of 454 such transactions. After 3 minutes or more the median is 0.</li>\n<li>The conflict group comes from replacement churn and does not depend on block timing.</li>\n<li>What gets mined did not change around Jul 22. Rune share, chain depth and the 24-transaction window\npattern are flat from June to September. The change is off-chain: how quickly windows and replacements\nreach pools compared with the public network, or how much replacement traffic there is.</li>\n<li>It is not the node\u2019s build, including PR <span class=\"hashtag-raw\">#34628</span>. The node fetched every transaction it was told about,\nnone of its peers run <span class=\"hashtag-raw\">#34628</span>, and OCEAN blocks reconstruct as well as in early July on the same binary.</li>\n</ul>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>Share</th>\n<th>Transactions</th>\n<th>Root\u2019s fate</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>56.1%</td>\n<td>12,354</td>\n<td>Never announced to this node, no conflict with anything it held</td>\n</tr>\n<tr>\n<td>19.8%</td>\n<td>4,362</td>\n<td>Conflict: this node had the pool\u2019s version, then replaced it with a newer one</td>\n</tr>\n<tr>\n<td>10.6%</td>\n<td>2,337</td>\n<td>Conflict: this node held a different version and never saw the pool\u2019s</td>\n</tr>\n<tr>\n<td>6.9%</td>\n<td>1,521</td>\n<td>Announced before the block, not in the mempool when it arrived</td>\n</tr>\n<tr>\n<td>6.4%</td>\n<td>1,419</td>\n<td>Conflict: the pool\u2019s version arrived but lost under the total-fee replacement rule</td>\n</tr>\n<tr>\n<td>0.1%</td>\n<td>31</td>\n<td>Conflict, other</td>\n</tr>\n</tbody>\n</table>\n</div><p>edit: Seeking for missing tx in orphanage also unlikely to help us much, fwiw, as on my node it only ever say 0.7% of the missing links in the orphanage itself.</p>",
   "post_number": 56,
   "post_type": 1,
-  "posts_count": 55,
+  "posts_count": 56,
   "updated_at": "2026-09-28T12:51:11.574Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 42.6,
+  "incoming_link_count": 3,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 63.0,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
