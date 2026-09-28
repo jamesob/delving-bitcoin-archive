@@ -617,3 +617,28 @@ abort completed and it can recover its funds.
 
 -------------------------
 
+ZmnSCPxj | 2026-09-28 11:20:26 UTC | #2
+
+Closing the Amount And Timelock Surreptitious Tunnels
+-----------------------------
+
+Despite this, there are still two remaining pieces of information that cannot be obfuscated by Forwarders:
+
+* The amount to be peerswapped.
+* The timelock for the Spilman channel hosting the "onchain" hop.
+
+Of this, the amount is the one with the most bits available where the Initiator can provide information about its identity.  While a node identifier is 257 bits formally, what you need to locate a node on the actual living Lightning Network is far fewer bits; we only need to surreptitiously transfer enough bits to identify ONE node on the gossip map.  To close the surreptitious communication tunnel in the amount, we can standardize the onchain amounts among a small number of options, e.g.
+
+* 10 BTC
+* 1.0 BTC
+* 0.1 BTC
+* 0.01 BTC
+* 0.001 BTC
+* 0.0001 BTC
+
+For the timelock, we can standardize that the timelock must be +2016 blocks from the current block height, and standardize a tolerance from +2012 to +2016 blocks (to tolerate new blocks arriving during initial negotiation).
+
+Another piece of data that we might be concerned with be onchain feerates, which would need to be agreed upon by the Initiator and Acceptor, who are involved in onchain operations.  However, feerate decisions can now be deferred today by simply using a 0-feerate transaction for the in-Spilman HTLC offer; then if the Acceptor has to use it to claim the fund, it can pay using the child transaction, or if the Initiator has to use it to reclaim its fund in a protocol abort, it can pay using the child transaction as well.  Thus, feerates can simply not be transmitted in the protocol, preventing it from being used as a surreptitious communications tunnel.
+
+-------------------------
+

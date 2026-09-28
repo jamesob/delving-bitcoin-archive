@@ -1559,3 +1559,46 @@ I think I've seen both a bunch of double-spends amongst txs at the top of the me
 
 -------------------------
 
+mzumsande | 2026-09-28 11:15:21 UTC | #55
+
+The "Block Propagation Delay History" graph of [KIT](https://www.dsn.kastel.kit.edu/bitcoin/) shows a steady decline for the 90% line, and unchanged delay for the 50% line over the last year. Wouldn't we expect these times to be at least somewhat correlated with the compact block reconstruction rate?
+
+-------------------------
+
+instagibbs | 2026-09-28 12:51:11 UTC | #56
+
+Had a bot do an overnight investigation with my node. Brief summary with theories I didn't push back on hard from a 8 hour run:
+
+* The node sees the same collapse. Blocks needing no round trip fell from 45–55% (Jul 1–3) to 23–34%
+  (Jul 4–8) to mostly 2–15% (since Jul 30). Weekly median transactions requested went from 2–3 to 54–91
+  per block.
+* The missing transactions are almost all Rune mint chains. None were standardness rejections.
+* An 8-hour live capture (59 blocks, 22,024 missing transactions) with INV logging splits them into:
+  * 56%: no peer ever announced the chain to this node before the block.
+  * 37%: the chain's first missing transaction conflicts with a version this node held.
+  * 7%: announced before the block but not yet in the mempool.
+* The never-announced group is a race after each block. Rune chains of at least 216 transactions are
+  released 24 at a time after each block confirms the previous window. Pools include the new window
+  almost at once, while this node receives it over several minutes. Blocks found within 60 s of the
+  previous one carry a median of 454 such transactions. After 3 minutes or more the median is 0.
+* The conflict group comes from replacement churn and does not depend on block timing.
+* What gets mined did not change around Jul 22. Rune share, chain depth and the 24-transaction window
+  pattern are flat from June to September. The change is off-chain: how quickly windows and replacements
+  reach pools compared with the public network, or how much replacement traffic there is.
+* It is not the node's build, including PR #34628. The node fetched every transaction it was told about,
+  none of its peers run #34628, and OCEAN blocks reconstruct as well as in early July on the same binary.
+
+| Share | Transactions | Root's fate |
+|----|----|----|
+| 56.1% | 12,354 | Never announced to this node, no conflict with anything it held |
+| 19.8% | 4,362 | Conflict: this node had the pool's version, then replaced it with a newer one |
+| 10.6% | 2,337 | Conflict: this node held a different version and never saw the pool's |
+| 6.9% | 1,521 | Announced before the block, not in the mempool when it arrived |
+| 6.4% | 1,419 | Conflict: the pool's version arrived but lost under the total-fee replacement rule |
+| 0.1% | 31 | Conflict, other |
+
+
+edit: Seeking for missing tx in orphanage also unlikely to help us much, fwiw, as on my node it only ever say 0.7% of the missing links in the orphanage itself.
+
+-------------------------
+

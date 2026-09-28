@@ -80,3 +80,40 @@ Sean Carlin
 
 -------------------------
 
+scarlin90 | 2026-09-28 11:14:51 UTC | #4
+
+Hi All,
+
+A quick progress update on Signing Room and the stateless PSBT coordination BIP draft.
+
+Last week I tagged v3.4.0 of the coordinator and v1.2.0 of the SDK. The primary focus of this release is introducing Role-Based Access Control (RBAC) without introducing accounts, database state, or leaking participant identities to the relay.
+
+Previously, the protocol operated on a binary access model (Coordinator vs. Guest), where any connected peer could download, sign, and broadcast updates to the PSBT. In institutional, legal, or high-security multisig workflows, separation of duties is critical. Transactions often require off-chain witnesses, compliance officers, or observers who need real-time verification of outputs and signatures without having the capability to submit signatures or manipulate the state machine.
+
+To maintain zero-knowledge relay architecture:
+
+* The room initiator generates role-scoped capability tokens derived from the root session entropy inside the browser. Key material resides strictly in the URL fragment (`#`) and is never transmitted over HTTP.
+
+* Capability tokens encapsulate signed policy scopes (e.g., `can_propose`, `can_sign`, `witness_only`). The relay enforces these permissions ephemerally in RAM: if an unauthenticated socket or an observer without signing privileges attempts to dispatch a signature payload, the relay rejects the frame.
+
+* Joining clients decode their role privileges locally from their fragment token, enabling the interface to adapt deterministically (restricting signing prompts for auditors while providing verification tooling).
+
+### Updates & BIP Specification
+
+* Release notes and implementation details:
+  https://github.com/scarlin90/signingroom/releases/tag/v3.4.0
+
+* Updated the BIP draft with the revised URL fragment schema, capability token message formats, and test vectors:
+
+  [https://github.com/scarlin90/bip-stateless-psbt-coordination/blob/e43f1d91dfe12475cf5278aecf756fef6e5b0dae/bip-draft.md](https://www.google.com/search?q=https://github.com/scarlin90/bip-stateless-psbt-coordination/blob/main/bip-draft.md&utm_source=gemini)
+
+I am currently working on Tapscript / BIP 371 support to expand beyond native SegWit multisig and accommodate Miniscript spending trees.
+
+Feedback and critiques on the token derivation and message format are welcome.
+
+Best regards,
+
+Sean Carlin
+
+-------------------------
+
