@@ -642,3 +642,19 @@ Another piece of data that we might be concerned with be onchain feerates, which
 
 -------------------------
 
+ZmnSCPxj | 2026-09-28 22:51:11 UTC | #3
+
+[quote="ZmnSCPxj, post:1, topic:2917"]
+Notice that we use `(e, s)` instead of `(R, s)`. The reason is that `R` might be used to surreptitiously transfer data from the Acceptor to the Initiator; notice how in the forwarding case above, `e` is copied verbatim, and if we were using `R`, then it would have to be copied verbatim as well. However, `e` is the output of a hash function, and using `e` to transmit information would require reversing a hash function.
+[/quote]
+
+No no no no this is wrong and broken.
+
+The problem is that if `e[v] = e`, then `R[v] = R` because `e[v] = hash(R[v])` and if the hashes are equal, with very high probability `R[v] = R`.  Then the computed `R[v]` during validation can be used as the surreptitious communications tunnel from the Acceptor that generated the original `R` to the Initiator (e.g. the Acceptor can just use its node ID as the `R` directly in this case, and `R` reuse is not a thing here since the Acceptor can trivially use different `a` scalars for each such zkpok), letting them bypass the Forwarders and establish a channel directly.
+
+To fix this protocol, observe that we already have established a way to transfer a key controlled only by the Initiator to the Acceptor, but obfuscated so that it cannot be used by the Initiator to surreptitiously signal its node ID to the Acceptor, and vice versa.  We can use the same protocol in reverse for a key controlled only by the Acceptor (`A + F + I` with Initiator revealing `i` and Forwarder revealing `i + f`), and thus similarly tweaked by the Forwarders to prevent surreptitious tunnels.
+
+Then the condition "Initiator AND Acceptor" can be a simple MuSig2 of the two shared, tweaked public keys, one of which is solely controlled by the Initiator and the other is solely controlled by the Acceptor.
+
+-------------------------
+
