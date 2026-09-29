@@ -1678,3 +1678,11 @@ I asked a related q: did any GETDATA responses I was to send out get delayed by 
 
 -------------------------
 
+johnnyasantoss | 2026-09-29 20:23:32 UTC | #61
+
+Would it be fair to assume that the ColdCard hack may have influenced this by creating havoc with private mempools/relay, bots RBFing till dust, and more mempool fun? I have no data on my node to confirm or deny this.
+
+Just from glancing at the data, it seems to start regressing in July, but the real increase in bandwidth to reconstruct seems to start after 07/11 (mm/dd).
+
+-------------------------
+

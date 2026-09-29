@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"58\" data-topic=\"1052\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>For the 6.9%, I\u2019ve seen some laggy GETDATA responses delaying tx relay by up to a minute;</p>\n</blockquote>\n</aside>\n<p>I asked a related q: did any GETDATA responses I was to send out get delayed by validation of blocks/tx, and the answer was \u201cno\u201d from my bot. These blocks are quite easy to verify, linear chains of small rune mints.</p>",
   "post_number": 60,
   "post_type": 1,
-  "posts_count": 59,
+  "posts_count": 60,
   "updated_at": "2026-09-29T12:00:56.806Z",
   "reply_count": 0,
   "reply_to_post_number": 58,
