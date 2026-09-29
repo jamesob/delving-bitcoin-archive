@@ -1667,3 +1667,14 @@ OTOH, I guess the 90% decrease roughly coincides with [localhost's FIBRE network
 
 -------------------------
 
+instagibbs | 2026-09-29 12:00:56 UTC | #60
+
+[quote="ajtowns, post:58, topic:1052"]
+For the 6.9%, I’ve seen some laggy GETDATA responses delaying tx relay by up to a minute;
+
+[/quote]
+
+I asked a related q: did any GETDATA responses I was to send out get delayed by validation of blocks/tx, and the answer was "no" from my bot. These blocks are quite easy to verify, linear chains of small rune mints.
+
+-------------------------
+
