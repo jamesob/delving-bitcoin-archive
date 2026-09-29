@@ -1608,3 +1608,62 @@ Would we expect template sharing to have helped here?
 
 -------------------------
 
+ajtowns | 2026-09-29 03:57:41 UTC | #58
+
+[quote="sipa, post:57, topic:1052, full:true"]
+Would we expect template sharing to have helped here?
+[/quote]
+
+I think it depends on the scope of the conflicts:
+
+ * if there's just two conflicting versions of a transaction (like a lightning unilateral close) that both propagate kind-of-okay without a clear winner, then I think you'd expect to end up with both in the template pool, and be pretty good
+ * if there's regular fee-based auctions going on, with distinct people trying to claim a utxo by bidding high fees, then in theory increasing fee rates would normally result in a clear winner, but in practice regular participants will probably exploit pinning vectors to prevent that and try to turn it into a competition on technical ability rather than willingness to pay. If that ends up with more than a handful of non-rbf-eligible alternative conflicting txs, I don't think template sharing can help, unless you also do replace-by-feerate-only for txs already in a template
+ * fee rates at the bottom of the next block are consistently very low (0.4 sat/vb?), so just generating many conflicting txs at the same feerate and seeing how they propagate to probe how mining pools' nodes are connected to the p2p network seems fairly cheap and not in any way prevented by template sharing
+
+Specifically:
+
+[quote="instagibbs, post:56, topic:1052"]
+| Share | Transactions | Root’s fate |
+|----|----|----|
+| 56.1% | 12,354 | Never announced to this node, no conflict with anything it held |
+| 19.8% | 4,362 | Conflict: this node had the pool’s version, then replaced it with a newer one |
+| 10.6% | 2,337 | Conflict: this node held a different version and never saw the pool’s |
+| 6.9% | 1,521 | Announced before the block, not in the mempool when it arrived |
+| 6.4% | 1,419 | Conflict: the pool’s version arrived but lost under the total-fee replacement rule |
+| 0.1% | 31 | Conflict, other |
+[/quote]
+
+If the 56.1% didn't propagate due to package constraints (needs 1p1c for fees, goes through the orphanage, child lost from the orphanage by the time parent arrives), then template sharing should do better by providing both parent and child simultaneously, and doing 1p1c handling automatically.
+
+If the 19.8% had the replacement happen within the last 2-5 minutes, then the tx should stay cached within an old template, and be available for compact block reconstruction.
+
+For the 6.9%, I've seen some laggy GETDATA responses delaying tx relay by up to a minute; if that's the cause here, then template sharing can allow top of mempool txs to propagate faster. (I'm mostly trying to avoid that though, to avoid relaying top of mempool txs twice or more)
+
+For the 6.4%, losing under the total-fee rule will be helped by template sharing, as long as (as per above) there aren't too many different conflicts for the same transaction floating around. If there are too many, that might look more like then 10.6% case.
+
+-------------------------
+
+ajtowns | 2026-09-29 04:24:29 UTC | #59
+
+[quote="mzumsande, post:55, topic:1052, full:true"]
+The “Block Propagation Delay History” graph of [KIT](https://www.dsn.kastel.kit.edu/bitcoin/) shows a steady decline for the 90% line, and unchanged delay for the 50% line over the last year. Wouldn’t we expect these times to be at least somewhat correlated with the compact block reconstruction rate?
+[/quote]
+
+Snapshot of the current yearly block prop graph:
+
+![image|690x345](upload://edUBAbd4qwRqxRECNsH3U36UKd.png)
+
+I think you'd expect correlation between block propagation and the "latency history" chart, which looks like it shows much worse latency figures at about the same time that compact block relay started consistently requiring round trips.
+
+Snapshot of the latency graph:
+
+![image|690x345](upload://r8zfW8eY3UW9ClHT4T6Nl625vz5.png)
+
+If we're getting pings on the order of 30ms-40ms per the latency chart, then the round-trip for reconstruction adds about 40ms per hop for the round-trip plus also the time for the announcer to actually validate the block before it will provide the txs, which might be anywhere between an additional 50ms to 300ms? It's probably only about two hops from a well-connected node to get to 50% of the network, so I guess I'd expect some increase but not much of one.
+
+The steady decrease on the 90% block propagation chart doesn't seem like it has an obvious protocol-level justification to me. It could be due to validation time improvements, or node hardware upgrades, or perhaps that transactions happen to be using cached utxos more often. It could also be a reflection of the network becoming more centralised -- for sybil nodes, getting a block to just one of them gets a block to all of them, eg; so a higher percentage of sybil nodes would likely equate to faster propagation.
+
+OTOH, I guess the 90% decrease roughly coincides with [localhost's FIBRE network relaunch](https://lclhost.org/blog/fibre-resurrected/), announced in Feb 2026? Not sure why that would be a fairly steady decrease rather than a step function though.
+
+-------------------------
+
