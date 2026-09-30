@@ -1653,3 +1653,103 @@ I hadn't, but it looks similar in broad lines. I'm imagining having the PQC pubk
 
 -------------------------
 
+conduition | 2026-09-30 17:56:05 UTC | #38
+
+[quote="sipa, post:37, topic:2749"]
+It’s a complicated argument to bring through education, and wallet design only has a small ability to influence behavior: never showing the same address twice (which has been a best practice since 2009…). Beyond that, it could prompt the user “only hand this address out to one party and tell them not to use it more than once!”. But most users don’t read, and even if they do it may backfire: people might refuse to upgrade “because those new addresses can’t be used more than once”, if the more nuanced point (that other/existing addresses are also subject to it) isn’t made across.
+[/quote]
+
+That is fair, perhaps I should have less optimism in this than I do. However, even with today's usage, we still have roughly 2/3 of the coin supply protected by a hash ([source](https://bitcoin-risq-list.projecteleven.com/metrics)). This historical precedent is why i think that, even without any effort to change wallet or user behavior, the fraction of P2MR coins that'd be covered by a hash on Q-day will still be significant and meaningful. If education makes an additional impact, even better.
+
+Do you believe that people will reuse P2MR addresses more frequently than they reuse legacy addresses today?
+
+[quote="sipa, post:37, topic:2749"]
+As for the bigger point of exposed fraction, address reuse is just one aspect. Any design that relies on sharing public keys or xpubs (with unhardened derivation) will need to change too. For some of those (but possibly a minority), that will be harder than changing address reuse practices even.
+[/quote]
+
+I will point out that pubkeys exposed off-chain are significantly higher-hanging fruit for a CRQC. The attackers would have to collude with the holders of these pubkeys (e.g. wallets API providers, multisig participants, etc), of which only a fraction will be reachable, of which only a fraction will still _have_ the pubkeys by Q-day, and only a fraction of those will be _willing_ to defraud their peers/customers. 
+
+For a CRQC, the first prio will be keys exposed on-chain because of the comparative ease of target collection. Having fewer and harder targets even makes building a CRQC to attack Bitcoin less attractive to potential investors. 
+
+This is why i feel having an output type design that reduces on-chain key exposure in the lead-up to Q-day is a very critical step, even if it's not perfect.
+
+I agree with you that the challenges in preventing address reuse or off-chain EC pubkey exposure makes P2MR less attractive than it would otherwise be, with all else being equal, compared to P2TRv2. Yet, i still think that there is value in at least _having some ability_ to keep coins secure entirely independent of the EC disable fork's timing, and that value is measured on a completely different scale than the benefits of P2TRv2.
+
+[quote="sipa, post:37, topic:2749"]
+And of course, this distinction between P2MR and P2TRv2 only matters in cases where users are actually capable of independently deciding when to stop using ECC spend paths at the right time. If they don’t, there is no difference. You may say that their wallets can make that decision for them, but that’s not particularly far from requiring ecosystem agreement (users might leave wallets that decide before “everyone else” does so), at which point ecosystem-scale disabling (lockdown, separate consensus change, or even tripwire if CRQC is cooperative) may also remove the distinction between them.
+[/quote]
+
+That's a reasonable perspective. if the entire ecosystem of users and wallets are able to independently, organically recognize "hey, it's too risky for me to use EC anymore", then we might as well use that joint willpower to activate tripwire/miner lockdown. 
+
+However, this assumes that the transacting users subject to this argument are online and transacting **at Q-day time,** and therefore that they _need_ to make that decision at all.
+
+Typically the majority of bitcoins lay dormant, often for years at a time. So really the question a P2MR user must answer is not "Is today Q-day?" (which is the consensus-level question that tripwire and miner-lockdown must address, continuously and repeatedly); The question a P2MR user (or their wallet) must answer _prior to transacting_ is "Has Q-day happened since I was last online?" That is a much easier question to answer: Tripwire, miner lockdown, and independent wallet providers can all make a significant impact protecting uninformed users in this capacity. 
+
+Reliably answering the latter (retrospective) question is not necessarily equivalent to reliably answering the former (reactive) question.
+
+Of course, my argument here applies to mainly cold-wallet users, not to active transacting users like Lightning nodes, exchanges, bridges, and other hot wallet use cases. For them, they absolutely need to be able to identify quickly when Q-day has happened.
+
+[quote="sipa, post:37, topic:2749"]
+How will you register a hardware wallet? Coordinate a multisig wallet? Those are the reasons for exposing xpubs.
+[/quote]
+
+Sharing a large batch of addresses with the host computer suffices for a hardware wallet.  
+
+Long-term high-security multisig wallets can use scripts that hide EC public keys behind hashes. If addresses within a multi-address multisig wallet must be unlinkable, batches of such addresses can be constructed by sharing PK hashes up-front at setup time. If the multisig is short-lived (i.e. if it will likely be emptied before Q-day), then sharing EC keys between participants is totally fine and you can even reuse today's code. 
+
+One may worry that in such a protocol, bandwidth and storage requirements for HWWs and multisigs scale linearly with the number of addresses. But the linear scaling rate is still totally manageable: to store a million addresses from a HWW (far more than anyone ever uses), a host computer only needs to store about 33 megabytes of hashes. In a 3-party multisig with 1 million addresses, each party would need to store 66 megabytes of hashes. 
+
+These changes would be slightly less performant than today's options, but totally doable with no meaningful change in user-level workflows.
+
+[quote="sipa, post:37, topic:2749"]
+Users and devs *will* screw this up, for all the reasons above and more. I think we’re much better off not wasting time trying to get everyone to change their ways, only to end up still relying on ECC disabling anyway.
+
+This is perhaps the biggest vision difference between P2MR and P2TRv2 proponents. To me, we cannot rely on the ecosystem making the workflow changes needed for a security difference between the two to appear. We’re better off designing things that are to the extent possible drop-in replacements instead, for everyone, including P2TR users and prospective ones, to avoid resistance in upgrading.
+[/quote]
+
+You have a good point there, and it rewinds us back to the key question we keep returning to: "what good will P2MR actually do, relative to P2TRv2?" Not what "can" it do, but what "will" it do.
+
+Ultimately i think that's an unanswerable hypothetical. We've both made clear our opinions on this question, but as mentioned earlier, there is no hard way to prove either take is correct. Maybe neither of them are. Maybe _nobody_ will migrate to either, so there is no difference at all.
+
+What I _can_ say for certain though, and I hope we can agree on this, is that having P2MR as an option for users reduces the harm in all potential outcomes, even in scenarios where barely anyone uses it properly. I.e. The fraction of people effectively protected by P2MR is non-zero. Even if you were to assume the worst-case scenario - every EC key used in P2MR is instantly uploaded to a public database as soon as its address receives a coin - the purely psychological benefit of offering a PQ output type that _can_ be used securely (in theory) is meaningful, WRT to encouraging PQC adoption.
+
+I don't think pushing workflow changes is super important to this question. That's not the problem that we need to solve today at this early stage. The problem is designing a system that _enables workflows to be secure in the future._ In this capacity, P2MR does everything P2TRv2 does, and some extra on top. Even if those workflow changes are challenging, unlikely to be used, etc, none of them are outright dangerous, so having them around as an option benefits everyone.
+
+[quote="sipa, post:37, topic:2749"]
+I think the mixed messaging makes it worse in this respect. Is it an attempt at making PQC secure, then why is it adding an optimization that increases reliance on ECC? Is it an efficiency improvement that sneaks in a PQC upgrade, then aren’t you worried about people using it without PQC path, undermining the planned ECC disabling plan?
+[/quote]
+
+To answer your question directly, my answer would be "because we don't even know yet whether Q-day is really going to happen, so it makes sense to hedge our bets." If Q-day never happens, we'd be glad to have CISA. If it does happen, we'll be _very_ glad we have PQC.
+
+[quote="sipa, post:37, topic:2749"]
+Also, and perhaps I haven’t highlighted this enough before: I consider the focus on reducing byte size an artifact of the weight formula established by SegWit. This made sense in the past (i.e., with Taproot) as introducing new witnesses with new discounts would be a difficult upgrade (far harder than an initial P2MR or P2TRv2, probably even with CISA included). But in the longer term, I think a post-CRQC world will demand it anyway, and if we embrace that, most of the advantages of CISA (at least halfagg) can be had with just a better formula that accounts for batch validation costs. This makes it also less appealing to me to stack it in with P2TRv2.
+[/quote]
+
+That's fair, and i'm on board with updating the weight system if we end up needing to. Heck, i'm on board with far more invasive changes like SNARKs, with the aim of keeping blocks physically smaller as well. But if we are trying to work within the bounds of what we have today for a short-term upgrade, CISA offers the clearest path to an address type that is cheaper to use than taproot, without the complexities and controversies of new discounts applied to EC signatures. Plus it's already written, and has other clear benefits to the network beyond fee cost (e.g. verifier performance).
+
+Could you clarify what you mean when you say we could get CISA-like advantages after Q-day? Is there some (non-SNARK) batch verification mechanism of hash-based or other PQ signatures that you are referencing? i know of no such technology.
+
+[quote="sipa, post:37, topic:2749"]
+I really wish you would stop saying that. It’s unambiguously stronger in this regard, but it comes with so many conditions that’s very misleading to think of it as “truly quantum-resistant”: it needs users capable of deciding when CRQCs might exist, curated workflows that avoid exposing public keys, lack of address reuse, and even Bitcoin as a whole surviving for it all to make a difference.
+[/quote]
+
+I suppose it's mainly a question of definitions, but my view is that the output type and spending mechanism are distinct components. You can use a PQ-safe output type (P2MR) with a PQ-vulnerable spending mechanism (ECC). Or you can use a PQ-vulnerable output type (P2TRv2) with a PQ-safe spending mechanism (e.g. SHRINCS). If either is vulnerable, the construction as a whole is vulnerable.
+
+I think of these as separate concepts but I recognize your point that some lay users may not understand the subtleties at play, and may just think of an address as being either PQ safe or not. So going forward i'll try to qualify that statement more, regarding the additional need for PQC, or workflow changes. E.g. "P2MR is the only address format which, in concert with PQC and EC risk management, allows us to construct fully PQ-secure wallets." 
+
+[quote="sipa, post:37, topic:2749"]
+I believe my experience can be helpful here. But yes, ultimately we may need to agree to disagree.
+[/quote]
+
+I'll be the first to admit you're vastly more experienced than I am in this domain, and so your predictions are far more likely to be right than mine, but really i think the possibility that we're both totally wrong is huge. We're both facing this superproblem and I don't think either of us alone can adequately model the vast array of interacting complexities at play just inside our little brains.
+
+The way to cover every scenario (i.e. to agree to disagree) is to deploy both output types simultaneously, which you've suggested previously, and let users decide what is more important to them: covering their EC keys with hashes, vs efficiency. 
+
+If I am right in my belief that devs/users value definitive security over efficiency/convenience, then coins will flow to P2MR. If i'm wrong, and coins distribute more evenly among P2TRv2/P2MR, then oh well, at least we're no worse off in terms of security than if we had deployed only P2TRv2. 
+
+To me it seems like your argument thankfully doesn't preclude deploying P2MR in tandem? P2TRv2 is still as secure and efficient and convenient as it would be if P2MR were not deployed at all. P2MR doesn't necessarily need to be deployed along with scaling tech (e.g. witness styles, SNARKs, FancySig), as those could easily be added later with new leaf versions, or by making use of the anyone-can-spend depth-zero leaf.
+
+This seems like the only remaining half-decent compromise i know of, given that the other middle-grounds (CISA and P2TRH) seem unacceptable to you guys. What do you think?
+
+-------------------------
+
