@@ -54,3 +54,13 @@ I will stop you right here and point out that fund security is an absolute requi
 
 -------------------------
 
+Hal_03 | 2026-09-30 15:55:24 UTC | #5
+
+Absolutely, but no one doubts that safety is the most important point, but it is not the only one. But, leaving this aside, I think the focus of the question of the original topic has been lost for a moment.
+
+My question focussed on the boundaries (peg-in and peg-out/ security exit) between L2 and L1.
+
+Certainly the security of the funds is important and within an L2, guaranteeing a PQ resistant security is possible, the problem is on the border. But that's not why it's useless to develop L2, considered PQ resistant, on Bitcoin not yet PQ. That's why in the end I say that maybe the question doesn't have a single answer, but it has an answer based on the phases in which L1 is located (Bitcoin in this case)
+
+-------------------------
+
