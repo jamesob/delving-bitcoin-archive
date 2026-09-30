@@ -116,3 +116,25 @@ Thanks, knowing that the seed phrase is enough is reassuring. Do you have a roug
 
 -------------------------
 
+ZmnSCPxj | 2026-09-30 12:09:51 UTC | #5
+
+[quote="Anzus_GemWallet, post:4, topic:2912"]
+Do you have a rough idea how long recovery might take on a phone after several years of activity? Could a service speed this up without learning which transactions belong to the user?
+[/quote]
+
+Not OP, but the fact that the history is stored on Bitcoin L1 blockchain suggests that it would be similar to recovering onchain wallets from seed, i.e. if it is not SPV, it would have to download all the blocks.
+
+An indexer service that reads the Bitcoin L1 blockchain and only reads the Shielded Bitcoin transfers would reduce the amount of data, assuming of course that not everybody uses Shielded Bitcoin (if ~all use of the Bitcoin blockchain were Shielded Bitcoin, then such a service would not  significantly reduce the amount of data that needs to be downloaded). However, your resource-constrained device would trust that such a service does not censor and that the service follows the history with the rules you believe to be correct for Bitcoin (i.e. SPV security)
+
+A service that can only provided the Shielded Bitcoin transfer subset of all Bitcoin transactions would not learn your transactions (but would learn you are using Shielded Bitcoin), though your resource-constrained device would still need to scan through the Shielded Bitcoin transfer subset to look for your coins (in addition to trusting that the service did honestly report all Shielded Bitcoin transfers).  An alternate kind of service that is given your viewing key would know all your transactions, but would be able to give an even smaller subset of the blockchain that actually contains your coins (i.e. SPV lack-of-privacy, like Electrum).
+
+As I understand the math of it (I AM NOT A MATHEMATICIAN) there does not seem to be a way similar to BIP-157 to create filters for Shielded Bitcoin transfers (and in any case BIP-157 is still SPV security, it just happens to be widely deployed so you can switch service providers trivially or just use multiple service providers).
+
+-------------------------
+
+Anzus_GemWallet | 2026-09-30 14:35:46 UTC | #6
+
+Thanks, that makes the tradeoff clearer. A more private recovery would require scanning more data, while a faster targeted recovery could reveal more information or require additional trust in a service. That seems like something wallets should explain clearly before users need to restore—not only during recovery.
+
+-------------------------
+

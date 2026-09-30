@@ -568,3 +568,27 @@ It is probably superseded by @pyth's [BIP138](https://github.com/bitcoin/bips/pu
 
 -------------------------
 
+light | 2026-09-30 11:07:52 UTC | #37
+
+The BIP-138 spec states the following as a desirable property:
+
+> it should not require access to private key material, which secure signing systems may not yield
+
+However the non-requirement of access to private key material, and the choice of using xpubs as decryption keys instead introduces tradeoffs that some users may find undesirable.
+
+For example:
+
+> Private key material MUST be removed before encrypting any payload. This is because the use of *public key* material for decryption makes the scheme unsuitable for storing private key material.
+
+> Users SHOULD build a multisig from accounts whose xpub was never sent to such a server, such as BIP48 or BIP87 accounts.
+
+Whether or not these tradeoffs are worth it to achieve the desired property of "should not require access to private key material" is a judgement call on the part of the user. Personally, I don't like these tradeoffs. But I am not here to take options away from the user. Instead, I want to propose an *additional* encryption method, which offers a different set of tradeoffs for users who don't like the tradeoffs associated with using xpubs as the decryption key.
+
+I propose adding a new encryption method that replaces the xpub decryption key in BIP-138 with a signature: to encrypt their backup data, the user uses a bitcoin private key to sign a standardized string e.g. `BIP-138`, and uses the resulting signature as the key to encrypt the backup. To decrypt the backup data, the user again uses their bitcoin private key to sign the standardized string and uses the resulting signature as the key to decrypt the backup. The string is standardized so that there is nothing new for the user to memorize or separately back up; the string is part of the spec.
+
+The result is an encryption method that is relatively simple ("use a bitcoin private key to sign this standardized string and use the resulting signature to encrypt/decrypt the wallet backup") with added flexibility, since now the same server that stores an xpub for balance scanning purposes can also store the encrypted backup data without the user needing to worry about the server seeing all of the contents of the backup data.
+
+The dpath of the bitcoin private key to use is open to discussion. Given that Taproot generic message signing is still not universally supported (see e.g. [Trezor](https://github.com/trezor/trezor-firmware/issues/1943)) using one of the older address types seems safest for compatibility, so I propose standardizing on a P2PKH dpath. The exact dpath could be selected by the user (with this BIP specifying some reasonable default), and appended unencrypted to the backup data to aid in decryption.
+
+-------------------------
+
