@@ -44,3 +44,13 @@ What do you think? Have you worked hands-on on anything in this space, or is thi
 
 -------------------------
 
+ZmnSCPxj | 2026-09-30 15:23:34 UTC | #4
+
+[quote="Hal_03, post:3, topic:2715"]
+So an L2 like this is as secure as the L1 against the quantum threat: if your reasoning made the L2 useless, it would make Bitcoin itself useless too. Immaterial for fund security, as you say, but fund security isn’t the only thing a payment system has to offer.
+[/quote]
+
+I will stop you right here and point out that fund security is an absolute requirement for this system, otherwise you might as well just go back to the legacy financial system.  A payment system that cannot offer fund security is no different from the legacy financial system and any other features it has is irrelevant.
+
+-------------------------
+

@@ -7,7 +7,7 @@
   "cooked": "<p>It seems to me that systematically, any non-PQ L1 simply cannot host a PQ L2 that is worthy of the name \u201cL2\u201d.</p>\n<p>If any entity can derive L1 private keys from L1 public keys that they semantically \u201cshould not\u201d control, then they can create an L1 transaction that anchors (pegs in, whatever) any funds controlled by that key into any L2, and then the current entity who \u201cshould have\u201d controlled that key would be unable to prevent the loss.  It is thus immaterial whether the L2 uses PQ for the purposes of fund security.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2026-09-30T12:23:49.246Z",
   "reply_count": 0,
   "reply_to_post_number": null,
