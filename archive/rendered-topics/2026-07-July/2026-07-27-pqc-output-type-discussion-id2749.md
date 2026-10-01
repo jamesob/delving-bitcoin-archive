@@ -1753,3 +1753,71 @@ This seems like the only remaining half-decent compromise i know of, given that 
 
 -------------------------
 
+AntoineP | 2026-10-01 10:19:15 UTC | #39
+
+[quote="fjahr, post:34, topic:2749"]
+I don’t think this is specific to CISA users though. Adoption of P2TRv2 generally hinges on people trusting that the disabling triggers will work as intended [...] If people believe they are too risky, P2TRv2 likely won’t reach consensus in the first place, with or without CISA.
+[/quote]
+
+I strongly disagree with that. The credibility of EC disabling is self-reinforcing: the more people rely on it, the higher the guarantee it will happen. But there are design choices we can make that would impact its credibility, and disrupt this dynamic. One such design choice would be to encourage using the migration output type for a reason different from getting access to a PQ signing algorithm, because it would likely result in wallets or services being deployed that use the new feature but do not bother including a PQ spending path.
+
+As you said yourselves:
+
+[quote="fjahr, post:16, topic:2749"]
+P2TRv2 + PQC + CISA could be implemented and used without CISA (only use plain BIP341 opted-out) or without PQC (not implementing the required paths).
+[/quote]
+[quote="conduition, post:36, topic:2749"]
+@fjahr is on the money here. [...] With CISA, at least some of these users have reason to migrate, and maybe some will even be foresighted enough to actually use a PQC leaf script.
+[/quote]
+
+This would substantially increase the probability of making EC disabling in P2TRv2 confiscatory, and therefore controversial, which could ultimately discredit the migration.
+
+Of course, Miner Lockdown[^1] improves the situation here. But the disabling remains nonetheless a future soft fork, that future users need to accept, and i believe we should not risk anything that could credibly compromise it.
+
+[quote="conduition, post:36, topic:2749"]
+I can and have used this argument against P2TRv2. If a user is skeptical of QC, why would she use P2TRv2 at all? Or P2MR? Both are strictly worse than existing formats, in a purely classical context.
+[/quote]
+
+P2TRv2 addresses the long tail of Bitcoin users who don't even know what output type they are currently using. The way i see it, and i've seen advocated, the persons to be convinced would be developers of "mainstream" wallets.
+
+They would start defaulting to P2TRv2 addresses, because it does not lose their users any functionality but hedges against a possible future in which CRQCs become a reality. Users would seamlessly start using P2TRv2 addresses (maybe only for change at first --see below), progressively migrating over the next decade (hopefully sooner for most of them).
+
+It would be seamless because the emergency static PQ key can be derived directly from their existing mnemonics, and because there would be no additional gotchas compared to their current usage (such as syncing chain state through another mean than sharing their xpub with the wallet provider, or some EC pubkey-based functionality becoming unavailable).
+
+I also think the biggest sources of friction here would actually be more mundane than what's been discussed so far in this thread, such as a new address type throwing off users[^2] or bech32m being [incompatible](https://whentaproot.org/) with some services they currently use.
+
+[quote="sipa, post:37, topic:2749"]
+[quote="conduition, post:36, topic:2749"]
+Without evidence I’m not sure how we can resolve this question.
+
+[/quote]
+
+I believe my experience can be helpful here. But yes, ultimately we may need to agree to disagree.
+[/quote]
+
+I disagree to disagree!
+
+@conduition i believe this is an important one, which goes to the heart of our disagreement. It is true that the fraction of coins P2MR would ultimately protect is unknown to all of us. I believe it is wrong to conclude that we just can't resolve the question.
+
+Your position hinges on an extraordinary preemptive change of behaviour from Bitcoin users, at scale. I don't think it's correct to hold the opposite view to the same standard of evidence. On the contrary, it should be the default position unless we have strong reason to believe such a change will materialize.
+
+But of course, *a* change needs to materialize for Bitcoin to survive a credible enough CRQC threat, and we only have a limited set of options available to us. So the broader question really is whether the set of conditions necessary for a P2MR-based migration to succeed is more reasonable than the set of conditions necessary for a P2TRv2-based migration to succeed[^3].
+
+Both options require the vast majority of users eventually migrating to it, so we can drop that from the equation. In the event that the vast majority of Bitcoin users migrated to P2TRv2 and the CRQC threat materialized, it's almost inconceivable that EC disabling would not go through: virtually all economic actors who form the consensus rules of the system directly would depend on it. By contrast, it seems extremely unlikely that the vast majority of users would have never reused an address, never shared their xpub to other parties, or an online server to sync their wallet state, or used any other feature which otherwise assumes public keys are public.
+
+It's pretty clear to me an EC disabling in the migration output type will be necessary if we want to have any realistic chance at mitigating CRQC risks, but you may point out that such a disabling needs not be tied to P2TRv2 specifically. As we've discussed before, P2MR+EC disabling is also a possibility. It's then tempting to see it as "the best of both worlds", but i think that would be wrong.
+
+I think P2MR+EC is inferior to P2TR+EC because it incentivizes[^4] using the migration output type for purposes different from getting access to a PQ signature scheme (as per my argument at the beginning of this post), as well as preemptively breaks from the Taproot incentive structure (which i see as a major achievement in the past decade of protocol development). Additionally, it is also 10% to 15% more expensive to use.
+
+Both issues could be addressed with witness types, as outlined in the second step of Pieter's suggested plan. But that would be a much larger change, which i expect to also be more controversial. This better fits a later step, only happening if/after the CRQC threat becomes more credible, than a first, simple, non-controversial step meant to be available as soon as possible. But more importantly, there are just unnecessary, nice-to-not-have downsides, since an EC disabling would be necessary anyways.
+
+I think there is also an argument for preferring P2MR+EC disabling. Since there is no objectively defined threshold for the number of users that need to be migrated, an increasingly credible CRQC threat could lead large P2TRv2 holders to push for early EC disabling. That could compromise the migration by turning P2TRv2 into P2QR too soon[^3]. The psychological effect of hashing keys onchain before spending time may help avoid this situation. However, i don't think this argument trumps the other ones above, and i still favour P2TRv2 as the first step of the migration.
+
+
+[^1]: Unlike, in my opinion, vanilla Tripwire which necessarily disables EC too late, and therefore can have at most a psychological effect. (Which may be sufficient, but is categorically different from the effect of a miner-coordinated disablement that is actually reachable in non-failure scenarios.)
+[^2]: Note Exodus [reverted](https://www.exodus.com/support/en/articles/10408929-how-do-i-enable-multiple-addresses) their [change to stop reusing addresses](https://youtu.be/rJb6DfG_TSU?t=38) by default, because it confused their users (presumably coming from Eth cryptoland).
+[^3]: I'm assuming we've ruled out an immediate full migration (P2QR like) as an alternative, on the basis that not enough users would preemptively migrate to a far more burdensome output type to salvage the system.
+[^4]: For all but [depth 0 scripts](https://github.com/bitcoin/bips/pull/2198), which i admittedly expect would have been the most common source of misuse.
+
+-------------------------
+
