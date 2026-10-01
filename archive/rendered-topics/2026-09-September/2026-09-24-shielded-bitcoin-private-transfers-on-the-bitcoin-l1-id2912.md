@@ -138,3 +138,17 @@ Thanks, that makes the tradeoff clearer. A more private recovery would require s
 
 -------------------------
 
+ZmnSCPxj | 2026-10-01 12:37:31 UTC | #7
+
+I skimmed both the Shielded Bitcoin and PIPEv2 paper, and I wonder about how peg-outs would work.
+
+In PIPEv2, once the condition is met, the secret key is now known by the participant that is able to meet the condition (i.e. the "Recipient").  As I understand it, with a UTXO model like in Bitcoin, that implies the entire UTXO amount becomes semantically owned by that participant, as it now learns the secret key to that UTXO and in the "real Bitcoin" can spend that UTXO arbitrarily with no conditions.
+
+This seems to imply to me that for every peg-out from the Shielded Bitcoin "domain", I would have to select some existing peg-in that exactly matches that amount I am pegging out, and then provide the proof that I have published an intent-to-peg-out on the Shielded Bitcoin domain.  Presumably the peg-in condition would also need to encode the amount (and therefore the Shielded Bitcoin domain would need to include a rule to validate that the peg-in condition and the peg-in amount match).  Is that correct?
+
+If so, how is it resolved if different actors want to peg out the same amount and happen to pick the same peg-in UTXO to get?
+
+Also, I would presume that the PIPEv2 condition would need to check that the Shielded Bitcoin intent-to-peg-out is validly confirmed onchain, and even deeply confirmed. I would presume that the condition would need to include some kind of (???) zkVM trace (???) of validating that the intent-to-peg-out is deeply confirmed, presumably requiring checking that a series of block headers meeting the correct difficulty target have buried a block containing the intent-to-peg-out publication in Shielded Bitcoin.  This seems to me effectively identical to a zk-proof version of the "SPV proof" concept brought up by the old sidechains paper, do you agree?
+
+-------------------------
+

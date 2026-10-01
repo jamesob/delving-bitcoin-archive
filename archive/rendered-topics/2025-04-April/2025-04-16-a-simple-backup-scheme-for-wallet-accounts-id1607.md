@@ -604,15 +604,15 @@ and tbh I'm not sure to get where is it operationaly better *if you have a good 
 
 -------------------------
 
-salvatoshi | 2026-10-01 08:52:28 UTC | #39
+salvatoshi | 2026-10-01 11:25:19 UTC | #39
 
 Thanks for the comment, your scheme is clever and might surely be interesting for some users.
 
 However, it requires every involved party to independently compute their own backup (which requires active access to their signing device).
 
-While not directly contradicting the properties I enumerated in the initial post (except implied by 'deterministic', but ultimately this is not in BIP138), I think this is a major limitation for many use cases that are among the primary goal of the BIP138 authors, like the setup of *recovery* spending paths. With the BIP138 scheme, the party creating the wallet needs to just get an xpub from the recovery partners, and they can just handover the encrypted backup to them, without further action needed from them.
+While not directly contradicting the properties I enumerated in the initial post (except implied by 'deterministic', but ultimately this is not in BIP138), I think this is a major limitation for many use cases that are among the primary goal of the BIP138 authors, like the setup of *recovery* spending paths. With the BIP138 scheme, the party creating the wallet needs to just get an xpub from the recovery partners, and they can just handover the encrypted backup to them, without further action needed from the partners.
 
-Similarly, if you want to use a custodian as a last-resort recovery partner, you might want to save the backup in a reasonably safe place that is not accessible to them; for example, you personal cloud storage.
+Similarly, if you want to use a custodian as a last-resort recovery partner, you might want to save the backup in a reasonably safe place that is not accessible to them; for example, your personal cloud storage.
 If you don't need them to help you recover, you don't make the encrypted backup available to them, and they have no information about your spends*. If you need help recovering, you can just send them the backup you precomputed and they can decrypt it with their key even if you are unable to decrypt it.
 
 For these reasons, I don't think this approach is compatible with several of the intended use cases of BIP138.

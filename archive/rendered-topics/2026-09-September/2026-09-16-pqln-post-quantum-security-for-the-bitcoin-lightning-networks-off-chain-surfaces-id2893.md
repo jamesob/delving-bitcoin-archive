@@ -242,3 +242,9 @@ Ahmet
 
 -------------------------
 
+Anzus_GemWallet | 2026-10-01 14:35:14 UTC | #4
+
+The QR-code size stood out to me. Even if an invoice technically fits within the largest QR format, would something that dense still scan reliably between ordinary phone screens and cameras, especially on smaller or older devices? If not, what user-friendly fallback do you imagine—sharing it as text, using multiple QR codes, or something else? It may be helpful to distinguish between “fits in a QR code” and “works reliably for everyday payments.”
+
+-------------------------
+
