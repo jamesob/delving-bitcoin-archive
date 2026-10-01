@@ -592,3 +592,15 @@ The dpath of the bitcoin private key to use is open to discussion. Given that Ta
 
 -------------------------
 
+pyth | 2026-10-01 01:24:23 UTC | #38
+
+> replaces the xpub decryption key in BIP-138 with a signature
+
+I think this is a major footgun, I really doubt your signature will be deterministic between signing devices/versions
+
+BIP138 do not prevent you to use an xpub like from `m/138'/` derivation path and use it to encrypt, this seems have same properties you are looking for
+
+and tbh I'm not sure to get where is it operationaly better *if you have a good xpub hygiene*
+
+-------------------------
+

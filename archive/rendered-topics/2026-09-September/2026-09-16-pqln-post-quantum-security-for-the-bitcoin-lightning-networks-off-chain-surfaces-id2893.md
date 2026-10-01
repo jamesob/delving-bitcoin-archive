@@ -173,3 +173,72 @@ package as part of the standard library.
 
 -------------------------
 
+ahmet-kurt | 2026-10-01 01:55:58 UTC | #3
+
+Thank you Laolu @roasbeef for the detailed reply. I feel that my post left out some context about the work, so let me add a few notes first and then I'll reply to each of your points.
+
+1) I spent a lot of time trying to make the implementation work with unmodified (vanilla) nodes. That's why I tried to work with what we have at hand today, without waiting for spec changes. The interoperability section of the paper talks about what we tested. Basically, all main Lightning functionality works between PQ and vanilla nodes. ML-KEM surfaces in PQLN such as PQ transport, PQ payment onions and PQ blinded paths require both nodes to be PQ. ML-DSA surfaces such as PQ gossip, PQ invoices, PQ offers do not need the other side to upgrade. Either side can upgrade first here and nothing breaks, but the protection itself needs both sides to be PQ.
+2) The paper is 13 pages because of the page limit of the journal we submitted to, so we had to leave out some explanations and tests. Probably we will be adding more content in the revision cycles.
+3) Some of the implementation details are only explained in the codebase and not in the paper. So I'd invite anyone interested to look at the codebase too, and any feedback there is very welcome.
+
+Now my attempt to answer your comments :slightly_smiling_face::
+
+> [There’s an on going effort](https://github.com/lightning/bolts/pull/1059) to revamp this, fixing many issues with the old protocol, while paving the way for new ways to advertise channels.
+
+Oh, great to hear. I'll be looking at this more closely.
+
+> the new PQ signatures and keys piggy back onto the existing messages.
+
+Exactly, that is pretty much what we did for gossip messages.
+
+> If FN-DSA-512 is a serious candidate, then why not also drop ML-DSA in favor of that instead?
+
+I might have worded that part badly. By "swap in" I meant replacing ML-DSA, not adding FN-DSA on top of it. We kept ML-DSA-44 as the default only because FIPS 206 isn't final yet. Once it is, I agree it makes sense to drop ML-DSA for FN-DSA, since size is our biggest cost.
+
+> Also no reason to be tied to BOLT-11 and some of its design defects... Y’all mention just the signature field, but what about the public key as well?
+
+Right, BOLT 12 was made PQ as well, and it was one of the harder ones. 
+The key is there too, split across three optional tagged fields. With ML-DSA-44 the invoice is 4286 characters without the key and 6396 with it, and FN-DSA-512 drops these to 1473 and 2915. The key only helps a payer that already trusts it, though. An announced payee's key comes from the gossip pin anyway. For an unannounced payee, a key in the same invoice as the signature proves nothing, because a quantum attacker can replace both. So I agree on moving past BOLT 11, since an offer can give the payer an anchor and a BOLT 11 invoice can't.
+
+> any PQ upgrade across all layers would also need to affect blinded paths.
+
+Oh, you just made me realize I never talked about PQ blinded paths in the writeup. The recipient builds the path, so it encapsulates to every hop's ML-KEM key and folds each secret into that hop's route-blinding secret. The payer only delivers the ciphertexts, so it doesn't need the hops' public keys. On message paths, each later ciphertext rides inside the previous hop's encrypted data. On payment paths, the ciphertexts ride next to the onion in a second list of 10 slots, which shares the gaps below.
+
+You're right about the QR code too. Our offer with a one-hop PQ path already comes out at 4332 characters, just past the 4296 that fit in the largest QR code. Your two-hop case adds another ciphertext and should land around 6000. Two changes should help, though I haven't tried them yet. The offer could commit to a hash of the per-offer key and let the invoice carry the key itself. Also, the recipient can re-derive the secret for its own hop like the per-offer key, so that hop needs no ciphertext. A two-hop PQ offer would then come to roughly 2400 characters.
+
+> Sure, but there’s no reason to be stuck with the old packet format.
+
+We tried to extend existing messages with optional TLVs wherever we could, rather than define new formats. That's why the onion kept its format. But you're right that this buys nothing for the onion, since a hybrid hop needs the upgrade anyway. The side list isn't smaller than a KEM Sphinx header either.
+
+> Is the associated data MAC check expanded to also cover this extra blob?
+
+No, and that's a real gap. Each hop checks its own entry implicitly. A changed entry decapsulates to a different secret, so that hop's HMAC fails. However, nothing checks the entries for later hops. So a routing node could tamper with a later entry and learn from the failure whether the route reaches that far. In Sphinx the very next hop would catch the change.
+
+> Further, if each hop reads their ciphertext from a fixed slot in this appended packet, they’d trivially be able to determine which position in the over all route they are.
+
+This part should be fine. Every hop reads the front entry and rotates it to the back, and the dummies are encoded exactly like real ciphertexts. A hop therefore sees its own entry at the front, followed by 19 indistinguishable entries, so its position stays hidden. Your unlinkability point stands though. ML-KEM ciphertexts can't be re-randomized and the list only rotates, so two colluding hops can match it. Today every hop of a payment already sees the same payment hash, so we don't lose anything yet. However, the list would become a real leak as soon as hops stop sharing a payment hash, for example with PTLCs. KEM Sphinx fixes both problems, since each later ciphertext hides under the earlier layers and the MAC covers the whole header. So I'd rather put the ciphertexts inside the onion layers, like KEM Sphinx does, than patch the side list. And your idea from May of lowering the max hop count helps either way, since 8 slots would cut our 21.8 kB list to about 8.7 kB.
+
+> As LN is a p2p network, various degrees of interop are required.
+
+Right, that line is too strong. I meant that a PQLN node keeps working with vanilla peers, but PQ protection only kicks in when the other node is also a PQLN node. For a fully PQ payment, that means every node on the route.
+
+> You can bridge the transition by having nodes sign under both the new and old identity.
+
+Agreed, and the `node_announcement` already does this. The ECDSA signature covers the PQ keys, and the ML-DSA signature covers the announcement. That bridges the transition for any node that sees the announcement before a quantum computer shows up. I'm less sure about a node that first sees it afterwards, because by then the old identity's signature can be forged.
+
+> With all that said, I think the best layer to start is the transport layer.
+
+Agreed. Our handshake follows the second option from your May post, and it turned out simpler than I expected. Noise's chaining key already works as the combiner. We call MixKey on each ML-KEM secret right after the ECDH secret of the same act, so the session keys stay secure as long as either secret does. The Noise HFS extension does the same thing.
+
+> The immediate barrier most will likely run into is access to secure vetted libraries for ML-KEM.
+
+Agreed, and I should be upfront that our prototype uses the fips203 and fips204 crates, which are pure Rust but still marked experimental. For rust-lightning, libcrux looks like a good candidate. Its ML-KEM is formally verified, and OpenSSH uses it too.
+
+By the way, Bitcoin Optech covered the post in [Newsletter #424](https://bitcoinops.org/en/newsletters/2026/09/25/). I couldn't join their live podcast and instead prepared a recording. It should be up on their [podcast page](https://bitcoinops.org/en/podcast/) soon.
+
+Thanks again for the careful read!
+
+Ahmet
+
+-------------------------
+
