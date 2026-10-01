@@ -64,3 +64,9 @@ Certainly the security of the funds is important and within an L2, guaranteeing 
 
 -------------------------
 
+ahmet-kurt | 2026-10-01 00:16:57 UTC | #6
+
+Hi @Hal_03, please check PQLN [here](https://delvingbitcoin.org/t/pqln-post-quantum-security-for-the-bitcoin-lightning-networks-off-chain-surfaces/2893), it will answer some of your questions.
+
+-------------------------
+
