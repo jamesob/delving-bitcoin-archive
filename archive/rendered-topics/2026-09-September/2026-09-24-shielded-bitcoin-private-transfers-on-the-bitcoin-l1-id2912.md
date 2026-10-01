@@ -162,3 +162,26 @@ The denominations are fixed, so if you want to use a vault to peg-out you need t
 
 -------------------------
 
+ZmnSCPxj | 2026-10-01 16:29:19 UTC | #9
+
+Thank you, that makes sense. I suppose my only remaining question from the previous post is: it seems you would need to also do something very much like the "SPV Proof" described in the previous Sidechains paper, except expressed somehow (??) as a condition in the "WE" scheme used in the PIPEv2 scheme, is that correct?
+
+I won't pretend I understand the maths and I assume that somehow the encrypted key in the PIPEv2 is.... somehow invisibly created by some kind of multiparty setup, maybe? :P
+
+>  There are other options that one can use, like atomic swaps that can be done with any amount.
+
+That is fine for a lot of day-to-day operations, but would be more akin to offchain-onchain swaps in Lightning than true unilateral exit in Lightning; without true exit, nobody would trust the swaps.
+
+-------------------------
+
+ClaraShk | 2026-10-01 17:44:47 UTC | #10
+
+[quote="ZmnSCPxj, post:9, topic:2912"]
+seems you would need to also do something very much like the “SPV Proof”
+
+[/quote]
+
+The amount of PoW is a parameter that we are using, but I think it's a bit different from "SPV proof". It will be an interesting point to come back to once we have our vault paper out.
+
+-------------------------
+
