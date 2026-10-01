@@ -7,7 +7,7 @@
   "cooked": "<p>Thanks, that makes the tradeoff clearer. A more private recovery would require scanning more data, while a faster targeted recovery could reveal more information or require additional trust in a service. That seems like something wallets should explain clearly before users need to restore\u2014not only during recovery.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 8,
   "updated_at": "2026-09-30T14:35:46.771Z",
   "reply_count": 0,
   "reply_to_post_number": 5,

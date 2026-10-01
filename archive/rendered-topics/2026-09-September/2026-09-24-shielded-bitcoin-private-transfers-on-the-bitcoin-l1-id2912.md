@@ -152,3 +152,13 @@ Also, I would presume that the PIPEv2 condition would need to check that the Shi
 
 -------------------------
 
+ClaraShk | 2026-10-01 15:33:13 UTC | #8
+
+We'll detail the peg-out processes in the paper we are working on.
+
+As a quick sneak peek: when you peg-out, you name the vault you want to use in the burn. A later burn naming the same vault will be ignored (that is, the notes are not burned, and the vault will not open).
+
+The denominations are fixed, so if you want to use a vault to peg-out you need the exact amount. There are other options that one can use, like atomic swaps that can be done with any amount.
+
+-------------------------
+
