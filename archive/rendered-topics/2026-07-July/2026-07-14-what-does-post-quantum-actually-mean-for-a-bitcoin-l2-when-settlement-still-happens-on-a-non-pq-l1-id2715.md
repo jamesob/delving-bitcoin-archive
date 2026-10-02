@@ -70,3 +70,9 @@ Hi @Hal_03, please check PQLN [here](https://delvingbitcoin.org/t/pqln-post-quan
 
 -------------------------
 
+Hal_03 | 2026-10-02 08:53:15 UTC | #7
+
+I don't visit unknown links or those sent by people I don't know; explain what you mean here, not only would I benefit, but it could be useful to others as well.
+
+-------------------------
+
