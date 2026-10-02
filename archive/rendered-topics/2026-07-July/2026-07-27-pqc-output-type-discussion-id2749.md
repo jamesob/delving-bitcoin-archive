@@ -1821,3 +1821,99 @@ I think there is also an argument for preferring P2MR+EC disabling. Since there 
 
 -------------------------
 
+conduition | 2026-10-02 17:01:25 UTC | #40
+
+[quote="AntoineP, post:39, topic:2749"]
+The credibility of EC disabling is self-reinforcing: the more people rely on it, the higher the guarantee it will happen. But there are design choices we can make that would impact its credibility, and disrupt this dynamic. One such design choice would be to encourage using the migration output type for a reason different from getting access to a PQ signing algorithm, because it would likely result in wallets or services being deployed that use the new feature but do not bother including a PQ spending path.
+[/quote]
+
+Yes, you're right: If people choose to misuse a new output type by not adding a PQ-safe spending condition, their money could well be confiscated by EC disabling. 
+
+The same could happen with P2MR, or with P2TRv2. There will always be a practical incentive for wallets to switch to a new output type without adding PQC: appearances, marketing, etc. They can say "Look at us, we're quantum secure!" without actually putting in the work to add PQC up front. Adding PQC is always disincentivized because it is complex, slow, and has worse features than ECC. 
+
+When EC is finally disabled, some coins will always be confiscated because it's impossible to force everyone to use PQC, and inevitably some class of "PQ-clueless" users will probably fail to use the new output type properly. Doesn't matter what output type we use. It's a question of degree: How many coins confiscated? from how many users? 
+
+You do have a point that CISA makes this problem worse by adding a new incentive and thus muddying the waters with controversy. I don't know by how much though, because anyone worried about their own coins being confiscated in this scenario can simply move to a PQC wallet - they don't need to debate against EC disabling. And I think if we commit in advance to EC disabling (via tripwire), there should be no question that it will happen, so the only controversy will be around timing, and whether to give the "PQ-clueless" subclass of CISA users more time to migrate to wallets that actually support PQC. Do you see this being a realistic outcome? 
+
+Also keep in mind the other side of the coin: Consider users who don't care about quantum and so won't migrate at all otherwise. Their coins would eventually be stolen by a CRQC anyway if one appears. CISA incentivizes these users to migrate, and so helps offset this problem. What you really want to ask is, which is greater: the number of users who would use CISA without PQC, or the number of users who would not migrate to PQC at all without CISA? Personally i think the latter is larger, but again this seems like one of those unanswerable hypotheticals and i'm not sure it's worth debating.
+
+[quote="AntoineP, post:39, topic:2749"]
+P2TRv2 addresses the long tail of Bitcoin users who don’t even know what output type they are currently using. The way i see it, and i’ve seen advocated, the persons to be convinced would be developers of “mainstream” wallets.
+
+They would start defaulting to P2TRv2 addresses, because it does not lose their users any functionality but hedges against a possible future in which CRQCs become a reality. Users would seamlessly start using P2TRv2 addresses (maybe only for change at first --see below), progressively migrating over the next decade (hopefully sooner for most of them).
+
+It would be seamless because the emergency static PQ key can be derived directly from their existing mnemonics, and because there would be no additional gotchas compared to their current usage (such as syncing chain state through another mean than sharing their xpub with the wallet provider, or some EC pubkey-based functionality becoming unavailable).
+[/quote]
+
+If users don't even know what output type they are on, that's all the more reason to argue for P2MR because to the lay user it's basically the same as any other output type: it holds their bitcoin securely.
+
+Influencing wallet developers to migrate their users is an admirable goal, but I don't feel we should sacrifice the security of everyone else to pander to the lazy wallet developer subset. 
+
+I see your point that the additional safety requirements of hiding EC pubkeys with P2MR could add UX friction and so discourage devs from migrating. But as mentioned earlier in this post, if you extrapolate wallet behavior without changing anything from today's UX patterns, we'd still have roughly 2/3 on-chain hash protection coverage. So i don't see how migration to P2MR would be any less seamless than P2TRv2 in practice. Lazy devs will flout the safety requirements but that's OK. Some wallets may actually make the effort to keep their users coins fully PQ-safe at-rest by cycling addresses, not publishing xpubs, etc, and the number of protected coins only goes up from there. 
+
+That additional layer of protection would have immense value to a lot of people, even if not everyone is perfectly covered.
+
+[quote="AntoineP, post:39, topic:2749"]
+I also think the biggest sources of friction here would actually be more mundane than what’s been discussed so far in this thread, such as a new address type throwing off users[2] or bech32m being incompatible with some services they currently use.
+[/quote]
+
+I'll add there's also the risk that wallets may fix the witness version according to the encoding scheme, and so send to P2TRv1 by mistake. This would cause funds to be misplaced (but not burned). P2MR is worse off here, because [funds mis-sent in this way would be burned](https://github.com/bitcoin/bips/pull/1670/changes/BASE..36fc00732a5d2f08e5b3879116418124f87da002#r2700501001). 
+
+
+[quote="AntoineP, post:39, topic:2749"]
+Your position hinges on an extraordinary preemptive change of behaviour from Bitcoin users, at scale. I don’t think it’s correct to hold the opposite view to the same standard of evidence. On the contrary, it should be the default position unless we have strong reason to believe such a change will materialize.
+[/quote]
+
+FWIW I wouldn't say it "hinges" on that aspect. P2MR is still more secure than P2TRv2 even if almost everyone misuses it. Granted, if people use it properly that'd be best and so we ought to encourage proper usage. My position is that some protection is better than none.
+
+Besides that, as i mentioned in my previous reply, i have evidence for my belief that the fraction of coins protected (even with negligent usage) will be meaningful:
+
+[quote="conduition, post:38, topic:2749"]
+even with today’s usage, we still have roughly 2/3 of the coin supply protected by a hash ([source](https://bitcoin-risq-list.projecteleven.com/metrics)). This historical precedent is why i think that, even without any effort to change wallet or user behavior, the fraction of P2MR coins that’d be covered by a hash on Q-day will still be significant and meaningful. If education makes an additional impact, even better.
+[/quote]
+
+I will grant that perhaps the 2/3 coins which are hashed could have had their EC pubkeys exposed off-chain, and the same could happen again with P2MR, but as I mentioned in my prior reply, these are much harder targets than keys exposed on-chain, to the extent that a real-world CRQC may never have the time or capability to target them. This is security through obscurity, but still better than 0% protection.
+
+
+
+[quote="AntoineP, post:39, topic:2749"]
+Both options require the vast majority of users eventually migrating to it, so we can drop that from the equation. In the event that the vast majority of Bitcoin users migrated to P2TRv2 and the CRQC threat materialized, it’s almost inconceivable that EC disabling would not go through: virtually all economic actors who form the consensus rules of the system directly would depend on it. By contrast, it seems extremely unlikely that the vast majority of users would have never reused an address, never shared their xpub to other parties, or an online server to sync their wallet state, or used any other feature which otherwise assumes public keys are public.
+[/quote]
+
+What is your take on the timing problem? 
+
+I don't think anyone here is arguing that EC disabling is unnecessary. My point is that P2MR makes the EC disabling timing problem less sensitive/urgent, by giving users a self-driven method to survive the chaotic interim period after Q-day, before EC disabling.
+
+This is the scenario that I lose sleep over with P2TRv2.
+
+- We deploy P2TRv2+PQC.
+- Most users migrate.
+- CRQC suddenly appears, starts cracking and sweeping wallets.
+- Miners and core devs rush to activate EC disable but it takes days/weeks.
+- By the time we do, big stacks (e.g. coinbase, binance, US gov, etc) have already been swept.
+- In the interim period, nobody can react to protect their coins (except perhaps by sending to legacy hashed addresses like P2WPKH).
+
+What would you do if you had your life savings in a highly liquid asset that is now open to theft without warning, and no idea when or if it'd be made safe? You'd sell it as fast as you could. Everyone else would think the same: We'd end up with a massive bank run. The big money players like Coinbase would be the biggest targets, and the most likely victims in the scenario above. They'd push for a hard fork to rewind the chain. I don't think anyone wants this outcome.
+
+Reconsider the above scenario with P2MR instead of (or in addition to) P2TRv2. In this scenario, everyone has a new option: to wait it out. Even users who weren't using P2MR properly or at all still have the option (if they're online) of moving coins to a new fresh address to protect themselves while they wait for EC disabling to take effect. Big bag holders (or at least a majority of them) would probably be using P2MR properly[^1] and so are less likely to be victimized to the point of pursuing a rewinding hard fork. 
+
+Maybe some less knowledgeable users who reused addresses would be vulnerable, but isn't this better than the scenario where _everyone_ is vulnerable?
+
+Can you really say that users' material safety is less important than the abstract incentive here? If Q-day happens, and nobody's coins (including yours) are safe, would you still be glad that we prioritized an incentivize above security today?
+
+Would EC disabling *really* be meaningfully less likely to activate in the P2MR-flavored scenario? Who do you believe would argue against it? 
+
+If your concern is that "everyone would be protected by P2MR so nobody would care enough to activate EC disable", then isn't that a scenario where P2MR usage has successfully protected the network, and thus a good thing?
+
+
+
+[quote="AntoineP, post:39, topic:2749"]
+I think P2MR+EC is inferior to P2TR+EC because it incentivizes<sup>[\[4\]](#footnote-8695-4)</sup> using the migration output type for purposes different from getting access to a PQ signature scheme (as per my argument at the beginning of this post)
+[/quote]
+
+Could you clarify, what does P2MR incentivize beyond PQC access? The argument at the beginning of your post was about CISA.
+
+[^1]: Big bag holders have the technical understanding to use P2MR properly, and could even afford P2MR with pure PQC spending paths. They are also well-incentivized to do so, because quantum theft could destroy their business and the wealth of their customers/investors.
+
+-------------------------
+

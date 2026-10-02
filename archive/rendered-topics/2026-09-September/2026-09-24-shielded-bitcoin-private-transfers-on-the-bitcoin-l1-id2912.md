@@ -185,3 +185,36 @@ The amount of PoW is a parameter that we are using, but I think it's a bit diffe
 
 -------------------------
 
+AdamISZ | 2026-10-02 16:13:44 UTC | #11
+
+
+[quote="ZmnSCPxj, post:9, topic:2912"]
+Thank you, that makes sense. I suppose my only remaining question from the previous post is: it seems you would need to also do something very much like the “SPV Proof” described in the previous Sidechains paper, except expressed somehow (??) as a condition in the “WE” scheme used in the PIPEv2 scheme, is that correct?
+[/quote]
+
+It might help in this to take a look at Section 4 of the [BitVM2 paper](https://eprint.iacr.org/2025/1158.pdf); yes, SPV proofs, kinda, there. But there needs to be a way to challenge such a proof (with a heavier chain or similar).
+
+I remember being rather flummoxed at first that anyone was proposing such a "crazy" idea: to prove that a transaction exists on the Bitcoin blockchain, inside Bitcoin Script (via other steps of course!). But it's not crazy, it's just ... rather difficult :) and rather limited.
+
+In PIPESv2 (at least as it was written earlier?) I don't think they specified this "SPV" part and I'm not sure how it would work as this "one shot proof" thing: how you define a valid SPV proof might not cover the possibility of it not being the canonical chain. I think.
+
+-------------------------
+
+ZmnSCPxj | 2026-10-02 19:01:30 UTC | #12
+
+[quote="AdamISZ, post:11, topic:2912"]
+But there needs to be a way to challenge such a proof (with a heavier chain or similar).
+[/quote]
+
+Hmm, I suppose for a "true" sidechain where the sidechain has a different set of miners as the true Bitcoin blockchain, as in the original sidechains paper, this distinction makes sense.
+
+However, I think for the purposes of what is effectively a sidechain published inside the true Bitcoin blockchain, the distinction does not matter.
+
+With the original sidechains paper, at *some* point, on the true Bitcoin blockchain, the amount must be released, at which point challenging with a heavier chain is no longer possible.  If after that timeout, you come into possession of a heavier chain on the sidechain that contradicts the peg-out, the coins on the true Bitcoin blockchain have already been released, so it is too late.
+
+In the case of a sidechain or sidechain-like construction whose publication is itself tied to the true Bitcoin blockchain (as in this proposal, or with qevirpunvaf), that timeout can be encoded as the requirement to present a Bitcoin header chain of that length, proving burial of a block that contains (a commitment to) the peg-out sidechain-side transaction.
+
+Whether to make any scheme similar to this a "sidechain" or not is largely a detail of whether the transactions are encoded directly into some `OP_RETURN` or similar in the true Bitcoin blockchain, or only commitments to those transactions, with the transaction data being stored in a separate network.
+
+-------------------------
+

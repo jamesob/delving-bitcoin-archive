@@ -7,7 +7,7 @@
   "cooked": "<p>We\u2019ll detail the peg-out processes in the paper we are working on.</p>\n<p>As a quick sneak peek: when you peg-out, you name the vault you want to use in the burn. A later burn naming the same vault will be ignored (that is, the notes are not burned, and the vault will not open).</p>\n<p>The denominations are fixed, so if you want to use a vault to peg-out you need the exact amount. There are other options that one can use, like atomic swaps that can be done with any amount.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 10,
+  "posts_count": 12,
   "updated_at": "2026-10-01T15:33:13.385Z",
   "reply_count": 1,
   "reply_to_post_number": 7,
