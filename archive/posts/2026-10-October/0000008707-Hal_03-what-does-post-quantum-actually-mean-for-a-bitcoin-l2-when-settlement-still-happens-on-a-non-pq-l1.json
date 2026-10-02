@@ -13,8 +13,8 @@
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 1.2,
   "yours": false,
   "topic_id": 2715,
@@ -60,9 +60,15 @@
   "excerpt": "I don\u2019t visit unknown links or those sent by people I don\u2019t know; explain what you mean here, not only would I benefit, but it could be useful to others as well.",
   "truncated": true,
   "post_url": "/t/what-does-post-quantum-actually-mean-for-a-bitcoin-l2-when-settlement-still-happens-on-a-non-pq-l1/2715/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
