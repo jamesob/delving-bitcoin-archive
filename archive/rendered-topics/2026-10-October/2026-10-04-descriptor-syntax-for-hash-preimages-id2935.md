@@ -1,6 +1,6 @@
 # Descriptor syntax for hash preimages
 
-jaonoctus | 2026-10-04 08:54:41 UTC | #1
+jaonoctus | 2026-10-05 12:28:49 UTC | #1
 
 ## Summary
 
@@ -35,7 +35,6 @@ In @sipa's words from the same issue:
 
 * **Syntax.** `sha256(preimage(HEX))`, `hash256(preimage(HEX))`, `ripemd160(preimage(HEX))`, `hash160(preimage(HEX))`.
 * **Exactly 32 bytes.** All four fragments compile to `OP_SIZE 32 OP_EQUALVERIFY <HASHOP> <digest> OP_EQUAL`, so a valid preimage is always 32 bytes, even for `ripemd160`/`hash160`. Any other length would be unsatisfiable and should be rejected by the parser.
-* **Same script.** The parser hashes the preimage and builds the same node as the digest form. Type (`Bonudmk`), script size and witness size (1+32) are unchanged, and dissatisfaction is still 32 zero bytes, so it never needs the secret.
 * **Explicit marker required.** For `sha256`/`hash256`, preimage and digest are both 32 bytes, so raw hex is ambiguous by construction. Keys avoid this because WIF/xprv have their own encodings.
 * **Serialization.** The public string prints the digest; the private string (`private=true`) prints the preimage form. Descriptors inferred from scripts produce the digest form, just as they never contain private keys.
 * **Wallet/signing (Bitcoin Core).** Today the miniscript satisfier looks up preimages only in `SignatureData`, populated from PSBT fields. Preimages from a descriptor would be stored and encrypted alongside keys, exposed through the `SigningProvider`, and used by the satisfier in addition to `SignatureData`.
