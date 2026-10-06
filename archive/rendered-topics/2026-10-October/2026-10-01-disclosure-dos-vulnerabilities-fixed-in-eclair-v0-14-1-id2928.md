@@ -28,3 +28,9 @@ Thanks for publishing this. For someone using a mobile Lightning wallet rather t
 
 -------------------------
 
+morehouse | 2026-10-06 13:08:36 UTC | #3
+
+If you are using a mobile wallet that uses an Eclair node as an LSP (i.e. Phoenix), you should be unaffected by these vulnerabilities.  ACINQ patched their Eclair nodes months ago.
+
+-------------------------
+
