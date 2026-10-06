@@ -22,3 +22,9 @@ More details in the [blog post](https://erickcestari.dev/blog/eclair-oom-pending
 
 -------------------------
 
+Anzus_GemWallet | 2026-10-06 03:26:40 UTC | #2
+
+Thanks for publishing this. For someone using a mobile Lightning wallet rather than operating an Eclair node themselves, is any action required from the wallet user, or is upgrading entirely the responsibility of whoever operates the Eclair node or backend? Clarifying that distinction may help less technical users understand whether they are affected.
+
+-------------------------
+
