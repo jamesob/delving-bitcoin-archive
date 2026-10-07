@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.8,
   "yours": false,
   "topic_id": 2928,
   "topic_slug": "disclosure-dos-vulnerabilities-fixed-in-eclair-v0-14-1",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "If you are using a mobile wallet that uses an Eclair node as an LSP (i.e. Phoenix), you should be unaffected by these vulnerabilities.  ACINQ patched their Eclair nodes months ago.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "If you are using a mobile wallet that uses an Eclair node as an LSP (i.e. Phoenix), you should be unaffected by these vulnerabilities.  ACINQ patched their Eclair nodes months ago.",
   "truncated": true,
   "post_url": "/t/disclosure-dos-vulnerabilities-fixed-in-eclair-v0-14-1/2928/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
