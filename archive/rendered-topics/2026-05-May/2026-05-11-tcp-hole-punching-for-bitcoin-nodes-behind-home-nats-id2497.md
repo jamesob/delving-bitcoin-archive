@@ -70,7 +70,7 @@ Additional, e.g. BIP-324 has the concept of a Initiator and Responder for encryp
 
 -------------------------
 
-0xB10C | 2026-05-15 20:20:52 UTC | #2
+0xB10C | 2026-06-24 09:22:37 UTC | #2
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
@@ -189,6 +189,7 @@ I would be interested in seeing results from others.
 |@m3dwards using T-Mobile US hotspot | **EIM** | no IPv6|
 |@m3dwards using Home router (OPNSense) | APDM | no IPv6|
 |@Crypt-iQ using home internet | **EIM** | **no NAT**|
+|@b10c via eduroam at University | APDM | - |
 
 As mentioned in this [comment](https://delvingbitcoin.org/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/16?u=0xb10c) by sipa, it seems we could hole punch (through the firewall; not through NAT) for **no NAT** IPv6 too.
 
@@ -409,6 +410,29 @@ The sidecar script connects to the matchmaking server and will be matched with a
 This seems to work pretty nicely, but is reliant on a 3rd party server for "matchmaking".
 
 The default server is running with a signet client connected, in case anyone wants to test it out (using something like `./contrib/holepunch/sidecar.py --cli-command "bitcoin-cli -signet" --bitcoind-host "127.0.0.1:38333" --network signet`).
+
+-------------------------
+
+0xB10C | 2026-10-13 09:33:44 UTC | #18
+
+We've picked up work on this again a bit to come up with an LLM spec/BIP and an implementation in Bitcoin Core to experiment with it a bit more. Will share more on this later. First, I wanted to recap the (four?) approaches that were discussed here and share some thoughts:
+
+
+All four approaches share can share the same `rendezvous` (you can find me here) and `punch` (start the hole punching now) messages.
+
+
+1. Third-node coordinator: A announces "find me through C" to the network. B picks that announcement, asks C for a rendezvous with A, and C sends `punch` to both. B chose A, and A opted in to being found through C. C sees a pairing happened but nothing else. The network learns that A and C are/were connected, which might leak network topology (which is not great).
+
+
+2. The advertiser's own Tor service: A runs a second, unadvertised onion service whose only job is this, and announces "find me through this onion". B reaches it over Tor, asks, and A answers with `punch` itself. No third party C. Tor only carries the request, the punched connection is clearnet. Needs Tor on both ends, and the onion identity has to be replaced whenever A's address changes so it can't be used to follow A across ISP-assigned addresses. Does not leak network topology.
+
+3. Matchmaking pool: Nodes tell a coordinator "put me in your pool", and the coordinator pairs up two members on its own. Here, nodes don't choose who they connect to, and both sides of the connections are essentially "inbound", which is weird and not ideal.
+
+4. Handoff instead of eviction: When a full node has to drop an inbound peer, it first introduces that peer to another of its inbound peers so the two connect directly, then drops it.
+
+In 1 and 2 every punch is the answer to something the receiving node asked for, so a node only ever dials a peer it chose (B picked A) or agreed to be found by (A opted in through C). In 3 and 4 the node doesn't choose. The coordinator decides who it connects to, and the punch arrives unasked. 
+
+A question I've been thinking about more generally: While this feature sounds and looks very cool, what problem does it actually solve? And do the different approaches solve different problems? Which one of them is actually worth the work that would need to go into this?
 
 -------------------------
 

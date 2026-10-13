@@ -29,3 +29,13 @@ https://bitcoin-rs-explorer.gosunuts.xyz
 
 -------------------------
 
+alexanderwiederin | 2026-10-13 09:28:25 UTC | #2
+
+Nice, great to see this!
+
+I ran into an issue getting it running on mainnet: header sync stays stuck at height 0. I opened an issue here: https://github.com/gosuda/bitcoin-rs/issues/1567
+
+I would love to hear about your experience integrating libbitcoinkernel. What worked well, and where did you run into friction? If there's anything we can do to make that experience better, I would be glad to know.
+
+-------------------------
+
