@@ -70,9 +70,19 @@ Hi @Hal_03, please check PQLN [here](https://delvingbitcoin.org/t/pqln-post-quan
 
 -------------------------
 
-Hal_03 | 2026-10-03 12:49:11 UTC | #7
+AdamISZ | 2026-10-13 13:11:07 UTC | #8
 
-(post deleted by author)
+[quote="Hal_03, post:1, topic:2715"]
+Peg-out seems more tractable, it can potentially be reduced to a commitment-based claim, with the classical signature only appearing once, at the final moment of withdrawal, rather than being exposed continuously. Peg-in seems fundamentally harder, depositing requires a classical signature to construct the transaction itself, and I don’t currently see a way around that without changing Bitcoin L1’s own signature scheme.
+[/quote]
+
+Interesting topic. Obviously the superficial answer is no, you can't do that, but I could see *scenarios* where it might make sense:
+
+For example, people use scripthash addresses on L1. They "peg in" (let's say by entering a multisig or some script condition) by paying into that address with their own coins. And only *then* (say a year later) is ECDLP effectively broken, the coins sitting in hashed addresses are "safe" until such time as a new L1 consensus occurs. The funds now in L2, supposed quantum-safe, can still be used for payments within L2. The interesting question becomes, how safe is the L2 as a store of value? It seems wildly difficult to say anything specific. The "value" assigned to bitcoin by the market may well have crashed, which you could argue, yeah, of course, the L2 is using bitcoin so its value is defined by that, so we can set that aside. Withdrawing funds from the L2 has become kinda impossible until a base chain consensus fix *at least*. But then we get into all this commitment scheme stuff.
+
+Obviously, huge topic, but I just wanted to point out that it isn't crazy to talk about PQ L2 with L1 exposed, in that particular timeline of events. Unlikely perhaps, but not crazy.
+
+This is just a counter to @ZmnSCPxj 's point I guess: if the base layer is 100% CRQC exposed, then his argument is watertight. But Bitcoin's base layer is only "mostly" exposed or half-exposed (using hashes in some cases), so the argument isn't watertight, hence the scenario above is *possible*.
 
 -------------------------
 
