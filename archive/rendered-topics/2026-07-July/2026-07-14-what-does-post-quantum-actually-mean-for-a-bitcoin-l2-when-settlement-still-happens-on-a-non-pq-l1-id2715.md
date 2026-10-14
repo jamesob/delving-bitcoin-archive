@@ -86,11 +86,23 @@ This is just a counter to @ZmnSCPxj 's point I guess: if the base layer is 100% 
 
 -------------------------
 
-Hal_03 | 2026-10-13 23:59:10 UTC | #9
+Hal_03 | 2026-10-14 00:02:08 UTC | #9
 
-Yes, I don't think it's pointless to discuss PQ-resistant L2s settling on an L1 that is still quantum-vulnerable, and I agree that this is a much broader topic.
+[quote="AdamISZ, post:8, topic:2715"]
+Interesting topic. Obviously the superficial answer is no, you can’t do that, but I could see *scenarios* where it might make sense:
 
-However, the overall security of a system depends on the security assumptions of all its components and how they interact. An attacker will look for the weakest point that allows them to compromise the system at the lowest cost.
+For example, people use scripthash addresses on L1. They “peg in” (let’s say by entering a multisig or some script condition) by paying into that address with their own coins. And only *then* (say a year later) is ECDLP effectively broken, the coins sitting in hashed addresses are “safe” until such time as a new L1 consensus occurs. The funds now in L2, supposed quantum-safe, can still be used for payments within L2. The interesting question becomes, how safe is the L2 as a store of value? It seems wildly difficult to say anything specific. The “value” assigned to bitcoin by the market may well have crashed, which you could argue, yeah, of course, the L2 is using bitcoin so its value is defined by that, so we can set that aside. Withdrawing funds from the L2 has become kinda impossible until a base chain consensus fix *at least*. But then we get into all this commitment scheme stuff.
+
+Obviously, huge topic, but I just wanted to point out that it isn’t crazy to talk about PQ L2 with L1 exposed, in that particular timeline of events. Unlikely perhaps, but not crazy.
+
+This is just a counter to @ZmnSCPxj 's point I guess: if the base layer is 100% CRQC exposed, then his argument is watertight. But Bitcoin’s base layer is only “mostly” exposed or half-exposed (using hashes in some cases), so the argument isn’t watertight, hence the scenario above is *possible*.
+[/quote]
+
+Thank you very much for taking the time to reply and for finding the topic interesting. IMO, it could open the door to many other discussions.
+
+However, yes, I don't think it's pointless to discuss PQ-resistant L2s settling on an L1 that is still quantum-vulnerable, and I agree that this is a much broader topic.
+
+The overall security of a system depends on the security assumptions of all its components and how they interact. An attacker will look for the weakest point that allows them to compromise the system at the lowest cost.
 
 In this scenario, I think the bridge deserves particular attention. Even if the peg-in is PQ-resistant, we still need to ask:
 
