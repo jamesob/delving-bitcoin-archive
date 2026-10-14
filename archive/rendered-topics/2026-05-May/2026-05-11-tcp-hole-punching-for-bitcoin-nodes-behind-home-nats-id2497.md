@@ -436,3 +436,17 @@ A question I've been thinking about more generally: While this feature sounds an
 
 -------------------------
 
+ajtowns | 2026-10-13 22:12:27 UTC | #19
+
+[quote="0xB10C, post:18, topic:2497"]
+A question I’ve been thinking about more generally: While this feature sounds and looks very cool, what problem does it actually solve? And do the different approaches solve different problems? Which one of them is actually worth the work that would need to go into this?
+[/quote]
+
+In general, is accepting (random) inbound connections actually desirable for most nodes? Being able to connect to a victim via multiple inbound connections can be a useful tool for attackers. Maybe for people who don't go to the trouble of having a publicly routable IP address, not being reachable is actually mostly a net benefit, even though it makes the p2p graph less uniform?
+
+Being able to connect directly to a known node (either your own or a friend/associate's) despite NAT or changing IP addresses seems useful, though. But that probably wants authentication, and maybe a VPN or similar is more appropriate at that point?
+
+On the other hand, perhaps having more ***short-lived*** connections with random peers (syncing headers, blocks, addresses, top of mempool) would be valuable without adding much danger (since an attacker no longer has much control over the connection's timing) -- in that case, connecting to a random public node and saying "hey introduce me to someone" (recursively?) might make more sense.
+
+-------------------------
+

@@ -86,3 +86,18 @@ This is just a counter to @ZmnSCPxj 's point I guess: if the base layer is 100% 
 
 -------------------------
 
+Hal_03 | 2026-10-13 23:59:10 UTC | #9
+
+Yes, I don't think it's pointless to discuss PQ-resistant L2s settling on an L1 that is still quantum-vulnerable, and I agree that this is a much broader topic.
+
+However, the overall security of a system depends on the security assumptions of all its components and how they interact. An attacker will look for the weakest point that allows them to compromise the system at the lowest cost.
+
+In this scenario, I think the bridge deserves particular attention. Even if the peg-in is PQ-resistant, we still need to ask:
+
+- Can the bridge correctly authenticate the deposit and attribute it to the intended user?
+- Is the proof system itself post-quantum secure? This is particularly important because an attacker who can forge a proof accepted by the verifier could authorize an illegitimate peg-out and potentially drain the bridge.
+
+Personally, I think OTS schemes could be a promising direction to explore. However, simply embedding an OTS in a Bitcoin Script is not enough; the signature verification logic must be carefully designed.
+
+-------------------------
+
