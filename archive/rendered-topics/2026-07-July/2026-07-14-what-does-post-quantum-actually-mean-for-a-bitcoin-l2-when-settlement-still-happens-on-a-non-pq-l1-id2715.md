@@ -113,3 +113,26 @@ Personally, I think OTS schemes could be a promising direction to explore. Howev
 
 -------------------------
 
+AdamISZ | 2026-10-14 11:47:31 UTC | #10
+
+[quote="Hal_03, post:9, topic:2715"]
+However, yes, I don’t think it’s pointless to discuss PQ-resistant L2s settling on an L1 that is still quantum-vulnerable, and I agree that this is a much broader topic.
+[/quote]
+
+In that direction, yes. I think there can be something to discuss.
+
+[quote="Hal_03, post:9, topic:2715"]
+In this scenario, I think the bridge deserves particular attention. Even if the peg-in is PQ-resistant, we still need to ask:
+
+* Can the bridge correctly authenticate the deposit and attribute it to the intended user?
+* Is the proof system itself post-quantum secure? This is particularly important because an attacker who can forge a proof accepted by the verifier could authorize an illegitimate peg-out and potentially drain the bridge.
+
+Personally, I think OTS schemes could be a promising direction to explore. However, simply embedding an OTS in a Bitcoin Script is not enough; the signature verification logic must be carefully designed.
+[/quote]
+
+So you're imagining pegging in with ECDL already broken?
+
+I don't see an obvious way *that* could work, that's more what @ZmnSCPxj was saying: acting onchain with authorization from a key which is not secure doesn't seem possible. The L2 can for sure validate authorization with PQ-secure primitives and they for sure can exist in bitcoin transactions - as you point out, stuff like Witnernitz OTS could work, or some variant suited to this particular task. But that doesn't seem relevant if the coins are controlled with EC keys; so it's like, you can say "Alice authorized pegging in 1BTC", but no 1BTC is locked under the L2's specified control mechanism; if she publishes a tx, she loses control of it; if she doesn't, nothing has happened.
+
+-------------------------
+
