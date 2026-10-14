@@ -450,3 +450,20 @@ On the other hand, perhaps having more ***short-lived*** connections with random
 
 -------------------------
 
+0xB10C | 2026-10-14 01:39:07 UTC | #20
+
+[quote="ajtowns, post:19, topic:2497"]
+In general, is accepting (random) inbound connections actually desirable for most nodes? Being able to connect to a victim via multiple inbound connections can be a useful tool for attackers. Maybe for people who don’t go to the trouble of having a publicly routable IP address, not being reachable is actually mostly a net benefit, even though it makes the p2p graph less uniform?
+[/quote]
+
+My understanding from https://github.com/bitcoin/bitcoin/pull/33004 is that we made this default ON as we want more/all nodes accept inbound connections.
+
+
+[quote="ajtowns, post:19, topic:2497"]
+Being able to connect directly to a known node (either your own or a friend/associate’s) despite NAT or changing IP addresses seems useful, though. But that probably wants authentication, and maybe a VPN or similar is more appropriate at that point?
+[/quote]
+
+I think that could be an option 5: Just have an RPC for punching with someone you know. Coordinator via phone, Signal, nostr, etc.
+
+-------------------------
+
