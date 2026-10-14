@@ -136,3 +136,23 @@ I don't see an obvious way *that* could work, that's more what @ZmnSCPxj was say
 
 -------------------------
 
+Hal_03 | 2026-10-14 18:54:35 UTC | #11
+
+[quote="AdamISZ, post:10, topic:2715"]
+So you’re imagining pegging in with ECDL already broken?
+[/quote]
+
+No, absolutely. It would be pointless if the coins were still controlled by EC keys.
+
+I was just saying that the bridge is one of the components most exposed to attacks, and that it deserves particular attention when trying to build a PQ resistant L2 on an L1 that is not yet PQ resistant (I could be wrong, of course, and if so, please correct me).
+
+Obviously, if the peg-in itself isn't PQ resistant, discussing what comes afterward may make less sense. But I don't think this means we should stop exploring it. On the contrary, it could be an incentive to find solutions for peg-in PQ resistant as well.
+
+Regarding OTS, as I mentioned, the verification logic needs to be carefully designed. More importantly, if the scheme is hash based, revealing a preimage proves knowledge of a secret, not necessarily the right to spend the coins. It could also introduce a front-running problem, which is another issue to address.
+
+Personally, I think it's worth exploring what can be achieved with the tools we have today, squeezing every possible opportunity out of the existing protocol before resorting to a fork. That's what I'm trying to do at the moment. I recognize that I still can't answer many questions because of gaps in my knowledge and because there are mechanisms I still need to study and understand better.
+
+Above all, though, I believe we need to start building on Bitcoin.
+
+-------------------------
+
