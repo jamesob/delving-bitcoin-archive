@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.2,
+  "incoming_link_count": 1,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 2959,
   "topic_slug": "from-peer-to-peer-cash-to-elite-settlement-layer-is-the-21m-cap-building-a-new-aristocracy",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "\nBitcoin was introduced as \"a peer-to-peer electronic cash system\" \u2014 money for everyone, without trusted third parties. Seventeen years later, an honest observation: BTC is increasingly accumulated as a reserve asset by governments, ETFs, and corporations, while its use for everyday purchases keeps shrinking.\n\nThis looks like Gresham's law in action: deflationary money gets hoarded, while depreciating fiat gets spent. Nobody wants to spend an asset that might be worth ten times more tomorrow. But there is a deeper problem: a currency is a roof over daily life, and no one can live even a second under a roof whose walls have no stability. When value swings wildly, the common person cannot plan, save, or trade with confidence. A roof that shakes is not shelter \u2014 it is a risk.\n\nThe fixed 21M supply \u2014 Bitcoin's greatest strength \u2014 may also be the mechanism that steadily prices out the common person and concentrates holdings among the wealthy and the powerful. Today, elites rule over ordinary people with the help of money. If current trends continue, tomorrow BTC itself will be under the elites \u2014 the same hierarchy, only with a new instrument.\n\nIs this drift inevitable? If BTC ends up mainly as a \"backend\" settlement layer between institutions and governments, with everyday users pushed to second layers, has Bitcoin failed its original vision \u2014 or is this simply what sound money looks like at global scale? And in a system where early and wealthy accumulators benefit most from scarcity, who bears the greatest cost \u2014 the late retail buyer, or the developing nations priced out of the reserve race?\n\nOne closing thought: what if the peer-to-peer idea could be carried forward by a currency where the limit is on value, not on the number of units \u2014 something like a humanitycoin, powered by the daily activity of ordinary people rather than the vaults of the powerful?\n\n*\"Bitcoin stood on the shoulders of 7 references; humanitycoin will stand on 8 \u2014 the eighth being Satoshi Nakamoto himself.\"*",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Bitcoin was introduced as \u201ca peer-to-peer electronic cash system\u201d \u2014 money for everyone, without trusted third parties. Seventeen years later, an honest observation: BTC is increasingly accumulated as a reserve asset by governments, ETFs, and corporations, while its use for everyday purchases keeps s&hellip;",
   "truncated": true,
   "post_url": "/t/from-peer-to-peer-cash-to-elite-settlement-layer-is-the-21m-cap-building-a-new-aristocracy/2959/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
