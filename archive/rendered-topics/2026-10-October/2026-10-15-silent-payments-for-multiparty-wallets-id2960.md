@@ -1,6 +1,6 @@
 # Silent Payments for Multiparty Wallets
 
-olkurbatov | 2026-10-15 15:36:38 UTC | #1
+olkurbatov | 2026-10-15 15:41:44 UTC | #1
 
 **Abstract**. BIP-352 does not recommend FROST- / MuSig2-based inputs "due to lack of a security proof". This post describes a protocol that lets a multiparty sender perform a secure Silent Payment: the wallet computes an ECDH share as a weighted sum of the signers' contributions, and $\mathsf{AggDLEQ}$ aggregates their responses into a single BIP-374 proof.
 
@@ -20,7 +20,7 @@ x=\sum_{i\in T}c_i\cdot k_i,\quad\text{where }(c_i,k_i)=
 $$
 
 > * **[FROST](https://github.com/siv2r/bip-frost-signing)**: $x=\sum_{i\in T} \lambda_i s_i$ with Lagrange coefficients $\lambda_i$ 
-> * **[MuSig2](https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki)**: $x=\sum_i\alpha_i x_i$ with $\alpha_i=\mathcal{H}_{\mathrm{agg}}(\vec X,X_i)$ over the key list $\vec X$.
+> * **[MuSig2](https://github.com/bitcoin/bips/blob/927b6de9915c9262615a6399de51b200f81e5aa4/bip-0327.mediawiki)**: $x=\sum_i\alpha_i x_i$ with $\alpha_i=\mathcal{H}_{\mathrm{agg}}(\vec X,X_i)$ over the key list $\vec X$.
 > * Analogy for [Nested MuSig2](https://eprint.iacr.org/2026/223) and [BLISK](https://delvingbitcoin.org/t/blisk-boolean-circuit-logic-integrated-into-the-single-key/2217) constructions should be clear.
 
 The same with tweaks. BIP-32 and the taproot tweak add scalars to the key, and the even-Y rule requires multiplying it by a sign. So the input key is $A=[g]X+[\tau]G$ with $g=\pm1$ and $\tau$ (BIP-327's and BIP-445's parity and tweak accumulators). A corresponding secret is:
