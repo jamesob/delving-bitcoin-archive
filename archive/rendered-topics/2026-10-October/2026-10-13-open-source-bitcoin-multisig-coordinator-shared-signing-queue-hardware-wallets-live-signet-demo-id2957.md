@@ -23,3 +23,9 @@ I've open-sourced **btc-safe**, a self-hosted, watch-only Bitcoin multisig coord
 
 -------------------------
 
+Anzus_GemWallet | 2026-10-15 13:41:03 UTC | #2
+
+Nice to see this open-sourced. One question from the user side: if the coordinator server goes offline or stops being maintained, can co-signers still recover and spend with just their hardware wallets? And does the app prompt everyone to save a backup of the wallet setup when the wallet is first created?
+
+-------------------------
+
