@@ -467,3 +467,17 @@ I think that could be an option 5: Just have an RPC for punching with someone yo
 
 -------------------------
 
+jonhbit | 2026-10-15 19:51:45 UTC | #21
+
+[quote="0xB10C, post:18, topic:2497"]
+A question I’ve been thinking about more generally: While this feature sounds and looks very cool, what problem does it actually solve? And do the different approaches solve different problems? Which one of them is actually worth the work that would need to go into this?
+[/quote]
+
+One framing of the problem: "Honest nodes are not as reachable as attacker-controlled nodes. This gives attackers an extra advantage when trying to occupy outbound connection slots."
+
+Some supporting data here: https://bnoc.xyz/t/outbound-connection-success-rates-of-a-bitcoin-node/142/3
+
+With that framing, I think having some sort of holepunching would be very valuable. Option 2 seems like a good start, given that the % of nodes advertising a Tor address (already have Tor working) is quite high.
+
+-------------------------
+
