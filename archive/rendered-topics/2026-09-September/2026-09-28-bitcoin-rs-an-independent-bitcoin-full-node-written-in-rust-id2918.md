@@ -39,9 +39,9 @@ I would love to hear about your experience integrating libbitcoinkernel. What wo
 
 -------------------------
 
-gosunuts | 2026-10-16 10:00:30 UTC | #3
+gosunuts | 2026-10-16 10:01:25 UTC | #3
 
-Thanks for trying bitcoin-rs and reporting #1567! We've fixed the header presync issue in #1571 and #1582. Could you try the latest `main` and let us know if it's working now?
+Thanks for trying bitcoin-rs and reporting [#1567](https://github.com/gosuda/bitcoin-rs/issues/1567)! We've fixed the header presync issue in [#1571](https://github.com/gosuda/bitcoin-rs/pull/1571) and [#1582](https://github.com/gosuda/bitcoin-rs/pull/1582). Could you try the latest `main` and let us know if it's working now?
 
 Regarding `libbitcoinkernel`, we initially planned to use it directly for consensus validation. However, once we started using AI, building an independent Rust implementation became much more practical, giving us more freedom to design clear module boundaries and integrate with other Rust projects. We've since come to prefer using `libbitcoinkernel` as a reference oracle for differential testing.
 
