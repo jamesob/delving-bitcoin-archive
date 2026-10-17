@@ -13,9 +13,9 @@
   "reply_to_post_number": 22,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 6.0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 2497,
   "topic_slug": "tcp-hole-punching-for-bitcoin-nodes-behind-home-nats",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:22, topic:2497\"]\nAdditionally, it needs careful design of an holepunch address manager and rate-limiting to mitigate an attacker flooding the node with fake addresses or public keys that will never result in a holepunch connection.\n[/quote]\n\nWouldn't it also be effective for an attacker to flood with real addresses/public keys, to attempt to monopolize all connections made via this mechanism?\n\nTo maintain 8 connections to 100k peers, you'd need ~1M active ports; but for the actual address sharing step, I think you'd likely only need to advertise ~10k ports (800k connections cycling once a week is about 800 per block, so with 10k attacker addresses advertised at any one time, you should be an early match against each victim -- about 85% of honest nodes will have the top two matches be attackers, in that scenario; and even when that happens, the odds of the other peer not having an attacker's node at a higher ranked seems very low?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "Wouldn\u2019t it also be effective for an attacker to flood with real addresses/public keys, to attempt to monopolize all connections made via this mechanism? \nTo maintain 8 connections to 100k peers, you\u2019d need ~1M active ports; but for the actual address sharing step, I think you\u2019d likely only need to&hellip;",
   "truncated": true,
   "post_url": "/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/23",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
