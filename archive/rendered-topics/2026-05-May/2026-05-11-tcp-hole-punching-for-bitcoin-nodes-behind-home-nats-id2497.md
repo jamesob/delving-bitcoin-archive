@@ -500,3 +500,15 @@ Both sides have to announce and have each other's address, so success depends on
 
 -------------------------
 
+ajtowns | 2026-10-17 03:12:31 UTC | #23
+
+[quote="0xB10C, post:22, topic:2497"]
+Additionally, it needs careful design of an holepunch address manager and rate-limiting to mitigate an attacker flooding the node with fake addresses or public keys that will never result in a holepunch connection.
+[/quote]
+
+Wouldn't it also be effective for an attacker to flood with real addresses/public keys, to attempt to monopolize all connections made via this mechanism?
+
+To maintain 8 connections to 100k peers, you'd need ~1M active ports; but for the actual address sharing step, I think you'd likely only need to advertise ~10k ports (800k connections cycling once a week is about 800 per block, so with 10k attacker addresses advertised at any one time, you should be an early match against each victim -- about 85% of honest nodes will have the top two matches be attackers, in that scenario; and even when that happens, the odds of the other peer not having an attacker's node at a higher ranked seems very low?
+
+-------------------------
+
