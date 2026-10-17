@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for trying bitcoin-rs and reporting [#1567](https://github.com/gosuda/bitcoin-rs/issues/1567)! We've fixed the header presync issue in [#1571](https://github.com/gosuda/bitcoin-rs/pull/1571) and [#1582](https://github.com/gosuda/bitcoin-rs/pull/1582). Could you try the latest `main` and let us know if it's working now?\n\nRegarding `libbitcoinkernel`, we initially planned to use it directly for consensus validation. However, once we started using AI, building an independent Rust implementation became much more practical, with more room for performance optimization and simpler cross-platform builds. We now prefer using `libbitcoinkernel` as a reference oracle for differential testing.\n\nThat said, `libbitcoinkernel` remains an important part of our project and continues to be invaluable in verifying our implementation. We really appreciate all your work on it. Thank you!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for trying bitcoin-rs and reporting <a href=\"https://github.com/gosuda/bitcoin-rs/issues/1567\" rel=\"noopener nofollow ugc\">#1567</a>! We\u2019ve fixed the header presync issue in <a href=\"https://github.com/gosuda/bitcoin-rs/pull/1571\" rel=\"noopener nofollow ugc\">#1571</a> and <a href=\"https://github.com/gosuda/bitcoin-rs/pull/1582\" rel=\"noopener nofollow ugc\">#1582</a>. Could you try the latest main and let us know if it\u2019s working now? \nRegarding libbitcoinkernel, we initially planned to use it directly for consensus validation. However, once we started using &hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-rs-an-independent-bitcoin-full-node-written-in-rust/2918/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
