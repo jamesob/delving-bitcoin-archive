@@ -512,3 +512,21 @@ To maintain 8 connections to 100k peers, you'd need ~1M active ports; but for th
 
 -------------------------
 
+0xB10C | 2026-10-18 01:08:26 UTC | #24
+
+[quote="ajtowns, post:23, topic:2497"]
+Wouldn’t it also be effective for an attacker to flood with real addresses/public keys, to attempt to monopolize all connections made via this mechanism?
+[/quote]
+
+Yes, that's the main downside we discussed in-person too. I'm lagging behind a bit with writing up the current ideas here (still traveling). 
+
+For sharing addresses between two home nodes, idea is to use a "message board" instead of "normal" address relay. Listening nodes can announce a service bit that they are acting as message boards for holepunching peers (next to being a normal node). Home nodes connect to them (via probably short-lived connections; but maybe long-lived is fine too) from the same port as they would do the hole puch and tell the message board about their IP. They don't do any other relay of these connections. The board only adds the home node IP:port if it matches what it sees (protects against someone spamming the boards with fake IPs). The board also tells the home node about the IPs of the other home nodes that announced to it. If we use short-lived connections, a home-node probably has to refresh it's own IP periodically to avoid the entry becoming stale and to learn about other home-nodes that registered on the board after it did. Board entries aren't relayed (other than to the home-nodes who've chosen a node as message board). A home node chooses multiple boards from it's addrman. The hope is that at minimum one choosen board is honest (same as home-nodes currently hope that one choose node is honest).
+
+Then, the method described above for selecting deriving who to connect to and when happens. My instinct is that this should be more reliable than address relay. We don't need to rely on addr-relay working well for good home node endpoints to spread across the network symmetrically (we need the peers endpoint and the peer needs ours) and it's significantly more expensive for someone to produce failures with fake peer-endpoints: You either need a lot of IPs or you need to control many boards (in distinct netgroups / AS with asmap).
+
+IPv6 needs a special rule as it's cheap to get many IPs.
+
+There's more details in this LLM-written [spec](https://github.com/0xB10C/bips/blob/bc77fd2c9729b143b12fd64ad45fc1dd1c0ea523/bip-tcp-holepunch-coordinatorless.md), which I don't think is ready for human consumption yet.
+
+-------------------------
+

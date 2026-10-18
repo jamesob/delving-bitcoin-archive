@@ -654,3 +654,9 @@ Of note, I am working on a patch to divide block hashes into a â€œwork-stealingâ
 
 -------------------------
 
+rustaceanrob | 2026-10-18 03:10:58 UTC | #19
+
+Floresta has added [an implementation of SwiftSync](https://github.com/getfloresta/Floresta/pull/1115) using the [implicit deletions for Utreexo](https://delvingbitcoin.org/t/implicit-deletions-and-improvements-in-utreexo-ibd/2881) technique
+
+-------------------------
+
