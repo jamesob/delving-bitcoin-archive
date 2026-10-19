@@ -555,3 +555,80 @@ To be clear, that feature defaulting to on also makes goal 2 worse, as far as I 
 
 -------------------------
 
+0xB10C | 2026-10-19 19:17:37 UTC | #26
+
+(writing down WIP thoughts here. Still thinking about how the interaction with a board could look like).
+
+[quote="0xB10C, post:24, topic:2497"]
+probably via short-lived connections; but maybe long-lived is fine too
+[/quote]
+
+Both short-lived and long-lived connections have trade-offs. Periodical short-lived connections would refresh a home-node IP in a board periodically by connecting+handshake, sending it's address, and receiving addresses from the board. A long lived connection to the board would stay open for as long as the home-node wants to receive or make a connection. These connections are very light-weight and only consists of `ping/pong` as well as holepunch-addr-relay (board telling the home node about candidates to punch with).
+
+On long-lived connections, the boards can push newly registered home-nodes to connected nodes shortly after they registered. With a short-lived connection, a home node has to register with the board and fetch from the board, wait until other nodes fetched its entry from the board, and then re-fetch entries from the board. This makes short-lived connections generally slower in finding endpoints, they require more connections to succeed (which might be a problem if inbound slots on boards are full), require slightly more bandwidth (one handshake+ping/pong vs multiple handshakes), and short-lived entries might be stale more often as long-lived connections can be removed from a board shortly after the connection drops. Short-lived ones need to remain on the board for some X minutes until the next reconnect is scheduled (+ maybe some grace).
+
+With a home-node making short-lived connections, you also need to keep the NAT and firewall mapping alive (routers might expire this after a few minutes of inactivity). This can be done by making one (or all) outbound connections from the hole punch port.
+
+Long-lived connections are more costly to board nodes, so boards might limit how many to maintain. Short-lived ones are cheaper and a board can store many more candidates (up to a limit), which might be better for finding a more diverse set of peers, but worse in case an attacker attacks a board?
+
+I have a slight preference for long-lived connections at the moment, as they make hole-punching more reliable and raises the cost for an attacker a bit (one connection every N minutes is slightly cheaper than maintaining a connection for longer).
+
+---
+
+Thanks for sharing your thoughts @ajtowns! 
+
+[quote="ajtowns, post:25, topic:2497"]
+[quote="0xB10C, post:24, topic:2497"]
+Board entries aren’t relayed
+
+[/quote]
+In that case, honest message board nodes aren’t helping each other out, so an attacker will probably advertise the same ips/ports on every message board, while honest nodes will only appear on a few, which seems like it gives an additional multiplicative advantage to the attacker?
+[/quote]
+
+My current thoughts are: (Assuming only IPv4 for now and long-lived connections), an attacker can control as many entries on all boards as he has access to IPv4 addresses he can sustain long-lived connections from. An home-node would want to sample candidates from a few boards, and deduplicate by IPv4. Boards and home-nodes would want to also limit by netgroup/AS, which makes it slightly more expensive for an attacker (as his IPs need to come from different netgroups/ASNs) with the trade-off of causing some netgroups/AS with many home-nodes to fail more often (or we could also use the netgroup/AS in the shared secret). 
+
+[quote="ajtowns, post:25, topic:2497"]
+I think hole punching has a high risk of making the second goal worse – making it easier for an attacker to get a direct connection to more honest nodes.
+[/quote]
+
+Today, the way for an attacker to get more direct connections seems to be to run more nodes accepting inbound connections in a more diverse set of netgroups / AS (as some entities like e.g. [this](https://bnoc.xyz/t/25-0-25-1-clients-disrespecting-frelay/17), [this](https://github.com/bitcoin-noc/banlist/pull/2), or [this](https://bnoc.xyz/t/many-connections-to-bitproject-io-nodes/40) seem to be doing already). Accepting and maintaining long-lived inbounds on many IPs is more expensive for an attacker than making long-lived outbound connections (to boards and home nodes) or accepting hole-puches. So I tend to agree. Would treating them as "inbounds" (in terms of fast we relay) on both sides help? I guess only for the spy-angle. They'd still be able to DoS and otherwise exploit.
+
+---
+
+
+One thing that came up in an in-person discussion was: Today, the network partly relies on nodes in Hetzner, AWS, Google Cloud and Digital Ocean to offer inbound connections. If these don't want or can't allow you to run nodes on their platform anymore, then there's a need for something that connects home-nodes together. They create direct edges between two home-nodes that currently are only connected via other's. Hole punching would change topology from a hub topology (where the hubs are the reachable nodes in data centers) to a more "mesh" topology. 
+
+
+[quote="ajtowns, post:25, topic:2497"]
+1. high probability of having a connection to an honest node (to avoid censorship)
+
+...
+
+I don’t think the message board does much to improve the first goal – if you can find an honest message board node, generally you could just stay connected to it for blocks and txs; and if you can’t find an honest message board node, you’re screwed anyway in this model?
+[/quote]
+
+With fewer honest nodes being able to accept inbounds than today (e.g. ban on Bitcoin nodes in data centers), it might actually be preferable to have hole-punching to address the anti-censorship goal. You only need one board that has a few honest home-nodes for the hole punching to work at some point. The board node might not have enough resources (bandwidth or CPU) to handle the new need for connection slots to serve blocks and txs to, but can share addresses of home-nodes in a low-bandwidth fashion, which then have CPU and bandwidth resources for inbound slots.
+
+I agree that on the other hand we want to avoid a situation where e.g. "Sorry honey, we can't watch Netflix right now, someone is DoSing our internet by downloading blocks from my hole-punch home node."...
+
+---
+
+My idea was to have a board node mode in Bitcoin Core, so each normal listening node eventually (when and if on-by-default) can act as a board. However, I think there's nothing stopping people from running other software that acts a board. Maybe even with higher limits and performance, as you don't need to handle transaction and block relay, and care a bit less about resource usage. Along the way, we should probably make sure to limit what other non-Bitcoin infrastructure can use these boards to store information.. (even if they hard to maintain an open connection for storing an address and 32 bytes of data).
+
+-------------------------
+
+0xB10C | 2026-10-19 18:02:28 UTC | #27
+
+[quote="ajtowns, post:25, topic:2497"]
+[quote="0xB10C, post:20, topic:2497"]
+My understanding from https://github.com/bitcoin/bitcoin/pull/33004 is that we made this default ON as we want more/all nodes accept inbound connections.
+
+[/quote]
+
+To be clear, that feature defaulting to on also makes goal 2 worse, as far as I can see. I think [we haven’t seen much increased reachability](https://bnoc.xyz/t/did-the-number-of-reachable-nodes-in-residential-isps-increase-since-bitcoin-core-v30-0/122) as a result of that change, so I guess I’m thinking about that goal as something of a revealed preference from Bitcoin users, and seeing if it seems rational after the fact.
+[/quote]
+
+It probably makes sense to rerun these numbers to see if things changed now. However, I'm not sure it's fair to come to the conclusion that Bitcoin users prefer their home nodes to be unreachable. Checking if more reachable nodes in ISPs vs cloud show up measures router and ISP compatibility and not user consent or preference.
+
+-------------------------
+
