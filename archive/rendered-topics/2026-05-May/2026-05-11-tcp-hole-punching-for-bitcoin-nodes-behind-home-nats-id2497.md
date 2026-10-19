@@ -530,3 +530,28 @@ There's more details in this LLM-written [spec](https://github.com/0xB10C/bips/b
 
 -------------------------
 
+ajtowns | 2026-10-19 02:29:50 UTC | #25
+
+[quote="0xB10C, post:24, topic:2497"]
+Board entries aren’t relayed
+[/quote]
+
+In that case, honest message board nodes aren't helping each other out, so an attacker will probably advertise the same ips/ports on every message board, while honest nodes will only appear on a few, which seems like it gives an additional multiplicative advantage to the attacker? (Attacker controlled message boards will presumably just give connections to the attacker either way ofc)
+
+I think there's probably two high-priority goals we should consider for p2p connectivity:
+
+ 1) high probability of having a connection to an honest node (to avoid censorship)
+ 2) low probability of having a connection to a particular attacker (to avoid spying, denial of service, or targeted exploits)
+
+Obviously if our code and p2p protocol is perfect, and there are no vulnerabilities or privacy leaks possible from a peer connecting to our node, then (2) isn't worth worrying about; but I don't think that's how things are today.
+
+I think hole punching has a high risk of making the second goal worse -- making it easier for an attacker to get a direct connection to more honest nodes. I don't think the message board does much to improve the first goal -- if you can find an honest message board node, generally you could just stay connected to it for blocks and txs; and if you can't find an honest message board node, you're screwed anyway in this model?
+
+[quote="0xB10C, post:20, topic:2497"]
+My understanding from https://github.com/bitcoin/bitcoin/pull/33004 is that we made this default ON as we want more/all nodes accept inbound connections.
+[/quote]
+
+To be clear, that feature defaulting to on also makes goal 2 worse, as far as I can see. I think [we haven't seen much increased reachability](https://bnoc.xyz/t/did-the-number-of-reachable-nodes-in-residential-isps-increase-since-bitcoin-core-v30-0/122) as a result of that change, so I guess I'm thinking about that goal as something of a revealed preference from Bitcoin users, and seeing if it seems rational after the fact.
+
+-------------------------
+
