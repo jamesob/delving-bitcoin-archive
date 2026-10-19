@@ -257,3 +257,24 @@ I'm open for corrections, clarifications or additions.
 
 -------------------------
 
+RubenSomsen | 2026-10-19 07:49:06 UTC | #4
+
+[quote="optout, post:3, topic:2881"]
+I’d like to present my understanding of it – please correct me if needed.
+
+[/quote]
+
+Your summary is correct, but allow me to provide a simple alternative model that perhaps makes it easier to reason about the combination of Utreexo + SwiftSync. This is also how I originally pitched the idea to combine the two.
+
+---
+SwiftSync on its own allows you to come to consensus over the UTXO set, without having expectations about what shape this final UTXO set takes. This begs the question: can this shape be the utreexo accumulator? In particular, this is desirable because SwiftSync IBD is more performant than utreexo IBD (no proof branches required), but once you're at the tip you may still want a compact representation of the UTXO set (the utreexo accumulator).
+
+Regardless of SwiftSync, if with every UTXO we also tracked position data, meaning you incrementally number every TXO and remember this number for every UTXO, you end up with a set you can hash into the utreexo accumulator. Reason for this is because the shape of the tree is determined solely by the number of spent TXOs between every UTXO, and you can infer this from the number. If you have a UTXO at position 2 and 5, you know 3 and 4 are spent.
+
+Rather than doing SwiftSync first, tracking position data, and then converting the UTXO set into a utreexo accumulator, these two steps can be performed in tandem. The SwiftSync hints file already provides exactly this position data, meaning you can start performing the operation right away, rather than first waiting for IBD to finish.
+
+---
+As a final general comment, while it's possible to process blocks in any arbitrary order, in practice this is not required. Waiting on a range of sequential blocks before processing them in parallel does not slow you down, and provides benefits such as reduced state, caching, and easier wallet scanning during IBD. You can find more on that [here](https://gist.github.com/RubenSomsen/21c45b1c57448881ce5007d884fb3f21#order-of-validation).
+
+-------------------------
+
