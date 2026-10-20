@@ -632,3 +632,34 @@ It probably makes sense to rerun these numbers to see if things changed now. How
 
 -------------------------
 
+ajtowns | 2026-10-20 01:17:09 UTC | #28
+
+[quote="0xB10C, post:26, topic:2497"]
+One thing that came up in an in-person discussion was: Today, the network partly relies on nodes in Hetzner, AWS, Google Cloud and Digital Ocean to offer inbound connections. If these don’t want or can’t allow you to run nodes on their platform anymore, then there’s a need for something that connects home-nodes together.
+[/quote]
+
+I guess I'm more worried about home ISPs preventing you from running a bitcoin node than all data centres doing so -- it's much harder to get a new ISP (or move house) than it is to fire up a different VPS; and it's likewise potentially more damaging if a p2p exploit compromises your home network rather than a random VPS. The VPS provider is likely getting explicitly paid by the node operator as well, unlike the ISP who might figure "they'll keep paying for netflix and facebook".
+
+[quote="0xB10C, post:26, topic:2497"]
+Hole punching would change topology from a hub topology (where the hubs are the reachable nodes in data centers) to a more “mesh” topology.
+[/quote]
+
+I think of the topology today as two layer -- a mesh of listening nodes each connected to each other, with end-points having long-term connections to a handful of random points within that mesh. Listening nodes get better performance vs higher risk (and to a small extent higher cost), while end-points get the opposite. Attackers and spy-nodes can occur at either layer, of course.
+
+[quote="0xB10C, post:26, topic:2497"]
+Both short-lived and long-lived connections have trade-offs.
+[/quote]
+
+I think having more short-lived connections (perhaps lasting a few hours or a day) relaying blocks and transactions might be an interesting trade-off in this space -- it reduces the risk of an attack somewhat (the attacker has to get lucky repeatedly), makes the network topology more dynamic (so attacks relying on knowing the topology are harder), and perhaps equalises the behaviour of high-uptime nodes vs new nodes which might be beneficial. Not really sure how to analyse/think about that in a concrete way though.
+
+Possibly we should think of "outbound" and "inbound" with "chosen-partner" (I don't think this guy is an attacker, so can prioritise them higher) vs "just-a-stranger"; so pairings might be something like:
+
+| connection | my opinion | their opinion |
+| --- | ---- | ---- |
+| outbound | :1st_place_medal: chosen-partner  | :detective: just-a-stranger
+| inbound | :detective: just-a-stranger | :1st_place_medal: chosen-partner
+| holepunch | :detective: just-a-stranger | :detective: just-a-stranger
+| authed connection | :1st_place_medal: chosen-partner | :1st_place_medal: chosen-partner
+
+-------------------------
+
