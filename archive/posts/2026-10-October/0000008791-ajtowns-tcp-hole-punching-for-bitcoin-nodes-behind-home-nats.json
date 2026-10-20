@@ -13,9 +13,9 @@
   "reply_to_post_number": 26,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 2497,
   "topic_slug": "tcp-hole-punching-for-bitcoin-nodes-behind-home-nats",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:26, topic:2497\"]\nOne thing that came up in an in-person discussion was: Today, the network partly relies on nodes in Hetzner, AWS, Google Cloud and Digital Ocean to offer inbound connections. If these don\u2019t want or can\u2019t allow you to run nodes on their platform anymore, then there\u2019s a need for something that connects home-nodes together.\n[/quote]\n\nI guess I'm more worried about home ISPs preventing you from running a bitcoin node than all data centres doing so -- it's much harder to get a new ISP (or move house) than it is to fire up a different VPS; and it's likewise potentially more damaging if a p2p exploit compromises your home network rather than a random VPS. The VPS provider is likely getting explicitly paid by the node operator as well, unlike the ISP who might figure \"they'll keep paying for netflix and facebook\".\n\n[quote=\"0xB10C, post:26, topic:2497\"]\nHole punching would change topology from a hub topology (where the hubs are the reachable nodes in data centers) to a more \u201cmesh\u201d topology.\n[/quote]\n\nI think of the topology today as two layer -- a mesh of listening nodes each connected to each other, with end-points having long-term connections to a handful of random points within that mesh. Listening nodes get better performance vs higher risk (and to a small extent higher cost), while end-points get the opposite. Attackers and spy-nodes can occur at either layer, of course.\n\n[quote=\"0xB10C, post:26, topic:2497\"]\nBoth short-lived and long-lived connections have trade-offs.\n[/quote]\n\nI think having more short-lived connections (perhaps lasting a few hours or a day) relaying blocks and transactions might be an interesting trade-off in this space -- it reduces the risk of an attack somewhat (the attacker has to get lucky repeatedly), makes the network topology more dynamic (so attacks relying on knowing the topology are harder), and perhaps equalises the behaviour of high-uptime nodes vs new nodes which might be beneficial. Not really sure how to analyse/think about that in a concrete way though.\n\nPossibly we should think of \"outbound\" and \"inbound\" with \"chosen-partner\" (I don't think this guy is an attacker, so can prioritise them higher) vs \"just-a-stranger\"; so pairings might be something like:\n\n| connection | my opinion | their opinion |\n| --- | ---- | ---- |\n| outbound | :1st_place_medal: chosen-partner  | :detective: just-a-stranger\n| inbound | :detective: just-a-stranger | :1st_place_medal: chosen-partner\n| holepunch | :detective: just-a-stranger | :detective: just-a-stranger\n| authed connection | :1st_place_medal: chosen-partner | :1st_place_medal: chosen-partner",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "I guess I\u2019m more worried about home ISPs preventing you from running a bitcoin node than all data centres doing so \u2013 it\u2019s much harder to get a new ISP (or move house) than it is to fire up a different VPS; and it\u2019s likewise potentially more damaging if a p2p exploit compromises your home network ra&hellip;",
   "truncated": true,
   "post_url": "/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/28",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
