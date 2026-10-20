@@ -1,6 +1,6 @@
 # Evaluating Deterministic BFT Finality within a Confidential UTXO State Machine
 
-finalis-core | 2026-10-20 20:16:07 UTC | #1
+finalis-core | 2026-10-20 20:21:11 UTC | #1
 
 Hello everyone,
 
@@ -40,9 +40,9 @@ The codebase is published under the MIT license, and you can review the reposito
 
 • Repository: https://github.com/FinalisCore/finalis-core
 
-• Technical Whitepaper: https://github.com/FinalisCore/finalis-core/blob/main/docs%2Fwhitepaper%2FWHITEPAPER.md
+• Technical Whitepaper: https://github.com/FinalisCore/finalis-core/blob/8042421e6d497faba6dc7a1f6467aac2e08a194e/docs%2Fwhitepaper%2FWHITEPAPER.md
 
-• Testnet Setup Guide: https://github.com/FinalisCore/finalis-core/blob/main/testnet%2FREADME.md
+• Testnet Setup Guide: https://github.com/FinalisCore/finalis-core/blob/8042421e6d497faba6dc7a1f6467aac2e08a194e/testnet%2FREADME.md
 
 (Mandatory Protocol Note: The live environment is currently entirely non-commercial. All testnet FLS tokens utilized for testing committee bonding rules maintain absolute zero real-world economic value).
 
