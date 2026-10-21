@@ -48,3 +48,21 @@ People will just try to read the code more carefully, and find hacks, which woul
 
 -------------------------
 
+ZmnSCPxj | 2026-10-21 14:29:02 UTC | #3
+
+Nah make it GTA VII
+
+There's a strong reason for why Bitcoin has already ossified.
+
+SegWit softfork showed that it is control of UTXOs that is necessary to keep control of the direction of Bitcoin.  It was called "Economic Majority Rule".
+
+In reaction to that, those who wanted to control Bitcoin started creating large custodial wallets, especially those that are then offered as shares on ETFs on various stock markets, a largely untapped market just after SegWit.
+
+With control of large numbers of UTXOs, they can keep control of Bitcoin, ***INCLUDING*** blocking covenants.
+
+Covenants would allow expanding the capabilities and usability of existing technologies that are NOT inherently custodial, like Lightning Network.  Remember, the biggest blocker for most people is that non-custodial Lightning has a number of pain points in useability and cost, which custodial services amortize by creating a few large channels rather than having lots of tiny noncustodial wallets creating many tiny channels.  More ability to scale with covenants, the smaller the moat of custodial services.  Thus, it is to the interest of these large custodial wallets to ***BLOCK*** covenants.  And they can block covenants by a combination of diversion tactics (like the inscriptions war and post-quantum signatures non-issue) and simply discouraging ***EVERY*** attempt at pushing covenants, in favor of retaining custody of control over the future of Bitcoin.
+
+Not ***our*** keys, not ***our*** Bitcoin protocol.
+
+-------------------------
+
