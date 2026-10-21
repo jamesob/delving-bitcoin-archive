@@ -663,3 +663,17 @@ Possibly we should think of "outbound" and "inbound" with "chosen-partner" (I do
 
 -------------------------
 
+0xB10C | 2026-10-21 20:52:55 UTC | #29
+
+For option 6 without a board but relying on addr-relay of `addrv2(a, P)` self-annoucements as mentioned in [#22](https://delvingbitcoin.org/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/22):  
+
+[quote="0xB10C, post:22, topic:2497"]
+Both sides have to announce and have each other’s address, so success depends on how widely these spread.
+[/quote]
+
+When looking into address-relay a bit more in a simulator (unrelated to hole-punching), I noticed that home-nodes (or unreachable nodes in general) receive self-annoucement far less reliable than listening nodes. Listening nodes have a lot more connections that can tell it about a self-announcement. Home-nodes only have 8 connections that could relay an address to it. We only forward an address to up to 2 peers (both also ask for `getaddr` on their outbound connections).
+
+Since option 6 relies on addr self-announcements arriving at both home-nodes, I think it's probably going to be very unreliable.
+
+-------------------------
+
