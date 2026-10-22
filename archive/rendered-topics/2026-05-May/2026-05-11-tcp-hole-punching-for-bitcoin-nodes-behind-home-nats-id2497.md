@@ -677,3 +677,13 @@ Since option 6 relies on addr self-announcements arriving at both home-nodes, I 
 
 -------------------------
 
+ajtowns | 2026-10-22 07:54:22 UTC | #30
+
+[quote="0xB10C, post:29, topic:2497"]
+Since option 6 relies on addr self-announcements arriving at both home-nodes, I think it’s probably going to be very unreliable.
+[/quote]
+
+The addr relay algos we use currently wouldn't be suitable anyway -- they're designed to prioritise long-lived addresses (announced infrequently, gets remembered/reused for a long time), whereas hole-punching data is extremely short-lived and becomes invalid after the first successful connection.
+
+-------------------------
+
