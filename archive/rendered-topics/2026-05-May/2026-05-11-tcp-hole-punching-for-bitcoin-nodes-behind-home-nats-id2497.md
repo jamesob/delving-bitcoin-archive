@@ -687,3 +687,17 @@ The addr relay algos we use currently wouldn't be suitable anyway -- they're des
 
 -------------------------
 
+0xB10C | 2026-10-22 16:45:17 UTC | #31
+
+[quote="ajtowns, post:30, topic:2497"]
+becomes invalid after the first successful connection
+[/quote]
+
+I don't think this is the case. You use the same IP:port for all of them as long as the NAT does not end the mapping. 
+
+---
+
+Maybe as a thought experiment, assuming we wanted something like this at some point, how would you design it?
+
+-------------------------
+
