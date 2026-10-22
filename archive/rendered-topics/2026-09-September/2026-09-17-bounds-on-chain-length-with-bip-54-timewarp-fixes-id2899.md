@@ -1,6 +1,6 @@
 # Bounds on chain length with BIP-54 timewarp fixes
 
-sipa | 2026-09-17 15:20:49 UTC | #1
+sipa | 2026-10-21 21:20:40 UTC | #1
 
 <div data-theme-toc="true"> </div>
 
@@ -14,25 +14,39 @@ It is worth asking whether these two rules are sufficient, or whether other atta
 
 ### 2. Results
 
-Specifically, it can be shown that any chain in which no block timestamp exceeds the genesis timestamp by more than $t + 7200$ seconds (7200 seconds being how far in the future a block timestamp may be), with no more than $w$ chain work, has at most $u(t,w)$ blocks where
+Specifically, it can be shown that any chain in which no block timestamp exceeds the genesis timestamp by more than $t + 7200$ seconds (7200 seconds being how far in the future a block timestamp may be), with no more than $w$ chain work, and $n$ blocks, satisfies
 $$
 \begin{split}
-u(t,w) &= \frac{2016}{2016\cdot600-7200}\left(t + 2016\cdot600\cdot\ln\frac{2016+(3+\frac{3}{2^{15}})\cdot\frac{w}{2^{32}+2^{16}}}{2016+3+\frac{3}{2^{15}}}\right) + 1 \\
+n &\leq \frac{2016}{2016\cdot600-7200}\left(t + 2016\cdot600\cdot\ln\frac{2016+(3+\frac{3}{2^{15}})\cdot\frac{w}{2^{32}+2^{16}}}{2016+3+\frac{3}{2^{15}}}\right) + 1 \\
   &= \frac{7}{4175}\,t + \frac{338688}{167}\,\ln\frac{66060288+\dfrac{98307\,w}{4295032832}}{66158595} + 1 \\
-  &\approx \frac{t}{596.4285} + 1405.753\log_2 w - 58189.3
+  &\leq \frac{t}{596.4285} + 1405.753\log_2 w - 58189.3 \quad \text{(if $w \geq 2^{57}$)}
 \end{split}
 $$
-This formula is proven in Lean to hold for all $t \geq 0$ and $w \leq 2^{208}$ (far beyond the point where proof-of-work security breaks down), see Section 4. The decimal approximation additionally requires $w \geq 2^{57}$. The bound holds under all of Bitcoin's consensus rules, including the integer rounding in Bitcoin's chain work and difficulty adjustment computations.
 
-If we limit $w \leq 2^{128}$ (the amount of work at which security assumptions break down anyway) we get $u(t,w) \leq t/596.4285 + 121746.97$. In other words, **the long-term block rate is bounded to about one block per 9m56s**, plus a bounded number of extra blocks that must be paid for with difficulty increases.
+A more accurate bound can be stated in terms of $w$:
 
-As of 2026-Sep-09 21:30 UTC, with $t = 557982895$ seconds after genesis, and a real chain at height 966,270 with total work $w = 2^{96.349377}$, this formula gives a limit of 1,012,794 blocks. That is a 3300x improvement over what would be possible without the timewarp fixes. Both rules are needed: with either one missing, the limit remains over 3.34 billion blocks. This shows that **both rules are necessary and together sufficient** to get a tight bound.
+$$
+\begin{gathered}
+w \geq \left(2^{32} + 2^{16}\right)\left[\left(1 + \frac{2016}{3 + \frac{3}{2^{15}}}\right)\left(\frac{1}{\beta^\frac{n-1}{2016}} - 1\right) +1\right] \\
+\alpha=\frac{t}{600\,(n-1)}+\frac{1}{168},\qquad 
+\beta=\begin{cases} 
+\alpha, & \alpha\ge\mathrm{e}/4\\[1ex] 
+\mathrm{e}^{4\alpha/\mathrm{e}}/4, & \alpha\le\mathrm{e}/4 
+\end{cases} 
+\end{gathered}
+$$
+
+These formulas, including the decimal approximation for $w \geq 2^{57}$, are proven in Lean to hold for all $t \geq 0$ and $w \leq 2^{208}$, see Section 5. The bounds hold under all of Bitcoin's consensus rules, including the integer rounding in Bitcoin's chain work and difficulty adjustment computations.
+
+If we limit $w \leq 2^{128}$ (the point where security assumptions break down anyway) we get $n \leq t/596.4285 + 121746.97$. In other words, **the long-term block rate is bounded to about one block per 9m56s**, plus a bounded number of extra blocks that must be paid for with difficulty increases.
+
+As of 2026-Sep-09 21:30 UTC, with $t = 557982895$ seconds after genesis, and a real chain at height 966,270 with total work $w = 2^{96.349377}$, the $n$ formula gives a limit of 1,012,794 blocks. Inverting the more accurate $w$ formula gives a limit of 1,009,930. That is a 3300x improvement over what would be possible without the timewarp fixes. Both timewarp rules are needed: with either one missing, the limit remains over 3.34 billion blocks. This shows that **both rules are necessary and together sufficient** to get a tight bound.
 
 Note that the formula only provides a conservative upper bound, and not the actual maximum number of blocks. For the values above, the longest known chain is 1,007,326 blocks long, but it is not proven to be the longest.
 
 ### 3. Derivation
 
-In what follows, we derive the formula above from Bitcoin's consensus rules, showing it is a true upper bound.
+In what follows, we derive the $n$ bound formula above from Bitcoin's consensus rules, showing it is a true upper bound.
 
 First, some constants so we can reason about everything symbolically:
 * $R = 4$, the factor to which the retarget clamps the ideal difficulty adjustment ratio, in both directions
@@ -46,7 +60,7 @@ First, some constants so we can reason about everything symbolically:
 > **A note on rounding.** Two integer-rounding effects in Bitcoin's consensus rules matter here, and the constants above account for both.
 >
 > * **Chain work.** A block's chain work is computed as $c = \lfloor 2^{256}/(g+1)\rfloor$ for its target $g$, while its difficulty is $d = 65535\cdot2^{208}/g$. Writing $2^{256} = c\,(g+1) + r$ with $0 \leq r \leq g$ gives $cg = 2^{256} - c - r$. Every target is at most $65535\cdot2^{208}$, and $c \leq 2^{208}$ for every block of a chain with at most $w \leq 2^{208}$ total work, so $cg \geq 2^{256} - 65535\cdot2^{208} - 2^{208} = 2^{256} - 2^{224}$, i.e., $c \geq \frac{2^{256} - 2^{224}}{65535\cdot2^{208}}\,d = (2^{32} + 2^{16})\,d = W_\text{unit}\,d$: the per-block bound used below. The choice of $W_\text{unit}$ therefore accounts for all possible effects of the actual chain work calculation if we require $w \leq 2^{208}$.
-> * **Difficulty adjustment.** The retarget computes the next target as $\lfloor g\cdot\text{clamp}(s)/T_\text{period}\rfloor$, with the timespan ratio clamped to $[1/R,\,R]$, and then rounds it down to the compact form $v\cdot256^{e}$ with $2^{15} \leq v < 2^{23}$. Rounding a target down raises the difficulty, so ignoring the rounding at worst underestimates difficulty (which is fine for our length overestimate, see Section 3.3). The rounding does however raise the maximum difficulty adjustment factor $R_\text{max}$ above $4$. If the target $g$ has mantissa $4i+3$ for $i \geq 2^{15}$, and the period span $s$ is (clamped to) its minimum value (3.5 days), the adjustment will divide the target's mantissa by $R = 4$, yielding $i$, without changing the exponent. That ratio $\frac{4i+3}{i}$ is at most $4 + 3\cdot2^{-15}$. This is the worst case overall: mantissas below $2^{17}$ divide exactly (the exponent decreasese), and for any longer span the value being rounded is at least $g/4$, so by monotonicity of the rounding the resulting target is at least the one obtained here. Hence $R_\text{max} = 4 + 3\cdot2^{-15}$.
+> * **Difficulty adjustment.** The retarget computes the next target as $\lfloor g\cdot\text{clamp}(s)/T_\text{period}\rfloor$, with the timespan ratio clamped to $[1/R,\,R]$, and then rounds it down to the compact form $v\cdot256^{e}$ with $2^{15} \leq v < 2^{23}$. Rounding a target down raises the difficulty, so ignoring the rounding at worst underestimates difficulty (which is fine for our length overestimate, see Section 3.3). The rounding does however raise the maximum difficulty adjustment factor $R_\text{max}$ above $4$. If the target $g$ has mantissa $4i+3$ for $i \geq 2^{15}$, and the period span $s$ is (clamped to) its minimum value (3.5 days), the adjustment will divide the target's mantissa by $R = 4$, yielding $i$, without changing the exponent. That ratio $\frac{4i+3}{i}$ is at most $4 + 3\cdot2^{-15}$. This is the worst case overall: mantissas below $2^{17}$ divide exactly (the exponent decreases), and for any longer span the value being rounded is at least $g/4$, so by monotonicity of the rounding the resulting target is at least the one obtained here. Hence $R_\text{max} = 4 + 3\cdot2^{-15}$.
 
 We model the chain with the following variables:
 * The chain has $n$ blocks, consisting of $k+1$ difficulty adjustment periods: $k$ complete ones with $N_\text{period}$ blocks each, and a possibly-incomplete tail period with $m$ blocks ($m \in [1,\ N_\text{period}]$). Thus, $k = \lfloor (n-1)/N_\text{period}\rfloor$, and $n = k\cdot N_\text{period} + m$.
@@ -62,7 +76,7 @@ The strategy will be as follows, where each numbered step corresponds to a subse
 3. **Weakening the difficulty adjustment.** The difficulty adjustment rule is complicated, so we replace it with an approximation that never results in higher difficulties than the real one. This again can only increase our eventual upper bound.
 4. **Avoiding span variables.** Next we avoid having $s_j$ variables separate from the $p_j$ variables, by showing how assuming $s_j = p_j + T_\text{grace}$ cannot change the length of the longest chains.
 5. **Constructing the longest chain.** After all earlier simplifications, we construct an actual longest chain satisfying all remaining requirements, with a tail period of $m$ blocks, and compute its length $u_m(t,w)$.
-6. **Maximizing over tail length.** Finally we get rid of the $m$ variable by taking the maximum over all $u_m(t,w)$ to obtain the overall bound $u(t,w)$.
+6. **Maximizing over tail length.** Finally we get rid of the $m$ variable by taking the maximum over all $u_m(t,w)$ to obtain the overall bound on $n$.
 
 #### 3.1 Bound on the tail difficulty
 
@@ -119,7 +133,7 @@ $$
 d_{j+1} \geq \max\left(1, d_j\cdot\max\left(\frac{1}{R}, \min\left(\frac{T_\text{period}}{s_j}, R\right)\right)\right)
 $$
 
-with equality except for the rounding of targets, which can only increase $d_{j+1}$ (see the note in the constants list). It is possible to work with this rule directly (see Section 5), but it is complicated. In what follows, we will instead use the conservative approximation:
+with equality except for the rounding of targets, which can only increase $d_{j+1}$ (see the note in the constants list). It is possible to work with this rule directly (see Section 4), but it is complicated. In what follows, we will instead use the conservative approximation:
 
 $$
 d_{j+1} = d_j\cdot\exp\left(1 - \frac{s_j}{T_\text{period}}\right)
@@ -132,7 +146,7 @@ The approximation never exceeds the real multiplier for any $s_j \geq 0$, and to
 
 This makes it an acceptable change, because its only effect is reducing difficulties. As a result, given any chain that satisfies all constraints (timestamp of last block in penultimate period is $\leq t + T_\text{future}$, last block difficulty is $\leq q_m(w)$), applying the approximation instead of the real rule yields a chain that still satisfies them. So the longest chains under the real rule remain within the set our formula bounds.
 
-Note that this requires $R \geq \mathrm{e}$. If $R$ were lower, the approximation at the $s_j=0$ point would be above the real adjustment factor ($R$), so it would no longer be an underestimate. Indeed, if $R$ were so low, we would need a different approach, and a different eventual formula. See Section 5 for more about that.
+Note that this requires $R \geq \mathrm{e}$. If $R$ were lower, the approximation at the $s_j=0$ point would be above the real adjustment factor ($R$), so it would no longer be an underestimate. Indeed, if $R$ were so low, we would need a different approach, and a different eventual formula. See Section 4 for more about that.
 
 Many approximations are possible; this one is chosen because its logarithm is linear in $s_j$ (a straight line in the plot above), which will prove very useful below.
 
@@ -276,7 +290,7 @@ $$
 which holds for our constants, so $u_1(t,w) \geq u_m(t,w)$ for all $m$. Setting $m=1$ gives the final formula:
 
 $$
-u(t,w) = N_\text{period}\cdot\frac{h + T_\text{period}\,\ln\dfrac{N_\text{period}+(R_\text{max}-1)\,w/W_\text{unit}}{N_\text{period}+R_\text{max}-1}}{T_\text{period}-T_\text{grace}} + 1
+n \leq N_\text{period}\cdot\frac{h + T_\text{period}\,\ln\dfrac{N_\text{period}+(R_\text{max}-1)\,w/W_\text{unit}}{N_\text{period}+R_\text{max}-1}}{T_\text{period}-T_\text{grace}} + 1
 $$
 
 which holds whenever:
@@ -291,55 +305,7 @@ Note that eliminating $m$ relied on removing the floor to make the expression co
 
 Substituting the constants with their values gives the formula presented at the top. Note that $h = t$, since $T_\text{future} = T_\text{grace}$.
 
-### 4. Lean proof
-
-The formula from Section 2 has been proven in Lean 4 (with Mathlib). The [proof](https://bitcoin.sipa.be/bip54proof.tgz) was created by an LLM and has not been reviewed by me. It can be verified independently by Lean's kernel, without `sorry`, and depends only on the three standard axioms (`propext`, `Classical.choice`, `Quot.sound`). Assuming no bugs in Lean and Mathlib, this means only the statement being proven needs to be reviewed:
-
-```lean
-chain_length_le : ∀ (n : ℕ) (x : ℕ → ℤ) (g : ℕ → ℕ) (t : ℕ) (w : ℝ),
-  1 ≤ n →
-  x 0 = 0 →
-  (∀ i < n, x i ≤ ↑t + 7200) →
-  (∀ (j : ℕ), 0 < j → 2016 * j < n → x (2016 * j - 1) - 7200 ≤ x (2016 * j)) →
-  (∀ (j : ℕ), 2016 * j + 2015 < n → x (2016 * j) ≤ x (2016 * j + 2015)) →
-  g 0 = powLimit →
-  (∀ (j : ℕ), 2016 * j + 2015 < n → g (j + 1) = nextTarget (g j) (x (2016 * j + 2015) - x (2016 * j))) →
-  w ≤ 2 ^ 208 →
-  ∑ i ∈ Finset.range n, ↑(work (g (i / 2016))) ≤ w →
-  ↑n ≤ u t w
-def u : ℕ → ℝ → ℝ := fun t w =>
-  2016 / (2016 * 600 - 7200) *
-  (↑t + 2016 * 600 * Real.log ((2016 + (3 + 3 / 2 ^ 15) * (w / Wunit)) / (2016 + (3 + 3 / 2 ^ 15)))) + 1
-def Wunit : ℝ := 2 ^ 32 + 2 ^ 16
-def work : ℕ → ℕ := fun g => 2 ^ 256 / (g + 1)
-def nextTarget : ℕ → ℤ → ℕ := fun g s => compactRound (min powLimit (g * clampSpan s / 1209600))
-def clampSpan : ℤ → ℕ := fun s => (max (1209600 / 4) (min (4 * 1209600) s)).toNat
-def compactRound : ℕ → ℕ := fun x => setCompact (getCompact x)
-def getCompact : ℕ → ℕ × ℕ := fun x => if 2 ^ 23 ≤ mant x then (mant x / 2 ^ 8, nSize x + 1) else (mant x, nSize x)
-def setCompact : ℕ × ℕ → ℕ := fun p => if p.2 ≤ 3 then p.1 / 2 ^ (8 * (3 - p.2)) else p.1 * 2 ^ (8 * (p.2 - 3))
-def mant : ℕ → ℕ := fun x => if nSize x ≤ 3 then x * 2 ^ (8 * (3 - nSize x)) else x / 2 ^ (8 * (nSize x - 3))
-def nSize : ℕ → ℕ := fun x => (x.size + 7) / 8
-def powLimit : ℕ := 65535 * 2 ^ 208
-```
-
-In which $n$ is the chain length, $t$ is the time bound, $w$ is the work bound, $x$ are the block timestamps, $u$ is the Section 2 formula, and $g$ are the per-period targets. $g\,j$ is the target of blocks $2016j$ to $2016j+2015$, so block $i$ uses $g\,(i/2016)$; $g\,0$ is the maximum target, and later ones follow from the retarget rule. The arrows `↑` are casts between number types (natural numbers to integers or reals).
-
-The hypotheses, in order, are:
-* at least one block
-* genesis at timestamp 0
-* the timestamp window
-* timewarp rule (1), the first block of each period being at most 7200 seconds before the previous block
-* timewarp rule (2), the last block of each complete period not being before its first
-* the genesis target
-* the retarget rule, computing each period's target from the previous period's target and the timestamps of that period's first and last blocks
-* the cap $w \leq 2^{208}$ needed for the per-block work bound (see the rounding note)
-* the work budget, the total chain work being at most $w$
-
-Retargeting and the chain work calculation are modelled exactly as in Bitcoin's consensus rules, including the clamping of the timespan, the truncation of targets to the compact `nBits` encoding (`GetCompact` in Bitcoin Core), and the integer divisions.
-
-The theorem is somewhat stronger than the derivation in Section 3: it needs neither $h > 0$ nor $w > W_\text{unit}$. The proof follows a slightly different route from the text, one that does not need those conditions.
-
-### 5. More accuracy
+### 4. More accuracy
 
 In Section 3.3 we made a conservative approximation to the difficulty adjustment formula. This is not strictly necessary: a tighter bound can be obtained that is still a closed-form expression.
 
@@ -432,36 +398,114 @@ $$
 
 and where $W_0$ is the principal branch of the [Lambert W function](https://en.wikipedia.org/wiki/Lambert_W_function), the inverse of $x\,\mathrm{e}^x$. Note that $\lambda \leq 0$ is not possible, as we assume $h > 0$ and $w > m\,W_\text{unit}$ (as in Section 3.5).
 
-Restricting to the $0 < \lambda \leq \lambda_\text{max}$ case and applying the convexity analysis of Section 3.6 gives:
-$$
-u(t,w) = N_\text{period}\cdot
-\frac{h\,\ln q_1(w)}
-{h\,W_0\left(\dfrac{T_\text{period}\,\ln q_1(w)}{h}\;q_1(w)^{T_\text{grace}/h}\right) - T_\text{grace}\,\ln q_1(w)}
-+ 1
-$$
+Like before, it can be shown that $u_1$ is always the least-restrictive bound on $n$, though the convexity is no longer automatic here, but holds whenever the bound allows at least one complete period even at $m = N_\text{period}$. Also, whether $m=1$ or $m=N_\text{period}$ wins now depends on $t$ and $w$ as well, though for our constants $m=1$ always wins.
 
-The convexity is no longer automatic here, but holds whenever the bound allows at least one complete period even at $m = N_\text{period}$. Also, whether $m=1$ or $m=N_\text{period}$ wins may now depend on $t$ and $w$ as well, though for our constants $m=1$ always wins. For our example, this gives 1,009,930 blocks; evaluating the floored form over all $m$ (restricted to $m < w/W_\text{unit}$, the tail lengths for which a chain can exist at all; for our example that is every $m$) gives 1,009,199, our tightest formula-based bound.
+Substituting $m=1$ and our constants, and solving for $w$ instead of $n$, we get the accurate formula from Section 2: there, $\alpha = (\bar{p} + T_\text{grace})/T_\text{period}$ is the average span in units of $T_\text{period}$ (with $\bar{p} = h/k$ and $k = (n-1)/N_\text{period}$), $\beta$ is defined by $\underline{b}(\bar{p}) = -\ln\beta$, so that the difficulty bound reads $q_1(w) \geq \beta^{-k}$, and $1 + N_\text{period}/(R_\text{max}-1)$ converts $q_1(w)$ back into $w/W_\text{unit}$. For our example, this gives 1,009,930 blocks; evaluating the floored form over all $m$ (restricted to $m < w/W_\text{unit}$, the tail lengths for which a chain can exist at all; for our example that is every $m$) gives 1,009,199, our tightest formula-based bound.
 
-In the $\lambda > \lambda_\text{max}$ case, $(\bar{p},\bar{b})$ lies on the leftmost piece of the orange border, below the blue curve. A chain achieving this mixes periods with $p_j = -T_\text{grace}$ (the leftmost point of the curve) with periods at the tangency point $p_j = (\mathrm{e}/R)\cdot T_\text{period} - T_\text{grace}$. This is exactly the (weak) variant of the Murch-Zawy attack I pointed out [here](https://delvingbitcoin.org/t/zawy-s-alternating-timestamp-attack/1062/9) as becoming possible if $R < \mathrm{e}$. That turns out not to be necessary: it is possible for $R=4$ too, but only when the affordable difficulty increase per unit of time is several times higher than in the current chain. If $R \leq \mathrm{e}$, however, this mixing strategy becomes optimal for all inputs.
+> **Almost another attack.** In the $\lambda > \lambda_\text{max}$ case, $(\bar{p},\bar{b})$ lies on the leftmost piece of the orange border, below the blue curve. A chain achieving this mixes periods with $p_j = -T_\text{grace}$ (the leftmost point of the curve) with periods at the tangency point $p_j = (\mathrm{e}/R)\cdot T_\text{period} - T_\text{grace}$. This is exactly the (weak) variant of the Murch-Zawy attack I pointed out [here](https://delvingbitcoin.org/t/zawy-s-alternating-timestamp-attack/1062/9) as becoming possible if $R < \mathrm{e}$. That turns out not to be necessary: it is possible for $R=4$ too, but only when the affordable difficulty increase per unit of time is several times higher than in the current chain. If $R \leq \mathrm{e}$, however, this mixing strategy becomes optimal for all inputs.
+
+### 5. Lean proof
+
+The formulas from Section 2 have been proven in Lean 4 (with Mathlib). The [proof](https://bitcoin.sipa.be/bip54proof.tgz) was created by an LLM and has not been reviewed by me. It can be verified independently by Lean's kernel, without `sorry`, and depends only on the three standard axioms (`propext`, `Classical.choice`, `Quot.sound`). Assuming no bugs in Lean and Mathlib, this means only the statements being proven need to be reviewed. The first is the bound on $n$:
+
+```lean
+chain_length_le : ∀ (n : ℕ) (x : ℕ → ℤ) (g : ℕ → ℕ) (t : ℕ) (w : ℝ),
+  1 ≤ n →
+  x 0 = 0 →
+  (∀ i < n, x i ≤ ↑t + 7200) →
+  (∀ (j : ℕ), 0 < j → 2016 * j < n → x (2016 * j - 1) - 7200 ≤ x (2016 * j)) →
+  (∀ (j : ℕ), 2016 * j + 2015 < n → x (2016 * j) ≤ x (2016 * j + 2015)) →
+  g 0 = powLimit →
+  (∀ (j : ℕ), 2016 * j + 2015 < n → g (j + 1) = nextTarget (g j) (x (2016 * j + 2015) - x (2016 * j))) →
+  w ≤ 2 ^ 208 →
+  ∑ i ∈ Finset.range n, ↑(work (g (i / 2016))) ≤ w →
+  ↑n ≤ u t w
+def u : ℕ → ℝ → ℝ := fun t w =>
+  2016 / (2016 * 600 - 7200) *
+  (↑t + 2016 * 600 * Real.log ((2016 + (3 + 3 / 2 ^ 15) * (w / Wunit)) / (2016 + (3 + 3 / 2 ^ 15)))) + 1
+```
+
+The decimal form on the last line of the Section 2 display is covered too: a separate lemma shows that it overestimates `u t w` whenever $w \geq 2^{57}$, and combining the two gives a theorem with the same hypotheses as above plus `2 ^ 57 ≤ w`:
+
+```lean
+u_le_decimal : ∀ (t : ℕ) (w : ℝ), 2 ^ 57 ≤ w → u t w ≤ ↑t / 596.4285 + 1405.753 * Real.logb 2 w - 58189.3
+chain_length_le_decimal : ∀ (n : ℕ) (x : ℕ → ℤ) (g : ℕ → ℕ) (t : ℕ) (w : ℝ),
+  1 ≤ n → ... → 2 ^ 57 ≤ w → w ≤ 2 ^ 208 → ∑ i ∈ Finset.range n, ↑(work (g (i / 2016))) ≤ w →
+  ↑n ≤ ↑t / 596.4285 + 1405.753 * Real.logb 2 w - 58189.3
+```
+
+where `Real.logb 2 w` is $\log_2 w$. The second is the bound on $w$. It has the same chain hypotheses, but instead of a work budget $w$ it takes the cap $2^{208}$ on the chain work itself, and concludes that the chain work is at least `wlow n t`:
+
+```lean
+work_ge_wlow : ∀ (n : ℕ) (x : ℕ → ℤ) (g : ℕ → ℕ) (t : ℕ),
+  1 ≤ n →
+  x 0 = 0 →
+  (∀ i < n, x i ≤ ↑t + 7200) →
+  (∀ (j : ℕ), 0 < j → 2016 * j < n → x (2016 * j - 1) - 7200 ≤ x (2016 * j)) →
+  (∀ (j : ℕ), 2016 * j + 2015 < n → x (2016 * j) ≤ x (2016 * j + 2015)) →
+  g 0 = powLimit →
+  (∀ (j : ℕ), 2016 * j + 2015 < n → g (j + 1) = nextTarget (g j) (x (2016 * j + 2015) - x (2016 * j))) →
+  ∑ i ∈ Finset.range n, ↑(work (g (i / 2016))) ≤ 2 ^ 208 →
+  wlow n t ≤ ∑ i ∈ Finset.range n, ↑(work (g (i / 2016)))
+def wlow : ℕ → ℕ → ℝ := fun n t =>
+  Wunit * ((1 + 2016 / (3 + 3 / 2 ^ 15)) * (β n t ^ (-((↑n - 1) / 2016)) - 1) + 1)
+def β : ℕ → ℕ → ℝ := fun n t =>
+  if Real.exp 1 / 4 ≤ α n t then α n t else Real.exp (4 * α n t / Real.exp 1) / 4
+def α : ℕ → ℕ → ℝ := fun n t => ↑t / (600 * (↑n - 1)) + 1 / 168
+```
+
+Both use the following definitions, which model Bitcoin's consensus rules:
+
+```lean
+def Wunit : ℝ := 2 ^ 32 + 2 ^ 16
+def work : ℕ → ℕ := fun g => 2 ^ 256 / (g + 1)
+def nextTarget : ℕ → ℤ → ℕ := fun g s => compactRound (min powLimit (g * clampSpan s / 1209600))
+def clampSpan : ℤ → ℕ := fun s => (max (1209600 / 4) (min (4 * 1209600) s)).toNat
+def compactRound : ℕ → ℕ := fun x => setCompact (getCompact x)
+def getCompact : ℕ → ℕ × ℕ := fun x => if 2 ^ 23 ≤ mant x then (mant x / 2 ^ 8, nSize x + 1) else (mant x, nSize x)
+def setCompact : ℕ × ℕ → ℕ := fun p => if p.2 ≤ 3 then p.1 / 2 ^ (8 * (3 - p.2)) else p.1 * 2 ^ (8 * (p.2 - 3))
+def mant : ℕ → ℕ := fun x => if nSize x ≤ 3 then x * 2 ^ (8 * (3 - nSize x)) else x / 2 ^ (8 * (nSize x - 3))
+def nSize : ℕ → ℕ := fun x => (x.size + 7) / 8
+def powLimit : ℕ := 65535 * 2 ^ 208
+```
+
+In which $n$ is the chain length, $t$ is the time bound, $w$ is the work bound, $x$ are the block timestamps, and $g$ are the per-period targets; `u t w` is the Section 2 bound on $n$, and `wlow n t` the Section 2 bound on $w$, with `α n t` and `β n t` its $\alpha$ and $\beta$. $g\,j$ is the target of blocks $2016j$ to $2016j+2015$, so block $i$ uses $g\,(i/2016)$; $g\,0$ is the maximum target, and later ones follow from the retarget rule. The arrows `↑` are casts between number types (natural numbers to integers or reals).
+
+The hypotheses of the first theorem, in order, are:
+* at least one block
+* genesis at timestamp 0
+* the timestamp window
+* timewarp rule (1), the first block of each period being at most 7200 seconds before the previous block
+* timewarp rule (2), the last block of each complete period not being before its first
+* the genesis target
+* the retarget rule, computing each period's target from the previous period's target and the timestamps of that period's first and last blocks
+* the cap $w \leq 2^{208}$ needed for the per-block work bound (see the rounding note)
+* the work budget, the total chain work being at most $w$
+
+The second theorem replaces the last two by the single hypothesis that the chain work itself is at most $2^{208}$.
+
+Retargeting and the chain work calculation are modelled exactly as in Bitcoin's consensus rules, including the clamping of the timespan, the truncation of targets to the compact `nBits` encoding (`GetCompact` in Bitcoin Core), and the integer divisions.
+
+The theorems are somewhat stronger than the derivations in Sections 3 and 4: they need neither $h > 0$ nor $w > W_\text{unit}$, and the second does not need to compare the $m=1$ and $m=N_\text{period}$ cases. The proofs follow a slightly different route from the text, one that does not need those conditions.
 
 ### 6. Conclusion
 
-By making a number of conservative simplifications to the problem, we obtained several upper-bound formulas for the length of any possible chain with a specified time limit and work limit. One of those was proven correct in Lean. All of these are within 5% of the real chain's length, showing that the two timewarp rules together do bound chain growth tightly.
+By making a number of conservative simplifications to the problem, we obtained several upper-bound formulas for the length of any possible chain with a specified time limit and work limit. Two of those were proven correct in Lean: the Section 3 formula as a bound on $n$, and the Section 4 formula as a bound on $w$. All of these are within 5% of the real chain's length, showing that the two timewarp rules together do bound chain growth tightly.
 
 For our running example $t$ and $w$, we get:
 
 | Description | n | k | m |
 |---|---|---|---|
-| Section 3, no floor, $m=1$ (proven formula) | 1,012,794 | 502.38 | 1 |
+| Section 3, no floor, $m=1$ (proven $n$ formula) | 1,012,794 | 502.38 | 1 |
 | Section 3, $\lfloor k\rfloor$, maximum over $m$ | 1,012,339 | 502 | 307 |
-| Section 5, no floor, $m=1$ | 1,009,930 | 500.96 | 1 |
-| Section 5, $\lfloor k\rfloor$, maximum over $m$ | 1,009,199 | 500 | 1199 |
+| Section 4, no floor, $m=1$ (proven $w$ formula) | 1,009,930 | 500.96 | 1 |
+| Section 4, $\lfloor k\rfloor$, maximum over $m$ | 1,009,199 | 500 | 1199 |
 | Longest known chain | 1,007,326 | 499 | 1342 |
 | Real chain (height 966,270) | 966,271 | 479 | 607 |
 
 ### Acknowledgements
 
-Thanks to @AntoineP for the idea to look into this problem, and reviewing the text.
+Thanks to @AntoineP for the idea to look into this problem, and reviewing the text. Thanks to @zawy for the suggestion to write the formula as a bound on other variables than $n$.
 
 -------------------------
 
@@ -910,6 +954,12 @@ If you ignore the $C$ correction from the grace time, and the fast-increase regi
 zawy | 2026-09-22 20:51:48 UTC | #28
 
 I was puzzling over why w has to increase a lot to lower $T_{min}$ if T is starting out close to it. It turns out that if hashrate increases 5% in every period, it decreases $T_{min}$ by 5%.  So it's wrong to think that Bitcoin's "consistent" 5% per period hashrate increase would have bumped up against $T_{min}$ if it was a lot larger. It just lowers $T_{min}$ at about the same rate. And that's how much T itself move for whatever timestamp scheme they use.
+
+-------------------------
+
+sipa | 2026-10-21 21:29:50 UTC | #29
+
+I have updated the post at the top to include the $w$-bound accurate formula. It is now also proven in the linked Lean code, as well as the decimal approximation formula.
 
 -------------------------
 
