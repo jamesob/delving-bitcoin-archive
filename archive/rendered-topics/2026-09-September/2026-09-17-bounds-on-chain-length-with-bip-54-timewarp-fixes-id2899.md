@@ -1,6 +1,6 @@
 # Bounds on chain length with BIP-54 timewarp fixes
 
-sipa | 2026-10-21 21:20:40 UTC | #1
+sipa | 2026-10-22 02:16:44 UTC | #1
 
 <div data-theme-toc="true"> </div>
 
@@ -27,7 +27,7 @@ A more accurate bound can be stated in terms of $w$:
 
 $$
 \begin{gathered}
-w \geq \left(2^{32} + 2^{16}\right)\left[\left(1 + \frac{2016}{3 + \frac{3}{2^{15}}}\right)\left(\frac{1}{\beta^\frac{n-1}{2016}} - 1\right) +1\right] \\
+w \geq \left(2^{32} + 2^{16}\right)\left[\left(1 + \frac{2016}{3 + \frac{3}{2^{15}}}\right)\left(\beta^{-\frac{n-1}{2016}} - 1\right) +1\right] \\
 \alpha=\frac{t}{600\,(n-1)}+\frac{1}{168},\qquad 
 \beta=\begin{cases} 
 \alpha, & \alpha\ge\mathrm{e}/4\\[1ex] 

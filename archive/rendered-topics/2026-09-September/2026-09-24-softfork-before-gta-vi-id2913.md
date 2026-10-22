@@ -66,3 +66,21 @@ Not ***our*** keys, not ***our*** Bitcoin protocol.
 
 -------------------------
 
+ariard | 2026-10-22 03:30:45 UTC | #4
+
+Hello,
+
+On the loss of momentum to land covenants, the design and development process of soft-forks are far to be linear, as during such process people might find *actual* vulnerabilites worthy to fix on the soonest timeline possible. E.g back when there was some work to move forward with APO in 2022, while reviewing a newer APO-enabled version of Lightning channels, it turns out we found the so-called attack dubbed "Replacement Cycling Attack" which was affecting almost anything that would be a good candidate for APO.
+
+During the mitigation process of such attack of such process, the question was floating among the people involved that it might necessary to do a soft-fork to correct this vulnerability cleanly. The question arise publicly once the vulnerability was disclosed, though somehow the existence of such vulnerability was a source of discouragement to slow down or halt the progress on APO.
+
+We can put the work, ressources and effort to advance on any soft-fork change, though there is never guarantee that during the process sadly substantial technical reasons won't appear to slow down or put it in the background. Severe security issues first over soft-fork progress in my view.
+
+Now, to answer your questions on BIP54 I did share my thoughts recently here (https://groups.google.com/g/bitcoindev/c/TBBakeBK8_E). I think anyone in the world is welcome to participate to process, be it reviewing the BIP, one of the implementation in a full-node ( https://github.com/bitcoin/bitcoin/pull/35793 ) or working on quality assurance to level up the bar for it. If you don't have the analytical skills or know-how to bring more value to the review process than a edge LLM, that's fine I think there are also community or social engagement thing that can be done ( https://github.com/bitschmidty/bip54/issues/15 ).
+
+*Ask not what the community of devs can do to advance the soft-fork you wish - -ask yourself what you can do join the community of devs to advance the soft-fork you wish (to paraphrase some famous quote).*
+
+PS: I've never seen or heard any attempt of a custodial service to block the progress of covenants, I'm not saying that it has never happend, though I've never had a report first-hand of such thing, and I have good memory.
+
+-------------------------
+
