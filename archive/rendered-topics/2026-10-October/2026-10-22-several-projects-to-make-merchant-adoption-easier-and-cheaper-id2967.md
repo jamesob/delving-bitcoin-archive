@@ -26,3 +26,9 @@ https://github.com/BareBits/cashupayserver
 
 -------------------------
 
+Anzus_GemWallet | 2026-10-22 12:45:02 UTC | #2
+
+Thanks for sharing this. Merchant setup is where a lot of people give up on Lightning. One question from the customer side: if the merchant’s Electrum wallet happens to be offline when someone tries to pay through CLINK, what does the customer see? Does the payment just fail, or can it fall back to an on-chain address or the cashu mint automatically?
+
+-------------------------
+

@@ -31,3 +31,11 @@ https://epochbtc.github.io/satd/policy.html
 
 -------------------------
 
+bkeroack | 2026-10-22 14:07:25 UTC | #2
+
+Here's an example screenshot from satd's TUI showing quarantine status
+
+![image|690x169](upload://beOHIoZbd7zJJchHJAzJ7GNuncc.jpeg)
+
+-------------------------
+
