@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
   "yours": false,
   "topic_id": 2967,
   "topic_slug": "several-projects-to-make-merchant-adoption-easier-and-cheaper",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "On-chain payment options (if enabled) are always shown on the checkout screen\n\nFor lightning payments, if the wallet is offline, doesn't have liquidity, etc then it will fall through to the next lightning payment method until all are exhausted. So that's CLINK, NWC, LNURL, and Strike. You can customize the ordering. Cashu mints, if enabled, are tried last. We suggest having them as a backup since they should in theory always have available inbound liquidity.\n\nCashu mint balances are swept regularly into your lightning wallet (via clink/nwc/etc) in seconds to minutes. Or via an on-chain payment via submarine swap when it's economically rational to do so, like when you have $25 or more in balance. This would only happen if your lightning wallet doesn't exist or is offline for extended periods of time.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "On-chain payment options (if enabled) are always shown on the checkout screen \nFor lightning payments, if the wallet is offline, doesn\u2019t have liquidity, etc then it will fall through to the next lightning payment method until all are exhausted. So that\u2019s CLINK, NWC, LNURL, and Strike. You can custom&hellip;",
   "truncated": true,
   "post_url": "/t/several-projects-to-make-merchant-adoption-easier-and-cheaper/2967/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

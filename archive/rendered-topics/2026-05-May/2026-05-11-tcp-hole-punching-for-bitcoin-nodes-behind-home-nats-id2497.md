@@ -701,3 +701,33 @@ Maybe as a thought experiment, assuming we wanted something like this at some po
 
 -------------------------
 
+ajtowns | 2026-10-23 03:53:23 UTC | #32
+
+
+[quote="0xB10C, post:31, topic:2497"]
+I don’t think this is the case. You use the same IP:port for all of them as long as the NAT does not end the mapping.
+[/quote]
+
+Ah, that's cleverer behaviour from `SO_REUSEADDR/PORT` than I was expecting.
+
+I was thinking the scenario for honest peers was "I'd like an additional connection, I'll use new port number N for it, and try the holepunch-y scheme. [five minutes later] Great, it worked! No more holepunching for me for now!" which only leaves a small window for an attacker to make the connection. Doesn't help if the attacker is constantly trying to make connections, while honest nodes are only trying rarely, but that is hard in general without adding a cost to making connections (money or PoW) or adding identity.
+
+If you do have ports open long-term for multiple successful holepunch connection, I suppose you have to split messages into listening and connecting pairs -- otherwise mapping long-term listening ports to each other, you'd just have them fill all their connection slots up with other long-term peers, and new peers would have no one to connect to.
+
+For an attacker trying to connect to an honest peer behind a NAT, I guess the process would be:
+
+ * find their announcement
+ * publish 100 or 1000 holepunch requests in the same place
+ * figure out which ones are at the top of the honest peer's priority list and attempt connections via those IPs/ports
+ * keep trying every block until a connection goes through
+
+which still seems like it makes it a bit too easy for spys/attackers to have a direct connection to your node.
+
+[quote="0xB10C, post:31, topic:2497"]
+Maybe as a thought experiment, assuming we wanted something like this at some point, how would you design it?
+[/quote]
+
+The thing that seems most compelling to me is being able to hole-punch to your own node (eg to get trusted data, to avoid random nodes spying on your requests, or to query indexes that aren't widely available), so adding two-way auth to p2p, and adding a way to interactively trigger/coordinate hole-punching would be better. I'm not really sure an intermediary is desirable there though, so maybe that's really just "connect via tor/i2p; authenticate; switch the connection to direct tcp via holepunch to improve performance".
+
+-------------------------
+
