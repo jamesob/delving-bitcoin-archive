@@ -50,3 +50,13 @@ Looking forward to your feedback on whether a decay/half-life model could work a
 
 -------------------------
 
+ViniciusCestarii | 2026-10-23 14:21:27 UTC | #2
+
+I don't believe this is a good solution because of these 3 points:
+
+1. **Failure to Neutralize Attacker Incentives:** Decay doesn't eliminate a quantum attacker's motivation, it simply turns extraction into an optimization problem. Rather than waiting for a wallet to empty out, a rational attacker will wait until the grace period expires and perform a synchronized, mass sweep of exposed UTXOs.
+2. **Vulnerability to Accelerated Quantum Advancements:** Relying on a multi-year decay schedule assumes quantum capability will evolve linearly. If a sudden algorithmic or hardware breakthrough enables rapid key-breaking, an adversary can drain vulnerable legacy UTXOs before the decay function meaningfully reduces their balance. The decay model fails to protect supply under non-linear quantum advancements.
+3. **Penalize Passive Holders:** Enforcing time-based balance reductions penalizes passive holders without solving the core problem. Furthermore, if a legacy wallet is already compromised, the decay curve penalizes the true owner while allowing the attacker to time their extraction to maximize profit.
+
+-------------------------
+
