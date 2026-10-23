@@ -1,6 +1,6 @@
 # A Novel Post-Quantum Approach: "Proof-Of-Decay" (Cryptographic Half-Life) for Unmigrated Dormant UTXOs
 
-Khadimnaby | 2026-10-23 09:20:18 UTC | #1
+bitKingAE | 2026-10-23 09:20:18 UTC | #1
 
 **### Context & Problem Statement**
 
