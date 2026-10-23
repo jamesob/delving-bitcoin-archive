@@ -731,3 +731,24 @@ The thing that seems most compelling to me is being able to hole-punch to your o
 
 -------------------------
 
+0xB10C | 2026-10-23 18:11:19 UTC | #33
+
+[quote="ajtowns, post:32, topic:2497"]
+* publish 100 or 1000 holepunch requests in the same place
+[/quote]
+
+Have not fully thought this through, but wanted to note it here:
+
+A few ways of raising the cost against an attacker that wants to fill up slots at a board came to mind:
+- generally, you limit number of slots on a board
+- when full, the board evicts connections based on a score. The score consists of e.g. `hash(board IP | node IP | date)`. A "more zero-bits" score is preferred over a "less zero-bits" one.
+- honest nodes can calculate the boards they should try to connect to per day to not to get evicted
+
+An attacker can try to spam and connect with his IPs to multiple boards, but will get evicted by honest nodes over time. To get more slots at more boards, an attacker needs to buy more IPs. As an observer, you can tell that an attacker-board is likely full of attacker-controlled IPs, as the IPs the board offers are all (compared to an honest board) "less zero-bits".
+
+One down side: that this allows (if you know which home-node IPs are currently looking for a connection) to guess who might be connected to which board. This also gives you a set of home-nodes potentially opening a connection. But everyone at a board can already learn about who else is at a board.
+
+Another one: As home-nodes fill up their slots, less of them are going to be present on boards. More room for attackers.
+
+-------------------------
+
