@@ -16,3 +16,9 @@ Luke Carriere
 
 -------------------------
 
+PREDGE | 2026-10-22 21:01:05 UTC | #2
+
+On statement-v0: the signed tuple is event ID, outcome and timestamp, and nothing says whether the outcome can still change. For escrow delivery and other events settled by people, attestors often publish a first answer and correct it later. A co-signer that sees a valid statement within max age would sign on the first one. Either add a finality flag to the signed tuple and let evidence conditions require it, or say in the escrow example that the template should wait out a dispute window. On JSON vs TLV: whichever wins, the policy ID needs test vectors for the exact bytes, canonical JSON is where implementations tend to drift.
+
+-------------------------
+

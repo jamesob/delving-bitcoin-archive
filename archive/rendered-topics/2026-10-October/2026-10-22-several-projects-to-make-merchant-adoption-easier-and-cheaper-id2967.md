@@ -32,3 +32,13 @@ Thanks for sharing this. Merchant setup is where a lot of people give up on Ligh
 
 -------------------------
 
+andrewclicks | 2026-10-22 21:42:24 UTC | #3
+
+On-chain payment options (if enabled) are always shown on the checkout screen
+
+For lightning payments, if the wallet is offline, doesn't have liquidity, etc then it will fall through to the next lightning payment method until all are exhausted. So that's CLINK, NWC, LNURL, and Strike. You can customize the ordering. Cashu mints, if enabled, are tried last. We suggest having them as a backup since they should in theory always have available inbound liquidity.
+
+Cashu mint balances are swept regularly into your lightning wallet (via clink/nwc/etc) in seconds to minutes. Or via an on-chain payment via submarine swap when it's economically rational to do so, like when you have $25 or more in balance. This would only happen if your lightning wallet doesn't exist or is offline for extended periods of time.
+
+-------------------------
+
