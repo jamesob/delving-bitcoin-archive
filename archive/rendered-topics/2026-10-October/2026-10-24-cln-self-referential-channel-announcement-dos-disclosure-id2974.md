@@ -1,6 +1,6 @@
 # CLN: Self-Referential Channel Announcement DoS disclosure
 
-NishantBansal2003 | 2026-10-24 09:55:03 UTC | #1
+NishantBansal2003 | 2026-10-24 10:00:27 UTC | #1
 
 > The issue discussed below was originally disclosed at [nishantbansal2003.github.io](https://nishantbansal2003.github.io/posts/CLN-Self-Referential-Channel-Announcement-DoS/) and is reproduced here for discussion.
 
@@ -82,7 +82,7 @@ It then does the following:
 All four signatures are valid and the output is unspent, so CLN accepts the announcement, writes it to the `gossip_store`, and aborts while loading it.
 The funds stay in an output the attacker controls, so the attack costs only on-chain fees.
 
-The attacker also doesn't need to connect to every victim. Nodes that accept such announcements without crashing, such as CLN releases before v25.02, relay them like any other gossip, so they can reach vulnerable nodes the attacker can't connect to directly.
+The attacker also doesn't need to connect to every victim. Nodes that relay such announcements instead of rejecting them, such as CLN releases before v25.02, can carry them to vulnerable nodes the attacker can't connect to directly.
 
 ### Observed impact
 
