@@ -1031,3 +1031,68 @@ Here is a summary of the options:
 
 -------------------------
 
+davelund110 | 2026-10-25 21:01:16 UTC | #7
+
+I've taken Option 2A, removing the shachain requirement, from spec text through to two working implementations, and wanted to share where it ended up.
+
+**Short version:** a `channel_type` add-on, `option_independent_secrets` (feature bits 266/267). On a channel with it, the sender may generate its per-commitment secrets any way it likes, for example jointly across signers, and the receiver keeps every secret it gets. It's written as BOLT 2, 3 and 9 changes and implemented in lnd (merged in Lightning Fork) and Core Lightning (in review in privkeyio's fork). The two interoperate, and in every breach test the cheater lost its whole balance.
+
+**Which chain:** this work is on Bitcoin (proof of work moved to BLAKE2b at block 961,640), not on SHA256d Bitcoin. Nothing in the option depends on the proof of work, though, so it applies to Lightning on SHA256d just the same, and the code should carry over to upstream lnd and Core Lightning largely as it is.
+
+## How it differs from the original proposal
+
+* One bit pair, agreed per channel through `channel_type`, instead of two node-wide bits.
+* No "I still send shachain secrets" bit. The receiver works it out itself: it keeps secrets in the 49-entry compact form while they fit, and stores them one by one from the first that doesn't. A seed-based peer costs nothing extra, including for what a static backup can punish.
+* The even bit (266) only appears in `channel_type`. In `init` it closes the connection; in a `node_announcement` it's treated as an unknown even bit.
+
+## On the bridge and upgrade problems
+
+* **Bridge:** a node whose secrets don't come from the seed must set 267, include the add-on, and refuse any channel without it. So a k-of-n node never holds a single-shachain channel that an attacker could forward its funds into. Peers that support the option are the bridge to everyone else.
+* **Upgrades:** this is also why it went there first. Its Lightning network started over, and Lightning Fork plans to turn the option on by default in the release after its first one with it. So most peers there will accept these channels without anyone having to talk them into upgrading.
+
+## Rules the spec adds
+
+Most of these came out of review:
+
+* **Generating secrets:** preferably so they can be recomputed (from a seed, or a KDF or threshold PRF over the commitment number and a value unique to the channel, which the node fixes when the channel opens and uses for no other channel; for example the `funding_pubkey` sent at open, not one from a later splice). Random secrets only if each is stored durably before its point is sent. Never reused across commitment numbers or channels.
+* **Multi-signer nodes:** no group smaller than the one that can revoke learns or chooses a secret. A claimed `your_last_per_commitment_secret` is checked against its point, never by producing it. Each signer checks the peer's signatures for commitment n+1 (on every funding output while a splice is pending) before releasing its part of the secret for n, and won't help sign n or lower for broadcast after that.
+* **`channel_reestablish`:** a node that can't check the claimed secret *for now* (signers unreachable) mustn't broadcast, fail the channel or send an error; it disconnects and retries. One that has lost the means to check *for good* behaves like a node that has lost data.
+* **Storage limit:** a receiver may set a limit of at least 1,000,000 individually stored secrets, but must still store every secret it receives. At the limit it closes cooperatively, and may fail the channel if the peer keeps going past a margin, not counting revocations its own updates cause.
+* **Taproot:** for a multi-signer node these rules replace simple taproot's `NonceGen` and `Sign`: no signer learns the nonce or another's share, nonces never come from a seed one signer holds, and one nonce never signs two messages.
+
+## Storage cost
+
+Per channel, on the receiving side, and only for a peer that actually sends non-seed secrets (about 2 updates per payment):
+
+| Payments | With shachain | lnd | Core Lightning |
+|----|----|----|----|
+| 500,000 | \~2 KB | \~38 MB | \~60 MB |
+| 1,000,000 | \~2 KB | \~76 MB | \~120 MB |
+
+lnd already keeps a revocation log record for every old state; the secret adds 38 bytes to it.
+
+## Implementations
+
+* **lnd** ([paulscode/lightning-fork#7](https://github.com/paulscode/lightning-fork/pull/7), merged): each secret goes into the revocation log entry of the state it revokes (TLV type 65537). Off by default (`protocol.independent-secrets`), and the database is marked so older versions refuse to open it once such a channel exists.
+* **Core Lightning** ([privkeyio/lightning#48](https://github.com/privkeyio/lightning/pull/48)): secrets stay in the shachain while they fit, then go into a new table. Off by default (`--independent-secrets`), with a per-channel limit (`--max-independent-secrets`, default 1,000,000) that closes the channel cooperatively. It refuses to run the option with an external signer that checks secrets against its own shachain, such as VLS, until such a signer supports it.
+* Both have a developer-only sender (an HMAC-based KDF) to exercise the receiving side, and the spec has test vectors for a receiver switching from the compact form to individual storage.
+
+## Testing
+
+Nine interop scenarios between the two implementations, in both directions: revoked commitments with and without an HTLC in flight, restarts while penalties are unconfirmed, hundreds of updates with restarts, cooperative closes, and a peer that still uses a seed. The honest side took the cheater's whole balance every time. Scripts: [independent-secrets-interop](https://github.com/davelund110/independent-secrets-interop).
+
+A side find from the same tests: Core Lightning's fee estimate for HTLC penalties and fulfills leaves out one witness element, so at the floor feerate they pay just under the minimum relay fee. It has been there since at least 2019 and is probably what [ElementsProject/lightning#2530](https://github.com/ElementsProject/lightning/issues/2530) ran into. The fix is at [ElementsProject/lightning#9662](https://github.com/ElementsProject/lightning/pull/9662).
+
+## What it doesn't do
+
+It doesn't make a multi-signer node by itself. It's what peers have to support first. The next step on our side is a joint secret generator for small k-of-n groups, then threshold signing.
+
+## Questions
+
+* Is there interest in this as an upstream bLIP? As far as I can see, 266/267 are unclaimed upstream.
+* Any concerns with the multi-signer or reestablish rules above?
+
+Spec: [lightning-blake2b/bolts#17](https://github.com/lightning-blake2b/bolts/pull/17)
+
+-------------------------
+
