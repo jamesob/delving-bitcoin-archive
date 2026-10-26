@@ -28,3 +28,9 @@ Are there interface patterns, terminology or user-testing results that have work
 
 -------------------------
 
+lusabeko | 2026-10-26 19:29:15 UTC | #2
+
+Treat payment type as a property of the payment, not a choice users must learn upfront. Detect the invoice or address, then label the confirmation screen “Lightning” or “on-chain” with the relevant fee and settlement expectations. Put the recovery caveat beside backup creation: a seed may restore on-chain funds, while Lightning recovery can depend on the wallet’s channel-backup design and service. Repeat it in recovery instructions, not just onboarding.
+
+-------------------------
+
