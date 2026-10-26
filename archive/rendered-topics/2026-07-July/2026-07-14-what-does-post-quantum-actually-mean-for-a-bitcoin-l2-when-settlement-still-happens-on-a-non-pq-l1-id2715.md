@@ -156,3 +156,35 @@ Above all, though, I believe we need to start building on Bitcoin.
 
 -------------------------
 
+ZmnSCPxj | 2026-10-26 08:30:34 UTC | #12
+
+[quote="AdamISZ, post:8, topic:2715"]
+This is just a counter to @ZmnSCPxj 's point I guess: if the base layer is 100% CRQC exposed, then his argument is watertight. But Bitcoin’s base layer is only “mostly” exposed or half-exposed (using hashes in some cases), so the argument isn’t watertight, hence the scenario above is *possible*.
+[/quote]
+
+My counter-counter to that is that it creates a unidirectional peg from Bitcoin -> external system.  Without a reliable way to return from external system -> Bitcoin, the value of tokens in the external system ***can*** go lower than the supposed equivalents in the Bitcoin blockchain --- that peg exists as a release valve, so that if anything in the external system causes external-system-tokens to go lower than Bitcoin-tokens (e.g. a sustained disinformation campaign) an enterprising market participant can buy external-system-tokens at lower price, use the peg from external-system->Bitcoin, and get Bitcoin-tokens that are currently valued higher.
+
+And Murphy's law: if it ***can*** happen it ***will***.  Even if Bitcoin-token value recovers after an ECDLP break, without a way to exit from external-system->Bitcoin, the external-system-token will have a ceiling (if the external-system-token is pricier than Bitcoin, we can send more Bitcoin-tokens to scripthash pegs to get more external-system-token, increasing the price of Bitcoin-token and reducing the price of external-system-token), but not a floor (if external-system-token is cheaper than Bitcoin-token, there is no way to safely peg out back to Bitcoin).
+
+Since a ceiling exists but not a floor, the external-system becomes even less useful than, say, a system of completely-unpegged tokens running on top of Bitcoin, which at least allow the unpegged token to rise arbitrarily. Thus, such an "L2", i.e. an external-system that has a ceiling on its token value (the ceiling being the value of Bitcoin-blockchain-token) without a floor, is less valuable than stablecoins on Bitcoin.
+
+TLDR: Half a peg is about as desirable as half a kitten.
+
+-------------------------
+
+ZmnSCPxj | 2026-10-26 08:51:38 UTC | #13
+
+As an illustrative point: consider the Lightning Network channel.  There is a unilateral exit option that is the ultimate peg-out from LN->blockchain, the last recourse.  If the price of tokens in a channel goes below that of blockchain tokens, you can do a unilateral exit and get back blockchain tokens.
+
+However, unilateral exits take 2 weeks with most configurations, and the enforced locking thus implies a rate-limited peg-out from LN.  We thus expect a slightly lower average value of Lightning Network tokens compared to blockchain tokens.  Our evidence is that services like Lightning Loop, and Boltz before its closure, often found themselves receiving far more Lightning->blockchain swaps than the reverse.
+
+Swaps are ***not*** pegs and must not be used as such.  In a swap, the swap service provider is holding the bag of tokens, and at some point, will either lower the price of the token it keeps getting more of, or stop operations, or use a ***real*** peg to release the pressure.  In this context, a ***real*** peg is something that destroys or cryptographically locks coins in one cryptocurrency system, to create or unlock coins in another cryptocurrency system.  The change in useable token supply ***is*** the point, which ensures that proper economic pegging is possible.  And the peg must exist both ways.
+
+With LN we mitigate this somewhat by allowing mutual exits, so that the time of 2 weeks is waived and the tokens are immediately exited.  This makes the peg-out mostly work, and the slightly lower value of LN tokens is small enough that many of us can accept it as a cost of doing business --- the value of quickly moving small amounts on Lightning more than compensates for the slightly lower value of LN tokens compared to onchain tokens.
+
+In fact, much of the hand-wringing in "onboarding Lightning Network users" is really caused by the difference between LN token value vs onchain token value, caused by the final peg-out not being ideal.  You're asking people to part with onchain tokens in exchange for LN tokens of very very slightly lower value, on the promise that they'll find value in transferring the LN tokens much faster than over the blockchain, which an arbitrary person might doubt.  If we can improve that exit somehow --- ***not*** with a swap, but with a true peg-out --- much of the friction with onboarding will be lowered.
+
+If you have a half-pegged L2, then swap services that provide L2->Blockchain swaps will eventually find themselves in the situation that there are more L2->Blockchain swaps than Blockchain->L2 swaps, and end up with a surfeit of L2 tokens.  If they can't dispose of those L2 tokens on the market, and they can't destroy it in a peg that safely unlocks coins in the Blockchain layer, they'll stop operations.
+
+-------------------------
+

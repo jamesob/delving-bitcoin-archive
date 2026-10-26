@@ -1096,3 +1096,28 @@ Spec: [lightning-blake2b/bolts#17](https://github.com/lightning-blake2b/bolts/pu
 
 -------------------------
 
+ZmnSCPxj | 2026-10-26 07:48:17 UTC | #8
+
+[quote="davelund110, post:7, topic:2395"]
+* Is there interest in this as an upstream bLIP? As far as I can see, 266/267 are unclaimed upstream.
+* Any concerns with the multi-signer or reestablish rules above?
+[/quote]
+
+I would suggest trying for a BOLT first, then fall back to a bLIP if it's rejected.  Two implementations rule is already achieved.
+
+[quote]
+The spec then lists one way to meet that: each signer checks for itself what it signs and revokes, a signer that has signed a state never helps revoke it, every signer records a revocation before any part of the secret is released, and signers keep the peer’s signatures for the next state.
+[/quote]
+
+I'm a little confused here with " a signer that has signed a state never helps revoke it". Do you mean "a signer that has signed a unilateral close of our-side state never helps revoke that state"?
+
+"every signer records a revocation before any part of the secret is released" is indeed something that is necessary when you have separate signers from the node.  In CLN it releases the secret before recording a revocation, which is fine if the node+signer are the same piece of software (or the signer is blind-signing), but when signers have their own state they keep it becomes necessary for the node to record the revocation first, then ask the signer(s) to revoke, so that the signers then replicate the state "revocation done".
+
+[quote="davelund110, post:7, topic:2395"]
+The next step on our side is a joint secret generator for small k-of-n groups
+[/quote]
+
+The interesting part here is when you want to be able to generate revocation public keys while only K signers are online.  I believe the hacky way to do it is to share the root privkey of the revocation sequence.  For the degenerate case K=N-1, every 2 signers can just use the ECDH with the root pubkey of the other.  For smaller K, then the online K subset at channel setup can generate root privkeys, then encrypt them to N - K other signers (and to themselves, so they have N - K + 1 signers that can decrypt the root privkey for each of the K roots) and then every signer has to save the full set of encrypted revocation root private keys --- if K is a majority (the reasonable choice), then even if the online set is changed later, there WILL be at least one overlap with the initial online set, so there is at least one online signer in the set of K who can provide the encrypted root private keys to the other signers.
+
+-------------------------
+
