@@ -1031,18 +1031,18 @@ Here is a summary of the options:
 
 -------------------------
 
-davelund110 | 2026-10-25 21:01:16 UTC | #7
+davelund110 | 2026-10-26 01:57:06 UTC | #7
 
 I've taken Option 2A, removing the shachain requirement, from spec text through to two working implementations, and wanted to share where it ended up.
 
 **Short version:** a `channel_type` add-on, `option_independent_secrets` (feature bits 266/267). On a channel with it, the sender may generate its per-commitment secrets any way it likes, for example jointly across signers, and the receiver keeps every secret it gets. It's written as BOLT 2, 3 and 9 changes and implemented in lnd (merged in Lightning Fork) and Core Lightning (in review in privkeyio's fork). The two interoperate, and in every breach test the cheater lost its whole balance.
 
-**Which chain:** this work is on Bitcoin (proof of work moved to BLAKE2b at block 961,640), not on SHA256d Bitcoin. Nothing in the option depends on the proof of work, though, so it applies to Lightning on SHA256d just the same, and the code should carry over to upstream lnd and Core Lightning largely as it is.
+**Which chain:** this work is on BLAKE2b Bitcoin (proof of work moved to BLAKE2b at block 961,640), not on SHA256d Bitcoin. Nothing in the option depends on the proof of work, though, so it applies to Lightning on SHA256d just the same, and the code should carry over to upstream lnd and Core Lightning largely as it is.
 
 ## How it differs from the original proposal
 
 * One bit pair, agreed per channel through `channel_type`, instead of two node-wide bits.
-* No "I still send shachain secrets" bit. The receiver works it out itself: it keeps secrets in the 49-entry compact form while they fit, and stores them one by one from the first that doesn't. A seed-based peer costs nothing extra, including for what a static backup can punish.
+* No "I still send shachain secrets" bit. The receiver works it out itself: it keeps secrets in the 49-entry compact form while they fit, and stores them one by one from the first that doesn't. In Core Lightning, a seed-based peer costs nothing extra, including for what a static backup can punish; lnd stores every secret on such a channel either way, 38 bytes per update.
 * The even bit (266) only appears in `channel_type`. In `init` it closes the connection; in a `node_announcement` it's treated as an unknown even bit.
 
 ## On the bridge and upgrade problems
@@ -1055,14 +1055,14 @@ I've taken Option 2A, removing the shachain requirement, from spec text through 
 Most of these came out of review:
 
 * **Generating secrets:** preferably so they can be recomputed (from a seed, or a KDF or threshold PRF over the commitment number and a value unique to the channel, which the node fixes when the channel opens and uses for no other channel; for example the `funding_pubkey` sent at open, not one from a later splice). Random secrets only if each is stored durably before its point is sent. Never reused across commitment numbers or channels.
-* **Multi-signer nodes:** no group smaller than the one that can revoke learns or chooses a secret. A claimed `your_last_per_commitment_secret` is checked against its point, never by producing it. Each signer checks the peer's signatures for commitment n+1 (on every funding output while a splice is pending) before releasing its part of the secret for n, and won't help sign n or lower for broadcast after that.
+* **Multi-signer nodes:** stated as an outcome: no group of signers smaller than the thresholds can get both the secret of a state and a signature to broadcast it, make the node broadcast a revoked state, or leave it with nothing it can broadcast. The spec then lists one way to meet that: each signer checks for itself what it signs and revokes, a signer that has signed a state never helps revoke it, every signer records a revocation before any part of the secret is released, and signers keep the peer's signatures for the next state. A claimed `your_last_per_commitment_secret` is checked against its point, never by producing it.
 * **`channel_reestablish`:** a node that can't check the claimed secret *for now* (signers unreachable) mustn't broadcast, fail the channel or send an error; it disconnects and retries. One that has lost the means to check *for good* behaves like a node that has lost data.
 * **Storage limit:** a receiver may set a limit of at least 1,000,000 individually stored secrets, but must still store every secret it receives. At the limit it closes cooperatively, and may fail the channel if the peer keeps going past a margin, not counting revocations its own updates cause.
 * **Taproot:** for a multi-signer node these rules replace simple taproot's `NonceGen` and `Sign`: no signer learns the nonce or another's share, nonces never come from a seed one signer holds, and one nonce never signs two messages.
 
 ## Storage cost
 
-Per channel, on the receiving side, and only for a peer that actually sends non-seed secrets (about 2 updates per payment):
+Per channel, on the receiving side (about 2 updates per payment). Core Lightning pays this only for a peer that actually sends non-seed secrets; lnd pays it on every channel with the option.
 
 | Payments | With shachain | lnd | Core Lightning |
 |----|----|----|----|
