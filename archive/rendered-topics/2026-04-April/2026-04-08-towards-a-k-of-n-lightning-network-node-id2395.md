@@ -1121,3 +1121,27 @@ The interesting part here is when you want to be able to generate revocation pub
 
 -------------------------
 
+davelund110 | 2026-10-26 13:16:49 UTC | #9
+
+> I would suggest trying for a BOLT first, then fall back to a bLIP if it's rejected.
+
+Thanks, I'll look at doing that.
+
+> Do you mean "a signer that has signed a unilateral close of our-side state never helps revoke that state"?
+
+Yes. The spec text is: a signer that has helped sign the node's commitment transaction with commitment number n, on any funding output, never helps revoke n or any later commitment number. So it's our own commitment, the one we'd broadcast in a unilateral close, and "signed" means our half of the funding signature on it. Revoking n after that would hand the peer what it needs to punish the broadcast. The other direction is there too: a signer that has recorded n as revoked never helps sign our commitment n or a lower one.
+
+> In CLN it releases the secret before recording a revocation \[...\]
+
+Agreed. With one process that's fine. Once there are several signers, the way the spec suggests has that order: before any signer releases its part of the secret of n, every signer holding a share of the key of a funding output that one of our commitments can still spend has recorded n as revoked, and the releasing signer checks that itself (for example from a signed statement naming the channel and n), not on the node's word.
+
+> The interesting part here is when you want to be able to generate revocation public keys while only K signers are online.
+
+One thing with the encrypted roots: if the N - K other signers are the ones that were offline at setup, each of them can decrypt all K roots on its own, so one signer holds every future secret, the current state's included, which is the shachain problem again. Spreading the roots differently doesn't fix it: with K roots each held by N - K + 1 signers, some signer always holds two of them (K(N - K + 1) > N when 1 < K < N), so it and one holder of each other root, K - 1 signers, can decrypt them all.
+
+What I had in mind takes the grouping from your multiple-shachain idea in June (which signers hold which root), but only inside the node: a PRF key per group in place of each shachain root, and the terms combined so the peer still gets one secret per commitment, as on the wire now. It's replicated secret sharing used as pseudorandom secret sharing (Cramer, Damgård, Ishai). Every group of N - K + 1 signers shares a key, and a group's term for commitment n is PRF(key, c || n), with c a value unique to the channel, fixed at open (say the node's funding pubkey from the open), that each signer ties to that one channel and refuses for any other. Any K signers include a member of every group (K + (N - K + 1) > N), so any K online can make the point, and later the secret (releasing it still waits for every signer to record the revocation, as above). Any K - 1 miss a whole group (the other N - K + 1 signers are one), so they learn nothing about it. Your K = N - 1 ECDH case is the one where the groups are pairs. Unlike the roots in your encrypted-roots idea, which are made when a channel opens, the keys are set up once for the set of signers (c is what makes each channel's terms different), so it doesn't matter which K are online when a channel opens. As with your shachains, it takes C(N, K - 1) keys, 10 for 3-of-5 with 6 per signer, so it only suits small groups.
+
+The terms can't just be added as reported, for the reason you gave for MuSig2: a signer that has seen the other terms (reporting last, or in an earlier attempt, since they're the same every time) could pick its term to cancel the rest and know the secret, and with only K online some group has just one member online, so nobody else checks its term. Weighting each term by a hash of the whole list, as MuSig2's key aggregation does, deals with that, even across retries, since every list a colluder tries gives every term a new weight; the secret is then the weighted sum, which any K can still compute. Retries, what the signers record, and a signer reporting a wrong term (which can still make the point wrong, just not one whose secret it knows) need more care than fits here, so I'd rather write that part up properly than sketch it in a post.
+
+-------------------------
+
