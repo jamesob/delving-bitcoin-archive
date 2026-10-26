@@ -50,3 +50,9 @@ I would deeply appreciate any code review, architectural critique, or protocol-l
 
 -------------------------
 
+xerejama | 2026-10-26 20:38:05 UTC | #2
+
+For mempool policy, committee rotation shouldn’t change transaction validity; keep consensus rules separate from each node’s relay thresholds, and have wallets re-evaluate inputs against the newly finalized UTXO set. For proof throughput, benchmark parsing, range-proof verification, and state updates separately before tuning cache behavior. If batching uses randomized coefficients, make sure consensus-critical acceptance cannot depend on node-local randomness.
+
+-------------------------
+

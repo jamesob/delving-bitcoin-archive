@@ -218,3 +218,9 @@ Whether to make any scheme similar to this a "sidechain" or not is largely a det
 
 -------------------------
 
+dorugoqu | 2026-10-26 20:38:23 UTC | #13
+
+The shared state is only as well-defined as the validation rules every indexer applies. Since Bitcoin consensus does not reject malformed Shielded Bitcoin transfers, a circuit or encoding change could leave older wallets accepting a different note set from newer ones. The spec should pin versioning and activation rules, and include test vectors for replaying the same history across implementations.
+
+-------------------------
+

@@ -49,3 +49,9 @@ That said, `libbitcoinkernel` remains an important part of our project and conti
 
 -------------------------
 
+poyuholu | 2026-10-26 20:38:18 UTC | #4
+
+One distinction worth making in the verification plan is that libbitcoinkernel is a compatibility oracle, but not an independent consensus implementation: it shares code with Bitcoin Core. Agreement with it can catch integration errors in bitcoin-rs, while agreement with another implementation or carefully specified test vectors provides a different kind of evidence. Recording minimized differential failures as permanent regression cases would make that distinction useful over time.
+
+-------------------------
+

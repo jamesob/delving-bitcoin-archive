@@ -132,3 +132,9 @@ Code, vectors, notes: https://github.com/average-gary/silent-pool (`spc_ark`, `s
 
 -------------------------
 
+jenonoke | 2026-10-26 20:38:20 UTC | #8
+
+The nonstandard sender data is a wallet-compatibility boundary: an SPc receiver needs a scanner that extracts `A_send` from the coinbase scriptSig and applies the SPc derivation, rather than treating the transaction as ordinary BIP352. I’d make the encoding and versioning explicit, so future coinbase-tag formats can’t be mistaken for SPc data. Also worth specifying how wallets handle same-height competing blocks during a reorg.
+
+-------------------------
+
