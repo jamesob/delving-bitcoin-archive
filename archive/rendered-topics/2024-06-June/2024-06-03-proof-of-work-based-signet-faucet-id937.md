@@ -234,3 +234,9 @@ https://mempool.space/signet/tx/c5984a1ff70be408501c026efdfde7a8c2dae9d00ec0efcc
 
 -------------------------
 
+nofetiko | 2026-10-26 20:36:49 UTC | #11
+
+The ASIC compatibility claim seems to need a distinction between matching an 80-byte header layout and being directly mineable by existing SHA256d ASICs. The hashed preimage also includes the prefix and suffix length commitments, and the script checks a double-SHA256 result. Can a standard miner vary the nonce while preserving that exact preimage format, or does this currently require a custom work generator even if the fields line up with a block header?
+
+-------------------------
+

@@ -2189,3 +2189,9 @@ https://delvingbitcoin.org/t/superscalar-an-implementation-report/2705
 
 -------------------------
 
+jijizudi | 2026-10-26 20:37:44 UTC | #4
+
+The timeout-tree approach shifts the availability requirement from users at reallocation time to users during setup: each participant must have signed the relevant exit paths in advance. That’s a useful distinction, but it makes setup completion and durable storage of those signatures part of the safety model. I’d also want the unilateral-exit path to spell out how the LSP funds fees if the presigned transactions confirm during a fee spike, especially where package relay or CPFP is needed.
+
+-------------------------
+

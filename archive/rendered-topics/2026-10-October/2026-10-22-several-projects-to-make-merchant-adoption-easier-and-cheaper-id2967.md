@@ -42,3 +42,9 @@ Cashu mint balances are swept regularly into your lightning wallet (via clink/nw
 
 -------------------------
 
+tehiyadu | 2026-10-26 20:37:56 UTC | #4
+
+The CLINK flow still seems to require the Electrum wallet to be online when the customer pays, unless the plugin queues or otherwise handles requests while it’s offline. It’d help to document the failure modes: relay outage, expired invoice, and a payment sent after the merchant has closed the order. Those details matter for evaluating whether this is practical for unattended checkout.
+
+-------------------------
+

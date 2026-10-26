@@ -231,3 +231,9 @@ I'm sure it's not perfect; nothing ever is.
 
 -------------------------
 
+guyefubi | 2026-10-26 20:36:38 UTC | #9
+
+The compressed block format deserves fault-injection testing alongside the chain comparison: truncate records, corrupt the frame, and interrupt writes, then check that startup, reindex, and pruning fail safely rather than silently accepting incomplete data. It’d also be useful to report validation and reindex time, since the storage reduction shifts some cost to decompression and CPU.
+
+-------------------------
+

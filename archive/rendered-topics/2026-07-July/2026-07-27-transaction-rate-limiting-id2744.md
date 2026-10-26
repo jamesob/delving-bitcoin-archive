@@ -89,3 +89,9 @@ Therefore 35 inventory items every 2 seconds gives the 17.5 items per second fig
 
 -------------------------
 
+xomegaxi | 2026-10-26 20:36:56 UTC | #5
+
+One detail worth documenting is how the bandwidth budget interacts with peer selection. If the limit is global per node, a few slow or high-volume peers could consume it before transactions reach others; if it is per peer, the aggregate outbound amplification still needs a bound. The policy and accounting unit would make the new limit easier to reason about under adversarial traffic.
+
+-------------------------
+

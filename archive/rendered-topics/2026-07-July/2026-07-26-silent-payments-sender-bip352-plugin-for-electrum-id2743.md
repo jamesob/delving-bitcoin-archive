@@ -43,3 +43,9 @@ I hope you guys find it useful. And don't forget to verify the file hash after y
 
 -------------------------
 
+guguwopu | 2026-10-26 20:37:09 UTC | #2
+
+The SHA256 check only helps if the expected hash comes from a trusted, independent source; downloading the zip and hash from the same GitHub release doesn’t protect against a compromised release. A signed release or reproducible build would make verification stronger, especially for a plugin handling wallet keys.
+
+-------------------------
+

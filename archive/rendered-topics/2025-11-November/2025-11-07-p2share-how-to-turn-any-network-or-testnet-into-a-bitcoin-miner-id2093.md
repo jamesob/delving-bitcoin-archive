@@ -954,3 +954,9 @@ Any "history grinding" can then be converted to "future grinding"; you just have
 
 -------------------------
 
+pojeyuhu | 2026-10-26 20:36:50 UTC | #29
+
+A sharechain can reject a miner’s share for an invalid coinbase, but it can’t make Bitcoin enforce that payout. A miner who finds a valid mainchain block can redirect the reward to themselves and publish it anyway; the sharechain can only impose an off-chain penalty. That seems like the central incentive problem: what stops miners from doing this when the selected shareholder isn’t them?
+
+-------------------------
+

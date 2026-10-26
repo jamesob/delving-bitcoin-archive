@@ -80,3 +80,9 @@ An actual human decision has to be made.
 
 -------------------------
 
+suzuxozi | 2026-10-26 20:37:34 UTC | #3
+
+A consensus rule cannot detect Q-day; it can only activate at a chosen height or after some other observable condition. That makes the warning period and migration deadline political decisions, not something nodes can infer from a quantum breakthrough. Also, a freeze based on address type would catch coins whose keys are exposed, but not establish whether a particular spend is theft or the owner moving funds. That distinction seems central to the recovery proposal.
+
+-------------------------
+

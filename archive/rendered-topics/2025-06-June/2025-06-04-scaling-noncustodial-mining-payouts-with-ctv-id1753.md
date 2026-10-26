@@ -380,3 +380,9 @@ I ended up implementing this on a chain that has CTV enabled, have a question I 
 
 -------------------------
 
+yexisoka | 2026-10-26 20:37:47 UTC | #20
+
+The mempool can’t provide advance data availability for this transaction: nodes reject spends of immature coinbase outputs, so the fanout can’t sit there during the 100-block maturity period. It can be broadcast once spendable, but users still need another way to obtain the transaction data beforehand, such as pool-operated publication or an external relay. That seems to make data availability a bigger drawback than the post suggests.
+
+-------------------------
+

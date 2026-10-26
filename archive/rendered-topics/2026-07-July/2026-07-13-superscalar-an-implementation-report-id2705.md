@@ -97,3 +97,9 @@ The next step is getting people who actually run LSPs to start providing LSP and
 
 -------------------------
 
+kusudoha | 2026-10-26 20:37:02 UTC | #3
+
+The signing refusal needs to be durable before its partial signature leaves the process. Otherwise a crash between sending the signature and committing the database row could reopen the conflicting-signing path after restart. It’d be useful to document that ordering, including what happens if the database reports a failed or ambiguous commit. L=56, words: 48, type: advice.
+
+-------------------------
+

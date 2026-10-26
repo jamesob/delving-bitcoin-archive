@@ -70,7 +70,9 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 
 -------------------------
 
-Kruw | 2026-07-20 11:11:29 UTC | #2
+Kruw | 2026-07-22 14:02:10 UTC | #2
+
+*[u]This page is under construction, if you want to skip to the conclusion, see here:[/u]* https://github.com/joinmarket-ng/joinmarket-ng/issues/568
 
 **[u]The Four Horsemen (Page 2):[/u]** An adaptive metaphor that follows the journey of any UTXO. Commoners may choose an archetype as a Ranger, Knight, Squire, or Farmer and go to the Pub. Royal Kings and Princes hail Chariots on the Street. The Upper Class (Drunks and Royalty) attend the Ritual. Any Class can trade as a Merchant, or roam the Street as a Priest, Scavenger, or Beggar. Users will not be forced into a dead end, and can opt out of privacy to transact as a Peasant. There are the 12 possible transaction operations, which loop thousands of demanded user behaviors together.
 
@@ -185,6 +187,12 @@ Every rational user has the possibility of being a Scavenger or a Merchant. Ever
 Kruw | 2026-07-20 10:54:47 UTC | #3
 
 Reserved post for The Four Horsemen (Page 3): Server specs
+
+-------------------------
+
+hevitisu | 2026-10-26 20:37:26 UTC | #4
+
+Composition needs a threat model, not just a wallet that can invoke all four protocols. A shared client can also create cross-protocol fingerprints through timing, amount selection, and which UTXOs it routes into each path; combining their liquidity does not automatically combine their anonymity sets. It would help to specify what an observer or coordinator can correlate, then evaluate the proposed flows against that model.
 
 -------------------------
 
