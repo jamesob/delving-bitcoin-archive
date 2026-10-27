@@ -1,6 +1,6 @@
 # The Long Road to Bitcoin Payments
 
-ConorOkus | 2026-10-27 15:17:33 UTC | #1
+ConorOkus | 2026-10-27 15:18:14 UTC | #1
 
 **Why bitcoin payments haven’t taken off, and a call for moonshot ideas that could change that**
 
@@ -14,9 +14,9 @@ Bitcoin payments work better than ever. Turning that progress into everyday use 
 
 **What’s blocking it?**
 
-* \*\*Demand:\*\* neither side is pulling for it. Holders would rather save than spend, and bitcoin’s culture celebrates holding. Merchants prefer to receive and hold dollars, so few accept bitcoin, and new payment platforms leave it out.
-* \*\*Volatility and competition:\*\* price swings make bitcoin hard to price goods in, and dollar stablecoins meet the need for stable payments.
-* \*\*Policy:\*\* US tax treatment of every purchase and pending regulation.
+* **Demand**: neither side is pulling for it. Holders would rather save than spend, and bitcoin’s culture celebrates holding. Merchants prefer to receive and hold dollars, so few accept bitcoin, and new payment platforms leave it out.
+* **Volatility and competition:** price swings make bitcoin hard to price goods in, and dollar stablecoins meet the need for stable payments.
+* **Policy:** US tax treatment of every purchase and pending regulation.
 
 **What could change this?** We’re looking for moonshot ideas: changes big enough to shift bitcoin payments, not just improve them. A few possible paths to start the discussion:
 
