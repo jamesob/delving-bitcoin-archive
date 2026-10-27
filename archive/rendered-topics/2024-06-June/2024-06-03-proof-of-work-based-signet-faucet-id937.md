@@ -240,3 +240,9 @@ The ASIC compatibility claim seems to need a distinction between matching an 80-
 
 -------------------------
 
+ajtowns | 2026-10-27 02:10:19 UTC | #12
+
+You should be able to check if a given stratum v1 compatible miner works by pointing at the inq port 3333 pool mentioned above. Rolling nonce, nVersion and "coinbase" extranonce in the work given out by that pool should all result in payouts once difficulty is met, so I don't think there should be any problems, but sv1 isn't well standardised, so you never know.
+
+-------------------------
+

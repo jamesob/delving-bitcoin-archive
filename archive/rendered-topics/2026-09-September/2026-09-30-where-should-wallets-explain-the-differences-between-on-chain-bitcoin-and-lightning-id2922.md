@@ -34,3 +34,9 @@ Treat payment type as a property of the payment, not a choice users must learn u
 
 -------------------------
 
+Anzus_GemWallet | 2026-10-27 02:11:14 UTC | #3
+
+Thanks, this is really helpful. Labelling the payment type on the confirmation screen, instead of expecting people to know it beforehand, matches what we see in support: most confusion happens at the moment of sending, not during setup. The point about repeating the Lightning recovery caveat in the recovery instructions is a good one too, since that’s exactly when people need it. I’ll pass both along to our team.
+
+-------------------------
+

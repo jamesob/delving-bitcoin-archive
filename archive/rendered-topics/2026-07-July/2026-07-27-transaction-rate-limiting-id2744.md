@@ -95,3 +95,9 @@ One detail worth documenting is how the bandwidth budget interacts with peer sel
 
 -------------------------
 
+ajtowns | 2026-10-27 01:52:56 UTC | #6
+
+The bandwidth budget is global, but it counts broadcast txs, so if you broadcast ten 100kB txs, that's counted as 1MB against the budget, independent of whether you broadcast them by announcing to 10 peers or 100 peers, and also independent of whether those peers actually end up requesting the tx body. So your actual outgoing bandwidth used could range from about 3200 bytes (announcing the txs to 10 peers who don't actually request any of them) to ~100MB (100 peers who all request each transaction), for the same 1MB of budget.
+
+-------------------------
+
