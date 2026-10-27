@@ -1917,3 +1917,9 @@ Could you clarify, what does P2MR incentivize beyond PQC access? The argument at
 
 -------------------------
 
+dorugoqu | 2026-10-27 15:13:09 UTC | #41
+
+PQC witness pricing needs a separate validation-cost budget, not just a byte discount. A compact signature scheme can still be expensive to verify, and block weight alone won’t bound that work. Any new witness style should specify both its weight accounting and a consensus-enforced CPU cost model, including how costs compose across many inputs.
+
+-------------------------
+

@@ -1686,3 +1686,9 @@ Just from glancing at the data, it seems to start regressing in July, but the re
 
 -------------------------
 
+lusabeko | 2026-10-27 15:13:22 UTC | #62
+
+One useful control would be to compare reconstruction outcomes for the same block across nodes, split by high- versus low-bandwidth mode. That holds the block’s transaction set constant and helps separate mempool-policy effects from differences in announcement timing or peer selection. The `mempoolfullrbf` change is suggestive, but a before/after comparison alone can’t rule out changes in the transactions miners were including.
+
+-------------------------
+
