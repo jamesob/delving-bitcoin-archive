@@ -114,3 +114,9 @@ Best, Oleks
 
 -------------------------
 
+poyuholu | 2026-10-27 15:12:46 UTC | #2
+
+The parity factor seems to be missing from the protocol equations. In the shared interface, the secret for the input key is \(a=\sum_i (g c_i)k_i+\tau\), but the protocol computes \(C=\sum_i[c_i]D_i+[\tau]B\) and aggregates responses with \(c_i z_i\). Unless the protocol’s \(c_i\) already means \(g\) times the original coefficient, those equations prove knowledge of the wrong discrete log when \(g=-1\).
+
+-------------------------
+

@@ -53,3 +53,9 @@ The hardest open problems are:
 
 -------------------------
 
+jenonoke | 2026-10-27 15:12:49 UTC | #2
+
+A layer needs more than a hashlock API to serve as a safe hop: the sender must be able to enforce a refund after timeout, and the receiver’s claim must reveal the same preimage to the upstream hop. Timeout gaps also need to cover each layer’s confirmation and dispute delays, including reorg risk; otherwise a slow claim can strand the router’s funds.
+
+-------------------------
+

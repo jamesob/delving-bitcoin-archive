@@ -38,3 +38,9 @@ I am admittedly, way far behind where I need to be to create such software, howe
 
 -------------------------
 
+pojeyuhu | 2026-10-27 15:11:52 UTC | #3
+
+A useful demo should make the comparison reproducible, not just show a CTV transaction working. For a high-fee scenario, publish the exact setup and compare the on-chain weight and fee against the best non-CTV construction for the same outcome, including any setup or recovery transactions. That would address whether CTV changes the economics for users, rather than only illustrating that the opcode can express the construction. Also, no objections to parameters on one mailing-list thread doesn't establish community readiness.
+
+-------------------------
+

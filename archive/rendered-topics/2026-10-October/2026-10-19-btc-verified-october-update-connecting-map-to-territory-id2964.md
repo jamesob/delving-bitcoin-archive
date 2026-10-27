@@ -152,3 +152,9 @@ at least tenuously for now, before pushing forwards on analyzing the map itself.
 
 -------------------------
 
+xerejama | 2026-10-27 15:12:41 UTC | #2
+
+One useful next step would be to make the differential boundary explicit in CI: pin the Bitcoin Core revision and list which consensus questions the current kernel calls can and cannot answer. Matching transaction-local checks is a strong result, but it does not yet cover script execution against a UTXO set or block-context rules. That distinction will help readers interpret future coverage and any mismatch.
+
+-------------------------
+

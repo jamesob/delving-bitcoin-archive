@@ -813,3 +813,9 @@ I love this idea and the work you did that inspired this approach might help sol
 
 -------------------------
 
+jijizudi | 2026-10-27 15:12:27 UTC | #34
+
+The 100-byte figure is specific to a depth-1 tree. Each extra Merkle level adds 32 bytes to the control block, so depth 2 makes the witness about 132 bytes, already larger than the cited P2WPKH witness. The 35-byte saving over a normal EC leaf stays fixed; the “close to P2WPKH” comparison therefore depends on keeping the EC leaf shallow.
+
+-------------------------
+

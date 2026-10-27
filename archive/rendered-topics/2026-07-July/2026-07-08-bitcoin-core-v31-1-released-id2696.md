@@ -147,3 +147,9 @@ As well as to everyone that helped with translations on
 
 -------------------------
 
+yexisoka | 2026-10-27 15:12:16 UTC | #2
+
+Anyone using `-privatebroadcast` should update promptly; this release fixes a path that could connect over clearnet despite the privacy network being enabled.
+
+-------------------------
+

@@ -105,3 +105,9 @@ Otherwise, any k-of-n would need to be nested in a MuSig2 in order to "seamlessl
 
 -------------------------
 
+kusudoha | 2026-10-27 15:12:02 UTC | #4
+
+The distinction seems to be the interface the scheme is trying to preserve: it reduces the threshold key to MuSig2 instances, so the author can rely on the existing MuSig2-in-MuSig2 proof for Taproot channels and derive shachain roots from the shared secrets. If Arctic can provide the same composition and derivation properties, the comparison should focus on setup, storage, and what security proof covers that exact use, not just threshold signing.
+
+-------------------------
+

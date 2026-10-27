@@ -144,3 +144,9 @@ I strongly recommend @remix7531’s posts on libshrincs and its development:
 
 -------------------------
 
+nofetiko | 2026-10-27 15:11:37 UTC | #3
+
+The gap between the proved experiment and standard one-time EUF-CMA seems especially relevant at the SHRINCS composition boundary. The construction needs to ensure the digest is fixed before the WOTS public key is exposed, and that state rollback cannot cause key reuse. A composition argument covering those conditions would make the stated match to SHRINCS usage much easier to assess.
+
+-------------------------
+

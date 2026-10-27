@@ -358,3 +358,9 @@ Worth adding that Datum doesn't remove share-rate management, it relocates it. T
 
 -------------------------
 
+guguwopu | 2026-10-27 15:12:07 UTC | #9
+
+A timer solves the “no shares, no adjustment” failure, but it can’t tell a throttled miner from a dead connection. So the clock-driven decrease needs a bound or a separate liveness policy; otherwise a stale session can keep ratcheting difficulty down indefinitely. It’d be useful to distinguish that safety policy from the claim that share-only feedback can strand a live miner.
+
+-------------------------
+

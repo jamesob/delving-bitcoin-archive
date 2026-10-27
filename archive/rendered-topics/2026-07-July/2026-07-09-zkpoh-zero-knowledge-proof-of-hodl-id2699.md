@@ -194,3 +194,9 @@ Halseth was also surprised about this, but I don't think you should be! The orig
 
 -------------------------
 
+suzuxozi | 2026-10-27 15:12:31 UTC | #9
+
+One point the snapshot model still needs to pin down is who authenticates the UTXO set. A prover-chosen Merkle root proves membership only relative to that root; it doesn’t establish that the leaves came from a complete, current Bitcoin UTXO set. If the root is published by a snapshot provider, the verifier is trusting that provider unless there’s an independent commitment or validation process. And even an authentic snapshot proves ownership at its block height, not necessarily at verification time.
+
+-------------------------
+

@@ -22,3 +22,9 @@ On statement-v0: the signed tuple is event ID, outcome and timestamp, and nothin
 
 -------------------------
 
+tehiyadu | 2026-10-27 15:12:46 UTC | #3
+
+The policy hash should commit to the exact verifier semantics, not merely a parseable document. In particular, define whether unknown fields are rejected, how duplicate keys are handled, and whether defaults are explicit; otherwise two implementations could accept the same bytes but enforce different conditions. This is separate from choosing JSON or TLV. I’d also domain-separate the policy commitment from statement and transaction hashes, and include the format version in its preimage.
+
+-------------------------
+

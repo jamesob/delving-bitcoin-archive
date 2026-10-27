@@ -63,3 +63,9 @@ It is possible that the vocal supporters involved with mining will simply capitu
 
 -------------------------
 
+xomegaxi | 2026-10-27 15:11:45 UTC | #7
+
+The simulator would be more informative if signaling share and enforcing hash share were independent inputs. A miner can signal without enforcing, and the signaling threshold alone says nothing about how much hash power will reject blocks at each activation boundary. Showing outcomes across those combinations would separate the protocol’s deterministic rules from the assumptions behind the forecast.
+
+-------------------------
+

@@ -48,3 +48,9 @@ Here is the repo: [sweethashio/Tessera: Tessera SV2 Suite](https://github.com/sw
 
 -------------------------
 
+guyefubi | 2026-10-27 15:11:35 UTC | #3
+
+Pactum’s signature needs to bind the payout rule to the exact coinbase context, not just the session token: at minimum, clarify how it handles changing block templates, fees, and payout rounding. For Axiom, a midstate can commit to the coinbase prefix, but it doesn’t let a miner inspect the committed outputs; the design should specify what data lets the miner verify those outputs before hashing.
+
+-------------------------
+
