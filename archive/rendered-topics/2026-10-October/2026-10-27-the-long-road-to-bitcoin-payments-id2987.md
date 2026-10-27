@@ -1,10 +1,10 @@
 # The Long Road to Bitcoin Payments
 
-ConorOkus | 2026-10-27 15:14:08 UTC | #1
+ConorOkus | 2026-10-27 15:16:00 UTC | #1
 
-\*Why bitcoin payments haven’t taken off, and a call for moonshot ideas that could change that\*
+**Why bitcoin payments haven’t taken off, and a call for moonshot ideas that could change that**
 
-“If \[bitcoin\] ends up just being digital gold, I think it’s failed,” Jack Dorsey \[said in January 2025\](https://www.youtube.com/watch?v=KyFkv5DGeUA&t=1250s). “If it ends up being a currency that people can use daily, then it’s succeeded.” Not everyone agrees. Many in bitcoin argue it must first succeed as a store of value, and that demand for payments will follow. So we start with a clear question: does the current path lead to irrelevance, or is it the expected grind of hardening bitcoin for the day it’s needed for payments? This report asks what is holding bitcoin payments back, and what moonshot ideas could speed up adoption.
+“If \[bitcoin\] ends up just being digital gold, I think it’s failed,” Jack Dorsey [said in January 2025](https://www.youtube.com/watch?v=KyFkv5DGeUA&t=1250s). “If it ends up being a currency that people can use daily, then it’s succeeded.” Not everyone agrees. Many in bitcoin argue it must first succeed as a store of value, and that demand for payments will follow. So we start with a clear question: does the current path lead to irrelevance, or is it the expected grind of hardening bitcoin for the day it’s needed for payments? This report asks what is holding bitcoin payments back, and what moonshot ideas could speed up adoption.
 
 Bitcoin payments work better than ever. Turning that progress into everyday use remains the challenge, and the time to move is now, as stablecoins are ready to gain rapid adoption.
 
@@ -14,20 +14,20 @@ Bitcoin payments work better than ever. Turning that progress into everyday use 
 
 \*\*What’s blocking it?\*\*
 
-- \*\*Demand:\*\* neither side is pulling for it. Holders would rather save than spend, and bitcoin’s culture celebrates holding. Merchants prefer to receive and hold dollars, so few accept bitcoin, and new payment platforms leave it out.
-- \*\*Volatility and competition:\*\* price swings make bitcoin hard to price goods in, and dollar stablecoins meet the need for stable payments.
-- \*\*Policy:\*\* US tax treatment of every purchase and pending regulation.
+* \*\*Demand:\*\* neither side is pulling for it. Holders would rather save than spend, and bitcoin’s culture celebrates holding. Merchants prefer to receive and hold dollars, so few accept bitcoin, and new payment platforms leave it out.
+* \*\*Volatility and competition:\*\* price swings make bitcoin hard to price goods in, and dollar stablecoins meet the need for stable payments.
+* \*\*Policy:\*\* US tax treatment of every purchase and pending regulation.
 
 \*\*What could change this?\*\* We’re looking for moonshot ideas: changes big enough to shift bitcoin payments, not just improve them. A few possible paths to start the discussion:
 
-- \*\*Shared rails:\*\* let people pay in dollars or bitcoin over the same Lightning network, with a compelling reason to choose it, so bitcoin is one tap away wherever people already pay: in agent payments, merchant checkout and fintech apps.
-- \*\*Payments for people who need them most:\*\* self-custodial bitcoin payments that better solve the needs of people facing capital controls or unstable currencies.
-- \*\*New reasons to spend:\*\* spending incentives for existing holders.
-- \*\*New ways to spend:\*\* product experiences that create entirely new kinds of payments, such as paying creators or AI services per use. The killer app for micropayments probably won’t feel like a traditional payment at all.
+* \*\*Shared rails:\*\* let people pay in dollars or bitcoin over the same Lightning network, with a compelling reason to choose it, so bitcoin is one tap away wherever people already pay: in agent payments, merchant checkout and fintech apps.
+* \*\*Payments for people who need them most:\*\* self-custodial bitcoin payments that better solve the needs of people facing capital controls or unstable currencies.
+* \*\*New reasons to spend:\*\* spending incentives for existing holders.
+* \*\*New ways to spend:\*\* product experiences that create entirely new kinds of payments, such as paying creators or AI services per use. The killer app for micropayments probably won’t feel like a traditional payment at all.
 
 We don’t know which, if any, will work. That’s why we want to hear yours.
 
-\*\*What we’re asking.\*\* Our central question: what moonshot ideas would create a believable, viable plan to accelerate bitcoin payments adoption? To make it explicit: what would it take for a major platform such as Meta, Shopify, or OpenAI to accept bitcoin? Builders: propose ideas and test them. Payment providers: share data on how people pay. Funders: back the most promising experiments and help foster demand. This is a living document. Read the \[full report on GitHub\](https://github.com/spiralxyz/bitcoin-payments), share your ideas or data in the replies below, or join the \[GitHub discussion\](https://github.com/spiralxyz/bitcoin-payments/discussions/1). We’ll keep updating the report as we learn.
+\*\*What we’re asking.\*\* Our central question: what moonshot ideas would create a believable, viable plan to accelerate bitcoin payments adoption? To make it explicit: what would it take for a major platform such as Meta, Shopify, or OpenAI to accept bitcoin? Builders: propose ideas and test them. Payment providers: share data on how people pay. Funders: back the most promising experiments and help foster demand. This is a living document. Read the [full report on GitHub](https://github.com/spiralxyz/bitcoin-payments), share your ideas or data in the replies below, or join the [GitHub discussion](https://github.com/spiralxyz/bitcoin-payments/discussions/1). We’ll keep updating the report as we learn.
 
 -------------------------
 
