@@ -120,3 +120,18 @@ The parity factor seems to be missing from the protocol equations. In the shared
 
 -------------------------
 
+olkurbatov | 2026-10-27 16:48:57 UTC | #3
+
+
+Yes, it’s a notation slip; thanks for the careful review. 
+
+In $C$, $R_1$, $R_2$ and $s$, $c_i$ should be $\hat c_i=g \cdot c_i$, the same way BIP-327 and BIP-445 apply the accumulated parity to each signer’s secret. So $s=r+e\cdot a$ for $a=\sum_{i \in T}\hat c_i k_i+\tau$. 
+
+[quote="poyuholu, post:2, topic:2960"]
+... those equations prove knowledge of the wrong discrete log when $g=-1$.
+[/quote]
+
+The responses $z_i$ and the per-signer checks don’t change, since they use $K_i$. With $g=-1$, the old formulas compute $C=[x+\tau]B$, the share of $X+[\tau]G$ instead of $A$. The proof then fails BIP-374 verification against $A$, so the session aborts (instead of producing a wrong share that gets accepted). I’ll update the post.
+
+-------------------------
+

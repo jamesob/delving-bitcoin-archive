@@ -152,9 +152,13 @@ at least tenuously for now, before pushing forwards on analyzing the map itself.
 
 -------------------------
 
-xerejama | 2026-10-27 15:12:41 UTC | #2
+bruno | 2026-10-27 16:52:03 UTC | #3
 
-One useful next step would be to make the differential boundary explicit in CI: pin the Bitcoin Core revision and list which consensus questions the current kernel calls can and cannot answer. Matching transaction-local checks is a strong result, but it does not yet cover script execution against a UTXO set or block-context rules. That distinction will help readers interpret future coverage and any mismatch.
+[quote="ProofOfKeags, post:1, topic:2964"]
+Following this thread, I put together a [standalone differential fuzzing harness](https://github.com/ProofOfKeags/btc-verified/blob/5cd2d824784dc2fac33aec641a0e10fcf869d0b2/Fuzz/README.md) for Bitcoin Core and btc-verified, specifically against the kernel interface, and we have [nine of the kernel functions](https://github.com/ProofOfKeags/btc-verified/blob/5cd2d824784dc2fac33aec641a0e10fcf869d0b2/Kernel/README.md#public-c-interface) backed by a Lean implementation. These functions cover transaction creation, copying, serialization, checking, and the associated validation-state objects. The harness is built directly on [libFuzzer](https://llvm.org/docs/LibFuzzer.html). It gives the same transaction bytes to Core and btc-verified, then compares their observable behavior.
+[/quote]
+
+Asked my clanker to check and implement this on bitcoinfuzz and worked. See: https://github.com/bitcoinfuzz/bitcoinfuzz/pull/681 We already have libbitcoinkernel on bitcoinfuzz, so I only needed to add `btc-verified` as a new module and implement a new target similar to what you have internally.
 
 -------------------------
 

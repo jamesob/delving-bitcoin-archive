@@ -7,15 +7,15 @@
   "cooked": "<p>The parity factor seems to be missing from the protocol equations. In the shared interface, the secret for the input key is <span class=\"math\">a=\\sum_i (g c_i)k_i+\\tau</span>, but the protocol computes <span class=\"math\">C=\\sum_i[c_i]D_i+[\\tau]B</span> and aggregates responses with <span class=\"math\">c_i z_i</span>. Unless the protocol\u2019s <span class=\"math\">c_i</span> already means <span class=\"math\">g</span> times the original coefficient, those equations prove knowledge of the wrong discrete log when <span class=\"math\">g=-1</span>.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-10-27T15:12:46.527Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 2960,
   "topic_slug": "silent-payments-for-multiparty-wallets",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The parity factor seems to be missing from the protocol equations. In the shared interface, the secret for the input key is \\(a=\\sum_i (g c_i)k_i+\\tau\\), but the protocol computes \\(C=\\sum_i[c_i]D_i+[\\tau]B\\) and aggregates responses with \\(c_i z_i\\). Unless the protocol\u2019s \\(c_i\\) already means \\(g\\) times the original coefficient, those equations prove knowledge of the wrong discrete log when \\(g=-1\\).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -53,10 +58,17 @@
   "wiki": false,
   "excerpt": "The parity factor seems to be missing from the protocol equations. In the shared interface, the secret for the input key is a=\\sum_i (g c_i)k_i+\\tau, but the protocol computes C=\\sum_i[c_i]D_i+[\\tau]B and aggregates responses with c_i z_i. Unless the protocol\u2019s c_i already means g times the original&hellip;",
   "truncated": true,
+  "user_suspended": true,
   "post_url": "/t/silent-payments-for-multiparty-wallets/2960/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

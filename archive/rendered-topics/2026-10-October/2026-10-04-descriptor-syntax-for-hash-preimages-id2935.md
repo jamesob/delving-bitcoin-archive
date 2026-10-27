@@ -54,3 +54,15 @@ Related threads: https://github.com/bitcoin/bitcoin/issues/24114#issuecomment-59
 
 -------------------------
 
+fametrano | 2026-10-27 17:39:56 UTC | #2
+
+A literal preimage stops being secret once one output is spent through its hash branch, and in a ranged descriptor every other output shares that branch.
+
+Hash fragments take a digest, not a key expression, so `sha256(preimage(HEX))` gives the same digest at every index of a `/*` descriptor. After one spend through the hash path, the preimage is on chain. The `s` property still keeps the other outputs safe, since each needs a signature, but their hash condition no longer adds anything. A private key is different: spending does not reveal it. So "a secret like a WIF" holds only until the first spend. Your question on deterministic preimages may be the answer: a preimage derived per index from key material gives each output its own digest. A first step with literal preimages could state the limit.
+
+The private and public strings will have different checksums, as with keys. The BIP should say so, since this is new for a hash fragment.
+
+btclib-wallet, a library I maintain, has no `preimage(HEX)` syntax yet, but its parser already gives the expected script for the digest form of all four fragments. I can add the private form and compute test vectors: each private descriptor must give the same script as the one written with the digest, and its public string must print that digest.
+
+-------------------------
+
