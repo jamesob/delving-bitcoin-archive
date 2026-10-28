@@ -28,3 +28,22 @@ The policy hash should commit to the exact verifier semantics, not merely a pars
 
 -------------------------
 
+lukecarriere | 2026-10-28 14:37:19 UTC | #4
+
+Thanks, agreed. The draft defines the policy ID as the BIP340 tagged hash (tag `CSP/policy`) of the canonical serialization, but it doesn't pin down what the verifier does with that document. I'll add these rules, independent of JSON vs TLV:
+
+- Unknown fields make the policy invalid, and a co-signer MUST refuse to sign under it. Extensions go through new profile versions, not ignored fields.
+- Duplicate keys make the policy invalid.
+- There are no implicit defaults. Every field is serialized explicitly, so the hashed bytes are exactly the conditions enforced.
+- The format version is the first field in the preimage, and the tag becomes `CSP/policy/v0` to match `CSP/statement/v0`.
+
+Policy and statement commitments already use separate tags. I'll say explicitly that every CSP tag is distinct from the BIP340/341 tags, and I'll add test vectors that include rejected documents (unknown field, duplicate key, missing field), alongside the exact-bytes vectors @PREDGE asked for.
+
+-------------------------
+
+lukecarriere | 2026-10-28 14:38:05 UTC | #5
+
+Thanks, good catch. As written, `statement-v0` signs event ID, outcome and timestamp, and says nothing about whether the outcome can still change, so a co-signer could act on a first answer that's later corrected. I'll add a finality flag to the signed tuple and let evidence conditions require it. The escrow example will require a final statement, and it will note that a template can wait out a dispute window instead when an attestor never marks finality. Attestations that use DLC nonce pre-commitment are already effectively final, since signing two outcomes for one event reveals the attestor's key. Agreed on test vectors for the exact policy ID bytes. They'll ship with whichever serialization wins.
+
+-------------------------
+
