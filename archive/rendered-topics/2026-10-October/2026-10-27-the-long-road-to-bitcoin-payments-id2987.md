@@ -31,3 +31,11 @@ We don’t know which, if any, will work. That’s why we want to hear yours.
 
 -------------------------
 
+Anzus_GemWallet | 2026-10-28 03:04:46 UTC | #2
+
+From the wallet support side (I work in BD and support at Gem Wallet, not as a developer), one blocker shows up before demand even comes into it: many users don’t know whether they’re about to pay on-chain or over Lightning, and the differences in fees and timing catch them off guard at the moment of sending. When the first payment feels confusing, people tend to go back to just holding.
+
+So next to the moonshots, I’d add a small, unglamorous one: make the first payment boring. That means a clear label for the payment type, fees shown before confirming, and recovery instructions that cover Lightning funds too. None of that creates demand, but it stops early users from giving up.
+
+-------------------------
+
