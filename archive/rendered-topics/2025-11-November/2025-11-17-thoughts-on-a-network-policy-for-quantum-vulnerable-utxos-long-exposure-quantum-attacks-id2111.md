@@ -80,9 +80,23 @@ An actual human decision has to be made.
 
 -------------------------
 
-suzuxozi | 2026-10-26 20:37:34 UTC | #3
+laissez-faire | 2026-10-29 01:33:13 UTC | #4
 
-A consensus rule cannot detect Q-day; it can only activate at a chosen height or after some other observable condition. That makes the warning period and migration deadline political decisions, not something nodes can infer from a quantum breakthrough. Also, a freeze based on address type would catch coins whose keys are exposed, but not establish whether a particular spend is theft or the owner moving funds. That distinction seems central to the recovery proposal.
+> I’d like to start a discussion on a potential policy framework for handling quantum-vulnerable UTXOs after “Q-day” (the day a practical quantum attack becomes public).
+
+Before discussing the solution to the problem, I think we need to discuss the problem. (We are, after all, in the Philosophy category here!)
+
+At the most fundamental level, I guess that the problem is that we want Bitcoin to allow for a person to secure some money indefinitely over time, and use it at any point in the future, at a time of their choosing, without confiscation or theft. That's been the case, and is the case, but for some UTXOs that won't be the case if there is ever a cryptographically relevant quantum computer (CRQC).
+
+But I think that's too general a definition of the problem, because there doesn't seem to be any solution to that problem, it is just the reality we have. There *are* some UTXOs today that *are* vulnerable to theft by a CRQC. I don't think anyone is proposing any "solution" to that "problem" that actually changes the reality we have. 
+
+So I guess the discussion must be about a partial solution; a mitigation; something that we can do that addresses the worst consequences of this situation.
+
+Still, I wonder what those worst consequences are; what problem you're really trying to solve here. I don't have any quantum vulnerable UTXOs, and I doubt you do either. Who are we trying to protect? What are we trying to protect them from?
+
+For example, in other fields outside of Bitcoin the tried-and-tested approach is communication, encouraging people to upgrade their crypt and their keys. That is the obvious "solution" to the most general "problem" above.
+
+I'm not saying there aren't other problems to solve here. I'm just don't want to assume. Let's agree on the problem, and why it's a problem, and then we might find that the solution is relatively straightforward.
 
 -------------------------
 
