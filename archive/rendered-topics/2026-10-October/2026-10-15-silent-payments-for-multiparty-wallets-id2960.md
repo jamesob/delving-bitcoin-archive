@@ -135,3 +135,22 @@ The responses $z_i$ and the per-signer checks don’t change, since they use $K_
 
 -------------------------
 
+macgyver | 2026-10-29 00:09:51 UTC | #4
+
+Thank you for putting this together. It's good to see someone working through the security of composing Silent Payments with multiparty signing. The shared interface across FROST, MuSig2 and the nested schemes makes sense to me as a way to frame it.
+
+I came at the same problem from the implementation side, with a narrower goal: a single treasury wallet spending through hardware signers. My approach adds two provisional per-input PSBT fields:
+
+- `PSBT_IN_SP_PARTIAL_ECDH_SHARE`: your `Dᵢ`, keyed by scan key and participant key
+- `PSBT_IN_SP_PARTIAL_DLEQ`: an ordinary BIP-374 proof for each `Dᵢ`, same key_data
+
+Each signer verifies every proof and recomputes the outputs before signing. That keeps the flow to two rounds. I have prototypes of this working with MuSig2 on Jade and COLDCARD, with payments on signet detected by two different receiving wallets.
+
+I was originally designing strictly for air-gapped signers, so keeping the PSBT fields and rounds to a minimum was my main goal. More recently I adapted the Frostsnap team's Nostr coordination work to send Silent Payments from a FROST wallet, and I was very pleased with the experience over a live coordinating channel. 
+
+Air-gapped signers like COLDCARD, SeedSigner and Jade rely on PSBTs to exchange information. Have you considered how AggDLEQ would work without a live coordinator channel?
+
+Will your security analysis cover publishing a per-signer BIP-374 proof for each `Dᵢ`?
+
+-------------------------
+
