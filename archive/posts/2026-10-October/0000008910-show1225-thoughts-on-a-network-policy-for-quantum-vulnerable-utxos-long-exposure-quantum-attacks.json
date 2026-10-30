@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "> Still, I wonder what those worst consequences are; what problem you\u2019re really trying to solve here. I don\u2019t have any quantum vulnerable UTXOs, and I doubt you do either. Who are we trying to protect? What are we trying to protect them from?\n\nWe can save procrastinators with BIP32 addresses from getting their BTC stolen by CRQC. \nIf we disallow ECC signature spend and introduce ZKP recovery hatch, we could save every procrastinator holding their BTC in BIP32 addresses. On the other hand, that would end up confiscating pre-BIP32 P2PK addresses and small number of other addresses derived in non-standard ways. We could mitigate confiscation by allowing (hour-glass or unrestricted) spend from P2PK assuming those addresses cannot be saved with ZKP escape hatch.\n\nI know some say that pill is too bitter to swallow philosophically.\nConclusion may varies depending on situations. If CRQC arrives before even having PQ address in Bitcoin, disallowing ECC spend will be inevitable. If the size of recoverable procrastinator is practically nil, we might not reach consensus to do so.\n\nFYI, I came up with another idea if we cannot reach consensus with this matter:\n\nhttps://delvingbitcoin.org/t/active-sweeping-of-vulnerable-outputs-after-q-day/2421\n\n\nSHO",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Still, I wonder what those worst consequences are; what problem you\u2019re really trying to solve here. I don\u2019t have any quantum vulnerable UTXOs, and I doubt you do either. Who are we trying to protect? What are we trying to protect them from? \n\nWe can save procrastinators with BIP32 addresses from ge&hellip;",
   "truncated": true,
   "post_url": "/t/thoughts-on-a-network-policy-for-quantum-vulnerable-utxos-long-exposure-quantum-attacks/2111/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
