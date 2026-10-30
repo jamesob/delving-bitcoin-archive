@@ -100,3 +100,22 @@ I'm not saying there aren't other problems to solve here. I'm just don't want to
 
 -------------------------
 
+show1225 | 2026-10-30 08:24:28 UTC | #5
+
+> Still, I wonder what those worst consequences are; what problem you’re really trying to solve here. I don’t have any quantum vulnerable UTXOs, and I doubt you do either. Who are we trying to protect? What are we trying to protect them from?
+
+We can save procrastinators with BIP32 addresses from getting their BTC stolen by CRQC. 
+If we disallow ECC signature spend and introduce ZKP recovery hatch, we could save every procrastinator holding their BTC in BIP32 addresses. On the other hand, that would end up confiscating pre-BIP32 P2PK addresses and small number of other addresses derived in non-standard ways. We could mitigate confiscation by allowing (hour-glass or unrestricted) spend from P2PK assuming those addresses cannot be saved with ZKP escape hatch.
+
+I know some say that pill is too bitter to swallow philosophically.
+Conclusion may varies depending on situations. If CRQC arrives before even having PQ address in Bitcoin, disallowing ECC spend will be inevitable. If the size of recoverable procrastinator is practically nil, we might not reach consensus to do so.
+
+FYI, I came up with another idea if we cannot reach consensus with this matter:
+
+https://delvingbitcoin.org/t/active-sweeping-of-vulnerable-outputs-after-q-day/2421
+
+
+SHO
+
+-------------------------
+
