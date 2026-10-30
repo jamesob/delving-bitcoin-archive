@@ -22,3 +22,11 @@ Is there a way to browse it directly by date?
 
 -------------------------
 
+LearnBitcoin.com | 2026-10-30 13:40:19 UTC | #3
+
+Yes, by year and month. The archive’s section nav now has a Years entry, which lists every year since 2011 with its counts; each year page, for example <https://www.learnbitcoin.com/archive/2015>, lists the threads started that year grouped by month in order of first message, with a row of month links at the top to jump without scrolling. The month headings are anchors too, so <https://www.learnbitcoin.com/archive/2015#m-6> goes straight to June 2015. The home page’s “Recently active” list is the other way in, newest message first.
+
+The nav entry used to say “Numbers”, which hid that it was the way in by date; renamed today, and the month bar is new as well, both because you asked, thank you.
+
+-------------------------
+
