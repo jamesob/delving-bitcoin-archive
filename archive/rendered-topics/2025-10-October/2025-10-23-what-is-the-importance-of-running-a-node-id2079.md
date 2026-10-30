@@ -192,3 +192,19 @@ Other reasons are secondary, even if some of them might be super-important in yo
 
 -------------------------
 
+laissez-faire | 2026-10-30 10:00:00 UTC | #16
+
+Summarising the conversation so far, it seems to comes down to minimising trust for the user, and providing redundancy for the network.
+
+The direct and immediate benefits to the user all minimise the amount of trust the user needs to put in others. It is a foundational property of a Bitcoin node that it does not trust other Bitcoin nodes ("don't trust, verify"). It is fundamentally *for* people who want to trust others as little as possible. This includes for privacy, for reliability, and for fraud protection.
+
+As both @jal and @AdamISZ have noted, you don't necessarily need to run a node to get these benefits - if there is someone you can trust to do it for you. For example, you don't need to run a node if your local exchange is trusted and trustworthy and is running a node for you. Or a married couple might run a single node, and not feel like they need to have one each, because they trust each other. But if you draw a circle around them (be that a married couple, or an exchange and their users) you now have a [trust boundary](https://en.wikipedia.org/wiki/Trust_boundary). You don't need one node per person, but you do need one node per trust boundary. For someone who trusts their local exchange as much as they would trust their spouse, they don't need to run a node. For someone who wants to trust no one - or for a group of people who trust each other but want to trust no one else outside the group - they should run a node.
+
+---
+
+[Redundancy](https://en.wikipedia.org/wiki/Redundancy_\(engineering\)) is a benefit to the network, which is another way of saying it is a benefit to all users. Your node is redundant, from the network's perspective, which means the network is robust and resilient, and doesn't need a node like yours for it to keep working. But at the same time, it is exactly nodes like yours that give the network this redundancy. That is the paradox of redundancy: you can either (A) have it, and not need it, or (B) not have it, and desperately need it. Many people choose to run a node in support of the network, and it is only because of those that do so, that those who do not will still get the benefits of a robust and resilient network.
+
+So to summarise: you run a node for your own benefit, because no one you trust is already running one that you can use, or you run a node for the benefit of everyone, because it contributes to the redundancy of the network.
+
+-------------------------
+
