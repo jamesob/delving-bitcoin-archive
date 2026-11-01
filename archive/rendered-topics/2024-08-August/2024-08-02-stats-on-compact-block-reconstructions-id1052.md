@@ -1686,9 +1686,17 @@ Just from glancing at the data, it seems to start regressing in July, but the re
 
 -------------------------
 
-lusabeko | 2026-10-27 15:13:22 UTC | #62
+0xB10C | 2026-11-01 10:21:31 UTC | #63
 
-One useful control would be to compare reconstruction outcomes for the same block across nodes, split by high- versus low-bandwidth mode. That holds the block’s transaction set constant and helps separate mempool-policy effects from differences in announcement timing or peer selection. The `mempoolfullrbf` change is suggestive, but a before/after comparison alone can’t rule out changes in the transactions miners were including.
+There has been some further investigation (thanks to @m4ycon, @stratospher, @octaviolucca, and Ben) in https://bnoc.xyz/t/satoshi-31-0-0-peers-with-no-service-flags-and-protocol-70015-pushed-transactions-then-stopped-together-on-oct-18/193/ and https://bnoc.xyz/t/compact-block-reconstruction-degradation-between-september-october-2026/198/. There also was an offline discussion at 2140 recently. To summarize my current understanding of what happened:
+
+Someone wanted to get their uncommon-goods rune mints mined as cheap as possible. The cheapest way of having a transaction with one OP_RETURN for the mint (only one OP_RETURN is allowed per runestone mint) is to have a transaction with a P2A input and a P2A and OP_RETURN output ([example](https://mempool.space/tx/13b821bcdf10da153ab6f1e98b58bd45772cfd1e02a0e51369a2b0e319092d2a?cpfp=true)). This is about 100vB and costs 10sat per mint at 0.1sat/vbyte in fees. The person creating these 100vB transactions chains them in row. These chains are pushed out to nodes on the network as unsolicited transactions (someone is just sending `tx` P2P messages, no `inv` -> `getdata` round trip). Additionally, since P2A are anyone-can-spend, there seems to be someone with the UA `/p2aburn:1.0/` burning these outputs to avoid the other person from minting these runes ([example](https://mempool.space/tx/fada93f79fdfd38ffd9049ffe61195e858b5b110fdffefa16f1440a62078e89b?cpfp=true)).
+
+I suspect unsolicited pushing of long chains of transactions and someone burning (replacing) them as soon as they learn about them is causing a lot of the differences between mempools. 
+
+This all stopped on 2026-10-18. No more unsolicited chains of transactions being pushed. Reconstruction rates improved on the same day.
+
+![image|690x380](upload://w1yORrMfVL4mL16qvqaDn3KX8rj.jpeg)
 
 -------------------------
 
