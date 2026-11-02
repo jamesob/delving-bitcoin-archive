@@ -1145,3 +1145,59 @@ The terms can't just be added as reported, for the reason you gave for MuSig2: a
 
 -------------------------
 
+ZmnSCPxj | 2026-11-02 17:46:53 UTC | #10
+
+[quote="davelund110, post:9, topic:2395"]
+What I had in mind takes the grouping from your multiple-shachain idea in June (which signers hold which root)
+[/quote]
+
+This is actually what I was referring to, I suppose I was not clear.
+
+[quote="davelund110, post:9, topic:2395"]
+Every group of N - K + 1 signers shares a key, and a group’s term for commitment n is PRF(key, c || n), with c a value unique to the channel, fixed at open (say the node’s funding pubkey from the open), that each signer ties to that one channel and refuses for any other. Any K signers include a member of every group (K + (N - K + 1) > N), so any K online can make the point, and later the secret (releasing it still waits for every signer to record the revocation, as above)
+[/quote]
+
+Just to be clear, the revocation key would be:
+
+    MuSig2([PRF(subkey1, c || n) * G, PRF(subkey2, c || n) * G, ... ])
+
+The above is a public key that can be computed by any one of the `K` currently online, using only the `PRF(subkeyN, c || n) * G` points reported by each of the `K` online machines.
+
+Then later, at revocation time, each signer must validate the state-to-be-revoked (ensure it has a signature for a valid next transaction, that the next transaction is a valid transition from the current one to be revoked, etc) and then release the `PRF(subkeyN, c || n)` if they believe revocation is OK --- this is a within-group revocation.  If `K` signers agree that revocation is valid, then any one of them can then generate the private key behind the above MuSig2 sum and send it to the counterparty as part of the modified BOLT spec.
+
+This is somewhat more CPU-cheap as the signers do not need to do repeated SHA operations from the roots they have access to (the PRF here can be a tagged SHA or HMAC-SHA), at the cost of pushing more persistent storage at the counterparty.
+
+-------------------------
+
+ZmnSCPxj | 2026-11-02 18:08:47 UTC | #11
+
+[quote="davelund110, post:7, topic:2395"]
+## Storage cost
+
+Per channel, on the receiving side (about 2 updates per payment). Core Lightning pays this only for a peer that actually sends non-seed secrets; lnd pays it on every channel with the option.
+
+| Payments | With shachain | lnd | Core Lightning |
+|----|----|----|----|
+| 500,000 | \~2 KB | \~38 MB | \~60 MB |
+| 1,000,000 | \~2 KB | \~76 MB | \~120 MB |
+
+lnd already keeps a revocation log record for every old state; the secret adds 38 bytes to it.
+[/quote]
+
+While this is fine for general public forwarders, this is significantly less fine for LSPs that want to provide Lightning services to low-resource client devices (i.e. mobile phones).  Remember, if the LSP wants to do k-of-n, it is the ***COUNTERPARTY*** --- the low-resource client device --- that has to store MORE data.
+
+Granted, the low-resource client devices still need to store the hashes if you're sticking closely to the BOLT spec. But a mild rearrangement of the transaction (this technically breaks even further with BOLT) would allow clients to only store revocations:
+
+* Instead of the BOLT-adherent:
+  * Commitment Tx -> HTLC -> revocation path or CSV
+* Do:
+  * Commitment Tx -> revocable `nSequence`d tx -> HTLC
+
+With the above, if the LSP publishes old commitment TX, the next-stage transaction cannot be immediately published by the LSP, and the client can use only revocation data (without knowing hashes of HTLCs) to revoke it.  The drawback of the second scheme (and why it is NOT the way BOLT does it) is that the `nSequence`d timeout deducts from the time available for HTLCs on valid states, forcing larger `final_ctlv_delta` parameters.
+
+Clients can then maintain just one channel with the k-of-n LSP and have constant storage of the channel state, which is easier on low-resource client devices.  Having 10x shachains would be about ~20kbyte of persistent storage, hopefully replicated elsewhere (i.e. not on the LSP, because it has every incentive to lose the backup copy of the client data).
+
+Against this, if the low-resource client device does not do a lot of payments anyway, the storage would still remain somewhere in the < 1Mb range anyway even with the store-all-the-revocations technique.
+
+-------------------------
+
