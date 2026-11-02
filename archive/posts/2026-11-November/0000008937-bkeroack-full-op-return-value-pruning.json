@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 3,
   "readers_count": 2,
-  "score": 0,
+  "score": 0.6,
   "yours": false,
   "topic_id": 3026,
   "topic_slug": "full-op-return-value-pruning",
