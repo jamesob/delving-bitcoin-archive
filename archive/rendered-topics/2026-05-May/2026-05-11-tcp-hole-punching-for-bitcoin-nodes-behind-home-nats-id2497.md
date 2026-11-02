@@ -752,3 +752,9 @@ Another one: As home-nodes fill up their slots, less of them are going to be pre
 
 -------------------------
 
+0xB10C | 2026-11-02 20:48:34 UTC | #34
+
+To have it linked here: https://btctranscripts.com/bitcoin-core-dev-tech/2026-10/tcp-hole-punching discussion at CoreDev Tokyo 2026. Should not contain content that wasn't also mentioned here.
+
+-------------------------
+
