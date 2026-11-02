@@ -1,6 +1,6 @@
 # Full OP_RETURN value pruning
 
-bkeroack | 2026-11-02 20:30:37 UTC | #1
+bkeroack | 2026-11-02 20:31:43 UTC | #1
 
 satd is the first Bitcoin node implementation to allow optional full OP_RETURN value pruning. It is controlled by these options:
 
@@ -10,7 +10,7 @@ satd is the first Bitcoin node implementation to allow optional full OP_RETURN v
 
 Why do OP_RETURN value pruning? The recent BIP-110 controversy made it apparent that a certain proportion of node runners care deeply about OP_RETURN value sizes and what they see as spam on the blockchain. My personal view is that an objective analysis of mainnet shows that OP_RETURN value footprint is negligible currently. That said, the philosophical argument that non-financial data is spam and doesn't belong on the chain is real and resonates with some people. Since value pruning can be implemented without breaking consensus or most full node functionality, I believe it's better to allow this flexibility in node software to allow operators to express their preferences. If all major implementations adopt this type of flexibility hopefully we can avoid future distracting controversies.
 
-When you combine pruning with the [Transaction Filter Policy language](https://delvingbitcoin.org/t/cost-bounded-transaction-filtering-language/2966) you can also prevent matching transactions from being relayed or added to block templates. Use a conditional like sum `outputs (out.op_return_size) > 80` in your filter rule (see the [manual](https://epochbtc.github.io/satd/policy.html) for details). This addresses the "I don't want my node assisting or storing large OP_RETURN values" concern. 
+When you combine pruning with the [Transaction Filter Policy language](https://delvingbitcoin.org/t/cost-bounded-transaction-filtering-language/2966) you can also prevent matching transactions from being relayed or added to block templates. Use a conditional like `sum outputs (out.op_return_size) > 80` in your filter rule (see the [manual](https://epochbtc.github.io/satd/policy.html) for details). This addresses the "I don't want my node assisting or storing large OP_RETURN values" concern.
 
 The implementation punches holes in the on-disk block files, redacting values that match the threshold. This uses the FALLOC_FL_PUNCH_HOLE | FALLOC_FL_KEEP_SIZE (Linux) and F_PUNCHHOLE (MacOS) syscalls to redact values in place.
 
