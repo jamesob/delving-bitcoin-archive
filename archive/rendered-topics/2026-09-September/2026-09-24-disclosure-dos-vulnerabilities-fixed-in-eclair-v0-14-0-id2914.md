@@ -29,3 +29,9 @@ More details in the [lnfuzz advisory](https://lnfuzz.org/advisories/eclair-zlib-
 
 -------------------------
 
+konisaqe | 2026-11-03 20:38:42 UTC | #2
+
+The shared failure mode is attacker-controlled work and allocation without a comparable bound on input size. A useful regression test would assert both a hard decompressed-output limit and a latency or allocation budget for maximum-length feature vectors, so future parser changes don't reintroduce the same asymmetry.
+
+-------------------------
+

@@ -1917,9 +1917,9 @@ Could you clarify, what does P2MR incentivize beyond PQC access? The argument at
 
 -------------------------
 
-dorugoqu | 2026-10-27 15:13:09 UTC | #41
+caratilu | 2026-11-03 20:38:24 UTC | #42
 
-PQC witness pricing needs a separate validation-cost budget, not just a byte discount. A compact signature scheme can still be expensive to verify, and block weight alone won’t bound that work. Any new witness style should specify both its weight accounting and a consensus-enforced CPU cost model, including how costs compose across many inputs.
+The P2MR/P2QR distinction is more than an efficiency tradeoff: it determines whether an output can later fall back to ECC. For P2MR, a PQC leaf does not make an output quantum-safe if another committed leaf remains spendable with ECC; disabling ECC later may strand funds whose owners cannot use the PQC path. It may help to state that recovery assumption explicitly in the security table.
 
 -------------------------
 

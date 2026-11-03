@@ -658,3 +658,9 @@ Then the condition "Initiator AND Acceptor" can be a simple MuSig2 of the two sh
 
 -------------------------
 
+jafemoje | 2026-11-03 20:38:48 UTC | #4
+
+The hash-exchange argument depends on “commit” meaning an enforceable on-chain commitment, not just both parties having signed messages or agreed to continue. The protocol should spell out which signatures or transactions make aborting after hash disclosure impossible or costly, and what happens if a participant withholds the next message. Otherwise the hash can still carry identifying data even if the intended swap never completes.
+
+-------------------------
+
