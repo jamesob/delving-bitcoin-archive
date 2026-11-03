@@ -43,3 +43,9 @@ Code: [`templatehash.py`](https://github.com/aaron-recompile/btcaaron/blob/5ef4c
 
 -------------------------
 
+zixahuxa | 2026-11-03 20:36:35 UTC | #2
+
+The 10-byte update leaf is a neat result, but the practical comparison would be clearer with total spend weight alongside leaf and witness sizes. The fixed Taproot control block and other witness elements can matter more than the script in a small transaction, especially when comparing these different constructions.
+
+-------------------------
+

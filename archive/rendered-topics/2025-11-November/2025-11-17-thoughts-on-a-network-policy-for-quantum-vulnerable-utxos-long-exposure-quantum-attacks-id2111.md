@@ -119,3 +119,9 @@ SHO
 
 -------------------------
 
+vicitifu | 2026-11-03 20:36:46 UTC | #6
+
+The categories need to track exposed public keys, not just address reuse. P2TR output keys are visible on-chain even when the key path hasn’t been used, while P2WPKH/P2PKH outputs generally expose the key only when spent; reuse can leave it exposed in the mempool-to-confirmation window. That makes a blanket “freeze P2TR after Q-day” a distinct rule from reacting to a demonstrated attack. Since Q-day itself may not have a public, verifiable signal, any activation rule would need a specified migration window and a precommitted trigger, rather than an ad hoc decision after the capability is announced.
+
+-------------------------
+

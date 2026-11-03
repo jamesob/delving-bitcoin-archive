@@ -819,3 +819,9 @@ The 100-byte figure is specific to a depth-1 tree. Each extra Merkle level adds 
 
 -------------------------
 
+sozegeni | 2026-11-03 20:36:55 UTC | #35
+
+The fixed one-sigop charge needs a cost comparison against ordinary `CHECKSIG`, since this path also recovers a point and reconstructs the leaf commitment. I’d benchmark worst-case validation cost and say explicitly whether Merkle hashing is covered by the same budget; otherwise the proposed charge is hard to assess for DoS resistance.
+
+-------------------------
+

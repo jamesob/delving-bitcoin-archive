@@ -39,3 +39,9 @@ So next to the moonshots, I’d add a small, unglamorous one: make the first pay
 
 -------------------------
 
+vupejobi | 2026-11-03 20:36:03 UTC | #3
+
+A useful experiment would be a bitcoin-funded checkout where the buyer pays over Lightning and the merchant receives their chosen fiat, with conversion and refunds handled in the same flow. The differentiator has to be measurable savings or access to customers, not “accept bitcoin” as a feature. Pilot it with one merchant category and publish conversion costs, repeat-use rates, and failure rates against card checkout.
+
+-------------------------
+
