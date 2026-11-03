@@ -17,3 +17,9 @@ One closing thought: what if the peer-to-peer idea could be carried forward by a
 
 -------------------------
 
+fabowuje | 2026-11-03 20:37:59 UTC | #2
+
+Scarcity doesn't by itself price people out: BTC is divisible to 100 million sats, so the relevant constraints are purchasing power, fee costs, and access to self-custody. Gresham's law usually assumes a fixed exchange rate or legal-tender constraint; expected appreciation alone is better described as a spending-versus-saving choice. “Humanitycoin” would need to explain how its value limit is enforced without creating a new issuer or governance capture.
+
+-------------------------
+

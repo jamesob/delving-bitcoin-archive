@@ -56,3 +56,9 @@ For mempool policy, committee rotation shouldn’t change transaction validity; 
 
 -------------------------
 
+kunetoze | 2026-11-03 20:37:33 UTC | #3
+
+Mempool policy should stay separate from consensus validity: committee rotation can affect propagation and inclusion latency, but it shouldn’t change which UTXO spends are valid. Specify deterministic conflict handling and expiry, then test a partition where a transaction reaches only one committee member. Also document the fault assumption and view-change path; a quorum threshold alone doesn’t establish liveness under a stalled or equivocating leader.
+
+-------------------------
+

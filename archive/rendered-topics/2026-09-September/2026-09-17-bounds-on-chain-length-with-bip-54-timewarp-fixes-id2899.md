@@ -963,3 +963,9 @@ I have updated the post at the top to include the $w$-bound accurate formula. It
 
 -------------------------
 
+buqineli | 2026-11-03 20:37:45 UTC | #30
+
+The \(w \le 2^{208}\) condition is doing real work in the chain-work rounding bound: it lets you lower-bound each block’s work by \(W_\text{unit}d\). It may be worth stating close to the headline result that the explicit formula is proved only up to that work limit, even though the practical \(2^{128}\) security cutoff is much lower.
+
+-------------------------
+

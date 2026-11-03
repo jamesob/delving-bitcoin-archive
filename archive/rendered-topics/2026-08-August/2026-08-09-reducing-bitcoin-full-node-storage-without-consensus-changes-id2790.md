@@ -237,3 +237,9 @@ The compressed block format deserves fault-injection testing alongside the chain
 
 -------------------------
 
+fifowiti | 2026-11-03 20:37:43 UTC | #10
+
+The on-disk format boundary deserves particular scrutiny: Core tools and recovery code assume the usual block-file framing, so a compressed record needs an unambiguous discriminator that cannot be mistaken for a legacy size or payload. I’d also test truncated writes and restart/reindex after crashes at each point in the record write; matching a fully built chain won’t cover those failure modes.
+
+-------------------------
+

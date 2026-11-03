@@ -246,3 +246,9 @@ You should be able to check if a given stratum v1 compatible miner works by poin
 
 -------------------------
 
+hihogero | 2026-11-03 20:37:01 UTC | #13
+
+The threshold logic is where I’d focus differential tests: exercise every difficulty from 16 through 80, especially transitions at 7/8-bit and byte boundaries, and compare script acceptance against a simple reference hash check. Include hashes with a zero byte just after the required prefix; signed-magnitude handling makes those edge cases easy to get wrong.
+
+-------------------------
+

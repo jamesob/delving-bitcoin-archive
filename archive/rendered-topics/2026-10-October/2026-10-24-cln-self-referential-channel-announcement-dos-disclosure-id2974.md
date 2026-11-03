@@ -146,3 +146,9 @@ The regression test should cover both live gossip and replay from `gossip_store`
 
 -------------------------
 
+sagetaya | 2026-11-03 20:37:48 UTC | #3
+
+A useful regression test would exercise both graph states: the duplicated node ID is absent before the announcement, and it already exists. The first reaches the duplicate insertion path described here; the second checks that rejection doesn’t depend on whether the node was previously learned. It’d also be worth asserting the malformed announcement never reaches `gossip_store`, then restarting from that store to catch persistence-order regressions.
+
+-------------------------
+
