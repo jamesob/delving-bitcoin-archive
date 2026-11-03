@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 3,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 16.4,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 32.4,
   "yours": false,
   "topic_id": 3027,
   "topic_slug": "direct-messages-dms",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Trying to contact user @neonrooks to ask for their npub. We've added their song \"Off the Chain\" to btcplaylist.com and want to ensure listeners can zap the artist. I can't find the DM option on this forum so raising the issue here. Cheers.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Trying to contact user <a class=\"mention\" href=\"/u/neonrooks\">@neonrooks</a> to ask for their npub. We\u2019ve added their song \u201cOff the Chain\u201d to <a href=\"http://btcplaylist.com\" rel=\"noopener nofollow ugc\">btcplaylist.com</a> and want to ensure listeners can zap the artist. I can\u2019t find the DM option on this forum so raising the issue here. Cheers.",
   "truncated": true,
   "post_url": "/t/direct-messages-dms/3027/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
