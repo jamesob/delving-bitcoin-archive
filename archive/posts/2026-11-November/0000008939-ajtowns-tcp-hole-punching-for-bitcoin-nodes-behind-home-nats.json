@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Concretely: in the context of bugs like [CVE-2026-117350](https://bitcoincore.org/en/2026/10/28/disclose-tcp-oom/) (tcp stack bug in bitcoin), [CVS-2026-117349](https://bitcoincore.org/en/2026/10/28/disclose-fpausesend-oom/) (protocol bug in bitcoin) and [CVE-2026-98432](https://lwn.net/Articles/1104192/) (tcp bug in linux), isn't it more sensible for home users not to be listening for incoming connections, as a precautionary measure?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -60,9 +65,15 @@
   "excerpt": "Concretely: in the context of bugs like <a href=\"https://bitcoincore.org/en/2026/10/28/disclose-tcp-oom/\">CVE-2026-117350</a> (tcp stack bug in bitcoin), <a href=\"https://bitcoincore.org/en/2026/10/28/disclose-fpausesend-oom/\">CVS-2026-117349</a> (protocol bug in bitcoin) and <a href=\"https://lwn.net/Articles/1104192/\">CVE-2026-98432</a> (tcp bug in linux), isn\u2019t it more sensible for home users not to be listening for incoming connections, as a precautionary measure?",
   "truncated": true,
   "post_url": "/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/35",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
