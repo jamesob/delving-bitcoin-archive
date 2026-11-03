@@ -758,3 +758,9 @@ To have it linked here: https://btctranscripts.com/bitcoin-core-dev-tech/2026-10
 
 -------------------------
 
+ajtowns | 2026-11-03 03:56:51 UTC | #35
+
+Concretely: in the context of bugs like [CVE-2026-117350](https://bitcoincore.org/en/2026/10/28/disclose-tcp-oom/) (tcp stack bug in bitcoin), [CVS-2026-117349](https://bitcoincore.org/en/2026/10/28/disclose-fpausesend-oom/) (protocol bug in bitcoin) and [CVE-2026-98432](https://lwn.net/Articles/1104192/) (tcp bug in linux), isn't it more sensible for home users not to be listening for incoming connections, as a precautionary measure?
+
+-------------------------
+
