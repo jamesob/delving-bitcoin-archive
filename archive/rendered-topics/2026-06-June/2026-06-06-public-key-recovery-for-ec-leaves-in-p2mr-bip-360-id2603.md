@@ -813,18 +813,6 @@ I love this idea and the work you did that inspired this approach might help sol
 
 -------------------------
 
-jijizudi | 2026-10-27 15:12:27 UTC | #34
-
-The 100-byte figure is specific to a depth-1 tree. Each extra Merkle level adds 32 bytes to the control block, so depth 2 makes the witness about 132 bytes, already larger than the cited P2WPKH witness. The 35-byte saving over a normal EC leaf stays fixed; the “close to P2WPKH” comparison therefore depends on keeping the EC leaf shallow.
-
--------------------------
-
-sozegeni | 2026-11-03 20:36:55 UTC | #35
-
-The fixed one-sigop charge needs a cost comparison against ordinary `CHECKSIG`, since this path also recovers a point and reconstructs the leaf commitment. I’d benchmark worst-case validation cost and say explicitly whether Merkle hashing is covered by the same budget; otherwise the proposed charge is hard to assess for DoS resistance.
-
--------------------------
-
 starius | 2026-11-04 08:03:47 UTC | #36
 
 jijizudi, you are right, the comparison to P2WPKH was done on a depth-1 EC leaf. I think this makes sense, since EC leaf is the leaf that will be used normally (or in cooperative cases if the coin is a multisig) until the Q day. So it makes sense to optimize the tree and put it closer the the root (i.e. depth-1).
