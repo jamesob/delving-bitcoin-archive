@@ -825,3 +825,27 @@ The fixed one-sigop charge needs a cost comparison against ordinary `CHECKSIG`, 
 
 -------------------------
 
+starius | 2026-11-04 08:03:47 UTC | #36
+
+jijizudi, you are right, the comparison to P2WPKH was done on a depth-1 EC leaf. I think this makes sense, since EC leaf is the leaf that will be used normally (or in cooperative cases if the coin is a multisig) until the Q day. So it makes sense to optimize the tree and put it closer the the root (i.e. depth-1).
+
+-------------------------
+
+sipa | 2026-11-04 08:04:35 UTC | #37
+
+You're responding to an AI spam bot.
+
+-------------------------
+
+starius | 2026-11-04 08:55:09 UTC | #38
+
+@sozegeni (hopefully you are a human)
+
+I consider BIP342's accounting model: serialized witness size + 50 budget, with a 50-unit charge per recovery.
+
+Note that ordinary Schnorr verification in libsecp256k1 [uses Strauss–Shamir joint multiplication](https://github.com/bitcoin-core/secp256k1/blob/6e2c8bc4ecdc6e71dbe7a368f360d8d453ce435d/src/modules/schnorrsig/main_impl.h#L241-L244) optimization. To compare apples to apples, I used it for recovery as well before benchmarking. My rough benchmarks show about the same speed for them. The concern may be that since witnesses are shorter, signature operations are denser than in an ordinary EC leaf. But my benchmarks again support that there is quite a big margin in CPU cost per weight between EC recovery and the [repeated-signature-check construction used in Bitcoin Core’s sigops-ratio tests](https://github.com/bitcoin/bitcoin/blob/d0f6d9953a15d7c7111d46dcb76ab2bb18e5dee3/test/functional/feature_taproot.py#L1082-L1140).
+
+So I think this accounting model should work.
+
+-------------------------
+
