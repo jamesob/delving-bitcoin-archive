@@ -664,3 +664,29 @@ The hash-exchange argument depends on “commit” meaning an enforceable on-cha
 
 -------------------------
 
+ZmnSCPxj | 2026-11-03 22:05:25 UTC | #5
+
+[quote="jafemoje, post:4, topic:2917"]
+The hash-exchange argument depends on “commit” meaning an enforceable on-chain commitment, not just both parties having signed messages or agreed to continue. The protocol should spell out which signatures or transactions make aborting after hash disclosure impossible or costly, and what happens if a participant withholds the next message.
+[/quote]
+
+The argument is that the Forwarders ***refuse*** to relay anything until:
+
+[quote="ZmnSCPxj, post:1, topic:2917"]
+Once the Spilman channel has confirmed,
+[/quote]
+
+That is, they will withhold even the hash itself, until they have seen the Spilman channel confirmed.
+
+They will confirm that the Spilman channel is of at least the correct amount being negotiated.
+
+Once the Spilman channel has confirmed, then even if the initiator aborts --- because the initiator has made contact with the acceptor by sending a "hash value" that is its node ID --- the initiator has already spent onchain fees to open the Spilman channel and waited for confirmation.  That is funding opportunity lost.
+
+As noted, the Spilman channel itself has bad semantics for general Lightning routing, and that is precisely what the Forwarders want to prevent --- they want the assurance that they have given assistance in ***indirectly*** connecting the Initiator to the Acceptor, and that the Initiator will, in the future, route through the Forwarder(s).
+
+At the minimum, the Initiator and Acceptor need to cooperatively sign a spend from the Spilman channel to an ordinary Lightning channel --- which is ***another*** onchain fee that needs to be paid.  The question now is --- will the future in-Lightning fees charged by the Forwarders be smaller (especially with future discounting) than the CURRENT onchain fees charged by miners to move the funds from the Spilman channel to a Lightning channel directly from Initiator to Acceptor?
+
+Now you might counter argue that "but that is just the same argument as the Initiator just opening a channel directly with the Acceptor" but remember, the value given of the Forwarders is to ***DISCOVER*** some node that needs inbound (the Acceptor) and connecting them to a node that wants outbound (the Initiator).  The Forwarders want to make that connection while ensuring they get paid.  The price for that information is that the Initiator must commit by spending onchain funds to create the Spilman channel.
+
+-------------------------
+
