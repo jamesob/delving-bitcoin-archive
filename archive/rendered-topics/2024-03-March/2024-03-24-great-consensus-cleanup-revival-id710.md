@@ -1753,3 +1753,9 @@ For your interest, forward compatibility of mining pools (setting BIP 54 compati
 
 -------------------------
 
+LearnBitcoin.com | 2026-11-05 19:18:15 UTC | #95
+
+For the grace-period discussion, a data point from mainnet: across all 483 retargets (blocks 2,016 to 973,728) the first block of a period was stamped before the last block of the previous one ten times. The worst is -1,127 s at block 203,616 (16 October 2012), which a 600 s grace would have rejected unless stamped 23:04:55 or later; since 2015 the worst is -43 s (812,448). Nothing comes near 7,200 s, and no period has a negative span. CSV of every seam: https://www.learnbitcoin.com/downloads/time-warp-seams.csv (from a write-up: https://www.learnbitcoin.com/rabbit-hole/time-warp).
+
+-------------------------
+

@@ -1,14 +1,14 @@
 # TULIP: Permissionless Decentralized Identity
 
-tidwell | 2026-11-05 15:55:58 UTC | #1
+tidwell | 2026-11-05 16:07:21 UTC | #1
 
 I believe the world would benefit from an identity system that isn't centrally controlled. Nostr, afaik, is one of the few systems that has leaned into pseudonymous identities built on secp256k1 keys and Schnorr (BIP 340) signatures, which sign every event a user publishes. However, key rotation, the hard part, has never been solved in a widely adopted way because of the complexity involved. I don't find an identity system with central coordinators deciding what "truth" is interesting, because they can omit data and users aren't actually in control of their identities.
 
-I've been ideating on an identity system that uses the Bitcoin blockchain as a timestamping and ordering authority for identity key state changes. I believe there is an interesting tradeoff between everything being offchain to a small onchain footprint allowing full reproducibility of state changes. This pseudonymous identity system proposal doesn't rely on any data besides the blockchain itself to know the most current status of a signing key. The scaling aspect to this is the assumption that most participants will never need to actually make an onchain transactions. When a key is compromised and that identity is worth saving, then an onchain native taproot transactions are required to rotate signing keys for an identity. An identity rotates via a precomitted "taproot chain". See the picture below.
+I've been ideating on an identity system that uses the Bitcoin blockchain as a timestamping and ordering authority for identity key state changes. I believe there is an interesting tradeoff between everything being offchain to a small onchain footprint allowing full reproducibility of state changes. This pseudonymous identity system proposal doesn't rely on any data besides the blockchain itself to know the most current status of a signing key. The scaling aspect to this is the assumption that most participants will never need to actually make an onchain transactions. When a key is compromised and that identity is worth saving, then an onchain native taproot transaction is required to rotate. An identity rotates via a precomitted "taproot chain". See the picture below.
 
 ![Screenshot 2026-11-05 at 9.57.54 AM|690x175](upload://h8T2abSYGMXHNsOXHHuBMUzUcgg.jpeg)
 
-Here we are showing multiple rotations using a script-spend for the same identity. These are rotating to the tweaked taproot output. The internal key is tweaked and used as the new signing key. 
+Here we are showing multiple rotations using a script-spend for the same identity. These are rotating to tweaked taproot outputs (serving as the new signing key and identity policy). The internal key is tweaked and used as the new signing key.
 
 These special taproot addresses embeded with a minimum set protocol spend paths I call a "tulip".
 
