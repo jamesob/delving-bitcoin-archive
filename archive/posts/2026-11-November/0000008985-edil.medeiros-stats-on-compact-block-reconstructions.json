@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 24,
   "quote_count": 1,
-  "incoming_link_count": 1,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 5.2,
+  "incoming_link_count": 2,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 26.0,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:24, topic:1052\"]\nThis seems promising in regards to predictably prefilling transactions in our compact block announcements. My assumption would be that if we prefill:\n\n* transactions we had to request\n* transactions we took from our extra pool\n* and prefilled transactions we didn\u2019t have in our mempool (i.e. prefilled txns that were announced to use and ended up being useful)\n\n[/quote]\n\nJust came across with this paper ( <https://link.springer.com/article/10.1007/s11227-024-06468-0> ) where the authors do exactly what b10c proposes. The draft PR on Core ( https://github.com/bitcoin/bitcoin/pull/35558 ) is a bit more sophisticated as it also considers the TCP window when building the prefilling.\n\nThe most interesting part is the evaluation on section 7. They spawn 20 nodes on mainnet, half are considered sender nodes and the other half receiver nodes. \"Importantly, receiver nodes were exclusively connected to their respective sender nodes to ensure they received the correct variant of the compact block relay. This design ensures fairness and consistency in evaluating relay performance across the network. In addition, all participating nodes were directly connected to the main Bitcoin mainnet. This ensured that our observations mirrored real-world conditions.\"\n\nNot sure about this claim, but still interesting to compare with what @m4ycon has done in https://github.com/m4ycon/prefill-compact-blocks-review .\n\nA different paper (https://onlinelibrary.wiley.com/doi/10.1002/nem.2262 - gated by a paywall, DM me to get a copy) proposes to prioritize in the `prefilledtxn` field txs high higher fee, higher size, and less time siting in the local mempool. As we would expect, the authors find that prefilling the most recently received mempool txs substantially reduces the probability of needing `getblocktxn`, whereas prioritizing by transaction fee or size produces little improvement.\n\nThe methodologies are quite different and hard to compare directly, but it feels to me that prefilling based on previous compact blocks misses is a pretty good heuristic.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Just came across with this paper ( <a href=\"https://link.springer.com/article/10.1007/s11227-024-06468-0\" rel=\"noopener nofollow ugc\">https://link.springer.com/article/10.1007/s11227-024-06468-0</a> ) where the authors do exactly what b10c proposes. The draft PR on Core ( <a href=\"https://github.com/bitcoin/bitcoin/pull/35558\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">p2p: Prefill compact blocks by davidgumberg \u00b7 Pull Request #35558 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a> ) is a bit more sophisticated as it &hellip;",
   "truncated": true,
   "post_url": "/t/stats-on-compact-block-reconstructions/1052/64",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
