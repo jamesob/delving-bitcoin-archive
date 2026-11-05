@@ -224,3 +224,14 @@ The shared state is only as well-defined as the validation rules every indexer a
 
 -------------------------
 
+arminsdev | 2026-11-05 15:09:20 UTC | #14
+
+[quote="nemothenoone, post:1, topic:2912"]
+Publication fees can create another signal if the same recognizable Bitcoin wallet repeatedly pays them. We are exploring several approaches to reduce that linkage.
+
+[/quote]
+
+Can you elaborate on what the problem here is? And how fees are currently handled in the system?
+
+-------------------------
+
