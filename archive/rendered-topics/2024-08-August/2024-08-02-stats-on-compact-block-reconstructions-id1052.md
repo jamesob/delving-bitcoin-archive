@@ -1700,3 +1700,22 @@ This all stopped on 2026-10-18. No more unsolicited chains of transactions being
 
 -------------------------
 
+edil.medeiros | 2026-11-05 00:22:37 UTC | #64
+
+[quote="0xB10C, post:24, topic:1052"]
+This seems promising in regards to predictably prefilling transactions in our compact block announcements. My assumption would be that if we prefill:
+
+* transactions we had to request
+* transactions we took from our extra pool
+* and prefilled transactions we didn’t have in our mempool (i.e. prefilled txns that were announced to use and ended up being useful)
+
+[/quote]
+
+Just came across with this paper ( https://link.springer.com/article/10.1007/s11227-024-06468-0 ) where the authors do exactly what b10c proposes. The draft PR on Core (https://github.com/bitcoin/bitcoin/pull/35558) is a bit more sophisticated as it also considers the TCP window when building the prefilling.
+
+The most interesting part is the evaluation on section 7. They spawn 20 nodes on mainnet, half are considered sender nodes and the other half receiver nodes. "Importantly, receiver nodes were exclusively connected to their respective sender nodes to ensure they received the correct variant of the compact block relay. This design ensures fairness and consistency in evaluating relay performance across the network. In addition, all participating nodes were directly connected to the main Bitcoin mainnet. This ensured that our observations mirrored real-world conditions."
+
+Not sure about this claim, but still interesting to compare with what @m4ycon has done in https://github.com/m4ycon/prefill-compact-blocks-review.
+
+-------------------------
+
