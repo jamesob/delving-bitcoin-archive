@@ -1700,7 +1700,7 @@ This all stopped on 2026-10-18. No more unsolicited chains of transactions being
 
 -------------------------
 
-edil.medeiros | 2026-11-05 00:23:06 UTC | #64
+edil.medeiros | 2026-11-05 00:40:20 UTC | #64
 
 [quote="0xB10C, post:24, topic:1052"]
 This seems promising in regards to predictably prefilling transactions in our compact block announcements. My assumption would be that if we prefill:
@@ -1715,7 +1715,11 @@ Just came across with this paper ( <https://link.springer.com/article/10.1007/s1
 
 The most interesting part is the evaluation on section 7. They spawn 20 nodes on mainnet, half are considered sender nodes and the other half receiver nodes. "Importantly, receiver nodes were exclusively connected to their respective sender nodes to ensure they received the correct variant of the compact block relay. This design ensures fairness and consistency in evaluating relay performance across the network. In addition, all participating nodes were directly connected to the main Bitcoin mainnet. This ensured that our observations mirrored real-world conditions."
 
-Not sure about this claim, but still interesting to compare with what @m4ycon has done in https://github.com/m4ycon/prefill-compact-blocks-review.
+Not sure about this claim, but still interesting to compare with what @m4ycon has done in https://github.com/m4ycon/prefill-compact-blocks-review .
+
+A different paper (https://onlinelibrary.wiley.com/doi/10.1002/nem.2262 - gated by a paywall, DM me to get a copy) proposes to prioritize in the `prefilledtxn` field txs high higher fee, higher size, and less time siting in the local mempool. As we would expect, the authors find that prefilling the most recently received mempool txs substantially reduces the probability of needing `getblocktxn`, whereas prioritizing by transaction fee or size produces little improvement.
+
+The methodologies are quite different and hard to compare directly, but it feels to me that prefilling based on previous compact blocks misses is a pretty good heuristic.
 
 -------------------------
 
