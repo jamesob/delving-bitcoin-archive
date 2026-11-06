@@ -1759,3 +1759,53 @@ For the grace-period discussion, a data point from mainnet: across all 483 retar
 
 -------------------------
 
+AntoineP | 2026-11-06 16:52:20 UTC | #96
+
+Neat. Another way of checking this, for anyone interested, is to run a mainnet sync with a small patch to [the Bitcoin Core PR](https://github.com/bitcoin/bitcoin/pull/35793) to enable the rule for all blocks:
+```diff
+diff --git a/src/validation.cpp b/src/validation.cpp
+index 65b652d8b3f..01d5d005f9b 100644
+--- a/src/validation.cpp
++++ b/src/validation.cpp
+@@ -4115,12 +4115,14 @@ static bool ContextualCheckBlockHeader(const CBlockHeader& block, BlockValidatio
+         if (consensusParams.enforce_BIP94) {
+             static_assert(MAX_TIMEWARP_TESTNET4 <= MAX_TIMEWARP_BIP54);
+             max_timewarp = MAX_TIMEWARP_TESTNET4;
+-        } else if (DeploymentActiveAfter(pindexPrev, chainman, Consensus::DEPLOYMENT_CONSENSUSCLEANUP)) {
++        } else if (true /*DeploymentActiveAfter(pindexPrev, chainman, Consensus::DEPLOYMENT_CONSENSUSCLEANUP)*/) {
+             max_timewarp = MAX_TIMEWARP_BIP54;
+         }
+         if (max_timewarp && block.GetBlockTime() < pindexPrev->GetBlockTime() - *max_timewarp) {
++            LogInfo(util::log::NO_RATE_LIMIT, "Block at height %i failed the Timewarp check. %i < %i - %i = %i", nHeight, block.GetBlockTime(), pindexPrev->GetBlockTime(), *max_timewarp, pindexPrev->GetBlockTime() - *max_timewarp);
+             return state.Invalid(BlockValidationResult::BLOCK_INVALID_HEADER, "time-timewarp-attack", "block's timestamp is too early on diff adjustment block");
+         }
++        LogInfo(util::log::NO_RATE_LIMIT, "Block at height %i passed the Timewarp check. %i >= %i - %i = %i", nHeight, block.GetBlockTime(), pindexPrev->GetBlockTime(), *max_timewarp, pindexPrev->GetBlockTime() - *max_timewarp);
+     }
+ 
+     // Fix for the Murch-Zawy attack. See https://delvingbitcoin.org/t/zawy-s-alternating-timestamp-attack/1062 .
+```
+
+Running this will print the result of the timewarp check for each block that is the first of a difficulty adjustment period during header synchronisation (which is fast and happens at the beginning of IBD, before downloading / validating full blocks). For instance, using a throwaway datadir:
+```
+cmake -B defbuild
+cmake --build defbuild -j20
+mkdir datadirtesttimewarp
+./defbuild/bin/bitcoind -datadir=$PWD/datadirtesttimewarp -stopatheight=1
+``` 
+
+With this, i was able to reproduce the worst seam figure from the CSV file.
+
+Debug log:
+```
+2026-11-06T16:51:23Z Synchronizing blockheaders, height: 202600 (~21.49%)
+2026-11-06T16:51:23Z Block at height 203616 passed the Timewarp check. 1350428168 >= 1350429295 - 7200 = 1350422095
+2026-11-06T16:51:23Z Synchronizing blockheaders, height: 204600 (~21.70%)
+```
+
+CSV file:
+| window_first_height | window_first_time_utc | prev_window_last_height | prev_window_last_time_utc | seam_seconds |
+| -------------------------- | ------------------------------ | ---------------------------------- | ------------------------ | ----------- |
+| 203616 | 2012-10-16T22:56:08Z | 203615 | 2012-10-16T23:14:55Z | -1127 |
+
+-------------------------
+
