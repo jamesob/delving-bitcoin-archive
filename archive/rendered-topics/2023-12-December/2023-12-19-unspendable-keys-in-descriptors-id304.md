@@ -404,7 +404,7 @@ https://mempool.space/signet/tx/080af3e3b86e10f1455719281f2727c4410f2480a8541d50
 
 -------------------------
 
-bitryonix | 2026-09-09 18:34:38 UTC | #33
+bitryonix | 2026-09-14 09:02:53 UTC | #33
 
 Hi all,
 
@@ -418,9 +418,17 @@ The gist is, we define `_`​ as a placeholder for the unspendable NUMS key. We 
 
 The details can be found here:
 
-https://github.com/bitryonix/bips/blob/b636b8ec097ce2deab9eeab110ecc24a0428f236/bip-xxxx-unspendable-internal-keys.mediawiki
+https://github.com/bitryonix/bips/blob/bip-xxxx-unspendable-internal-keys/bip-xxxx-unspendable-internal-keys.mediawiki
 
 Best,
+
+-------------------------
+
+bitryonix | 2026-11-07 11:42:39 UTC | #34
+
+This is now being discussed in this PR: 
+
+https://github.com/bitcoin/bips/pull/2340
 
 -------------------------
 
