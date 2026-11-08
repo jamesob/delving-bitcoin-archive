@@ -588,3 +588,9 @@ As well as to everyone that helped with translations on
 
 -------------------------
 
+jsarenik | 2026-11-08 15:29:26 UTC | #2
+
+Just a note that v32.1 (release binaries, x86_64 Linux) node running on anyone.eu.org got restarted already two times (since 32.1 release).
+
+-------------------------
+
