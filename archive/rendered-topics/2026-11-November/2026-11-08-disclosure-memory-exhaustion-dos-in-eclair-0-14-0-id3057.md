@@ -1,6 +1,6 @@
 # Disclosure: Memory-exhaustion DoS in Eclair 0.14.0
 
-rorp | 2026-11-08 23:04:21 UTC | #1
+rorp | 2026-11-09 03:20:57 UTC | #1
 
 # Memory-exhaustion DoS via `start_batch` in Eclair 0.14.0
 
@@ -19,12 +19,9 @@ The receiver has to treat those messages as one logical update. [`start_batch`](
 Because the receiver has to queue these messages, BOLT 2 limits `batch_size` to at most 20, "to protect against excessive queuing that could be abused to DoS receiving nodes". It also [sets a lower bound](https://github.com/lightning/bolts/blob/191462825ae341f0a27098765c075f01ca9bc6c2/02-peer-protocol.md?plain=1#L3071):
 
 > A receiving node:
-
-> If `batch_size` is not strictly greater than 1:
-
-> - MUST ignore the `start_batch` message.
-
-> - SHOULD send a `warning`.
+> - If `batch_size` is not strictly greater than 1:
+>   - MUST ignore the `start_batch` message.
+>   - SHOULD send a `warning`.
 
 ## The bug
 
