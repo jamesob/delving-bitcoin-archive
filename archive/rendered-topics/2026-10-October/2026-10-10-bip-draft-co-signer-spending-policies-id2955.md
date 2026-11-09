@@ -47,3 +47,41 @@ Thanks, good catch. As written, `statement-v0` signs event ID, outcome and times
 
 -------------------------
 
+lukecarriere | 2026-11-08 21:29:44 UTC | #6
+
+For cross-reference, my original October 5 bitcoindev post is here:
+https://groups.google.com/g/bitcoindev/c/yoL5VVMO4Qg
+
+Draft v2.1 is now published:
+https://github.com/lukecarriere/bip-cosigner-spending-policies/commit/c21ed45c1eb78a562962d17a5fdaa86c9d7befb3
+
+Thanks @tehiyadu and @PREDGE. This incorporates strict verifier semantics, versioned commitments and signed finality, plus the k-of-n correction, citation fixes and header updates. The complete schema, exact-byte vectors and reference implementation remain unfinished. It is still a draft seeking criticism; comments here or on the mailing list are welcome.
+
+-------------------------
+
+lukecarriere | 2026-11-08 21:40:02 UTC | #7
+
+Since the draft still leaves the serialization open, here's a summary of the options before I write the exact-byte vectors and reference implementation. @PREDGE, you raised this earlier, so I'd especially value your view.
+
+**TLV (BOLT 1 / DLC style)**
+- One valid encoding per policy, so duplicates and reordering fail by construction
+- Same building blocks as DLC oracle messages and Lightning, so evidence drops in unchanged
+- Not human-readable without a decoder; implementers reusing Lightning code must disable the "ignore unknown odd types" rule, since v2.1 rejects all unknown fields
+
+**Canonical JSON (RFC 8785)**
+- Readable, diffable, supported everywhere
+- Common parsers silently accept duplicate keys (last one wins), which v2.1 must reject; large integers and Unicode normalization need extra rules
+- Nostr hashes JSON and still sees event-ID mismatches across implementations
+
+**CBOR (RFC 8949 deterministic encoding)**
+- Compact, standardized, already used for airgapped wallet QR transfer
+- A third format DLC, Lightning and PSBT don't use for these objects; duplicate-key handling varies by library
+
+**Hybrid**
+- The policy ID is computed only over strict TLV (version first, tag `CSP/policy/v0`); a JSON view maps 1:1 to the TLV fields for authoring and review but is never hashed or signed
+- Costs two formats to specify and test
+
+I currently lean toward the hybrid, but nothing is decided. Which would you choose, and is there a failure mode I'm missing? Comments from anyone implementing co-signers or DLC oracles are welcome too.
+
+-------------------------
+
