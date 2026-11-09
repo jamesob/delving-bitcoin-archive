@@ -908,3 +908,25 @@ _P.S.Thank you to emzy and SchroedingersCat for accepting my low-value channel o
 
 -------------------------
 
+jonhbit | 2026-11-09 19:26:44 UTC | #24
+
+Following up on my prior message, I've kept working on this problem since February. Some updates:
+
+- The gossip-observer infra has collected a fair amount of data, and it's now publicly accessible on Zenodo: [https://zenodo.org/records/23111326](https://zenodo.org/records/23111326). It will be updated every month; if you want access to daily updates, those exist in a private S3 bucket - DM me here or post a Github issue on the observer repo to request access.
+
+- I've created a site to display some metrics computed from that data: [https://gossip-observer.jharveyb.xyz/](https://gossip-observer.jharveyb.xyz/) Feel free to request more metrics via Github issue.
+
+That site covers many of the metrics discussed above, and some new ones derived from snapshots of the infra nodes' gossip graphs.
+
+With respect to how Minisketch could be used to revamp the gossip protocol, I've been working on a draft extension BOLT here: https://github.com/jharveyb/bolts/blob/dd9f97a87518d62b82460b2b6e4e274663ec126a/bolt-gossip-minisketch.md
+
+Which has been updated since the Lightning Summit that happened in May 2026. Some useful feedback from that meeting:
+
+- Sketch extension and bisection are not (perceived as) worth the implementation complexity.
+- Sketch decode needs some worst-case decode performance 'target'; for now that's ~100 ms on a Raspberry Pi 5 (so, with HW acceleration).
+- The message flow needs to carefully designed such that we prevent malicious peers from being able to cause us to consume significant CPU time.
+
+The most important piece of feedback was informing me of a new problem that using set reconciliation introduces for the gossip network, which I'll refer to as *message equivocation*. I'll provide a draft definition in the next message.
+
+-------------------------
+
