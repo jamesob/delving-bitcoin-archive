@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"Anzus_GemWallet, post:1, topic:3056\"]\n3. Is there a reliable way to know which services accept bc1p, or is it still trial and error?\n\n[/quote]\n\nAs far as I\u2019m aware, https://whentaproot.org/ is still accurate for all listed wallets and services, and https://en.bitcoin.it/w/index.php?title=Bech32_adoption may list some additional entries that aren\u2019t tracked there yet.\n\n![image|684x500](upload://c6zNZF0MSsioU6CkH8Qr5sH8s5n.png)\n\nIf we had to wait for \u201ceveryone\u201d to support creation of P2TR outputs and bech32m addresses before starting to receive to bech32m addresses, we let ourselves be held hostage by a few laggards per a chicken-egg problem. Increased adoption of P2TR may well entice them to finally add support.\n\nDisclosure: I\u2019m one of the authors of whentaproot.org and have contributed to the Wiki page.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "As far as I\u2019m aware, <a href=\"https://whentaproot.org/\">https://whentaproot.org/</a> is still accurate for all listed wallets and services, and <a href=\"https://en.bitcoin.it/w/index.php?title=Bech32_adoption\" class=\"inline-onebox\">Bech32 adoption - Bitcoin Wiki</a> may list some additional entries that aren\u2019t tracked there yet. \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/5/54d86e0b973177451118c83934a4758b512cb86d.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/54d86e0b973177451118c83934a4758b512cb86d\" title=\"image\">[image]</a> \nIf we had to wait for \u201ceveryone\u201d to support creation of P2TR outputs and bech32m address&hellip;",
   "truncated": true,
   "post_url": "/t/should-wallets-default-to-taproot-or-segwit-receive-addresses-while-some-services-still-reject-bc1p/3056/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
