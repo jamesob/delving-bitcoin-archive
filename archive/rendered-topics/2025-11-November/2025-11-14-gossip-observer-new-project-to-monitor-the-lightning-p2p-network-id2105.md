@@ -930,3 +930,63 @@ The most important piece of feedback was informing me of a new problem that usin
 
 -------------------------
 
+jonhbit | 2026-11-09 21:11:15 UTC | #25
+
+[quote="jonhbit, post:24, topic:2105"]
+The most important piece of feedback was informing me of a new problem that using set reconciliation introduces for the gossip network, which I’ll refer to as *message equivocation*. I’ll provide a draft definition in the next message.
+[/quote]
+
+The core problem is: If an attacker controls some channels, they can create and broadcast gossip messages. This ability *should not* make it easier to perform existing attacks, such as identifying payment senders or receivers, or stealing routing fees. However, using set reconciliation as I've outlined, an attacker could partition nodes' views of the network, and then trivially fingerprint payment senders, cheaply redirect payment flows, or otherwise distort node behavior.
+
+More formally:
+
+We have an attacker **Mallory**. Mallory has opened **p** channels. This allows Mallory to send a node_announcement message, and **p** channel_update messages per block on average (gossip v1.5 rate limit).
+
+Our network has honest nodes **Alice**, **Bob**, **Charlie**, etc.
+
+Gossip is propagated using set reconciliation over short IDs for channels. These sketch IDs *do not* commit to message contents in any way; they are just channel SCID + a blockheight as timestamp.
+
+In an ideal world, Mallory would only be able to publish **exactly one** version of a message for each channel, for each timestamp. Then, Alice, Bob, and Charlie would only observe **exactly one** state (feerate) for that channel.
+
+Instead, Mallory can *equivocate* and sign **k** versions of a channel_update message for each channel, and send each version to different **partitions** of the network.
+
+In the current network, these partitions would likely not be stable; at the edges of each partition, nodes would broadcast the different versions of the message to each other, and different implementations have different rules for when they update their view of the graph / which message is 'newer'.
+
+Using set reconciliation, these partitions **would** be stable. At the edges, nodes *would not* detect that they have different messages, since they have the same sketch ID. As a diagram:
+
+![slide39_equivocation|690x321](upload://mBa6foobHvzhpoVACFRhDPqkgft.png)
+
+With these stable partitions, we can improve a few known attacks. Let's assume that Mallory sets **k** to the size of the network, **n**. So, each node has stored a different channel_update for all **p** channels Mallory opened.
+
+- Sender fingerprinting: For payments from Alice to Bob that route through Mallory (Mallory is **on-path**), Mallory can observe the feerate Alice chose to pay for that hop of the payment. She then has 100% confidence on which node sent the payment (Alice).
+
+- Traffic diversion: Mallory can broadcast reduced feerates to suspected *sources* of high payment volume, such as LSPs or exchanges. This should cause her to be on-path for more payments, earning undue fees and learning more about those payment flows. This would also be much cheaper than advertising these low fees to the whole network.
+
+- Receiver traffic diversion: Mallory can broadcast reduced feerates to her channel counterparties, such that their channel is used as a hop hint or blinded path in invoices or BOLT12 offers created by her counterparties.
+
+- Wormhole / Routing fee theft: Similar to traffic diversion with one node, Mallory could create 2+ nodes, and set their feerates such that they attract specific payment flows. She can then steal fees from intermediate nodes for routes over 2+ nodes she controls.
+
+There are probably other attacks that could also use this primitive. So, how can we mitigate this? These are the options I see right now:
+
+- Include a commitment to message contents in the sketch ID. If appended to the current sketch ID, this makes the sketch elements bigger and severely degrades set reconciliation performance.  Sketch operations generally scale O(*b^2*), where *b* is the size of the sketch elements. This is O(*b*) with HW acceleration, which is still significant if *b* increases by 4x, etc.
+
+- Replace the sketch ID with a hash; drop the short ID entirely. If the hash is too short, this doesn't solve the problem (collisions are cheap). Separately, this means nodes would send each other stale messages again; when comparing two messages by hash, they cannot determine which message is newer until they both have both messages.
+
+- Maintain an additional sketch over message contents. Use a longer reconciliation interval. This should work, but would increase bandwidth due to sending these new sketches. There is also some implementation complexity in the timing of these reconciliations compared to normal reconciliation with all peers.
+
+- Maintain some other commitment or accumulator over message contents. On some longer interval, compare these commitments and determine the messages that differ.
+
+I'm in favor of this last option, and there are a few options for this 'sub-protocol'. One is to have a set *fingerprint*; a short commitment to the full set of message contents, with some additional structure.
+
+We can use [incremental hashes](https://cseweb.ucsd.edu/~mihir/papers/inchash.pdf), such as XHASH (XOR the hash of each message), AdHash, or MuHash (map hashes to large numbers, then multiply modulo a large prime) which is [used in Bitcoin Core](https://bitcoincore.reviews/19055) for an incremental UTXO set commitment.
+
+However, XHASH and AdHash are [not secure](https://logperiodic.com/rbsr.html#security-of-incremental-hash-functions) in the setting of LN gossip. MuHash is secure over large fields (3000+ bits). My current top candidate here is the [Elliptic Curve Multiset Hash](https://arxiv.org/abs/1601.06502); hash-to-curve, then add the points. The final commitment is small (33 bytes), and hash-to-curve is [implemented efficiently](https://github.com/bitcoin/bips/blob/99e21c81547bc14445d9a2083647f19621e3a840/bip-0324.mediawiki#user-content-ElligatorSwift_encoding_of_curve_X_coordinates) in libsecp256k1 already. This function is amenable to being used in a [tree](https://logperiodic.com/rbsr.html#tree-friendly-functions), and with two trees we can compare intermediate nodes (fingerprints) and descend when two fingerprints differ. This is a variant of [Range-Based Set Reconciliation](https://arxiv.org/abs/2212.13567), which is also used for CRDT sync and [Nostr relay sync](https://logperiodic.com/rbsr.html).
+
+Nodes could incrementally maintain a fingerprint tree over their current view of the gossip graph, compare set fingerprints intermittently, produce a proof-of-equivocation if a difference is detected, and broadcast that to the network.
+
+I would be happy to have feedback about possible alternatives for this sub-protocol, or issues with this sketch (ha) as outlined here.
+
+*Hat-tip to Yuval and Pieter for making time to discuss this problem and provide feedback on the earlier solutions I proposed.*
+
+-------------------------
+

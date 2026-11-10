@@ -30,3 +30,17 @@ The nav entry used to say “Numbers”, which hid that it was the way in by dat
 
 -------------------------
 
+LearnBitcoin.com | 2026-11-09 22:48:59 UTC | #4
+
+A few things added since the first post, the main one being where each BIP landed in Bitcoin Core.
+
+Every BIP page now has an “In Bitcoin Core” box: the version that first shipped it, the later versions that touched it, and the note from Core’s doc/bips.md word for word, pull request links included. For example https://www.learnbitcoin.com/archive/bips/141 shows the 48 list threads on BIP 141 next to “0.13.0, defined for mainnet as of 0.13.1, buried since 0.19.0”. That covers the 74 BIPs doc/bips.md lists.
+
+There is also a page per Core release, 137 of them from 0.1.5 on: https://www.learnbitcoin.com/archive/releases . Each has its date, the list threads that named it (release candidates and the announcement), the BIPs it first shipped, and links to the notes. One thing that fell out of building it: the last release announcement we can find on the list is 24.0.1, December 2022.
+
+The mapping is only as good as doc/bips.md. If you know of a BIP Core implements that the file leaves out, or a version it gets wrong, fixing it upstream fixes it here on the next refresh. And if a release thread is matched to the wrong version, please let me know.
+
+Smaller things: the archive now refreshes twice a day, and seven people whose mail was split across two addresses have been merged into one page each.
+
+-------------------------
+
