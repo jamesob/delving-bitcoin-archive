@@ -85,3 +85,110 @@ I currently lean toward the hybrid, but nothing is decided. Which would you choo
 
 -------------------------
 
+lukecarriere | 2026-11-10 17:30:05 UTC | #8
+
+**The seven pillars of an open lending protocol to replace rehypothecating lenders**
+Celsius and BlockFi failed because they pooled customer coins, held the keys and lent them out again. The open version keeps every loan one-to-one, never takes custody of the collateral and never lends it out again.
+
+1. **Wallet:** the borrower keeps their own keys and can always recover the collateral, using standard PSBTs and descriptors.
+2. **Offer board:** an open place to post loan offers and negotiate privately, such as Nostr listings.
+3. **Price feed:** signed price data from existing DLC oracles, used to check the loan-to-value ratio and trigger a liquidation.
+4. **Payment attestor:** signed proof that a repayment really happened, on Lightning or on-chain.
+*5. **Co-signer:** releases or liquidates the collateral only according to the agreed policy. This is the part the BIP standardizes.*
+6. **Alert service:** warns both parties about margin calls and deadlines, but can never move funds.
+7. **Agreement template:** loan terms readable by both people and software, tied to the exact policy ID.
+
+-------------------------
+
+lukecarriere | 2026-11-10 17:31:13 UTC | #9
+
+**What becomes possible once the protocol works across lenders:**
+
+- **Portability:** you can move a loan or refinance with another lender without selling your Bitcoin or giving up control of it.
+- **Competition:** lenders compete on rates, and none of them gets to hoard customer coins.
+- **Mix and match:** any wallet can work with any lender, oracle or co-signer, so no single company becomes a point of failure.
+- **Auditability:** anyone can check a policy before funding a loan, which replaces "trust us" with rules you can verify.
+- **Lower barrier for new lenders:** a new lender can plug into existing infrastructure instead of building all seven pieces.
+- **Beyond lending:** the same standard works for vaults, escrow, inheritance plans and spending caps for AI agents.
+- **Honest caveat:** this doesn't make co-signers trustless and doesn't settle the legal questions, which still need counsel. It shrinks and standardizes the trust you have to place in them.
+
+-------------------------
+
+lukecarriere | 2026-11-10 17:33:03 UTC | #10
+
+**How Co-signer Spending Policies works, as drafted**
+
+- **The setup:** the coins sit in a Taproot output with several ways to spend them. Each way can need the participants' keys, a co-signer group's signature, conditions enforced in script such as timelocks, or some combination.
+- **The policy:** one portable document, with its own ID, that lists exactly which outputs the co-signers may sign for, under what conditions, and what evidence they need first.
+- **Script first:** anything Bitcoin script can enforce, it enforces. The co-signers handle only what script can't, like a price or a repayment.
+- **The co-signer group:** either an all-must-sign MuSig2 key or a k-of-n threshold. In a k-of-n group, an invalid spend is blocked when at least n−k+1 co-signers refuse to sign it.
+- **Evidence:** attestors sign facts, such as a BTC price or that a payment was made. Every co-signer must accept existing DLC oracle attestations, and there's an optional statement format that carries a finality flag.
+- **Signing:** in open-v0 mode, the co-signer sees the policy, the PSBT and the evidence. It checks the policy ID, makes sure every output matches a template, and checks that the evidence is recent, signed by enough attestors and final where the policy demands it. Then it either signs or refuses, and gives every participant a record of the decision.
+- **The escape hatch:** there's always a path that needs no co-signer, usually a long timelock, so funds can't be frozen forever if the co-signers vanish.
+- **Loan example:** the collateral is released to the borrower once repayment is attested, or liquidated if the price or a default condition is met. The borrower and lender can also settle together, and the borrower has a long-timelock recovery path.
+- **What's not in it:** no consensus change, no blinded or enclave verification yet (those are planned), and it doesn't make co-signers trustless. It makes their rules standard and open to inspection.
+
+-------------------------
+
+lukecarriere | 2026-11-10 17:34:14 UTC | #11
+
+**The core ask: criticism before code**
+
+I'm asking people to break it now, so that whatever survives is something everyone can share rather than something I own.
+- **The first question:** is the policy the right layer to standardize, or should the effort go somewhere else? (This is the question you asked on Delving.)
+- **Criticism of the design:** what's missing, what's ambiguous, and where two co-signers could read the same policy differently.
+- **Open decisions you want input on:**
+  - JSON or TLV.
+  - Whether the escape hatch must always be timelocked.
+  - Whether the statement format belongs in the DLC specs instead.
+  - How big the output expression language should be.
+  - When to specify the blinded and enclave modes.
+- **What you're not asking for:** a BIP number, endorsements, or adopters. It's an unnumbered discussion draft on purpose.
+
+**How to avoid becoming just another proprietary policy format**
+
+- **Developed in the open:** it's public and MIT-licensed, and it's on bitcoindev, Delving and GitHub before any code exists.
+- **Standardizes the policy, not the product:** any wallet, co-signer or oracle can implement it. You aren't selling the co-signer, and lending is just one application profile on top.
+- **Builds on existing standards:** Taproot, Miniscript, descriptors, PSBTs, MuSig2 and DLC oracles, with no new consensus rules and no new oracle network.
+- **Gives ownership away where it fits:** you're offering the statement format to the DLC spec maintainers instead of keeping it.
+- **Makes it testable:** exact-byte test vectors and documents that must be rejected, so anyone can prove their implementation is compatible without trusting yours.
+- **Real success test:** two independent implementations agree on every policy ID and every accept or reject decision. Until then, it isn't a standard.
+- **Draws on prior art:** it credits Towns, Halseth, Rubin, BIP 89 and others, and positions itself as the common format for their ideas, not a competitor.
+- **Invites existing players:** ask Liquidium, Lendasat, Casa, Unchained, Nunchuk and others what it would take for them to adopt it. Don't assume they will.
+
+-------------------------
+
+lukecarriere | 2026-11-10 17:34:47 UTC | #12
+
+**What's the problem?**
+
+- Bitcoin co-signers (in lenders, vaults, escrow) each enforce their own rulebook, so there's no portability, nothing to audit, and you're locked into one vendor.
+- Celsius and BlockFi showed the cost: pooled custody, coins lent out again, and "trust us" instead of rules anyone can check.
+
+**What's the solution?**
+
+- Co-signer Spending Policies is one open, portable format for what a co-signer may sign, when, and on what evidence.
+- It standardizes the policy, not the co-signer, and it needs no soft fork.
+
+**Why does it work?**
+
+- Script enforces what it can. Co-signers enforce only the rest, like a price or a repayment.
+- There's always a path that needs no co-signer, so funds are never stuck forever.
+- It reuses what already exists: Taproot, Miniscript, PSBTs, MuSig2 and DLC oracles.
+- Exact test vectors let anyone prove compatibility, so no one owns the standard.
+
+**How does it work?**
+
+- Coins sit in a Taproot output with co-signer, script and fallback paths.
+- A policy with its own ID defines the allowed outputs and the evidence each one needs, such as signed price or repayment attestations, recency and finality.
+- The co-signer checks the PSBT and the evidence against the policy, then signs or refuses and gives everyone a record of the decision.
+- For example, a loan's collateral is released on a repayment attestation or liquidated on a price condition, and the borrower can still recover it after a long timelock.
+
+**What's the ask?**
+
+- Criticism before code: is the policy the right layer to standardize, and where does the design break?
+- Input on the open questions: JSON or TLV, the fallback timelock, and where the statement format should live.
+- Implementers to test it. It only becomes a standard once two independent implementations agree.
+
+-------------------------
+

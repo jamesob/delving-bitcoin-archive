@@ -45,3 +45,23 @@ Disclaimer: I'm a co-author of the Taproot BIPs.
 
 -------------------------
 
+edil.medeiros | 2026-11-10 17:51:22 UTC | #4
+
+[quote="sipa, post:3, topic:3056"]
+I find it discouraging to see people recommend not defaulting to it because they fail to see the benefits it brings
+
+[/quote]
+
+It was not my intention to sound that way, I would love to see taproot as the major output type after so much time.
+
+I think the main issue here is that bitcoin addresses don't work as proper abstractions for spending conditions, not if this or that address type should be the default. Having incompatible address encodings should be fine to implementors, but seems not to be the case for the closed source side of the ecosystem that's making decisions in regard of their users (which is a legit part of packaging any technology as a product). As we all, they are sensitive to incentives and, for as much unfortunate it is:
+
+1. I don't feel privacy is a serious (or even concrete) concern for the average person and can even be a (regulatory) threat for business;
+2. transaction fee differences between segwit v0 and v1 are quite irrelevant in practice with such low feerates. 
+
+We could propose some form of universal bitcoin address that simply communicates "here's a script, just make an output with it", but passing arbitrary scripts around in addresses is probably a bigger footgun then the current state of things.
+
+I also don't see how the wallet implementor can steer users by answering "this is a legit address, please ask your exchange to implement support for it"; they'll simply download another app and be gone. If you have any ideas to act on the human side of things, I'm all ears and willing to help as much as I can.
+
+-------------------------
+
