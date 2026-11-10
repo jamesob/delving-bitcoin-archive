@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"Anzus_GemWallet\" data-post=\"1\" data-topic=\"3056\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/anzus_gemwallet/48/2271_2.png\" class=\"avatar\"> Anzus_GemWallet:</div>\n<blockquote>\n<ol start=\"2\">\n<li>If you offer both, where do you put the choice so people find it when they need it, without confusing everyone else?</li>\n</ol>\n</blockquote>\n</aside>\n<p>Not a wallet dev here, but for as much as I appreciate the benefits of taproot, I don\u2019t see it as advantageous for the average Joe compared to p2wpkh since I expect the later to be quite the standard by now (<a href=\"https://mainnet.observer/charts/output-type-distribution-count/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Output Types by Count</a>).</p>\n<p>By average Joe, I mean someone who\u2019s just willing to send and receive some bitcoin from an exchange or a p2p exchange. If I were implementing a wallet today, I would default to that if my product is not something that supports more interesting scripts (which seems to be the case of Gem Wallet).</p>\n<p>Curiously, your own support page that explains Bitcoin ( <a href=\"https://gemwallet.com/bitcoin-wallet/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Bitcoin Wallet - Self-Custody BTC Wallet | Gem Wallet</a> ) does not mention `bc1p` address types, no wonder they think taproot addresses are broken.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-11-10T14:00:47.525Z",
   "reply_count": 0,
   "reply_to_post_number": null,

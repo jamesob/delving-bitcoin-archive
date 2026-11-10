@@ -65,3 +65,20 @@ I also don't see how the wallet implementor can steer users by answering "this i
 
 -------------------------
 
+murch | 2026-11-10 20:31:10 UTC | #5
+
+[quote="Anzus_GemWallet, post:1, topic:3056"]
+3. Is there a reliable way to know which services accept bc1p, or is it still trial and error?
+
+[/quote]
+
+As far as I’m aware, https://whentaproot.org/ is still accurate for all listed wallets and services, and https://en.bitcoin.it/w/index.php?title=Bech32_adoption may list some additional entries that aren’t tracked there yet.
+
+![image|684x500](upload://c6zNZF0MSsioU6CkH8Qr5sH8s5n.png)
+
+If we had to wait for “everyone” to support creation of P2TR outputs and bech32m addresses before starting to receive to bech32m addresses, we let ourselves be held hostage by a few laggards per a chicken-egg problem. Increased adoption of P2TR may well entice them to finally add support.
+
+Disclosure: I’m one of the authors of whentaproot.org and have contributed to the Wiki page.
+
+-------------------------
+
