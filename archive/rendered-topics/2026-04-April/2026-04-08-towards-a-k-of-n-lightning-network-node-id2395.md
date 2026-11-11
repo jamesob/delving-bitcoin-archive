@@ -1243,3 +1243,11 @@ Still open: a proof of the whole composition (Arctic covers the shares, not publ
 
 -------------------------
 
+davelund110 | 2026-11-11 11:52:14 UTC | #13
+
+@ZmnSCPxj here's the separate note I mentioned for the signer design: https://github.com/davelund110/bolts/blob/39c63a434a3bf8add47f5812fc550f20d5e89ca8/signer-group-design-note.md
+
+It's a draft, written against the requirements-only version of lightning-blake2b/bolts#17. It covers the keys and secrets from my last post (VPSS1 over the replicated PRF keys), the records each signer keeps and the rules it follows, revocation in three rounds among all N, closing with any K including a restored signer, splices, and nonces. The open questions at the end are where I'd most value your view, especially whether signing only a version every signer has named does the job of Iceberg's agreement step at N ≥ 2K − 1, or whether this needs Iceberg's N ≥ 3K − 2.
+
+-------------------------
+

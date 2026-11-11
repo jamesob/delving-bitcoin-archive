@@ -85,7 +85,7 @@ I currently lean toward the hybrid, but nothing is decided. Which would you choo
 
 -------------------------
 
-lukecarriere | 2026-11-10 17:30:05 UTC | #8
+lukecarriere | 2026-11-11 14:16:06 UTC | #8
 
 **The seven pillars of an open lending protocol to replace rehypothecating lenders**
 Celsius and BlockFi failed because they pooled customer coins, held the keys and lent them out again. The open version keeps every loan one-to-one, never takes custody of the collateral and never lends it out again.
@@ -94,7 +94,9 @@ Celsius and BlockFi failed because they pooled customer coins, held the keys and
 2. **Offer board:** an open place to post loan offers and negotiate privately, such as Nostr listings.
 3. **Price feed:** signed price data from existing DLC oracles, used to check the loan-to-value ratio and trigger a liquidation.
 4. **Payment attestor:** signed proof that a repayment really happened, on Lightning or on-chain.
-*5. **Co-signer:** releases or liquidates the collateral only according to the agreed policy. This is the part the BIP standardizes.*
+
+> 5. **Co-signer:** releases or liquidates the collateral only according to the agreed policy. This is the part the BIP standardizes.
+
 6. **Alert service:** warns both parties about margin calls and deadlines, but can never move funds.
 7. **Agreement template:** loan terms readable by both people and software, tied to the exact policy ID.
 
@@ -130,31 +132,31 @@ lukecarriere | 2026-11-10 17:33:03 UTC | #10
 
 -------------------------
 
-lukecarriere | 2026-11-10 17:34:14 UTC | #11
+lukecarriere | 2026-11-11 14:19:45 UTC | #11
 
 **The core ask: criticism before code**
 
 I'm asking people to break it now, so that whatever survives is something everyone can share rather than something I own.
-- **The first question:** is the policy the right layer to standardize, or should the effort go somewhere else? (This is the question you asked on Delving.)
-- **Criticism of the design:** what's missing, what's ambiguous, and where two co-signers could read the same policy differently.
-- **Open decisions you want input on:**
+-  is the policy the right layer to standardize, or should the effort go somewhere else? (This is the question you asked on Delving.)
+- what's missing, what's ambiguous, and where two co-signers could read the same policy differently.
+- **Open decisions I want input on:**
   - JSON or TLV.
   - Whether the escape hatch must always be timelocked.
   - Whether the statement format belongs in the DLC specs instead.
   - How big the output expression language should be.
   - When to specify the blinded and enclave modes.
-- **What you're not asking for:** a BIP number, endorsements, or adopters. It's an unnumbered discussion draft on purpose.
+- **I'm not asking for:** a BIP number, endorsements, or adopters. It's an unnumbered discussion draft on purpose.
 
 **How to avoid becoming just another proprietary policy format**
 
 - **Developed in the open:** it's public and MIT-licensed, and it's on bitcoindev, Delving and GitHub before any code exists.
-- **Standardizes the policy, not the product:** any wallet, co-signer or oracle can implement it. You aren't selling the co-signer, and lending is just one application profile on top.
+- **Standardizes the policy, not the product:** any wallet, co-signer or oracle can implement it. I'm not selling a co-signer product, and lending is just one application profile on top.
 - **Builds on existing standards:** Taproot, Miniscript, descriptors, PSBTs, MuSig2 and DLC oracles, with no new consensus rules and no new oracle network.
-- **Gives ownership away where it fits:** you're offering the statement format to the DLC spec maintainers instead of keeping it.
+- **Gives ownership away where it fits:** I'm offering the statement format to the DLC spec maintainers instead of keeping it.
 - **Makes it testable:** exact-byte test vectors and documents that must be rejected, so anyone can prove their implementation is compatible without trusting yours.
 - **Real success test:** two independent implementations agree on every policy ID and every accept or reject decision. Until then, it isn't a standard.
 - **Draws on prior art:** it credits Towns, Halseth, Rubin, BIP 89 and others, and positions itself as the common format for their ideas, not a competitor.
-- **Invites existing players:** ask Liquidium, Lendasat, Casa, Unchained, Nunchuk and others what it would take for them to adopt it. Don't assume they will.
+- **Invites existing players:** ask Liquidium, Lendasat, Casa, Unchained, Nunchuk and others what it would take for them to adopt it. Don't assume they will adopt it.
 
 -------------------------
 
