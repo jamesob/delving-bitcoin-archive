@@ -82,3 +82,17 @@ Disclosure: I’m one of the authors of whentaproot.org and have contributed to 
 
 -------------------------
 
+Anzus_GemWallet | 2026-11-11 03:42:08 UTC | #6
+
+Thanks all, this is really helpful.
+
+To clarify my first post: Gem itself receives on bc1q. The cases we see are users trying to withdraw to a bc1p address from another wallet, and the sending service rejecting it.
+
+@edil.medeiros fair point about our Bitcoin page. I’ve added a section explaining both address types: Gem receives on bc1q and can send to any standard type, including bc1p. There’s also a short guide for when a service says “invalid address” to a bc1p address: https://docs.gemwallet.com/blockchains/bitcoin/#bitcoin-address-types-bc1q-and-bc1p
+
+@murch whentaproot.org is exactly what I was looking for. I’ve linked it from that guide so support can point users to it.
+
+@sipa thanks for explaining the benefits so clearly. It helps to have the “why” when users ask which address to use.
+
+-------------------------
+
