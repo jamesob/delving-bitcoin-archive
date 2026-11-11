@@ -181,3 +181,40 @@ I also think, as a final note to the reader, it's always important to remind our
 
 -------------------------
 
+LearnBitcoin.com | 2026-11-11 19:50:47 UTC | #2
+
+Thanks for writing this up. Having names for PSG and the RLA helps by itself, since until now everyone has described these problems in their own words.
+
+Some disclosure first. I'm windpath on BitcoinTalk, so the "most notable" link in your second paragraph is my post from November 2015. I ran a public 0% fee P2Pool node at p2pool.org in those years, and still hold the domain (more on that at the end).
+
+Since your argument leans on what happened to P2Pool, I went back to the chain rather than trust my memory of those years. I pulled the coinbase transaction of every block that pays P2Pool's donation script. There are 2,545 of them, 1,024 from 2012 alone, and the pool still turns one up about once a year. Some of what's in there bears on your framework.
+
+The N in your example was a few hundred. A typical P2Pool block paid about 200 addresses in 2012 and about 390 in 2014. The most it ever paid was 553, in block 236,962 on 19 May 2013, and that coinbase transaction was 19 kB. Only 42 blocks ever paid 500 or more.
+
+The original code already had a rich list rule in it. It kept only the 4,000 largest payouts by amount, with a comment calling the limit "unlikely to ever be hit". It never was, so that rule was never tested by anyone, friendly or hostile.
+
+What squeezed small miners was share difficulty, with the dust rule on top of it. If a miner's expected payout per block fell under 0.001 BTC, the software raised that miner's share difficulty until a share would clear the line. You can see it on the chain as a cliff. In July 2014, 1,749 of the month's 15,865 payouts were between 0.001 and 0.002 BTC, and not one was under 0.001. The miners below the line don't appear as small outputs. They don't appear at all, and that's the limit of this data: it shows who got paid, not who gave up.
+
+Nobody was attacking us when that happened. I wrote in that 2015 post that "you can only split the 25BTC reward so many ways in a decentralized trust-less environment, and smaller miners will always get squeezed out", and all it took was growth. So I'd treat the RLA as where any ranked-slot rule ends up by default. A motivated attacker gets you there sooner than growth would.
+
+There's one row per block here if anyone wants to check the numbers or reuse them: 
+https://www.learnbitcoin.com/downloads/p2pool-coinbases.csv
+
+The same 2015 post guessed at a way out: let miners accrue shares somewhere trustless and pay out in BTC once a threshold is reached, so the dust never touches the generation transaction. Eleven years later that's still roughly the shape of what you're describing, which says something about how hard the middle part is.
+
+On your closing question, who would mine honestly and grief the payouts instead of withholding blocks. I think there's a plain answer: anyone whose business depends on hash power staying where it is today. An existing pool, or a big miner friendly to one, already has the hash power, so pointing some of it at a decentralized pool costs them close to nothing beyond slightly higher latency. Withholding blocks costs them a little of their own income and drags down the pool's luck in a way people eventually notice and talk about. Splitting into a few hundred accounts costs nothing and looks exactly like the pool gaining small miners. If the goal is for the new pool to stay slightly worse than the alternative, quietly and deniably, payout griefing is the better tool. So I don't think we get the sigh of relief.
+
+I do think that points toward your simplest structure anyway, with two things I'd want pinned down about the value-weighted draw.
+
+First, whether splitting really becomes pointless depends on how the draw treats a big claim. If one large claim can only ever occupy one slot, a large miner still gains slots by splitting into many claims, and the RLA comes back as a probability game: the small miners aren't locked out, they just get drawn less often. For splitting to buy nothing, a claim's chance at each slot has to track its value no matter how it's packaged.
+
+Second, the seed. The coinbase outputs are fixed before the block is mined, so the randomness has to come from something earlier, either the previous Bitcoin block or the sharechain. Shares are cheap to grind compared with blocks, so a seed taken from sharechain state looks a lot easier to bias than one taken from the last block hash. And whichever it is, claims shouldn't be able to change shape after the seed is known.
+
+If both of those hold, the worst a motivated incumbent can do is make small claims more expensive for market makers to settle. That gets priced into a spread. It's a much better failure than payouts being deferred forever or redirected.
+
+On the terms: I've written plain-language glossary pages for DCPP, PSG and the RLA at learnbitcoin.com, credited to this post, so there's somewhere to point newcomers. They start here: https://www.learnbitcoin.com/glossary/decentralized-coinbase-payout-protocol . If I've got anything wrong in them, please let me know and I'll fix it.
+
+On p2pool.org: I've kept it since the original project. If one of the successor projects gets far enough along that it has a real chance, I'll lend the domain to it. Until then it stays neutral. I'm happy to dig up what I remember from running a node if it's useful to anyone here.
+
+-------------------------
+

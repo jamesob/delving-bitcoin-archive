@@ -96,3 +96,26 @@ To clarify my first post: Gem itself receives on bc1q. The cases we see are user
 
 -------------------------
 
+AntoineP | 2026-11-11 16:51:29 UTC | #7
+
+[quote="murch, post:5, topic:3056"]
+As far as I’m aware, https://whentaproot.org/ is still accurate for all listed wallets and services
+[/quote]
+
+Is it? Paxful does not exist anymore, so should probably not appear in the red area. Also, Binance does send to Taproot. These transactions are a few examples of (pre-drain) withdrawals from their hot wallet that contain a Taproot output:
+- `e9f54a22e2a4e0b3f6a82453742596f239386b4b73a304627d28741c0a82d9c2`
+- `011b70fe7e63a7ea2d950af7ad275f565e3c1090221d8ddfb7d41e969b75e865`
+- `d1af27d413da9bd0e4271f84315448d398e343bbaa2449a6acc4430206b76493`
+- `84e9a54cbd05a4eb8ffc9fb2313995ec3851258a8baec4ed874fd4a3530c054f`
+- `758808533eb80fbe502ee1acd9ead7a77b70c3c42c69d92a00bfb267ae7fa950`
+- `7e0d9f7735c148382b7677dfdcfc1a45247934f355ba851b11612f31aef1e35a`
+- `68addb71ebe14a4dc97318807561be05acae35139c2605dbfe12e0821d5f30b5`
+- `0c63e9bb98d995f57392727a2416edbbbc59297b9239acb5d52ea75fdca61bc3`
+- `2499b2df8885fd7151957334a15cb0b95c107e42dd4f6cb1fd23a17d402479c4`
+- `ddb7a573f1ad17eba8de5564d4d2e0e95f6e7acb536f19f8e3815059632758fd`
+- `90e4ce99cdbacfe4c011d2e81c21288f494a66b390363c7bf5b32c9fe54fdde8`
+- `8c93f57d64605f0ef574de69de651e02b39068832f4f2f205f679a7f9d12ea21`
+- `723bca49f1c9adcad9006218dd0a68446d1f8d601bed9176c75b2880d68ee7f8`
+
+-------------------------
+
