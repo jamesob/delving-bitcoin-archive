@@ -1305,3 +1305,71 @@ Either way, it would be great to produce practical how-to guides for Lightning n
 
 -------------------------
 
+ZmnSCPxj | 2026-11-12 20:11:15 UTC | #15
+
+[quote="tony, post:14, topic:2395"]
+generates a shachain seed (perhaps per channel)
+[/quote]
+
+Not "perhaps" --- ***definitely*** per channel.  It is simply not safe for different channels to use the same shachain seed.  I believe the shachain structure cannot even allow you to reuse a shachain even if a channel closure has been deeply confirmed onchain and then open a different channel, whether to the same or different peer (The Matrix argument: you cannot prove that "different" peers are truly operated by different entities, they both, and the supposedly "different" entities operating them, could be simulations inside The Matrix) --- you need a fresh shachain seed, you can't continue off where a previous, closed channel ended its shachain revelations (you probably need to go ask Rusty or someone with deeper knowledge of shachain structure).
+
+Worse, this technique requires you to have a bunch of "spare" encrypted shachain sequences, in case of channel closures.  You don't want to have to replenish encrypted shachain sequences too often, because it means you have to boot up the offline machine and transfer data from the offline machine.
+
+[quote="tony, post:14, topic:2395"]
+rotate ECDSA key shares as needed
+[/quote]
+
+IMO you do not want to rotate key shares, you want to rotate entire seed private keys for each signer, using a scheme where it retains old keys for some time, but uses the newest key only for new channels.
+
+Yes, in Bitcoin, rotating signing keys requires an onchain operation to move funds from the old key to a new key.  But: channels never last forever, they naturally die. So it makes sense to just move to a new key for new channels, let old channels die, and then dispose of old keys when the last channel that needs it is inevitably closed.
+
+The only reason for making do with rotating key shares rather than seed private keys is to maintain channels open, but channels inevitably die anyway.
+
+Remember, channels are inherently 2-of-2 contracts.  Theft of channel funds needs the other side to be either compromised or hostile.  And if the counterparty is detected to be hostile or compromised, you really want to close the channel anyway.
+
+(granted, you might not be able to detect the counterparty being hostile or compromised, in which case, periodically rotating key shares helps; it's just that rotating key shares requires that you perform a multi-round interaction, there's always risk that your bespoke protocol to do this re-sharing is broken (look at how deeply the BOLT spec specifies WHEN you save signatures and revocation keys to disk compared to releasing your own revocation; this is the sort of multi-round interaction that a key resharing has to do), so that having the mitigation is potentially worse than not having it)
+
+[quote="tony, post:14, topic:2395"]
+Either way, it would be great to produce practical how-to guides for Lightning node operators to upgrade their security, using MPC or something like it.
+[/quote]
+
+I should note that anything you want a trusted offline computer can do, a general-purpose MPC can also do --- it is "simply" a matter of being more CPU- and network-expensive.  If you are going to do MPC anyway, why not use MPC for your trusted offline computer too? (answer: it is a lot more CPU-expensive. a lot more. very very much lot more, "milliseconds operation balloons to 10-minute operation" more)
+
+For instance, the approximate schema for the JPosner MPC scheme alluded to above is:
+
+* Setup: transform a k-of-n into an n-of-n, I described how this is done before.  Basically, you have the original N signers, and they generate a new n-of-n set where each of the signers knows the private key for more than 1 in the new set.
+* Secret inputs:
+  * Each of the n-of-n participant revocation root key.  As a simple example, let us consider a simple 2-of-2 with root revocation keys `a`, `b`.
+* Then inside the MPC:
+  * Compute `a ^ b`.
+  * Compute n + 1 shachains using `a`, `b`, and `a ^ b` as roots.
+  * For each shachain output for `a ^ b`:
+    * compute the `shachain(...shachain(a ^ b)) * G`, i.e. the public key, and add it to public outputs.
+    * XOR the equivalent shachain output for `a` and `b` to that of `a ^ b`, and add it to public outputs,
+      * i.e. `shachain(...shachain(a ^ b)) ^ shachain(...shachain(a)) ^ shachain(...shachain(b))`.
+
+The outputs are then the public revocation keys and the encrypted revocation keys for the `a ^ b ^ ...` root revocation key.
+
+Then at revocation time, each signer simply reveals their individual `shachain(...shachain(a))` or `shachain(...shachain(b))`, and the node can XOR those to the encrypted revocation keys to get the revocation key to send to the counterparty.
+
+The above scheme can be done in either MPC (i.e. what JPosner is implementing) or your proposed offline machine.
+
+The scheme above has the advantage that, in the offline case, the encrypted revocation key blob is only sent to the node software itself; the signers do not have to keep that data, they jut release their own per-signer-per-channel revocation key and that serves as a shard of decryption. In addition, the ciphertext size of the revocation keys is the same as the plaintext size (in practice, you probably want to add some FEC and checksumming, because these blobs are going to be multi-megabyte and random bitflips do happen, both on the wire and on disk; or just use ZFS, but that IS adding FEC and checksumming, so I just repeat myself); I am uncertain if threshold encryption adds more metadata to the ciphertext, but my limited understanding is that it does, which is why the transformation from k-of-n to n-of-n is so useful.
+
+Of course, doing this with the offline machine requires that you somehow send the root revocation keys of each signer to the offline machine; this can be done by having each signer send a random nonce challenge to the offline machine, which has a trusted public key (and probably PCRs if you are into that sort of thing --- as a former ASIC engineer, I would personally refuse to rely on that sort of thing).  Offline machine creates an ephemeral keypair and provides the public key, and a signature from its persistent key, covering the public key and the challenge nonce.  Signer validates the signature (the challenge nonce prevents message replay) then encrypts its root revocation key(s) (in practice, each channel ***definitely*** needs its own key, but the offline machine and the signers can agree on some method of derivation, and each of the revocation keyblobs can include the (hardened!!!) derivation path for the per-channel root revocation key from the signer seed revocation key, which itself probably needs to be a hardened derivation from the REAL signer seed key) to the offline machine ephemeral key, which the offline machine can now decrypt and then use to compute.
+
+So the differences are:
+
+* MPC approach
+  * Implement once, run forever: no need to periodically boot up an offline machine to create new keyblobs, the signers can create new keyblobs by themselves.
+  * More resilient to sudden channel closures and reopenings --- no need to monitor if you are running out of keyblobs for new channels, the signers themselves can generate keyblobs as necessary.
+  * Can tradeoff storage-vs-work --- make larger keyblobs for better amortization of MPC work t the cost of storing more data, or make smaller keyblobs to reduce amount of data you need to store at any one time but do MPC rounds more often.
+  * Tons of CPU work!!!!
+* Offline machine approach
+  * Tiny CPU work, you can literally use a RaspPi with USB ports for this.
+  * Needs manual work to ensure offline machine isolation, yet somehow transfer data from the signers to the offline machine, possibly in multiple trips (e.g. the challenge nonces above; yes, you can use a public key from the signer instead of a challenge nonce and sending the private key of the signer, but the tradeoff is the ciphertext is larger than the plaintext in that case).
+  * You almost definitely want humongously large keyblobs.  With the MPC approach you can calculate part of the shachain, and when that is used up, you just start a new MPC to calculate the next part of the shachain.  With the offline machine approach, you REALLY do not want to have to periodically boot the offline machine, so you want to do humongous keyblob at once, and close the channel if it survives long enough that it depletes the humongous keyblob.
+  * You almost definitely want more keyblobs at once than current channels. Random channel closures happen.  That further compounds your data transfer and storage work.
+
+-------------------------
+
