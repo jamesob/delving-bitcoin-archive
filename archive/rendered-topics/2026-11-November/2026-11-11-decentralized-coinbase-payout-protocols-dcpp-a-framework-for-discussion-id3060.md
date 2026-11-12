@@ -218,7 +218,7 @@ On p2pool.org: I've kept it since the original project. If one of the successor 
 
 -------------------------
 
-7d5x9 | 2026-11-12 05:43:15 UTC | #3
+7d5x9 | 2026-11-12 05:48:18 UTC | #3
 
 > I’m windpath on BitcoinTalk, so the “most notable” link in your second paragraph is my post from November 2015.
 
@@ -230,7 +230,7 @@ It's really impressive how many payouts these blocks carried in the coinbase. Th
 
 > The N in your example was a few hundred. A typical P2Pool block paid about 200 addresses in 2012 and about 390 in 2014. The most it ever paid was 553, in block 236,962 on 19 May 2013, and that coinbase transaction was 19 kB. Only 42 blocks ever paid 500 or more.
 
-I did not mean to imply the N was in the hundreds. The [footnote here](https://delvingbitcoin.org/t/decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion/3060#footnote-9019-2) should have been more explicit, but I don't think there is an official source to link to here, other than third party implementation details (e.g. [DATUM](https://github.com/OCEAN-xyz/datum_gateway/blob/master/src/datum_stratum.c#L1675\(\))). We are probably looking at <=25 outputs total on Bitmain hardware.
+I did not mean to imply the N was in the hundreds. The [footnote here](https://delvingbitcoin.org/t/decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion/3060#footnote-9019-2) should have been more explicit, but I don't think there is an official source to link to here, other than third party implementation details (e.g. [DATUM](https://github.com/OCEAN-xyz/datum_gateway/blob/85a19fd48caed0d00e2d26045916d30f84b0668a/src/datum_stratum.c#L1675\(\))). We are probably looking at <=25 outputs total on Bitmain hardware.
 
 > So I’d treat the RLA as where any ranked-slot rule ends up by default. A motivated attacker gets you there sooner than growth would.
 
