@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 5,
   "readers_count": 4,
-  "score": 0.8,
+  "score": 1.0,
   "yours": false,
   "topic_id": 3056,
   "topic_slug": "should-wallets-default-to-taproot-or-segwit-receive-addresses-while-some-services-still-reject-bc1p",
