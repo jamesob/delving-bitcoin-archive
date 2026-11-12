@@ -1251,3 +1251,57 @@ It's a draft, written against the requirements-only version of lightning-blake2b
 
 -------------------------
 
+tony | 2026-11-12 19:13:12 UTC | #14
+
+Much of the bitcoin ecosystem is now recommending a "multivendor multisig" approach for secure private key custody. This is a good idea. Multisig can mitigate the impact of a problem in the design, operations, or custody of any one of several key-holding devices. What's more, multisig lets you rotate out a compromised or obsolete signer, as operationally needed.
+
+While "multivendor multisig" for a hot wallet or Lightning is much more difficult, working towards a K-of-N Lightning node—*and its secure ongoing operations*—is essential to bring more capital into Lightning.
+
+Lightning certainly needs better use-cases [for more adoption](https://github.com/spiralxyz/bitcoin-payments), but I also think it's a chicken-and-egg problem. Respected node runners like Megalithic admit that the economics and cybersecurity of Lightning are wanting, such that Lightning node running is more like a [gentleman's pastime](https://docs.megalithic.me/the-gentlemans-guide-to-routing-nodes/a-node-for-a-gentleman/) rather than a realistic business opportunity. 
+
+![From Megalithic's Great Blog|690x422](upload://q7fattXfM8ODVaes1WDo69oP7gJ.jpeg)
+
+So how can we expect "use-cases" to just come online when the security posture of Lightning for builders is currently ... not good? 
+
+Here I would like to contribute a design that may provide a practical MPC solution without a spec change.
+
+**TL;DR**: *A K-of-N Lightning custody architecture using threshold ECDSA signing and threshold encryption of offline-precomputed revocation secrets. An independently validating signer quorum authorizes both (1) transaction signatures and (2) revocation-secret release. This removes any single online machine's ability to compromise channel funds.*
+
+Traditional threshold ECDSA MPC protects signing keys, but Lightning introduces another sensitive asset: **per-commitment secrets** used to revoke obsolete channel states. If an unreleased secret is compromised, the counterparty could use it to punish an otherwise honest actor ... for all the money in the channel!
+
+Here is a proposed architecture to mitigate this risk (put briefly):
+
+1. **Deploy validating signers.** Multiple independent MPC signers each run VLS-style policy validation, track channel state, and hold a share of the threshold ECDSA signing key and of a separate threshold decryption key.
+
+2. **Precompute revocation secrets offline.** An air-gapped machine generates a shachain seed (perhaps per channel), derives a batch of per-commitment secrets and their public points, and threshold-encrypts the secrets. The seed never goes online.
+
+3. **Provision the signers.** Signers receive the encrypted secrets; the Lightning node uses the points for normal operation. Commitment signatures use threshold ECDSA (e.g. 3-of-4 with Coinbase's MPC library).
+
+4. **Validate before revoking.** When the counterparty signs a new commitment, each signer verifies its signatures, balances, and protocol correctness. Only once the new state is durably recorded do they jointly decrypt the previous commitment's secret and release it to the node for `revoke_and_ack`.
+
+5. **Maintenance.** Replenish encrypted secrets and rotate ECDSA key shares as needed.
+
+This approach requires no Lightning protocol changes. It does, however, require a trusted offline machine, custom integration for threshold decryption, a lot of signer coordination, and state validation like what VLS does.
+
+Note that this is not strict K-of-N in the sense of the original post: the offline machine is a trusted dealer for revocation secrets. But no single *online* machine ever holds an unrevoked secret, and a secret is only reconstructed after the state it revokes has been superseded.
+
+K-of-N is obviously not a cure-all. Binance was using MPC when its hot wallet was just hacked for $6 billion (!). But the largest crypto hot wallets—Binance, Coinbase, OKX, Fireblocks, BitGo—do use MPC, for various operational reasons. Some reasons are unrelated to bitcoin, like remaining chain agnostic, but some are vital for long-lived operational security, like key share rotation.
+
+On their blog, ACINQ famously documented their approach to ["Securing a $100M Lightning Node."](https://acinq.co/blog/securing-a-100M-lightning-node)
+
+ACINQ describes how they originally tried to validate Lightning state in a custom HSM with the signing keys there, but that this was turning into "a nightmare from an operational point of view."
+
+Ultimately, ACINQ put the node on a hardened single-sig server, but also created several custom pieces of software and multiple hardware devices to sign off on software updates. In a way, the ACINQ team "moved back" the multisignature authorization a step or two, towards the deployment procedure.
+
+Their overall ACINQ system approximates something like the diagram below:
+
+![ACINQ node deployment|690x440](upload://2NmVa1xDaMxSDs831iKpFUD5YEZ.jpeg)
+
+Ideally, the ecosystem can move towards multisig for both deployment AND operations. More flexible options like a K-of-N Lightning node will allow that.
+
+If bringing "multivendor multisig" to Lightning means adopting Z man's proposed BOLT #3 spec modification, I am in favor of that! I am also in favor of eltoo. Or, I am open to working on a production version of something like what I describe here.
+
+Either way, it would be great to produce practical how-to guides for Lightning node operators to upgrade their security, using MPC or something like it.
+
+-------------------------
+

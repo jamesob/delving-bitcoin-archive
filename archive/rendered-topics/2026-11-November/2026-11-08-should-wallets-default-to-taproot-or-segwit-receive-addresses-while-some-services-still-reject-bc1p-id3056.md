@@ -119,3 +119,9 @@ Is it? Paxful does not exist anymore, so should probably not appear in the red a
 
 -------------------------
 
+murch | 2026-11-12 17:39:50 UTC | #8
+
+Thanks, I removed Paxful and recorded the update to Binance•com. I could not find authoritative statements regarding Binance•us. (And I think they use a different backend.) Please let me know if anyone has other updates I should collect.
+
+-------------------------
+
