@@ -218,3 +218,45 @@ On p2pool.org: I've kept it since the original project. If one of the successor 
 
 -------------------------
 
+7d5x9 | 2026-11-12 05:43:15 UTC | #3
+
+> I’m windpath on BitcoinTalk, so the “most notable” link in your second paragraph is my post from November 2015.
+
+Whoa, that is so cool this post found you (and I found your post)! Thanks for taking the time to reply.
+
+> I pulled the coinbase transaction of every block that pays P2Pool’s donation script. There are 2,545 of them, 1,024 from 2012 alone, and the pool still turns one up about once a year.
+
+It's really impressive how many payouts these blocks carried in the coinbase. Thank you for sharing the data, and very cool (and unexpected) that there are still blocks being found!!
+
+> The N in your example was a few hundred. A typical P2Pool block paid about 200 addresses in 2012 and about 390 in 2014. The most it ever paid was 553, in block 236,962 on 19 May 2013, and that coinbase transaction was 19 kB. Only 42 blocks ever paid 500 or more.
+
+I did not mean to imply the N was in the hundreds. The [footnote here](https://delvingbitcoin.org/t/decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion/3060#footnote-9019-2) should have been more explicit, but I don't think there is an official source to link to here, other than third party implementation details (e.g. [DATUM](https://github.com/OCEAN-xyz/datum_gateway/blob/master/src/datum_stratum.c#L1675\(\))). We are probably looking at <=25 outputs total on Bitmain hardware.
+
+> So I’d treat the RLA as where any ranked-slot rule ends up by default. A motivated attacker gets you there sooner than growth would.
+
+Right, the symptom of an RLA and the pool hitting its growth ceiling produces the same outcome. To be fair, I wouldn't call honest growth an attack though, that's just a protocol scaling limit.
+
+> An existing pool, or a big miner friendly to one, already has the hash power, so pointing some of it at a decentralized pool costs them close to nothing beyond slightly higher latency.
+
+Agreed, this is definitely a decentralized pools most likely adversary.
+
+> Withholding blocks costs them a little of their own income and drags down the pool’s luck in a way people eventually notice and talk about.
+
+A properly executed block witholding attack can increase the revenue of the attacking pool. I think the question is: can the attacking miner earn more revenue (while reducing the competitiveness of the decentralized pool) via a block witholding strategy or a PSG attack? If there is no DCPP at all, I agree with you, PSG all the way-–they earn upfront and undermine the pool.
+
+However, even a modestly architected DCPP will mitigate the PSG enough as to make it not an attractive attack vector. I may have been a bit too strong in how I worded that paragraph. I do think we need to resolve this, but I also think it's possible it doesn't need to raise the bar much to mostly mitigate the attack vector. I think with the right protocol design (and probably covenants), what is most attractive about advanced DCPPs is that they lower participation fees (thus making a decentralized pool more competitive).
+
+> two things I’d want pinned down about the value-weighted draw.
+
+Yes, I think if we find enshrinement to be unpalatable, we really want to start focusing on the weighting and selection process. There will be many footguns and we don't want to introduce an incentive to do the thing we are trying to mitigate.
+
+> On the terms: I’ve written plain-language glossary pages for DCPP, PSG and the RLA at learnbitcoin.com, credited to this post, so there’s somewhere to point newcomers. They start here: Decentralized Coinbase Payout Protocol (DCPP) | LearnBitcoin . If I’ve got anything wrong in them, please let me know and I’ll fix it.
+
+Thank you, this reads quite well!
+
+> I’m happy to dig up what I remember from running a node if it’s useful to anyone here.
+
+So great to have you around for these discussions, and thank you for stewarding the domain all these years. It's so easy for these things to fall into the wrong hands.
+
+-------------------------
+
