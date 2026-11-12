@@ -7,15 +7,15 @@
   "cooked": "<blockquote>\n<p>I\u2019m windpath on BitcoinTalk, so the \u201cmost notable\u201d link in your second paragraph is my post from November 2015.</p>\n</blockquote>\n<p>Whoa, that is so cool this post found you (and I found your post)! Thanks for taking the time to reply.</p>\n<blockquote>\n<p>I pulled the coinbase transaction of every block that pays P2Pool\u2019s donation script. There are 2,545 of them, 1,024 from 2012 alone, and the pool still turns one up about once a year.</p>\n</blockquote>\n<p>It\u2019s really impressive how many payouts these blocks carried in the coinbase. Thank you for sharing the data, and very cool (and unexpected) that there are still blocks being found!!</p>\n<blockquote>\n<p>The N in your example was a few hundred. A typical P2Pool block paid about 200 addresses in 2012 and about 390 in 2014. The most it ever paid was 553, in block 236,962 on 19 May 2013, and that coinbase transaction was 19 kB. Only 42 blocks ever paid 500 or more.</p>\n</blockquote>\n<p>I did not mean to imply the N was in the hundreds. The <a href=\"https://delvingbitcoin.org/t/decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion/3060#footnote-9019-2\">footnote here</a> should have been more explicit, but I don\u2019t think there is an official source to link to here, other than third party implementation details (e.g. <a href=\"https://github.com/OCEAN-xyz/datum_gateway/blob/85a19fd48caed0d00e2d26045916d30f84b0668a/src/datum_stratum.c#L1675()\" rel=\"noopener nofollow ugc\">DATUM</a>). We are probably looking at &lt;=25 outputs total on Bitmain hardware.</p>\n<blockquote>\n<p>So I\u2019d treat the RLA as where any ranked-slot rule ends up by default. A motivated attacker gets you there sooner than growth would.</p>\n</blockquote>\n<p>Right, the symptom of an RLA and the pool hitting its growth ceiling produces the same outcome. To be fair, I wouldn\u2019t call honest growth an attack though, that\u2019s just a protocol scaling limit.</p>\n<blockquote>\n<p>An existing pool, or a big miner friendly to one, already has the hash power, so pointing some of it at a decentralized pool costs them close to nothing beyond slightly higher latency.</p>\n</blockquote>\n<p>Agreed, this is definitely a decentralized pools most likely adversary.</p>\n<blockquote>\n<p>Withholding blocks costs them a little of their own income and drags down the pool\u2019s luck in a way people eventually notice and talk about.</p>\n</blockquote>\n<p>A properly executed block witholding attack can increase the revenue of the attacking pool. I think the question is: can the attacking miner earn more revenue (while reducing the competitiveness of the decentralized pool) via a block witholding strategy or a PSG attack? If there is no DCPP at all, I agree with you, PSG all the way-\u2013they earn upfront and undermine the pool.</p>\n<p>However, even a modestly architected DCPP will mitigate the PSG enough as to make it not an attractive attack vector. I may have been a bit too strong in how I worded that paragraph. I do think we need to resolve this, but I also think it\u2019s possible it doesn\u2019t need to raise the bar much to mostly mitigate the attack vector. I think with the right protocol design (and probably covenants), what is most attractive about advanced DCPPs is that they lower participation fees (thus making a decentralized pool more competitive).</p>\n<blockquote>\n<p>two things I\u2019d want pinned down about the value-weighted draw.</p>\n</blockquote>\n<p>Yes, I think if we find enshrinement to be unpalatable, we really want to start focusing on the weighting and selection process. There will be many footguns and we don\u2019t want to introduce an incentive to do the thing we are trying to mitigate.</p>\n<blockquote>\n<p>On the terms: I\u2019ve written plain-language glossary pages for DCPP, PSG and the RLA at <a href=\"http://learnbitcoin.com\" rel=\"noopener nofollow ugc\">learnbitcoin.com</a>, credited to this post, so there\u2019s somewhere to point newcomers. They start here: Decentralized Coinbase Payout Protocol (DCPP) | LearnBitcoin . If I\u2019ve got anything wrong in them, please let me know and I\u2019ll fix it.</p>\n</blockquote>\n<p>Thank you, this reads quite well!</p>\n<blockquote>\n<p>I\u2019m happy to dig up what I remember from running a node if it\u2019s useful to anyone here.</p>\n</blockquote>\n<p>So great to have you around for these discussions, and thank you for stewarding the domain all these years. It\u2019s so easy for these things to fall into the wrong hands.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 7,
   "updated_at": "2026-11-12T05:48:18.760Z",
-  "reply_count": 0,
+  "reply_count": 2,
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 5.8,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 32.0,
   "yours": false,
   "topic_id": 3060,
   "topic_slug": "decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> I\u2019m windpath on BitcoinTalk, so the \u201cmost notable\u201d link in your second paragraph is my post from November 2015.\n\nWhoa, that is so cool this post found you (and I found your post)! Thanks for taking the time to reply.\n\n> I pulled the coinbase transaction of every block that pays P2Pool\u2019s donation script. There are 2,545 of them, 1,024 from 2012 alone, and the pool still turns one up about once a year.\n\nIt's really impressive how many payouts these blocks carried in the coinbase. Thank you for sharing the data, and very cool (and unexpected) that there are still blocks being found!!\n\n> The N in your example was a few hundred. A typical P2Pool block paid about 200 addresses in 2012 and about 390 in 2014. The most it ever paid was 553, in block 236,962 on 19 May 2013, and that coinbase transaction was 19 kB. Only 42 blocks ever paid 500 or more.\n\nI did not mean to imply the N was in the hundreds. The [footnote here](https://delvingbitcoin.org/t/decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion/3060#footnote-9019-2) should have been more explicit, but I don't think there is an official source to link to here, other than third party implementation details (e.g. [DATUM](https://github.com/OCEAN-xyz/datum_gateway/blob/85a19fd48caed0d00e2d26045916d30f84b0668a/src/datum_stratum.c#L1675\\(\\))). We are probably looking at <=25 outputs total on Bitmain hardware.\n\n> So I\u2019d treat the RLA as where any ranked-slot rule ends up by default. A motivated attacker gets you there sooner than growth would.\n\nRight, the symptom of an RLA and the pool hitting its growth ceiling produces the same outcome. To be fair, I wouldn't call honest growth an attack though, that's just a protocol scaling limit.\n\n> An existing pool, or a big miner friendly to one, already has the hash power, so pointing some of it at a decentralized pool costs them close to nothing beyond slightly higher latency.\n\nAgreed, this is definitely a decentralized pools most likely adversary.\n\n> Withholding blocks costs them a little of their own income and drags down the pool\u2019s luck in a way people eventually notice and talk about.\n\nA properly executed block witholding attack can increase the revenue of the attacking pool. I think the question is: can the attacking miner earn more revenue (while reducing the competitiveness of the decentralized pool) via a block witholding strategy or a PSG attack? If there is no DCPP at all, I agree with you, PSG all the way-\u2013they earn upfront and undermine the pool.\n\nHowever, even a modestly architected DCPP will mitigate the PSG enough as to make it not an attractive attack vector. I may have been a bit too strong in how I worded that paragraph. I do think we need to resolve this, but I also think it's possible it doesn't need to raise the bar much to mostly mitigate the attack vector. I think with the right protocol design (and probably covenants), what is most attractive about advanced DCPPs is that they lower participation fees (thus making a decentralized pool more competitive).\n\n> two things I\u2019d want pinned down about the value-weighted draw.\n\nYes, I think if we find enshrinement to be unpalatable, we really want to start focusing on the weighting and selection process. There will be many footguns and we don't want to introduce an incentive to do the thing we are trying to mitigate.\n\n> On the terms: I\u2019ve written plain-language glossary pages for DCPP, PSG and the RLA at learnbitcoin.com, credited to this post, so there\u2019s somewhere to point newcomers. They start here: Decentralized Coinbase Payout Protocol (DCPP) | LearnBitcoin . If I\u2019ve got anything wrong in them, please let me know and I\u2019ll fix it.\n\nThank you, this reads quite well!\n\n> I\u2019m happy to dig up what I remember from running a node if it\u2019s useful to anyone here.\n\nSo great to have you around for these discussions, and thank you for stewarding the domain all these years. It's so easy for these things to fall into the wrong hands.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "I\u2019m windpath on BitcoinTalk, so the \u201cmost notable\u201d link in your second paragraph is my post from November 2015. \n\nWhoa, that is so cool this post found you (and I found your post)! Thanks for taking the time to reply. \n\nI pulled the coinbase transaction of every block that pays P2Pool\u2019s donation sc&hellip;",
   "truncated": true,
   "post_url": "/t/decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion/3060/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

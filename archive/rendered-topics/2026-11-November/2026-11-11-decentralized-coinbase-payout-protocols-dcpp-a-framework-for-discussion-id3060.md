@@ -278,3 +278,64 @@ Once there is no real incentive for someone to get multiple direct payout slots,
 
 -------------------------
 
+jungly | 2026-11-12 13:56:40 UTC | #5
+
+[quote="7d5x9, post:3, topic:3060"]
+We are probably looking at <=25 outputs total on Bitmain hardware.
+
+[/quote]
+
+I dug into this. The number of outputs on Ocean's coinbases are really low. The following is the distribution of number of outputs in Ocean coinbase shown in two ways.
+
+They assign coinbases outputs based on their fingerprinting of devices and including as many coinbase outputs as the firmware can support. That is what they posted somewhere a while back, it might not be true any more. However, the number of outputs in Ocean coinbases paints a rough picture of what is out there.
+
+I am thinking in p2poolv2, we might have to go lower than 25, probably 16 is the upper limit.
+
+![1_histogram|690x349](upload://rLstjRO7NmkBQJKz2V66bBvftfC.png)
+
+![5_bucket_share|690x279](upload://xo0CgQCDerHoQP98kAGo9sDdFo9.png)
+
+-------------------------
+
+LearnBitcoin.com | 2026-11-12 14:23:55 UTC | #6
+
+[quote="7d5x9, post:3, topic:3060"]
+ We are probably looking at <=25 outputs total on Bitmain hardware. 
+
+[/quote]
+
+That clears it up, thanks. I had the wrong N in mind, and the real one is a bigger change than I'd realized.
+
+For contrast, here's the "before" from the same CSV. 2,520 of the 2,545 P2Pool coinbases are larger than 750 bytes, and 2,479 are larger than 2.25 kB, so they wouldn't fit on a stock S21 today. The typical one was 13 kB in 2014 and still 4 kB in 2017. A lot of those were mined on Antminers. I ran them myself.
+
+So the ceiling isn't the hardware, and it isn't even Bitmain's hardware. It came in with newer stock firmware. The DATUM comments point the same way: Braiins firmware on the same machines "appears to handle arbitrary coinbase sizes" (not tested on every version, it says), and the S21 takes three times what the S19 does. So the number has already moved once.
+
+I saw in the CTV payouts thread that changing Bitmain's firmware is considered harder than changing Bitcoin, and I can believe it. But does anyone know why the limit is there in the first place? If it's a fixed buffer nobody at Bitmain ever needed to be bigger, that's a different conversation from a deliberate choice.
+
+[quote="jungly, post:5, topic:3060"]
+ I am thinking in p2poolv2, we might have to go lower than 25, probably 16 is the upper limit. 
+
+[/quote]
+
+The other thing I wonder about is DATUM's workaround. It hands each machine the biggest coinbase that machine can take. Can a sharechain do anything like that, or does agreeing on one payout set force the whole pool down to its smallest machine?
+
+-------------------------
+
+jungly | 2026-11-12 14:40:59 UTC | #7
+
+
+> But does anyone know why the limit is there in the first place?
+
+A tough question to answer :slight_smile: 
+
+[quote="LearnBitcoin.com, post:6, topic:3060"]
+Can a sharechain do anything like that, or does agreeing on one payout set force the whole pool down to its smallest machine?
+
+[/quote]
+
+We can do this. Stratum is local to node and it will generate coinbase for each of the miners connected to the node. When shares are found, the validation rules will change from accepting exact match of coinbase to accommodate for dynamic coinbase sizes. The fact that a share was found, means some ASIC somewhere accepted that coinbase and as long as it follows PPLNS and reward distribution rules, it is treated as valid.
+
+The only question is if it opens up some sort of game where some nodes might always just mine a small number of slots which pay only their addresses. That is, could it make RLA worse?
+
+-------------------------
+
