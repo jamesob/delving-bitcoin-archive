@@ -260,3 +260,21 @@ So great to have you around for these discussions, and thank you for stewarding 
 
 -------------------------
 
+stevenroose | 2026-11-12 10:34:19 UTC | #4
+
+Lots to process. But yes I think I have come to a similar conclusion: without covenants, I can't think of a scheme worth exploring.
+
+With covenants, though, one can deterministically construct an output that boards any number of VTXOs into an Ark. This changes the game. In p2pool, multiple payout types (address types) could be added: (1) direct coinbase payout and (2) Ark payout, f.e.. The ark payout address would be generic over Ark servers and contain the Ark server pubkey and the user's VTXO pubkey.
+
+This way, when coinbase payouts are calculated, all users with Ark payout addresses for the same Ark server will aggregate into a single slot and so increase their position in the ranking. The p2pool algorithm can deterministically calculate the Ark tx tree that pays out all the miners and calculate a coinbase output that commits to this tree.
+
+> Probabilistic guarantees of an output position via a value-weighted random draw.<sup class="footnote-ref">[\[8\]](https://delvingbitcoin.org/t/decentralized-coinbase-payout-protocols-dcpp-a-framework-for-discussion/3060#footnote-9019-8)</sup> 
+
+This is interesting when drawn over the entire line. Personally I had the thought of doing a value-weighted random draw just for the "remainder" that didn't make the direct payout. If you have 10 slots, you pick the 9 highest-value payouts, award them directly, but for all the payouts that didn't make it, have a value-weighted draw for them to be rewarded the entire remainder.
+
+This might open up some perverse situation where someone who is just not high enough to make the direct payout but has high chances for the random draw, might not want to move up its share into the direct payout section, but instead add new identities that also stay just below the cut-off. This might be mitigated by handing the direct payouts a small % more than their actual share.
+
+Once there is no real incentive for someone to get multiple direct payout slots, a simple "round amounts down" might be enough incentive for miners to just always use the same address.
+
+-------------------------
+
