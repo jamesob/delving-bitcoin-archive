@@ -1,6 +1,6 @@
 # A STARK proof of Bitcoin's UTXO set at block 972,500, with circuits proven in Lean
 
-l-henri | 2026-11-13 10:06:23 UTC | #1
+l-henri | 2026-11-13 10:11:27 UTC | #1
 
 Hi everyone. 
 
@@ -28,7 +28,7 @@ How it's built
 * Prover. Stwo (circle STARKs over M31), through a Zig port (stwo-zig ( https://github.com/teddyjfpender/stwo-zig )), plus a CUDA backend that produces byte-identical proofs. A large block (2^23 trace rows) proves in 2.7 s on an H100. Blocks are aggregated by recursion per epoch, epochs are joined, and the seal wraps the chain, the header chain and the set passes into one proof.
 * Circuits written in Lean 4. The Zig prover interprets constraints exported from Lean. There are machine-checked proofs that any accepted header segment satisfies the header rules, that SHA-256 matches FIPS 180-4, that the block checks hold, and that the set transitions and recursion glue compose into the seal's statement (sealT_soundW).
 * Spec vs Core. The Lean specs are differentially fuzzed against Core's own C++ code. That covers about 750,000 header-rule cases and 100,000 block and transaction cases, with 0 mismatches. They are tested, not proven, against Core's code.
-* Trusted. The soundness of Stwo/FRI/LogUp, Fiat–Shamir in the random oracle model (including inside recursion, the point jonasnick raised in the block-wide signature aggregation thread ( https://delvingbitcoin.org/t/block-wide-signature-aggregation-via-snarks/2875 )), and a short list of native checks in the verifier. The full ledger of what is proven and what is trusted is in docs/reference/verification.md ( https://github.com/starknet-innovation/starked-bitcoin/blob/main/docs/reference/verification.md ).
+* Trusted. The soundness of Stwo/FRI/LogUp, Fiat–Shamir in the random oracle model (including inside recursion, the point jonasnick raised in the block-wide signature aggregation thread ( https://delvingbitcoin.org/t/block-wide-signature-aggregation-via-snarks/2875 )), and a short list of native checks in the verifier. The full ledger of what is proven and what is trusted is in docs/reference/verification.md ( https://github.com/starknet-innovation/starked-bitcoin/blob/a3e06f53f8b28310933265540e8b4189fe630f66/docs/reference/verification.md ).
 
 A practical use: checking an assumeUTXO snapshot from anyone
 
