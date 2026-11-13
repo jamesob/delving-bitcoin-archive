@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 2,
   "readers_count": 1,
-  "score": 0,
+  "score": 0.4,
   "yours": false,
   "topic_id": 3070,
   "topic_slug": "a-stark-proof-of-bitcoins-utxo-set-at-block-972-500-with-circuits-proven-in-lean",
