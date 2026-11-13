@@ -125,3 +125,9 @@ Thanks, I removed Paxful and recorded the update to Binance•com. I could not f
 
 -------------------------
 
+Anzus_GemWallet | 2026-11-13 06:03:11 UTC | #9
+
+@murch thanks for adding Gem Wallet to whentaproot.org as well, and for keeping the list up to date. Our docs now point to it, both as a place to check which services support Taproot and to show that Gem can send to bc1p.
+
+-------------------------
+
