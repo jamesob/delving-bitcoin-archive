@@ -1251,7 +1251,7 @@ It's a draft, written against the requirements-only version of lightning-blake2b
 
 -------------------------
 
-tony | 2026-11-12 19:13:12 UTC | #14
+tony | 2026-11-12 22:03:44 UTC | #14
 
 Much of the bitcoin ecosystem is now recommending a "multivendor multisig" approach for secure private key custody. This is a good idea. Multisig can mitigate the impact of a problem in the design, operations, or custody of any one of several key-holding devices. What's more, multisig lets you rotate out a compromised or obsolete signer, as operationally needed.
 
@@ -1273,7 +1273,7 @@ Here is a proposed architecture to mitigate this risk (put briefly):
 
 1. **Deploy validating signers.** Multiple independent MPC signers each run VLS-style policy validation, track channel state, and hold a share of the threshold ECDSA signing key and of a separate threshold decryption key.
 
-2. **Precompute revocation secrets offline.** An air-gapped machine generates a shachain seed (perhaps per channel), derives a batch of per-commitment secrets and their public points, and threshold-encrypts the secrets. The seed never goes online.
+2. **Precompute revocation secrets offline.** An air-gapped machine generates a shachain seed (per channel), derives a batch of per-commitment secrets and their public points, and threshold-encrypts the secrets. The seed never goes online.
 
 3. **Provision the signers.** Signers receive the encrypted secrets; the Lightning node uses the points for normal operation. Commitment signatures use threshold ECDSA (e.g. 3-of-4 with Coinbase's MPC library).
 
