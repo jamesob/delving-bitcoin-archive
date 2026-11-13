@@ -1373,3 +1373,55 @@ So the differences are:
 
 -------------------------
 
+tony | 2026-11-13 15:07:13 UTC | #16
+
+[quote="ZmnSCPxj, post:15, topic:2395"]
+Not “perhaps” — ***definitely*** per channel.
+[/quote]
+
+Correct, per channel. Thanks. I edited the post to reflect that. 
+
+[quote="ZmnSCPxj, post:15, topic:2395"]
+Theft of channel funds needs the other side to be either compromised or hostile.
+[/quote]
+
+An attacker who controls the signer can pay themselves over Lightning via an honest peer, and the peer is none the wiser.
+
+[quote="ZmnSCPxj, post:15, topic:2395"]
+humongously large keyblobs
+[/quote]
+
+I also think this is the way to do it! 
+
+[quote="ZmnSCPxj, post:15, topic:2395"]
+IMO you do not want to rotate key shares
+[/quote]
+
+I can see your reasoning, as channels are temporary anyway. Both key share rotation and private key replacement require operational overhead. 
+
+**And re. XOR pads instead of threshold encryption of revocation secrets:** I like this approach. It seems simpler. If anyone has a link to JPosner's original suggestion, that would be great for completeness, although I think you (Z man) explained it well too. 
+
+We could get 2-of-3 on the XOR approach with
+
+| Root | Held by |
+|------|---------|
+| r1   | A, B    |
+| r2   | A, C    |
+| r3   | B, C    |
+
+or 3-of-4 with:
+
+| Root | Held by |
+|------|---------|
+| r1   | A, B    |
+| r2   | A, C    |
+| r3   | A, D    |
+| r4   | B, C    |
+| r5   | B, D    |
+| r6   | C, D    |
+
+
+Thanks for the detailed reply. As a next step, I'm going to explore the offline variant with XOR (using the offline machine to generate the keyblobs for now; MPC generation could be added later) utilizing LDK Server, VLS, and Coinbase MPC for ECDSA signing.
+
+-------------------------
+
