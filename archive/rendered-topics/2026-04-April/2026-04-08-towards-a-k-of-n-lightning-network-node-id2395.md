@@ -1425,3 +1425,25 @@ Thanks for the detailed reply. As a next step, I'm going to explore the offline 
 
 -------------------------
 
+ZmnSCPxj | 2026-11-13 16:50:42 UTC | #17
+
+[quote="tony, post:16, topic:2395"]
+If anyone has a link to JPosner’s original suggestion
+[/quote]
+
+JPosner promised to write up an explanation in his PoC repo for it, but he did not do it quickly enough before I lost the link to the repo, LOL (that is on me, LOL, let us hope he shows up here with it).  In any case, given how he described it operated outside the MPC --- each signer reveals their revocation key from their own personal revocation root key, and the node XORs it with the public output from the MPC, producing the true revocation key --- I derived how the circuit inside the MPC would need to be, to make that work, and that is what I described.
+
+The big advantage is that the revocation is almost entirely still the same interaction between the signer / VLS and the node, it is a release of the revocation key held by the signer after the signer has validated that releasing the revocation key is correct.  The only thing that needs modification is on the node side, where only the node has to keep a copy of the keyblob, and never has to send sections of the keyblob to signers for decryption.
+
+Another advantage is size -- the ciphertext is the same size as the plaintext. My understanding is that in general, anything that requires asymmetric encryption will require length(ciphertext) > length(plaintext), and threshold cryptography is, by my understanding, asymmetric.  And you really want to decrypt ***ONE*** revocation key at a time, meaning this overhead is applied to ***EACH*** revocation key --- you really do NOT want to batch up multiple revocation keys for decrypting at once (okay, it probably is safe if your code ensures that it only actually reads the revocation key it has to release at that point --- but it is safer still to not have the dangerous toxic waste of *future* revocation keys lying around, who knows what the various caches will hold on to?).  Given the revocation key plaintext is only 32 bytes, and the typical overhead would be somewhere between 32->64 bytes, that is a rather large overhead.
+
+-----
+
+Anyway, I forgot to mention another advantage of MPC vs trusted offline computer.  With a trusted offline computer, the operator of the node must be a single entity.  Yaaaa currently we like to think that an entire node can only be owned by a single entity, but n-of-n does open up another possibility: N entities cooperatively operating a single node, pooling together their funds to make a large node that can actually half-decently compete against nodes operated by large corporations.  The N entities would require that they run their own signer, which would be one of the N needed to actually sign, in full, for the node.
+
+That is the "nodelets" concept I first described something like 7->8 years ago.  Basically, each signer operated by one of the tiny entities is a "nodelet" and by all their powers combined, they are captain LN node.
+
+A single trusted offline computer would not work with "nodelets", none of the tiny entities would want to trust the private root revocation key to a computer they do not control.  The only option for "nodelets" would be the MPC route.
+
+-------------------------
+
