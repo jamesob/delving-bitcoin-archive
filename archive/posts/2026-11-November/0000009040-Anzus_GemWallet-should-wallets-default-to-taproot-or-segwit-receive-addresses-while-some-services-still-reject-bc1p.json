@@ -15,7 +15,7 @@
   "incoming_link_count": 1,
   "reads": 13,
   "readers_count": 12,
-  "score": 7.4,
+  "score": 22.6,
   "yours": false,
   "topic_id": 3056,
   "topic_slug": "should-wallets-default-to-taproot-or-segwit-receive-addresses-while-some-services-still-reject-bc1p",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@murch thanks for adding Gem Wallet to whentaproot.org as well, and for keeping the list up to date. Our docs now point to it, both as a place to check which services support Taproot and to show that Gem can send to bc1p.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/murch\">@murch</a> thanks for adding Gem Wallet to <a href=\"http://whentaproot.org\" rel=\"noopener nofollow ugc\">whentaproot.org</a> as well, and for keeping the list up to date. Our docs now point to it, both as a place to check which services support Taproot and to show that Gem can send to bc1p.",
   "truncated": true,
   "post_url": "/t/should-wallets-default-to-taproot-or-segwit-receive-addresses-while-some-services-still-reject-bc1p/3056/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
