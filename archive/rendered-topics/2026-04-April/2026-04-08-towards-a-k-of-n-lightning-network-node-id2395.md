@@ -1447,3 +1447,15 @@ A single trusted offline computer would not work with "nodelets", none of the ti
 
 -------------------------
 
+davelund110 | 2026-11-13 23:35:47 UTC | #18
+
+@tony your tables are the same grouping I use in my design note (section 2): one key for each set of K − 1 signers, held by everyone outside that set.
+
+The difference is that under `option_independent_secrets` (lightning-blake2b/bolts#17) the secrets don't have to come from one shachain seed. Each secret is a sum of PRF outputs under those keys, and each signer computes its share when it's needed. So there's no keyblob, and no MPC for the secrets.
+
+@ZmnSCPxj that's also why nodelets fit it: there's no root revocation key for anyone to trust a machine with.
+
+I've since checked the signer rules myself and found nothing wrong. If you spot a hole, let me know.
+
+-------------------------
+
