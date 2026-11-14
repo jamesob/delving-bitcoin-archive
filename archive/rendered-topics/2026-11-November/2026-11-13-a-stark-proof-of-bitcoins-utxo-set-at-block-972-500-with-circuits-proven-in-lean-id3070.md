@@ -59,3 +59,33 @@ The longish verification time is presumably the same kind of O(log^2 n) that you
 
 -------------------------
 
+ajtowns | 2026-11-14 09:07:13 UTC | #3
+
+I think it might be interesting to split this up into perhaps four parts:
+
+ * header validation (proof of work, median time, block version signalling, etc) -- stuff light clients can already do, doesn't need to be zero-knowledge at all, because headers are cheap and worth having anyway.
+ * per-block undo data commitments
+ * utxo set updates:
+     * a zk proof for blocks B1...Bn
+     * assumes you know the block headers
+     * assumes you have the utxo set commitment just prior to block B1; call it X
+     * assumes that you have undo data commitments for those blocks, call them U1...Un
+     * for each block Bi, validates:
+       * Ui is a subset of the utxo set prior Bi
+       * it consists of some ordered set of txs T0...Tm
+       * T0 is a coinbase tx and spends no utxos
+       * each utxo in Ui is spent exactly once by exactly one tx T1..Tm
+       * each other input in Tj (2<j<=m) is a unique output of some other Tk, (1<=k<j)
+       * the utxo set after Bi is the utxo set prior to Bi - Ui plus the unspent outputs of T0...Tm
+     * only validates the undo data and utxo set, doesn't check for invalid signatures, bad timelocks, inflation bugs, etc
+ * per-block validation:
+   * given a block hash and its undo data commitment, validate it properly (ie, witness commitment, inputs >= outputs, coinbase <= subsidy + inputs - outputs, signatures, script logic, timelocks, coinbase maturity, block weight/sigop limits, etc)
+
+I think a utxo-set-update proof system is likely to last longer and be more useful than the per-block validation stuff, because generally only the latter changes with any soft forks that might get introduced, and if you're willing to take history for granted and just want to validate new blocks, then the utxo set verification is the hard part to be confident about.
+
+I'm mostly speculating that by providing the complicated validation proof system with just the block and undo data/commitment (rather than the full utxo set), you might get more efficient proofs.
+
+But I also think the undo data proof would possibly be helpful for things like swiftsync where you're still running the validation code directly. And the utxo set maintenance should be reasonable to fully specify, I think, if you generalise it to also cover invalid blocks.
+
+-------------------------
+
