@@ -7,15 +7,15 @@
   "cooked": "<p>Hi everyone.</p>\n<p>I\u2019ve been working on a side project to see how far a STARK prover can go on Bitcoin consensus. Here is what I have so far.</p>\n<p>Demo: <a href=\"https://starknet-innovation.github.io/starked-bitcoin/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Proven Bitcoin</a>\nRepo <a href=\"https://github.com/starknet-innovation/starked-bitcoin\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - starknet-innovation/starked-bitcoin: Proving Bitcoin's chain with native Stwo AIRs, defined and proven in Lean \u00b7 GitHub</a></p>\n<p>What the proof says</p>\n<p>There is one proof file (a \u201cseal\u201d) of 1.6 MB. A browser verifies it in about half a second. It shows three things:</p>\n<ol>\n<li>Headers. There is a header chain from genesis to the tip with the stated chainwork. Every header follows Core\u2019s mainnet header rules: SHA256d linkage, proof of work, retargeting, median time past, minimum version and exact chainwork. The one exception is the wall-clock time-too-new rule. As with any SPV-style check, the verifier compares the chainwork against a trusted minimum.</li>\n<li>Blocks 935,001 to 972,500. Each block is replayed: raw block data against the Merkle root, txid and wtxid, Core\u2019s structural block and transaction checks, amounts, and every coin created and spent.</li>\n<li>The coin set. The UTXO set after block 972,500 is the result of that replay. Its hash_serialized equals Core\u2019s: Core\u2019s gettxoutsetinfo / dumptxoutset at 972,500 gives 9f92d143\u2026c8c4eb, the value the proof outputs. The proof also commits to a Merkle root over the set, so anyone can produce ~1 KB inclusion and non-inclusion proofs for single outpoints. The demo page does this by downloading one ~2 MB segment of the set per lookup.</li>\n</ol>\n<p>What it does not say</p>\n<ul>\n<li>No scripts or signatures. The trust here is the same as with assumevalid. The block data proof commits to witness data so that a script module can be added later without re-proving the rest.</li>\n<li>The replay starts from Core\u2019s assumeUTXO snapshot at 935,000. The starting set is checked against the hash_serialized pinned in Core\u2019s chainparams. Blocks before that are covered only by the header chain. The coins come with the same trust as loading Core\u2019s snapshot, which is the trust assumeUTXO users already accept, but it is not a proof from genesis. A from-genesis would cost a bit of money that I have not spent yet (probably 1-1.5k USD). Our current estimate for the whole chain\u2019s block proofs is roughly 325 H100-hours.</li>\n<li>No external review yet - have at it <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=15\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></li>\n</ul>\n<p>How it\u2019s built</p>\n<ul>\n<li>Prover. Stwo (circle STARKs over M31), through a Zig port (stwo-zig ( <a href=\"https://github.com/teddyjfpender/stwo-zig\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - teddyjfpender/stwo-zig \u00b7 GitHub</a> )), plus a CUDA backend that produces byte-identical proofs. A large block (2^23 trace rows) proves in 2.7 s on an H100. Blocks are aggregated by recursion per epoch, epochs are joined, and the seal wraps the chain, the header chain and the set passes into one proof.</li>\n<li>Circuits written in Lean 4. The Zig prover interprets constraints exported from Lean. There are machine-checked proofs that any accepted header segment satisfies the header rules, that SHA-256 matches FIPS 180-4, that the block checks hold, and that the set transitions and recursion glue compose into the seal\u2019s statement (sealT_soundW).</li>\n<li>Spec vs Core. The Lean specs are differentially fuzzed against Core\u2019s own C++ code. That covers about 750,000 header-rule cases and 100,000 block and transaction cases, with 0 mismatches. They are tested, not proven, against Core\u2019s code.</li>\n<li>Trusted. The soundness of Stwo/FRI/LogUp, Fiat\u2013Shamir in the random oracle model (including inside recursion, the point jonasnick raised in the block-wide signature aggregation thread ( <a href=\"https://delvingbitcoin.org/t/block-wide-signature-aggregation-via-snarks/2875\" class=\"inline-onebox\">Block-wide Signature Aggregation via SNARKs</a> )), and a short list of native checks in the verifier. The full ledger of what is proven and what is trusted is in docs/reference/verification.md ( <a href=\"https://github.com/starknet-innovation/starked-bitcoin/blob/a3e06f53f8b28310933265540e8b4189fe630f66/docs/reference/verification.md\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">starked-bitcoin/docs/reference/verification.md at a3e06f53f8b28310933265540e8b4189fe630f66 \u00b7 starknet-innovation/starked-bitcoin \u00b7 GitHub</a> ).</li>\n</ul>\n<p>A practical use: checking an assumeUTXO snapshot from anyone</p>\n<p>chainproof verify-snapshot takes a Core dumptxoutset file and checks it against the seal: base block, coin count, total amount and hash_serialized. On a mainnet node running Core v31.1, I dumped a snapshot at 972,500 with rollback (164,539,066 coins, 9.39 GB). The check passed in 72 s using 0.5 GB of memory on an arm64 machine.</p>\n<p>Today Core only loads snapshots whose hashes are hardcoded. Next, I plan to try a small patch that accepts a snapshot attested by a verified seal and skips background validation. That turns \u201ca node in minutes\u201d from a trust choice into a proof, with the caveats above. I expect this to be the controversial part, and I\u2019d like opinions before going further.</p>\n<p>Feedback is most welcome, and especially attempts to harden it. Cheers!</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 2,
   "updated_at": "2026-11-13T10:11:27.833Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 60,
+  "incoming_link_count": 69,
   "reads": 20,
   "readers_count": 19,
-  "score": 334.0,
+  "score": 394.0,
   "yours": false,
   "topic_id": 3070,
   "topic_slug": "a-stark-proof-of-bitcoins-utxo-set-at-block-972-500-with-circuits-proven-in-lean",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

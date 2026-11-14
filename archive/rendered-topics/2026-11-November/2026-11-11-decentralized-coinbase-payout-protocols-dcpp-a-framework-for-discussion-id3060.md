@@ -339,3 +339,20 @@ The only question is if it opens up some sort of game where some nodes might alw
 
 -------------------------
 
+7d5x9 | 2026-11-14 04:06:28 UTC | #8
+
+[quote="jungly, post:5, topic:3060"]
+probably 16 is the upper limit.
+
+[/quote]
+
+Yea, sounds like a reasonable safety margin.
+
+Generally, I don't think the slot count can safely depend on the claimed firmware support.
+
+My intuition is that 16 (or whatever the minimum number ends up being) should be a protocol-wide constant. Whenever at least 16 payouts are eligible, every valid template must have exactly that many payout slots. That way, miners don't need to model the distribution of mining hardware within the pool to determine the likelihood of them getting a slot (if their hashrate is close to the margin of inclusion). I assume there will be other benefits to this determinism as well, perhaps in simplifying the design of the value-weighted draw scheme.
+
+In the mean time, let's hope a decentralized pool gets large enough as to have the leverage to pressure hardware manufacturers to remove this limit in their firmware.
+
+-------------------------
+

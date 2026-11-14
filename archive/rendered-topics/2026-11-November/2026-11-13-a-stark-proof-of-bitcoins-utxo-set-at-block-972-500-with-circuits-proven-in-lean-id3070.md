@@ -40,3 +40,22 @@ Feedback is most welcome, and especially attempts to harden it. Cheers!
 
 -------------------------
 
+AdamISZ | 2026-11-14 01:12:38 UTC | #2
+
+> Spec vs Core. The Lean specs are differentially fuzzed against Core’s own C++ code. That covers about 750,000 header-rule cases and 100,000 block and transaction cases, with 0 mismatches.
+
+Very cool! I especially like this Lean part. It's unfortunate about bitcoin that this fuzzing approach is the only one we can realistically take, but, good that you tried it.
+
+You referred to batch signature verification indirectly (the message from Jonas you referred to was about the soundness of SNARK recursion), but that seems like a potentially interesting question here: I know that secp operations are going to be expensive in STARKs, but acceleration exists (I've been using it myself a bit in a project using RiscZero that provides that kind of acceleration), so I'm wondering if at some point you can't do batch-verify on all the Schnorr signatures into one multi-scalar multiplication. Not even just blockwide, but blockchain-wide?
+
+(I'm not even mentioning Scripts. I *guess* that part is easier than signatures).
+
+I mean obviously even in this assume-utxo model this is already interesting, but "going the whole hog" would be even more interesting.
+
+
+The longish verification time is presumably the same kind of O(log^2 n) that you get for communication/size, and why you have 72 seconds recorded. That's a bit of a bummer. Could we consider doing the same trick as Risc Zero of "shrink wrap": proof with Groth16 that the stark verifier passes, then get trivial verification time (the *size* doesn't really matter, of course, but the time does I think. I'm imagining lighter clients like phones).
+
+(At the same time I know a big part of the community is now considering anything non-QR as not interesting, but I disagree).
+
+-------------------------
+
