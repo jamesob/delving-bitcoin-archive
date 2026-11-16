@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 18.2,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The full list of BIP54 changes has been implemented in libbitcoin:\n\nhttps://github.com/libbitcoin/libbitcoin-system/pull/2149\n\nOn my todo to review / test it, and with bitcoin core code too under the eyes, to check if there is any logical discrepancy and build up more confidence in the BIP54 changes.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "The full list of BIP54 changes has been implemented in libbitcoin: \n\n\nOn my todo to review / test it, and with bitcoin core code too under the eyes, to check if there is any logical discrepancy and build up more confidence in the BIP54 changes.",
   "truncated": true,
   "post_url": "/t/great-consensus-cleanup-revival/710/97",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
