@@ -1809,3 +1809,13 @@ CSV file:
 
 -------------------------
 
+ariard | 2026-11-16 02:02:32 UTC | #97
+
+The full list of BIP54 changes has been implemented in libbitcoin:
+
+https://github.com/libbitcoin/libbitcoin-system/pull/2149
+
+On my todo to review / test it, and with bitcoin core code too under the eyes, to check if there is any logical discrepancy and build up more confidence in the BIP54 changes.
+
+-------------------------
+
