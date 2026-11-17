@@ -1,6 +1,6 @@
 # Toward Efficient Post-Quantum Bitcoin Bridges
 
-eigmax | 2026-11-16 13:19:01 UTC | #1
+eigmax | 2026-11-17 16:43:23 UTC | #1
 
 We have written up a garbled-circuit verifier for hash-based STARK proofs, as a post-quantum alternative to garbling a Groth16 verifier in BitVM3-style bridges, and measured what it costs on-chain and off-chain. The design is BitVM2 with the on-chain verifier replaced by a garbled one: the operator garbles the verifier once, proves the garbling correct and commits the input keys on Bitcoin.
 
