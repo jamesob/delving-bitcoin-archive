@@ -1,8 +1,8 @@
 # A STARK proof of Bitcoin's UTXO set at block 972,500, with circuits proven in Lean
 
-l-henri | 2026-11-13 10:11:27 UTC | #1
+l-henri | 2026-11-17 10:53:51 UTC | #1
 
-Hi everyone. 
+Hi everyone.
 
 I've been working on a side project to see how far a STARK prover can go on Bitcoin consensus. Here is what I have so far.
 
@@ -19,9 +19,9 @@ There is one proof file (a "seal") of 1.6 MB. A browser verifies it in about hal
 
 What it does not say
 
-* No scripts or signatures. The trust here is the same as with assumevalid. The block data proof commits to witness data so that a script module can be added later without re-proving the rest.
-* The replay starts from Core's assumeUTXO snapshot at 935,000. The starting set is checked against the hash_serialized pinned in Core's chainparams. Blocks before that are covered only by the header chain. The coins come with the same trust as loading Core's snapshot, which is the trust assumeUTXO users already accept, but it is not a proof from genesis. A from-genesis would cost a bit of money that I have not spent yet (probably 1-1.5k USD). Our current estimate for the whole chain's block proofs is roughly 325 H100-hours. 
-* No external review yet - have at it :slight_smile: 
+* No scripts or signatures, as with assumevalid. Also not yet checked: BIP68 relative locktimes and the full sigop cost (only legacy sigops are counted). Core under assumevalid enforces both, so today's guarantee is a bit weaker than assumevalid (see the reply below). The block data proof commits to witness data so that a script module can be added later without re-proving the rest.
+* The replay starts from Core's assumeUTXO snapshot at 935,000. The starting set is checked against the hash_serialized pinned in Core's chainparams. Blocks before that are covered only by the header chain. The coins come with the same trust as loading Core's snapshot, which is the trust assumeUTXO users already accept, but it is not a proof from genesis. A from-genesis would cost a bit of money that I have not spent yet (probably 1-1.5k USD). Our current estimate for the whole chain's block proofs is roughly 325 H100-hours.
+* No external review yet - have at it :slight_smile:
 
 How it's built
 
@@ -32,7 +32,7 @@ How it's built
 
 A practical use: checking an assumeUTXO snapshot from anyone
 
-chainproof verify-snapshot takes a Core dumptxoutset file and checks it against the seal: base block, coin count, total amount and hash_serialized. On a mainnet node running Core v31.1, I dumped a snapshot at 972,500 with rollback (164,539,066 coins, 9.39 GB). The check passed in 72 s using 0.5 GB of memory on an arm64 machine.
+chainproof verify-snapshot takes a Core dumptxoutset file and checks it against the seal: base block, coin count, total amount and hash_serialized. On a mainnet node running Core v31.1, I dumped a snapshot at 972,500 with rollback (164,539,066 coins, 9.39 GB). The check passed in 72 s using 0.5 GB of memory on an arm64 machine; 70.7 s of that is reading the 9.4 GB snapshot to recompute its hash. Verifying the proof itself takes about 0.5 s in a browser.
 
 Today Core only loads snapshots whose hashes are hardcoded. Next, I plan to try a small patch that accepts a snapshot attested by a verified seal and skips background validation. That turns "a node in minutes" from a trust choice into a proof, with the caveats above. I expect this to be the controversial part, and I'd like opinions before going further.
 
@@ -86,6 +86,35 @@ I think a utxo-set-update proof system is likely to last longer and be more usef
 I'm mostly speculating that by providing the complicated validation proof system with just the block and undo data/commitment (rather than the full utxo set), you might get more efficient proofs.
 
 But I also think the undo data proof would possibly be helpful for things like swiftsync where you're still running the validation code directly. And the utxo set maintenance should be reasonable to fully specify, I think, if you generalise it to also cover invalid blocks.
+
+-------------------------
+
+l-henri | 2026-11-17 11:37:21 UTC | #4
+
+<!-- Draft reply to https://delvingbitcoin.org/t/a-stark-proof-of-bitcoins-utxo-set-at-block-972-500-with-circuits-proven-in-lean/3070
+     Answers AdamISZ (post 2) and ajtowns (post 3). Review before posting: public post with security claims.
+     Evidence for the correction: lean/StarkedAir/Spec/Block.lean:6 (BIP68 and full sigop cost deferred),
+     lean/StarkedAir/Spec/BlockFlat.lean:149 (legacy sigops only), docs/design/utxo.md rules 1-7. -->
+
+Thank you both for the answers & interest! Replying to both in this post.
+
+1. A correction. I wrote earlier that the proof covers every rule except signatures and scripts, like assumevalid. Checking against @ajtowns's list, two `ConnectBlock` rules are missing: BIP68 relative locktimes and the full sigop cost. Currently only legacy sigops are checked. P2SH and witness sigops aren't. Core under assumevalid still enforces both, so today's guarantee is a bit weaker than assumevalid. Both fit the existing design, since the undo records already carry each spent coin's height and script. Time-based BIP68 locks also need older blocks' median time past. I've updated the first post.
+
+2. To @AdamISZ comment on the 72 s checktime. My post wasn't clear so I edited it. 70.7 of the 72 s is reading the 9.4 GB snapshot from disk to recompute its hash. The proof itself verifies in about 0.5 s in a browser (wasm). A Groth16 wrap wouldn't buy much verification time. It would shrink 1.6 MB to a few hundred bytes, which matters for verifying on another chain though. The cost would be a trusted setup, and losing the hash-only security assumption that keeps a STARK plausibly post-quantum. I'd rather keep that for now.
+
+3. On batching Schnorr signatures. I agree that a random linear combination makes it one MSM, and nothing stops it spanning many blocks. I see two caveats: most historical signatures are ECDSA, which doesn't batch the same way, and secp256k1 over M31 is foreign-field arithmetic, which I haven't costed yet. It's the obvious shape for a signature module.
+
+4. The 4 layers you mention @ajtowns are close to how this is built currently.
+
+   1. A header chain proof: You're correct it does not need ZK. What it gives is one proof for \~970k headers and an MMR commitment over block hashes that the later proofs bind to.
+   2. Undo data commitments. Each block proof outputs a commitment to the block plus, per input, the spent coin (amount, scriptPubKey, height, coinbase flag), i.e. Core's undo data.
+   3. UTXO set updates. A multiset argument over coin events across the chain: each spend consumes an existing coin exactly once, the undo records are those coins, unspendable outputs are excluded, and the duplicate-coinbase cases match Core. It ends in Core's `hash_serialized`
+   4. Full per-block validation. Part of this is already in there: Merkle and witness commitments, `CheckTransaction`, finality, BIP34, legacy sigops, weight, and (because they need the undo data) coinbase maturity, inputs ≥ outputs and coinbase ≤ subsidy + fees. What's missing: signatures, scripts, BIP68 and full sigop cost.
+
+The difference from your split is that amounts and maturity sit with the coin-set layer rather than per-block validation. I agree with your main point: layer 3 is the long-lived part across soft forks and the hard one to be confident in, and it's the part with the Lean soundness proofs.
+Your suggestion that layer 4 only needs the block plus its undo commitment is how the script module is meant to plug in. A proven undo commitment could also serve SwiftSync-style validation, as you say. I'd be happy to try that if someone wants it.
+
+Thanks again to both of you for the review! I'll keep working on this and see how I can make it better :slight_smile:
 
 -------------------------
 
