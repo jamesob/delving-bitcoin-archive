@@ -242,3 +242,13 @@ I think the BIP is pretty sound; but I haven't tried out the code on any real da
 
 -------------------------
 
+AntoineP | 2026-11-17 22:25:37 UTC | #10
+
+I updated my [mining simulation](https://github.com/darosior/miningsimulation) with 2026 values and after Fable fixed some bugs there.
+
+I also expanded on the impact of stale rates on profits in the README.
+
+I'm now [debating](https://github.com/darosior/miningsimulation/issues/2) whether to expand the model to consider internal delays, which could be used to model gains from switching to SV2 (which has been in the news lately).
+
+-------------------------
+
