@@ -432,3 +432,11 @@ https://github.com/bitcoin/bips/pull/2340
 
 -------------------------
 
+bitryonix | 2026-11-18 06:06:12 UTC | #35
+
+I'd appreciate it if you could weigh in the discussion at the PR about maximalist normalization, selective normalization, and minimal sorted unique keys, so that we can have the input from you all and conclude this bip.
+
+Thank you.
+
+-------------------------
+
