@@ -118,3 +118,34 @@ Thanks again to both of you for the review! I'll keep working on this and see ho
 
 -------------------------
 
+ajtowns | 2026-11-18 03:02:59 UTC | #5
+
+[quote="l-henri, post:4, topic:3070"]
+2. 70.7 of the 72 s is reading the 9.4 GB snapshot from disk to recompute its hash.
+[/quote]
+
+What's the (necessary) structure of the hash? Is it just a merkle-tree ordered by txid/vout (with MMR determining the layout), or is some rearrangement necessary?
+
+[quote="l-henri, post:4, topic:3070"]
+3. UTXO set updates. A multiset argument over coin events across the chain: ... It ends in Core’s `hash_serialized`
+[/quote]
+
+I guess I'm wondering if it would be "better" if core output the merklized hash you use above, rather than (or as well as) calculating the current hash serialized?
+
+[quote="l-henri, post:4, topic:3070"]
+The difference from your split is that amounts and maturity sit with the coin-set layer rather than per-block validation.
+[/quote]
+
+Right -- I'm mostly wondering if moving more stuff into the block validation layer could make the utxo-set-update proofs faster/cheaper (particularly on the proving side)?
+
+In some sense block validation (given a trusted hash of the undo data) is the easy part: with a trusted link to the undo data, and no requirement to calculate the utxo set, you can use the actual code to validate blocks in parallel and out of order. Or you can just ignore it entirely, treating the assumeutxo/zkproof set as the "genesis/pre-mine", on the assumption that that's what everyone else has agreed upon, and has already been widely verified; just using your node to do full validation of future blocks, not past history, but being confident that it'll report consistent results to anyone else who will ever accept any descendant block from the assumeutxo/zkproof point.
+
+I guess I'm thinking:
+ * have core and this agree on a utxo snapshot hash that's easy to calculate and easy to prove with
+ * do this proof every 14,112 blocks (per the bip452 proposal)
+ * have the assumeutxo snapshot hash plus block hash at those heights be independently verifiable prior to downloading any data
+
+If the utxo snapshot hash is a per-utxo merkle tree, that might also be useful in some sense for ~quarterly proof of reserves as well which presumably could also be done as a zkproof to avoid revealing explicit utxos.
+
+-------------------------
+
