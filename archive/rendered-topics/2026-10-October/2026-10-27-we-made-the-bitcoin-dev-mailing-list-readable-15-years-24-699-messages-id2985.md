@@ -44,3 +44,9 @@ Smaller things: the archive now refreshes twice a day, and seven people whose ma
 
 -------------------------
 
+alex | 2026-11-18 22:29:31 UTC | #5
+
+Any chance you could do the Segwit2x mailing list as well? It's my favorite piece of Bitcoin history.
+
+-------------------------
+
