@@ -149,3 +149,38 @@ If the utxo snapshot hash is a per-utxo merkle tree, that might also be useful i
 
 -------------------------
 
+l-henri | 2026-11-19 09:27:48 UTC | #6
+
+Hello hello,
+There are two structure for the hash. Both are over the coins in Core's order (txid, then vout):
+
+* **`hash_serialized`** is Core's: one SHA-256 stream over every coin's serialization. It's sequential, so checking a snapshot against it means reading all 9.4 GB in order, which is where the 70 s goes. The proof handles it in segments by passing the SHA-256 state from one segment to the next.
+* **A Merkle root**, which the proof also outputs. It's Blake2s, and each leaf is the previous coin's outpoint followed by the coin, so one path proves either that a coin is present or, through the two neighbours around it, that it's absent (\~1 KB). No reordering is needed. But the shape above the leaves currently follows how I cut the set into proving segments, so it isn't canonical yet. Agreeing with Core would mean fixing the shape (e.g. a plain balanced tree, or an MMR, over fixed-size chunks).
+
+> I guess I'm wondering if it would be "better" if core output the merklized hash
+
+I think it would. Compared with `hash_serialized` it gives:
+
+* per-coin inclusion and exclusion proofs against a value Core itself reports;
+* parallel computation, and a snapshot that can be downloaded and checked chunk by chunk, instead of one 9 GB sequential hash at the end.
+
+The open choice is the hash function. Blake2s (or another prover-friendly hash) is cheap to prove, but Core doesn't have it today. SHA-256 is native to Core but much more costly to prove.
+
+> I'm mostly wondering if moving more stuff into the block validation layer could make the utxo-set-update proofs faster/cheaper
+
+Possibly! But I haven't measured the split yet. My expectation is that hashing the block bytes dominates the cost. And every layer needs that.
+
+Amounts and maturity are a few columns on coin-event rows that exist anyway. I'll measure the per-component cost and report back.
+
+> have core and this agree on a utxo snapshot hash that's easy to calculate and easy to prove with / do this proof every 14,112 blocks / have the assumeutxo snapshot hash plus block hash at those heights be independently verifiable prior to downloading any data
+
+If this is useful to Core I'd be happy to adapt whatever is needed to make it work. If there's interest, I'd be glad to write up a concrete hash proposal (leaf encoding, tree shape, hash function) for discussion.
+
+What you describe is close to what exists. The 1.6 MB proof attests the block hash at the snapshot height, `hash_serialized` and the Merkle root, and `chainproof verify-snapshot` checks the proof before reading the snapshot. What's missing is your first point (a hash both sides compute natively) and a Core that accepts the result.
+
+On proof of reserves: that is very doable. What is missing would be ownership signatures, and folding it in a zk proof. 
+
+As a follow up question: the current proof was generated from a assumeUTXO snapshot. Do you think it would be valuable to create a proof from genesis? I'm waiting before doing this, given it has a cost :smile:
+
+-------------------------
+
