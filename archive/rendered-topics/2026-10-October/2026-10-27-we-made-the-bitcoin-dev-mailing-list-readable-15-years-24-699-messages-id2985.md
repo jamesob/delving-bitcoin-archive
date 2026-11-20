@@ -50,3 +50,11 @@ Any chance you could do the Segwit2x mailing list as well? It's my favorite piec
 
 -------------------------
 
+LearnBitcoin.com | 2026-11-20 15:26:54 UTC | #6
+
+Yes. Good timing too, because that list nearly disappeared: the Linux Foundation took its archive down, and nobody mirrored it the way bitcoin-dev was mirrored. It survives in the Wayback Machine as the monthly files, May to December 2017, a bit under 700 messages.
+
+I'm looking at adding it as its own list since it’s small and uses the same archive format as lightning-dev.
+
+-------------------------
+
