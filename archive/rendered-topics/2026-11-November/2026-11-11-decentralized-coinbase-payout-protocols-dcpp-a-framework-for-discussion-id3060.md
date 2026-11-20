@@ -356,3 +356,11 @@ In the mean time, let's hope a decentralized pool gets large enough as to have t
 
 -------------------------
 
+K-Singh | 2026-11-20 19:39:15 UTC | #9
+
+I hope that Lithos Protocol can be of use here. It is blockchain agnostic, fully decentralized, extremeley scalable (probably the most scalable decentralized pool out there) and avoids some of the issues above in terms of payout granularity and coinbase outputs (the output can be a single atomic swap to Ergo). A trustless bitcoin relay can be made for settlement of blocks.
+
+lithosprotocol.org
+
+-------------------------
+
