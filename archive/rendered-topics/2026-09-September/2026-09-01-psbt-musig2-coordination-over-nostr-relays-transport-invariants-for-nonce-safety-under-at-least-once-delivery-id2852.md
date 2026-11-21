@@ -130,3 +130,17 @@ the class of failure does not tolerate implementer discretion.
 
 -------------------------
 
+onedigitmoney | 2026-11-21 17:26:35 UTC | #9
+
+I'm a little late to the game here.
+
+Your three invariants (identity bound to session, round, and signer; per-session monotonic sequencing; consume-once nonce state) apply to a neighboring problem I've been specifying: setup and PSBT routing between remote cosigners over a hostile relay. Draft: https://github.com/KeylayBTC/msp
+
+I've adopted the first two. Counters were already per sender and checked before decryption (§6.5). Message identity was random; after reading your thread it is now `mid = H(channel ‖ sender key ‖ type ‖ round)`, truncated to 16 bytes. A repeat with the same body is ignored, and a different body under the same identity aborts. The third invariant doesn't arise yet, because v0.1 carries PSBTs, not MuSig2 or FROST rounds.
+
+One question. I derive `round` from ceremony state instead of carrying it on the wire. After a reconnect, two sides can briefly disagree about that state. Is that a problem for idempotence, or should `round` be an explicit, authenticated field?
+
+Thanks for writing these down.
+
+-------------------------
+
