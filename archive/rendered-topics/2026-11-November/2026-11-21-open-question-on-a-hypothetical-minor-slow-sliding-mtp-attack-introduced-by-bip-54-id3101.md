@@ -24,3 +24,17 @@ To conclude, I don't believe it's changing anything for BIP54, though, if I'm co
 
 -------------------------
 
+LearnBitcoin.com | 2026-11-22 15:40:20 UTC | #2
+
+Two things that might help bound this, one from the code and one from the chain.
+
+The new rule is measured from block N-1, not from the MTP, so pinning the MTP in the past doesn't do anything by itself. What matters is how far ahead of real time T(N-1) can be. A node only accepts N-1 if it's at most 2 hours ahead of its own clock (MAX_FUTURE_BLOCK_TIME, 7,200 s), and 7,200 s is exactly the BIP 54 margin. So for any N-1 a node has accepted, T(N-1) - 7200 is at or before that node's current time, and a block N stamped with the honest current time passes. To make an honest N invalid, N-1 has to be further in the future than the honest miner's own side of the network would accept, which is the clock-disagreement case you already set aside.
+
+Core's block template (current master) handles it too. GetMinimumTime in node/miner.cpp raises the minimum time of a retarget block to T(N-1) - MAX_TIMEWARP, where MAX_TIMEWARP is 600 s (the BIP 94 value, stricter than BIP 54's), and getblocktemplate reports it as mintime. A miner building on a Core template wouldn't produce the invalid block. Its timestamp would just come out later.
+
+From the chain: across all 484 retarget boundaries through block 975,744, block N was earlier than block N-1 only 10 times. The worst was -1,127 s at 203,616 in October 2012, about a sixth of the margin. The worst since 2015 is -43 s, at 812,448 in October 2023.
+
+The boundary list is a CSV, through 973,728: https://www.learnbitcoin.com/downloads/time-warp-seams.csv
+
+-------------------------
+
