@@ -965,11 +965,11 @@ I have updated the post at the top to include the $w$-bound accurate formula. It
 
 -------------------------
 
-zawy | 2026-11-22 22:15:32 UTC | #31
+zawy | 2026-11-23 12:17:46 UTC | #31
 
 
 
-TL;DR: A possible modification to bitcoin's DAA to increase $T_{min}(U,W)$ and $W_{min}(U,T)$.
+TL;DR: This is an attempt to modify Bitcoin's DAA to increase $T_{min}(U,W)$ and $W_{min}(U,T)$. I suspect there's no way to lower the bound other than simply making the averaging window smaller which sacrifices stability in the random variation of the difficulty. Other algorithms have better stability for a given window-size but are still subject to the equations for $T_{min}(U,W)$ and $W_{min}(U,T)$.
 
 Definitions:
 
@@ -1000,6 +1000,20 @@ The modified DAA above results in the following:
 $$
 T_{\min} \approx U - \frac{\ln(W)}{\ln\ln(W)}
 $$
+
+If $T_{min}(U,W)$ is normalized to give the same stability ( $T_{min}(stability,W)$ ), I suspect the equations would be the same.
+
+To make $T_{min}(U,W) = T(U,W)$ drastic measures are needed: Use a 1-block averaging window, real-time targeting (RTT), and the CDF of the exponential function:
+
+$D \mathrel{*} = \frac{0.5 - CDF}{0.5}$
+
+or
+
+$D \mathrel{*} = e^{0.5 - CDF}$
+
+where $CDF = 1 - e^{-t/600}$
+
+Where t is the timestamp the miner uses in his block header template minus the prior timestamp and monotonic timestamps and accurate solvetimes are enforced. This isn't impossible as I've detailed before. These equations are the only ones I've found that keep the average block time correct, although I'm not certain I went below a block averaging period below 3, i.e. I know taking the 3rd root of these equations results in the correct average solvetime even when hashrate varies a lot. They also give the most stable difficulty for a given speed of response, beating the prior best known algorithms, ASERT and WTEMA. Their results seem pretty equivalent. The 2nd one is an EMA.
 
 -------------------------
 

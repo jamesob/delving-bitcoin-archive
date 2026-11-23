@@ -117,3 +117,33 @@ Sean Carlin
 
 -------------------------
 
+scarlin90 | 2026-11-23 14:18:32 UTC | #5
+
+Hi All, 
+
+A quick progress update on Signing Room and the stateless PSBT coordination BIP draft. 
+
+Yesterday we released v4.2.0 of the coordinator (alongside v2.2.0 of signing-room/sdk), introducing end-to-end support for 2-round MuSig2 Taproot keypath ceremonies (BIP-327 / BIP-373) over the ephemeral, operator-blind relay.
+
+Key protocol & specification updates: 
+
+Updated the BIP draft to specify the 2-part ceremony state machine, separating Round 1 setup and public nonce collection from Round 2 partial signature aggregation  while preserving complete relay blindness. 
+
+Optimized the audit log wire protocol, instead of repeatedly broadcasting full log arrays, the relay now dispatches incremental updates alongside a running SHA-256 hash chain (\`chainHash\`), substantially reducing network overhead while providing client-verifiable tamper evidence. 
+
+You can inspect the updated BIP draft here: 
+
+https://github.com/scarlin90/bip-stateless-psbt-coordination/blob/d1e3fc8f5b4d02551a1528d23c094f6df56cd259/bip-draft.md
+
+Full release notes and implementation details: 
+
+https://github.com/scarlin90/signingroom/releases/tag/v4.2.0
+
+Feedback and critiques are always welcome.
+
+Best regards, 
+
+Sean Carlin
+
+-------------------------
+
