@@ -1,6 +1,8 @@
 # Bounds on chain length with BIP-54 timewarp fixes
 
-sipa | 2026-10-22 02:16:44 UTC | #1
+sipa | 2026-11-15 16:33:53 UTC | #1
+
+**Cross-post on https://wuille.net/posts/bip54-chain-length-bounds/**
 
 <div data-theme-toc="true"> </div>
 
@@ -963,9 +965,41 @@ I have updated the post at the top to include the $w$-bound accurate formula. It
 
 -------------------------
 
-buqineli | 2026-11-03 20:37:45 UTC | #30
+zawy | 2026-11-22 22:15:32 UTC | #31
 
-The \(w \le 2^{208}\) condition is doing real work in the chain-work rounding bound: it lets you lower-bound each block’s work by \(W_\text{unit}d\). It may be worth stating close to the headline result that the explicit formula is proved only up to that work limit, even though the practical \(2^{128}\) security cutoff is much lower.
+
+
+TL;DR: A possible modification to bitcoin's DAA to increase $T_{min}(U,W)$ and $W_{min}(U,T)$.
+
+Definitions:
+
+- T = chain time since genesis in units of 2 weeks.
+- U = number of 2016-block periods since genesis.
+- W = chain work in units of work done in the first period.
+
+An obvious question is if there's a DAA that can increase $T_{min}$  to be closer to T and for T = U.  This means height would be a better measure of time and a private mine could not get more blocks than the public chain unless it uses proportionally more work. 
+
+The problem the equations describe is that the DAA can't keep up with persistent increases in hash rate which lowers $T_{min}(U,W)$ and $W_{min}(U,T)$.  I view $W$ and $T$ as what the public chain experiences and $T_{min}(U,W)$ and $W_{min}(U,T)$ as how much an attacker can cheat.  The problem can be alleviated by shorter DAA averaging windows to increase $U$ for a given amount of time since genesis. A short window allows a faster response to changes in hash rate but at a cost in stability.  The problem appears in all DAAs I am aware of because they have an "equivalent averaging window", so the generic equation for $T_{min}$ below applies to all of them. However, some DAA's can have the same stability with a smaller "averaging window", so the $T_{min}(U,W)$ and $W_{min}(U,T)$ problem can be alleviated by up to 50% compared to Bitcoin's DAA if stability of the difficulty during constant hashrate is the standard.
+
+Finding something significantly better might reveal a better class of DAAs.
+
+The following is one idea. It makes the difficulty in the next period more difficult if the time since genesis is ahead of schedule. The difficulty is expressed as "hashes to find a block", i.e. bitcoin's difficulty times 2^32.
+
+difficulty *= 600/timespan * (2016 + (600 * height - min(chain_time, 600 * height))
+
+With this modification, difficulty can be made harder than the current DAA to slow the chain down if too many blocks since genesis have been found. The converse ("speed it up if blocks have been too slow") is stopped by the $min()$ function because there would be an exploit.  I have not experimentally confirmed this equation is a "good DAA". It's possible if not likely that this injects instability such that it doesn't work any better than just making the 2016 averaging window smaller to get the equivalent benefit in speed at a cost in stability. Speed is an inverse linear function of window size while stability is an inverse of its sqrt. If this method doubles the instability, then using a window size 1/4 of 2016 would give the same speed and stability benefit.  
+
+For the U = 499 example, this raises $T_{min}$ from 460 to 489, almost 1/4 the error, at an unknown cost in stability.
+
+To review, $T_{min}$ for bitcoin's DAA without timespan limits and a large future time limit:
+
+$$ T_{\min} \approx U\left[ \left(\frac{1}{W}\right)^{1/U} \right] $$
+
+The modified DAA above results in the following:
+
+$$
+T_{\min} \approx U - \frac{\ln(W)}{\ln\ln(W)}
+$$
 
 -------------------------
 
