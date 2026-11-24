@@ -92,3 +92,30 @@ And then hopefully we never use any of this :slight_smile:
 
 -------------------------
 
+duncan0k | 2026-11-24 12:41:26 UTC | #2
+
+I can put output and BTC numbers on the "no accidental secret" side of your dilemma, though I have nothing per user. Leaving P2TR aside, I read an output as having no accidental secret left if its public key is in the output script itself, or if a confirmed transaction has already revealed the key or script behind its hash. My [UTXO census at block 975,019](https://delvingbitcoin.org/t/how-much-btc-sits-behind-keys-or-scripts-already-on-chain-block-975-019/3088) finds 6,942,209 BTC in 47,351,492 such outputs, 34.5% of the 20,109,207 BTC unspent. Its headline of 7,164,754 BTC (35.6%) includes P2TR, which is in a separate row here because I'm not sure where it belongs in your framework.
+
+| Bucket | Outputs | BTC | Share of unspent BTC |
+| --- | ---: | ---: | ---: |
+| P2PKH, P2WPKH, P2SH, P2WSH with key or script on chain | 44,688,046 | 5,227,522 | 26.0% |
+| P2PK | 44,972 | 1,714,619 | 8.5% |
+| Bare multisig | 2,618,474 | 68 | <0.01% |
+| Subtotal, no accidental secret left | 47,351,492 | 6,942,209 | 34.5% |
+| P2PKH, P2WPKH, P2SH, P2WSH with nothing found on chain | 63,173,680 | 12,941,835 | 64.4% |
+| P2TR | 53,016,095 | 222,545 | 1.1% |
+| Other forms, not classified | 117,480 | 2,618 | 0.01% |
+| Total | 163,658,747 | 20,109,207 | 100% |
+
+Unspent outputs at block 975,019, rounded to whole BTC. Exact amounts and output counts per type are on the [method page](https://snapshots.ark0.si/method.html). The "nothing found" row is the sum of those four types' totals on that page minus the top row above.
+
+The 34.5% subtotal is a lower bound on what has no accidental secret left, and the 64.4% is an upper bound on what still has one in P2PKH, P2WPKH, P2SH and P2WSH. Anything disclosed off chain, like the xpub handed to a server in your example, or on chain in a position the census rules don't read, moves from the second number to the first.
+
+The census isn't split by when coins were created, so I can't say how much of the 1,714,619 BTC in P2PK predates BIP32, though none of it has an accidental secret to fall back on. For the same reason it can't say how the age-based version of your eras would split the coins. And whether an output has an essential secret can't be seen on chain at all, as you point out.
+
+I can't give a multisig share either. The census knows whether a P2SH or P2WSH script has been revealed but doesn't look at what kind of script it is, and nobody can classify an unrevealed script from the chain. The nearest figures I have aren't split by script type: 749,474 BTC in P2WSH outputs whose script is on chain, and 371,870 BTC in exposed P2SH outputs that match a revealed script and not the nested-P2WPKH wrapper of any key on chain (`exposed_sh20_only` in the [results file](https://github.com/duncan0k/btc-exposure-index/blob/2a0f4b053cad2ae3dc101a4e4c154ac2b4706f25/results/975019/utxo-census-stats.json)).
+
+Where would you put P2TR? The census counts all 222,545 BTC in 53,016,095 P2TR outputs as exposed because the output key is on chain, but the internal key or script tree you list as an accidental secret isn't on chain until a script-path spend reveals it.
+
+-------------------------
+

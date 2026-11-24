@@ -348,3 +348,41 @@ Also worth noting that if we deploy SHRINCS in the real-world, each ID will repr
 
 -------------------------
 
+MikKud | 2026-11-24 13:45:10 UTC | #23
+
+**Security analysis of SHRINCS**
+
+We have posted the first version of the security analysis of SHRINCS: https://github.com/SHRINCS/Security-Analysis
+
+The repository has three papers:
+
+\- **SHRINCS Security Analysis** (the main paper). The full specification of SHRINCS and its EU-CMA security proof. We reduce the security of SHRINCS to the properties of the underlying tweakable hash functions, message-digest functions and PRFs, and evaluate the bounds for classical and quantum adversaries.
+
+\- **ITSR without reprogramming.** A classical bound for interleaved target subset resilience, the property of the message hash that protects FORS.
+
+\- **Undetectability.** A quadratic quantum bound $4q^2/|M|$ for multi-target undetectability, in place of the linear bound $12q/\\sqrt{|M|}$ known before.
+
+The last two results are not specific to SHRINCS. They apply to SPHINCS+ and SLH-DSA as well, so we put them in separate papers.
+
+**It is a lot of pages...**
+
+SHRINCS has a stateful part (FXMSS with WOTS+C) and a stateless fallback (SLH-DSA) under one public key, and both use the same hash function. So we cannot just combine the security of the two parts as black boxes. The proof opens both component proofs, and lets the reductions for one path simulate the other path. The signer can choose the shape of the stateful tree, so the bound has to hold for every shape. On top of that, the paper contains the full specification, every step is written as an explicit game hop with its exact loss, and every bound is evaluated for the proposed parameters.
+
+**What we found along the way**
+
+\- **The cost of the reduction.** The tight SPHINCS+ theorem of the earlier paper \[HK22\] states its hash-function terms at the running time of the forger, but its reductions build the whole virtual hypertree. At the $h = 63$ parameter sets of FIPS 205 this is more than $2^{72}$ hash evaluations. If we charge this work, it alone sets a security bound at about $2^{-52}$, already for classical adversaries. We fix the accounting with a collection oracle (Sections 4.3 and 5) and restate the SPHINCS+ bound under it.
+
+\- **Reprogramming.** Both paths share a single reprogramming step, and we bound it more sharply. Compared with the generic reprogramming bounds, this adds 34 bits classically on the stateless path and 33.4 bits for the full scheme.
+
+\- **Concrete numbers.** For the proposed parameters, the bounds give between 121.4 and 122.7 bits classically (in the query-counting sense of Section 5.1). Quantumly, they reach 1 at $2^{58.0}$ to $2^{59.2}$ hash queries.
+
+These numbers rest on three conjectures (Section 1.2 and Section 7): a bound for SM-DSPR; that the collection-oracle lemma, which we prove for ideal hash functions, transfers to the concrete ones; and that the counter search of the WOTS+C signer always succeeds within its $2^{16}$ counters.
+
+**Please review**
+
+These are drafts. They have not been sufficiently peer reviewed yet, and a proof of this size can have mistakes. We would be grateful for any review of the statements, the proofs and the concrete figures. If you find a problem, please open an issue in the repository or reply here.
+
+There is also ongoing work on a Lean 4 formalisation of the three documents by Kev (kevaundray): https://github.com/SHRINCS/Security-Analysis/pull/1 . It is still a draft and has not been reviewed yet.
+
+-------------------------
+
