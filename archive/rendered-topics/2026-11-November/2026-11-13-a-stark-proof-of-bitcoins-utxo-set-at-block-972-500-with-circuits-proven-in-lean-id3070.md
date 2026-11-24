@@ -184,3 +184,25 @@ As a follow up question: the current proof was generated from a assumeUTXO snaps
 
 -------------------------
 
+ajtowns | 2026-11-24 04:19:47 UTC | #7
+
+Hmm, switching to blake2s would be more of an ask than just doing a merkle tree of the snapshot, I guess. If I were you, I'd publish my own "trusted merkle hashes" for snapshots at given blocks, and use that as the same trust basis of core's assumeutxo hashes, as well as providing a quick tool to re-calculate those hashes (ie the 70s runtime), so that it's separated out. 
+
+[quote="l-henri, post:6, topic:3070"]
+My expectation is that hashing the block bytes dominates the cost. And every layer needs that.
+[/quote]
+
+Hmm, that's fair -- 14k blocks is probably around 28GB of data, plus however much undo data is implied.
+
+It's not necessarily true that both layers need that, I think. If you feed blk*.dat and rev*.dat into the per-block prover, you could generate tx+undo commitments under a more efficient hash (blake or poseidon or something?) and then feed those hashes into the utxo-update proof?  Could restructure the data to be more accessible too, eg `tx=H( txid, wtxid, ver, locktime, Tree_vin( txid, vout, coin_amount, coin_height, coin_was_coinbase, nseq, H(H(sig), H(wit)) ), Tree_vout( vout, amount, spk ) )` That data should be possible to calculate from the output of `bitcoin-cli getblock $HASH 3` I think -- so in theory a full node could (optionally) generate and cache those roots per-block fairly cheaply and give improved auditability in a similar way to the muhash hash provided by `gettxoutsetinfo` when coinstatsindex is enabled. (`getblock 3` is pretty slow, I think mostly due to turning it into json, but might be fine for very small scale experiments)
+
+Alternatively/additionally, I guess switching to [Flock](https://github.com/succinctlabs/flock) or [Binius64](https://github.com/binius-zk/binius64) where sha256 is faster could help?
+
+[quote="l-henri, post:6, topic:3070"]
+the current proof was generated from a assumeUTXO snapshot. Do you think it would be valuable to create a proof from genesis?
+[/quote]
+
+If it were me, I'd keep tweaking at the approach with modest snapshot steps (30k blocks from 935000 to 965000 or 14k blocks between multiples of 7*2016 blocks or something smaller that's easy to iterate on) until a proof from genesis isn't expensive.
+
+-------------------------
+
