@@ -186,3 +186,27 @@ EDIT: oh well, it looks like I'm out of time to edit the original post. But I wi
 
 -------------------------
 
+salvatoshi | 2026-11-25 19:44:19 UTC | #11
+
+I want to add a small implementation note regarding the `psbt_session_id`.
+
+In my post above, I wrote:
+
+[quote="salvatoshi, post:1, topic:626"]
+Each session could be identified by a `session_id` computed by hashing enough information to (practically) uniquely identify the transaction being signed [...]
+[/quote]
+
+and it was indeed implemented in similar terms in the Ledger Bitcoin app (since version 2.4.0, released in March 2025).
+
+However, that made it impossible to pre-generate nonces for one or more future transactions, losing an important feature of for the UX of MuSig2-based wallet accounts.
+
+The latest version of the app (version 2.6.0 released yesterday) makes the `session_id` depend on:
+- the [BIP-388](https://github.com/bitcoin/bips/blob/9f3d3bc6a60db16efbdc71ac8f7ea30217fc0c39/bip-0388.mediawiki) wallet policy;
+- (if given) additional entropy provided in the PSBT via a global field with 'proprietary' key `MUSIG2_SESSION_ID`.
+
+The additional entropy allows software wallets to manage multiple parallel sessions for the same account, otherwise a new session would collide and overwrite the previous one.
+
+There are still some non-trivialities related to the handling of the PSBT fields, mostly because the MuSig2 fields defined in [BIP-373](https://github.com/bitcoin/bips/blob/9f3d3bc6a60db16efbdc71ac8f7ea30217fc0c39/bip-0373.mediawiki) like `PSBT_IN_MUSIG2_PUB_NONCE` require the aggregate MuSig2 pubkey as part of the PSBT key for each input, which is of course unknown since the future transaction inputs are (hopefully) UTXOs at different addresses. However, translating the PSBT keys for the pubnonces from an artificial PSBT used in Round 1 to the actual PSBT used in Round 2 is mechanical and I'm not expecting it to be a big obstacle for implementations.
+
+-------------------------
+
