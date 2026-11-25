@@ -237,9 +237,15 @@ The compressed block format deserves fault-injection testing alongside the chain
 
 -------------------------
 
-fifowiti | 2026-11-03 20:37:43 UTC | #10
+bruno | 2026-11-25 12:55:58 UTC | #11
 
-The on-disk format boundary deserves particular scrutiny: Core tools and recovery code assume the usual block-file framing, so a compressed record needs an unambiguous discriminator that cannot be mistaken for a legacy size or payload. I’d also test truncated writes and restart/reindex after crashes at each point in the record write; matching a fully built chain won’t cover those failure modes.
+Interesting. I'm using RocksDB on [exnode](https://github.com/brunoerg/exnode). 
+
+Basically to store all of exnode's indexes, chain metadata, and transient blocks. Inside RocksDB, data is flushed into immutable .sst files divided into ~4 KiB blocks so lookups only read and decompress one block at a time, and we enable compression: :lz4 across all column families and LSM levels (auto-detected at startup, falling back to :none if the build lacks LZ4) to shrink those index blocks with minimal CPU cost, leaving only :pending's large raw block values (>= 4 KiB) uncompressed in BlobDB .blob files since raw Bitcoin blocks compress poorly and are deleted once committed. 
+
+So far, the pros are less disk usage and I/O as well as more effective OS page cache. However, I've been noticing some cons: CPU overhead, more RAM usage (we keep two copies when a block is read - compressed and uncompressed) and some latency spikes with heavier codecs. 
+
+Will take a look at your code.
 
 -------------------------
 
