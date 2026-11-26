@@ -37,3 +37,9 @@ I welcome technical critique on the BIP-32 chain-code knowledge-asymmetry assump
 
 -------------------------
 
+seed-cat | 2026-11-26 18:39:00 UTC | #2
+
+Do you have an estimate of how much Bitcoin is in legacy UTXOs pre-BIP32?  Is there a solution for that?
+
+-------------------------
+

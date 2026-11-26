@@ -249,3 +249,9 @@ Will take a look at your code.
 
 -------------------------
 
+bkeroack | 2026-11-26 16:32:26 UTC | #12
+
+RocksDB is a direction that several alt-nodes are converging on. My effort (satd) uses it as well, but a more conventional storage philosophy patterned after Core. Not focused on space optimization specifically though that's a good area to explore considering many implementations are now adding indices as well which increases storage demand.
+
+-------------------------
+
