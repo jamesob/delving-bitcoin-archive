@@ -58,3 +58,21 @@ I'm looking at adding it as its own list since it’s small and uses the same ar
 
 -------------------------
 
+LearnBitcoin.com | 2026-11-26 12:55:59 UTC | #7
+
+It's up: https://www.learnbitcoin.com/archive/lists/segwit2x
+
+722 messages in 75 threads, May 31 to December 1, 2017. (My earlier post said a bit under 700. I had undercounted July.)
+
+The Linux Foundation's copy is gone and I found no other mirror, so this was rebuilt from what the Wayback Machine kept. The monthly archive files gave the headers, which is what makes threading and permalinks by Message-ID work. The text comes from each message's own archived page, because the monthly files had replaced every non-ASCII character with a question mark. Every message links to its Wayback capture.
+
+Same treatment as bitcoin-dev: one page per thread, messages as sent, no summaries. It shows up in the archive search too.
+
+Two things came with it. Anyone who wrote to both lists has one people page covering both, matched by email address and never by name. And a link inside a message to one of this list's old lists.linuxfoundation.org pages now opens that message here, on both lists. Those addresses forward to gnusha's redirector, which had no entry for this list when I checked, so the links had been dead.
+
+If anyone kept an mbox of the list, I would like to check this copy against it.
+
+Next is lightning-dev. It was a Linux Foundation list in the same archive format, so the importer built for this one already reads it. It's about six times the size, roughly 4,000 messages from 2015 to 2023, so no date yet. If anyone has an mbox or a tarball of it, that would make it faster and more exact than rebuilding from page captures. When it's up I'll post it in its own thread rather than here.
+
+-------------------------
+
