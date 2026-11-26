@@ -386,3 +386,29 @@ There is also ongoing work on a Lean 4 formalisation of the three documents by K
 
 -------------------------
 
+kdmukai | 2026-11-25 21:43:24 UTC | #24
+
+So I don't claim to be at all well-versed on this topic. But after hearing that some retail hardware wallets had been benchmarked for some of these schemes, I was curious how SeedSigner's off-the-shelf hardware boards would fare.
+
+What follows is 100% Claude. It's beyond me to do this on my own.
+
+The results seem pretty encouraging though!
+
+I had Claude time the schemes from Blockstream's hardware wallet post, plus ML-DSA and FN-DSA, on five boards from SeedSigner's current and planned hardware. Report, code, and methods: https://kdmukai-bot.github.io/post-quantum-signature-benchmarks/
+
+The set that post calls "SPHINCS+ 2^40" uses the same SLH-DSA parameters as the stateless path in the current [shrincs-bip](https://github.com/SHRINCS/shrincs-bip) draft (h=45, d=5, h'=9, k=10, a=13, w=16; 5,776-byte signatures). So its rows should time stateless SHRINCS, apart from a few hash calls in message hashing (not checked against the draft's test vectors).
+
+Our fastest build, one core, mean seconds:
+
+|  | Pi Zero 2 W | Pi Zero | ESP32-P4 | ESP32-S3 | RP2350 |
+|----|----|----|----|----|----|
+| Signing | 1.93 | 3.91 | 4.89 | 5.79 | 7.71 |
+| Key generation | 0.32 | 0.66 | 0.79 | 0.94 | 1.24 |
+
+* Signing takes 21 to 22% less time than SLH-DSA-SHA2-128s on every board, close to the draft's 23% fewer SHA-256 compressions.
+* A device restored from a static seed backup can sign through the stateless path in seconds on this class of hardware.
+
+The report's SHRINCS-B and SHRINCS-L rows time Blockstream's Jade code, which predates the current draft (different stateful parameters, PORS+FP stateless path), so they do not describe the draft.
+
+-------------------------
+
