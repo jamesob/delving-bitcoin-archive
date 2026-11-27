@@ -371,3 +371,75 @@ This sounds a lot like [the varops budget proposal](https://github.com/bitcoin/b
 
 -------------------------
 
+conduition | 2026-11-27 15:22:00 UTC | #17
+
+## Format
+
+- Add a new transaction field, specifically for new transaction data format extensions. Call it the "extensions" field.
+  - An "extension" on the wire is just an opaque blob of data followed by an optional hash, encoded as `compact_size(len(data)) || data || hash`.
+  - The extensions field itself is a vector of individual extensions (blob+hash), one for each sequentially-introduced protocol extension.
+  - The first few extensions will probably be introduced to support new PQ signature algorithms.
+  - Extensions with unrecognized versions are not parsed, so they could be used for opaque data parsed in unknown ways by future software.
+  - Each extension field includes a slot for committing to future extensions, to implement @sipa's idea re: "chaining witness style commitments".
+- Example layout:
+
+```yaml
+TX: 
+- version: 0x02
+- marker: 0x00
+- flag: 0x02 # new
+- vin: ...
+- vout: ...
+- witness:
+  - vin[0]: <e0> ...
+  - vin[1]: ... 
+  - vin[2]: ...
+- extensions: # new
+  - version: 4
+  - EXT_SHRINCS: <sig1> <e1>
+  - EXT_FALCON:  <sig2 || sig3> <e2>
+  - EXT_SQISIGN: <sig4 || sig5> <e3>
+  - EXT_SNARK:   <proof> <e4>
+- locktime
+```
+
+I added the `EXT_SNARK` extension just to show this isn't necessarily only useful for adding new signature schemes. 
+
+- The extension commitments `e0...e4` are computed recursively by hashing each extension blob with the hash of its successor: 
+  - `e4 = 0x00` (i.e. "no further extensions")
+  - `e3 = 0x01 || sha256(e4 || proof)`
+  - `e2 = 0x01 || sha256(e3 || sig4 || sig5)`
+  - `e1 = 0x01 || sha256(e2 || sig2 || sig3)`
+  - `e0 = 0x01 || sha256(e1 || sig1)`
+  - We're basically building an unbalanced pseudo-merkle tree over the extension blobs. 
+- The "root commitment" `e0` needs to be placed into the TX witness field. 
+  - The obvious thing discussed previously in this thread would be to have some sort of dedicated annex-like value allocated in the witness format of any future output type (e.g. P2TRv2, P2MR, etc), then require any transaction that uses the `extensions` field to include `e0` in the annex of a specific input, e.g. "the first possible input must have `e0` as its first witness element".
+- A transaction supporting at most extension version $i$ can be collapsed to version $i - 1$ by stripping the $i$-th extension from the transaction, and populating the $(i-1)$-th commitment with its hash. The legacy (segwit) format is acquired by collapsing down to version 0: no extensions.
+- When sending over P2P to a node that supports extension version $i$, we collapse the extensions field to version $i$, and elide the commitments for all extensions prior to $i$.
+
+## Computing Weights
+
+- Each extension has a sequentially-allocated version number associated, to signal compatibility. 
+  - Basically this version number indicates the number of extensions the transaction uses, where legacy transactions are version 0 (no extensions), and to use version $i$ you must support all extension versions up to and including $i$.
+- Any extension version $i$ must have an associated cost function $f_i(v_i)$ where $v_i$ is the $i$-th extension blob (i.e. for the case of PQ signatures, this would be a bunch of concatenated signatures in some predefined serialization format). $f_i$ returns an integer value in WU.
+  - This function could be as simple as multiplying the extension blob's size by a constant ($f_i(v_i) = c \cdot |v_i|$), or it could more subtly depend on the internal mechanics of the associated extension. Could also pass in other TX or witness data to this function.
+- Let $\mathbf T_n$ denote an encoded transaction supporting at most extension version $n$. 
+- Let $\mathbf T_0$ denote the same transaction but all extension fields stripped (i.e. today's TX format).
+- Let $c(x)$ denote the size of a [CompactSize integer](https://learnmeabitcoin.com/technical/general/compact-size/) encoding the integer $x$.
+- The block weight for a transaction $\mathbf T_n$ can be computed explicitly by summing the weight of each extension:
+  - $|\mathbf T_0| + 1 + \sum_{i=1}^n \left( c(|v_i|) + f_i(v_i) \right)$
+  - The extra $+ 1$ term accounts for the extension version byte.
+  - The $c(|v_i|)$ terms account for the CompactSize length prefixes on each of the extensions, which are counted 1:1 as WU.
+
+
+## Other Properties
+
+A few notes about this design:
+
+- Nodes that can parse extension v1 TXs can still parse transactions of any extension version $>1$, and will see them as consensus-valid (they don't need to be able to parse extension blobs to check the commitment `e0`). But V1 nodes can't compute the correct TX weight or verify the opaque payloads of unknown extensions, so the compatibility ends at block validity, because nodes need to compute TX weights when validating a block.
+- Because we need the root extension commitment `e0` somewhere in the witness field, i don't think this scheme would support the use of extensions when spending only pre-taproot output types because none of the inputs would have an annex-like field available to use for `e0`. Maybe there's a script-level trick like what @garlonicon [suggested above](https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702/2) to commit legacy witnesses to the extensions field?
+- This design uses a transaction-wide commitment, not just because it's more efficient than per-input, but also because this allows us to define extensions that apply to legacy output types that don't have an annex field, provided the transaction has at least one annex slot available for the TX-wide extension commitment `e0`. This could be very handy (e.g. for rescue protocols, or adding encumbrances to future output types in a backwards-compatible way).
+- We still need to define an extension that enables verification of a new signature scheme. It would be nice if this were done in a generic way that can be used as a reference way to introduce further new signature schemes in the future.
+
+-------------------------
+
