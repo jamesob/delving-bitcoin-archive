@@ -1,6 +1,6 @@
 # Handling PQ signatures on the stack
 
-conduition | 2026-11-27 00:06:10 UTC | #1
+conduition | 2026-11-27 00:08:48 UTC | #1
 
 A few weeks ago i opened this PR, which would be the first step towards optimizing core to handle large stack elements: https://github.com/bitcoin/bitcoin/pull/36721
 
@@ -106,6 +106,20 @@ GSR's varops budget ([BIP-440](https://github.com/bitcoin/bips/blob/9f3d3bc6a60d
 
 - Complex protocol implementation
 - Slew of additional vetting and testing needed
+
+## Isolationist Option: Sig stack
+
+Introduce a new stack specifically for signatures, and have CHECKSIG opcodes pop from that stack and only that stack. Keep signatures completely separate from the regular main/alt stacks. No opcodes can act on signatures except those which explicitly pull from the sigstack. 
+
+### Benefits
+
+- Conceptually clean.
+- Demonstrably nullifies interpreter DoS risks of large stack elements, outside the CHECKSIG opcodes and any others that touch the sigstack.
+
+### Drawbacks
+
+- Removes features: we can't work with signatures in script at all.
+- Departure from traditional bitcoin script semantics
 
 
 ## Middle option: Mix & Match
