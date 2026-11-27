@@ -142,3 +142,17 @@ My view, fwiw:
 
 -------------------------
 
+conduition | 2026-11-27 15:18:16 UTC | #3
+
+[quote="ajtowns, post:2, topic:3128"]
+* :person_gesturing_no:Opcode blacklisting – defeats the purpose: if we’re trying to have big signature data on the regular stack to be able to manipulate it in interesting ways, then this approach would blacklist some of those interesting ways
+[/quote]
+
+[quote="ajtowns, post:2, topic:3128"]
+* :1st_place_medal: Isolated sig stack – this seems the simplest approach if you’re willing to throw away the idea of scripts doing clever things with signature data (or defer it until GSR/similar is implemented on some separate track). It has the additional potential benefit that an isolated stack could get a greater discount (as [discussed here](https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702)).
+[/quote]
+
+I had assumed that new witness discounts would probably not be deployed alongside SHRINCS, but if you're considering that, then we should probably do something a little more thorough. One possible idea here, similar to @sipa's witness styles idea
+
+-------------------------
+
