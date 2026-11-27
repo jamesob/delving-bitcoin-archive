@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 3128,
   "topic_slug": "handling-pq-signatures-on-the-stack",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "My biased suggestion would be to minimize the drawbacks of the adventurous option and try to solve this at the root cause. Script has arbitrary fixed limits and no real accounting for compute.\n\nIf GSR is viewed as too ambitious, I would make PQ sigs depend only on BIP 440: introduce 0xC2, increase the stack limits, and maybe fix the number type (unsigned big integers), since that can't be soft-forked in cleanly later. This would leave restored opcodes etc. open, but significantly reduce the consensus surface compared to full GSR.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "My biased suggestion would be to minimize the drawbacks of the adventurous option and try to solve this at the root cause. Script has arbitrary fixed limits and no real accounting for compute. \nIf GSR is viewed as too ambitious, I would make PQ sigs depend only on BIP 440: introduce 0xC2, increase t&hellip;",
   "truncated": true,
   "post_url": "/t/handling-pq-signatures-on-the-stack/3128/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
