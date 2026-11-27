@@ -371,7 +371,9 @@ This sounds a lot like [the varops budget proposal](https://github.com/bitcoin/b
 
 -------------------------
 
-conduition | 2026-11-27 15:22:00 UTC | #17
+conduition | 2026-11-27 15:22:26 UTC | #17
+
+One suggested design, similar to @sipa's that implements chaining.
 
 ## Format
 

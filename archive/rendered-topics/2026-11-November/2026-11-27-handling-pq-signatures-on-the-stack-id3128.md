@@ -142,7 +142,7 @@ My view, fwiw:
 
 -------------------------
 
-conduition | 2026-11-27 15:19:04 UTC | #3
+conduition | 2026-11-27 15:22:42 UTC | #3
 
 [quote="ajtowns, post:2, topic:3128"]
 * :person_gesturing_no:Opcode blacklisting – defeats the purpose: if we’re trying to have big signature data on the regular stack to be able to manipulate it in interesting ways, then this approach would blacklist some of those interesting ways
@@ -156,7 +156,7 @@ I mean, you can still do interesting things, e.g. OP_SIZE on SHRINCS sigs would 
 
 I had assumed that new witness discounts would probably not be deployed alongside SHRINCS, but if you're considering that, then we should probably do something a little more thorough. One possible idea here, similar to @sipa's witness styles idea
 
-https://gist.github.com/conduition/eafd067cd1df553fc6c5da8a05290dc9
+https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702/17
 
 -------------------------
 
