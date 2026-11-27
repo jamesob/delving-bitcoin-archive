@@ -128,3 +128,17 @@ We could combine implementation-level fixes with new consensus rules. For instan
 
 -------------------------
 
+ajtowns | 2026-11-27 04:35:39 UTC | #2
+
+My view, fwiw:
+
+ * :-1: Chunking -- dumb; the tapscript limits are upgradable precisely so that new consensus changes don't have to work around arbitrary restrictions.
+ * :person_gesturing_no:Opcode blacklisting -- defeats the purpose: if we're trying to have big signature data on the regular stack to be able to manipulate it in interesting ways, then this approach would blacklist some of those interesting ways
+ * :smiling_face_with_horns: Optimized implementations -- this seems the opposite of "thorough" to me: you have to guess at how things might be used and work out clever optimisations that cover those use cases, and if you forget some things you've opened up a potential vulnerability that real spends/users might already rely on that you can't close. Worse, optimising is good on its own merits, and full of fun puzzles, so this approach can be dangerously seductive.
+ *  :1st_place_medal: GSR's varops budget -- this seems obviously the right approach to me if you want scripts to be able to do remotely clever things with non-trivial amounts of data
+ *  :1st_place_medal: Isolated sig stack -- this seems the simplest approach if you're willing to throw away the idea of scripts doing clever things with signature data (or defer it until GSR/similar is implemented on some separate track). It has the additional potential benefit that an isolated stack could get a greater discount (as [discussed here](https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702)).
+
+(Someone should tell the admins not to let me use emojis)
+
+-------------------------
+
