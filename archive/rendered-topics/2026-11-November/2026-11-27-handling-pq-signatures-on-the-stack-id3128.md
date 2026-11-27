@@ -1,6 +1,6 @@
 # Handling PQ signatures on the stack
 
-conduition | 2026-11-27 00:01:03 UTC | #1
+conduition | 2026-11-27 00:06:10 UTC | #1
 
 A few weeks ago i opened this PR, which would be the first step towards optimizing core to handle large stack elements: https://github.com/bitcoin/bitcoin/pull/36721
 
@@ -95,12 +95,12 @@ For instance:
 
 ## Adventurous Option: GSR
 
-GSR's varops budget ([BIP-440](https://github.com/bitcoin/bips/blob/master/bip-0440.mediawiki)) would nullify this problem, by introducing a proper accounting system for compute and memory costs. If a transaction fails to pay for its compute cost, the script will fail without wasting additional cycles. 
+GSR's varops budget ([BIP-440](https://github.com/bitcoin/bips/blob/9f3d3bc6a60db16efbdc71ac8f7ea30217fc0c39/bip-0440.mediawiki)) would nullify this problem, by introducing a proper accounting system for compute and memory costs. If a transaction fails to pay for its compute cost, the script will fail without wasting additional cycles. 
 
 ### Benefits
 
 - Resource limits are enforced by consensus.
-- Doesn't restrict scripting features (if coupled with [BIP-441](https://github.com/bitcoin/bips/blob/master/bip-0441.mediawiki), it expands them)
+- Doesn't restrict scripting features (if coupled with [BIP-441](https://github.com/bitcoin/bips/blob/9f3d3bc6a60db16efbdc71ac8f7ea30217fc0c39/bip-0441.mediawiki), it expands them)
 
 ### Drawbacks
 
