@@ -160,3 +160,11 @@ https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702
 
 -------------------------
 
+Julian | 2026-11-27 15:53:15 UTC | #4
+
+My biased suggestion would be to minimize the drawbacks of the adventurous option and try to solve this at the root cause. Script has arbitrary fixed limits and no real accounting for compute.
+
+If GSR is viewed as too ambitious, I would make PQ sigs depend only on BIP 440: introduce 0xC2, increase the stack limits, and maybe fix the number type (unsigned big integers), since that can't be soft-forked in cleanly later. This would leave restored opcodes etc. open, but significantly reduce the consensus surface compared to full GSR.
+
+-------------------------
+
