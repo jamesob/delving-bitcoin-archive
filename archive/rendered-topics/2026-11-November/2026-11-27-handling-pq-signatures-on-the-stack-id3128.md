@@ -168,3 +168,15 @@ If GSR is viewed as too ambitious, I would make PQ sigs depend only on BIP 440: 
 
 -------------------------
 
+EthanHeilman | 2026-11-27 23:07:01 UTC | #5
+
+Optimized Implementations seems like a win regardless of increasing the stack size and sometime we should probably be doing.
+
+With regard to opcode blacklisting. If we limit `OP_DUP` <= 520 b you can get equivalent functionality  by requiring that the witness contain the stack element twice and then using `OP_EQUAL` but now the spender pays for the increased size.
+
+Limiting the stack size that an opcode than operate on is already part of the Bitcoin, pushes are limited as are many of the math opcodes. Limiting `OP_DUP` in this way might be a decent. compromise.
+
+[BIP-347](https://github.com/bitcoin/bips/blob/9f3d3bc6a60db16efbdc71ac8f7ea30217fc0c39/bip-0347.mediawiki) `OP_CAT` makes this compromise as well, by limiting OP_CAT to failing if it would push a stack element larger than 520 b.
+
+-------------------------
+
