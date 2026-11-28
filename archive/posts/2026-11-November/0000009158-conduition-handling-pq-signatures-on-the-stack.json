@@ -13,9 +13,9 @@
   "reply_to_post_number": 5,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 1.0,
   "yours": false,
   "topic_id": 3128,
   "topic_slug": "handling-pq-signatures-on-the-stack",
@@ -54,9 +54,15 @@
   "excerpt": "Unfortunately OP_EQUAL pops its two input elements, so you could use it to check that two large elements are equal, but then the elements are gone and you can\u2019t do anything with them.",
   "truncated": true,
   "post_url": "/t/handling-pq-signatures-on-the-stack/3128/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "sob",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
