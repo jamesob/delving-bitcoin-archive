@@ -180,3 +180,13 @@ Limiting the stack size that an opcode than operate on is already part of the Bi
 
 -------------------------
 
+conduition | 2026-11-28 00:02:36 UTC | #6
+
+[quote="EthanHeilman, post:5, topic:3128"]
+With regard to opcode blacklisting. If we limit `OP_DUP` <= 520 b you can get equivalent functionality by requiring that the witness contain the stack element twice and then using `OP_EQUAL` but now the spender pays for the increased size.
+[/quote]
+
+Unfortunately `OP_EQUAL` pops its two input elements, so you could use it to check that two large elements are equal, but then the elements are gone and you can't do anything with them.
+
+-------------------------
+
